@@ -15,47 +15,6 @@ struct Card<Content: View>: View {
     }
 }
 
-// MARK: - Calorie ring
-
-struct CalorieRingView: View {
-    let consumed: Int
-    let target: Int
-
-    private var progress: Double {
-        guard target > 0 else { return 0 }
-        return min(1, Double(consumed) / Double(target))
-    }
-
-    private var over: Bool { consumed > target }
-
-    var body: some View {
-        ZStack {
-            Circle()
-                .stroke(Color(.systemGray5), lineWidth: 14)
-            Circle()
-                .trim(from: 0, to: progress)
-                .stroke(
-                    over ? AnyShapeStyle(Color.orange)
-                         : AnyShapeStyle(AngularGradient(
-                              colors: [.appAccent.opacity(0.6), .appAccent],
-                              center: .center,
-                              startAngle: .degrees(0),
-                              endAngle: .degrees(360 * progress))),
-                    style: StrokeStyle(lineWidth: 14, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-                .animation(.spring(duration: 0.6), value: progress)
-            VStack(spacing: 2) {
-                Text("\(max(0, target - consumed))")
-                    .font(.system(size: 34, weight: .bold, design: .rounded))
-                    .contentTransition(.numericText())
-                Text(over ? "kcal drüber" : "kcal übrig")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-            }
-        }
-    }
-}
-
 // MARK: - Value input rows
 
 /// Compact row with a typeable number field: title left, value and unit right.
