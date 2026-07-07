@@ -1,5 +1,8 @@
 import SwiftUI
+import AVFoundation
 
+/// Full-screen dark scanner in the Munch style: coral viewfinder brackets,
+/// glowing scan line, mode tabs and camera controls.
 struct ScannerScreen: View {
     let profile: UserProfile
 
@@ -7,126 +10,209 @@ struct ScannerScreen: View {
     @State private var isLoading = false
     @State private var scannedProduct: FoodProduct?
     @State private var statusMessage: String?
+    @State private var showManual = false
+    @State private var torchOn = false
+    @State private var scanLinePulse = false
     /// Ignores repeat scan callbacks while a lookup or the portion sheet is active.
     @State private var isBusy = false
 
+    private let bracketColor = Color(red: 1.0, green: 0.54, blue: 0.36)
+
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 16) {
-                    header
-                    cameraArea
-                    modeChips
+        ZStack {
+            cameraBackground
+                .ignoresSafeArea()
+
+            VStack(spacing: 0) {
+                header
+                Spacer()
+                viewfinder
+                statusChip
+                    .padding(.top, 22)
+                Spacer()
+                if showManual {
                     manualEntry
-                    if isLoading {
-                        ProgressView("Suche Produkt...")
-                            .tint(Color.appAccent)
-                    }
-                    if let statusMessage {
-                        Label(statusMessage, systemImage: "info.circle")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
-                    }
+                        .padding(.bottom, 14)
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 24)
+                modeTabs
+                    .padding(.bottom, 18)
+                controls
             }
-            .background(Theme.background)
-            .toolbar(.hidden, for: .navigationBar)
-            .sheet(item: $scannedProduct, onDismiss: { isBusy = false }) { product in
-                ProductPortionSheet(product: product)
-                    .presentationDetents([.large])
-            }
-            .onAppear {
-                if CommandLine.arguments.contains("-demo-product") {
-                    scannedProduct = FoodProduct(
-                        id: "demo", name: "Avocado-Toast", brand: "Znüni",
-                        kcalPer100g: 320, proteinPer100g: 9, carbsPer100g: 32, fatPer100g: 18,
-                        barcode: nil, source: .swissDatabase)
-                }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 34)
+        }
+        .sheet(item: $scannedProduct, onDismiss: { isBusy = false }) { product in
+            ProductPortionSheet(product: product)
+                .presentationDetents([.large])
+        }
+        .onAppear {
+            scanLinePulse = true
+            if CommandLine.arguments.contains("-demo-product") {
+                scannedProduct = FoodProduct(
+                    id: "demo", name: "Avocado-Toast", brand: "Znüni",
+                    kcalPer100g: 320, proteinPer100g: 9, carbsPer100g: 32, fatPer100g: 18,
+                    barcode: nil, source: .swissDatabase)
             }
         }
     }
 
-    private var header: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 2) {
-                Text("Scanner")
-                    .font(.system(.title, design: .rounded).bold())
-                    .foregroundStyle(Theme.ink)
-                Text("Barcode scannen, in Sekunden geloggt")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+    // MARK: - Camera background
+
+    @ViewBuilder
+    private var cameraBackground: some View {
+        if BarcodeScannerView.isSupported {
+            BarcodeScannerView { barcode in
+                lookup(barcode)
             }
-            Spacer()
+        } else {
+            LinearGradient(colors: [Color(red: 0.11, green: 0.09, blue: 0.08),
+                                    Color(red: 0.17, green: 0.13, blue: 0.11)],
+                           startPoint: .top, endPoint: .bottom)
+        }
+    }
+
+    // MARK: - Header
+
+    private var header: some View {
+        ZStack {
+            Text("Scanner")
+                .font(.system(.headline, design: .rounded).bold())
+                .foregroundStyle(.white)
+            HStack {
+                Button {
+                    TabRouter.shared.selection = 0
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.subheadline.weight(.bold))
+                        .foregroundStyle(.white)
+                        .frame(width: 38, height: 38)
+                        .background(.white.opacity(0.14), in: Circle())
+                }
+                .buttonStyle(.plain)
+                Spacer()
+            }
         }
         .padding(.top, 8)
     }
 
-    private var cameraArea: some View {
+    // MARK: - Viewfinder
+
+    private var viewfinder: some View {
         ZStack {
-            if BarcodeScannerView.isSupported {
-                BarcodeScannerView { barcode in
-                    lookup(barcode)
-                }
+            RoundedScannerFrame()
+                .stroke(bracketColor, style: StrokeStyle(lineWidth: 3.5, lineCap: .round))
+            Capsule()
+                .fill(bracketColor)
+                .frame(height: 3.5)
+                .padding(.horizontal, 26)
+                .shadow(color: bracketColor.opacity(0.9), radius: 8)
+                .shadow(color: bracketColor.opacity(0.5), radius: 16)
+                .opacity(scanLinePulse ? 1.0 : 0.35)
+                .animation(.easeInOut(duration: 1.1).repeatForever(autoreverses: true),
+                           value: scanLinePulse)
+        }
+        .frame(width: 250, height: 250)
+    }
+
+    private var statusChip: some View {
+        HStack(spacing: 8) {
+            if isLoading {
+                ProgressView()
+                    .tint(.white)
+                    .scaleEffect(0.8)
             } else {
-                LinearGradient(colors: [Color(red: 0.18, green: 0.15, blue: 0.13),
-                                        Color(red: 0.28, green: 0.22, blue: 0.19)],
-                               startPoint: .top, endPoint: .bottom)
-                VStack(spacing: 10) {
-                    Image(systemName: "camera.fill")
-                        .font(.system(size: 34))
-                        .foregroundStyle(.white.opacity(0.5))
-                    Text("Kamera nur auf dem iPhone")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(.white.opacity(0.85))
-                    Text("Nutze unten die manuelle Eingabe")
-                        .font(.caption)
-                        .foregroundStyle(.white.opacity(0.6))
-                }
+                Circle()
+                    .fill(bracketColor)
+                    .frame(width: 8, height: 8)
             }
-
-            ScannerFrame()
-                .stroke(.white, style: StrokeStyle(lineWidth: 4.5, lineCap: .round))
-                .frame(width: 210, height: 210)
-                .shadow(color: .black.opacity(0.3), radius: 6)
-        }
-        .frame(height: 380)
-        .frame(maxWidth: .infinity)
-        .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
-        .shadow(color: Theme.ink.opacity(0.12), radius: 14, y: 6)
-    }
-
-    private var modeChips: some View {
-        HStack(spacing: 10) {
-            modeChip("barcode", "Barcode", active: true)
-            modeChip("camera.fill", "Foto (bald)", active: false)
-            modeChip("doc.text.viewfinder", "Label (bald)", active: false)
-        }
-    }
-
-    private func modeChip(_ symbol: String, _ label: String, active: Bool) -> some View {
-        HStack(spacing: 6) {
-            Image(systemName: symbol)
-                .font(.caption.weight(.bold))
-            Text(label)
-                .font(.caption.weight(.semibold))
+            Text(chipText)
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(.white)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 9)
-        .background(active ? Theme.accent : Theme.card, in: Capsule())
-        .foregroundStyle(active ? Theme.onAccent : .secondary)
-        .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+        .background(.black.opacity(0.45), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
     }
+
+    private var chipText: String {
+        if isLoading { return "Suche Produkt..." }
+        if let statusMessage { return statusMessage }
+        if BarcodeScannerView.isSupported { return "Richte die Kamera auf einen Barcode" }
+        return "Kamera nur auf dem iPhone. Barcode manuell eingeben."
+    }
+
+    // MARK: - Mode tabs
+
+    private var modeTabs: some View {
+        HStack(spacing: 26) {
+            Text("Foto")
+                .foregroundStyle(.white.opacity(0.45))
+            Text("Barcode")
+                .foregroundStyle(bracketColor)
+                .fontWeight(.bold)
+            Text("Label")
+                .foregroundStyle(.white.opacity(0.45))
+        }
+        .font(.subheadline.weight(.semibold))
+    }
+
+    // MARK: - Controls
+
+    private var controls: some View {
+        HStack {
+            controlButton(symbol: torchOn ? "bolt.fill" : "bolt", active: torchOn) {
+                toggleTorch()
+            }
+            Spacer()
+            Button {
+                if BarcodeScannerView.isSupported {
+                    resetScanner()
+                } else {
+                    withAnimation(.snappy) { showManual = true }
+                }
+            } label: {
+                ZStack {
+                    Circle()
+                        .stroke(.white.opacity(0.35), lineWidth: 4)
+                        .frame(width: 64, height: 64)
+                    Circle()
+                        .fill(.white)
+                        .frame(width: 52, height: 52)
+                }
+            }
+            .buttonStyle(.plain)
+            Spacer()
+            controlButton(symbol: "arrow.clockwise", active: false) {
+                resetScanner()
+            }
+        }
+        .padding(.horizontal, 26)
+    }
+
+    private func controlButton(symbol: String, active: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: symbol)
+                .font(.body.weight(.semibold))
+                .foregroundStyle(active ? bracketColor : .white)
+                .frame(width: 46, height: 46)
+                .background(.white.opacity(0.14), in: Circle())
+        }
+        .buttonStyle(.plain)
+    }
+
+    // MARK: - Manual entry (fallback, dark style)
 
     private var manualEntry: some View {
         HStack(spacing: 10) {
             Image(systemName: "barcode")
-                .foregroundStyle(.secondary)
-            TextField("Barcode eingeben (z.B. 7610036010305)", text: $manualBarcode)
+                .foregroundStyle(.white.opacity(0.6))
+            TextField("", text: $manualBarcode,
+                      prompt: Text("Barcode eingeben (z.B. 7610036010305)")
+                          .foregroundStyle(.white.opacity(0.45)))
                 .keyboardType(.numberPad)
-                .textFieldStyle(.plain)
+                .foregroundStyle(.white)
             Button {
                 lookup(manualBarcode)
             } label: {
@@ -142,9 +228,27 @@ struct ScannerScreen: View {
             .opacity(manualBarcode.filter(\.isNumber).count < 6 ? 0.5 : 1)
         }
         .padding(12)
-        .background(Theme.card)
-        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
-        .shadow(color: Theme.ink.opacity(0.05), radius: 8, y: 3)
+        .background(.white.opacity(0.12), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+
+    // MARK: - Actions
+
+    private func resetScanner() {
+        statusMessage = nil
+        isBusy = false
+        manualBarcode = ""
+    }
+
+    private func toggleTorch() {
+        guard let device = AVCaptureDevice.default(for: .video), device.hasTorch else { return }
+        do {
+            try device.lockForConfiguration()
+            device.torchMode = torchOn ? .off : .on
+            device.unlockForConfiguration()
+            torchOn.toggle()
+        } catch {
+            // Torch stays off; nothing to surface.
+        }
     }
 
     private func lookup(_ barcode: String) {
@@ -159,7 +263,7 @@ struct ScannerScreen: View {
                     scannedProduct = product
                     manualBarcode = ""
                 } else {
-                    statusMessage = "Produkt nicht gefunden. Du kannst es im Tagebuch manuell eintragen."
+                    statusMessage = "Produkt nicht gefunden. Trage es im Tagebuch manuell ein."
                     isBusy = false
                 }
             } catch {
@@ -170,23 +274,41 @@ struct ScannerScreen: View {
     }
 }
 
-/// Four corner brackets, like a camera viewfinder.
-struct ScannerFrame: Shape {
+/// Corner brackets with rounded corners, like a camera viewfinder.
+struct RoundedScannerFrame: Shape {
     func path(in rect: CGRect) -> Path {
-        let length = min(rect.width, rect.height) * 0.18
+        let length = min(rect.width, rect.height) * 0.16
+        let radius = min(rect.width, rect.height) * 0.10
         var path = Path()
-        path.move(to: CGPoint(x: rect.minX, y: rect.minY + length))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.minX + length, y: rect.minY))
-        path.move(to: CGPoint(x: rect.maxX - length, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY + length))
-        path.move(to: CGPoint(x: rect.maxX, y: rect.maxY - length))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.maxX - length, y: rect.maxY))
-        path.move(to: CGPoint(x: rect.minX + length, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY - length))
+
+        // Top left
+        path.move(to: CGPoint(x: rect.minX, y: rect.minY + radius + length))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.minY + radius))
+        path.addArc(center: CGPoint(x: rect.minX + radius, y: rect.minY + radius),
+                    radius: radius, startAngle: .degrees(180), endAngle: .degrees(270), clockwise: false)
+        path.addLine(to: CGPoint(x: rect.minX + radius + length, y: rect.minY))
+
+        // Top right
+        path.move(to: CGPoint(x: rect.maxX - radius - length, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX - radius, y: rect.minY))
+        path.addArc(center: CGPoint(x: rect.maxX - radius, y: rect.minY + radius),
+                    radius: radius, startAngle: .degrees(270), endAngle: .degrees(0), clockwise: false)
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY + radius + length))
+
+        // Bottom right
+        path.move(to: CGPoint(x: rect.maxX, y: rect.maxY - radius - length))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY - radius))
+        path.addArc(center: CGPoint(x: rect.maxX - radius, y: rect.maxY - radius),
+                    radius: radius, startAngle: .degrees(0), endAngle: .degrees(90), clockwise: false)
+        path.addLine(to: CGPoint(x: rect.maxX - radius - length, y: rect.maxY))
+
+        // Bottom left
+        path.move(to: CGPoint(x: rect.minX + radius + length, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.minX + radius, y: rect.maxY))
+        path.addArc(center: CGPoint(x: rect.minX + radius, y: rect.maxY - radius),
+                    radius: radius, startAngle: .degrees(90), endAngle: .degrees(180), clockwise: false)
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY - radius - length))
+
         return path
     }
 }
