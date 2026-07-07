@@ -52,8 +52,8 @@ enum ActivityLevel: String, Codable, CaseIterable, Identifiable {
     var detail: String {
         switch self {
         case .sedentary: return "Bürojob, wenig Bewegung"
-        case .light: return "Leichte Bewegung, 1–2× Sport pro Woche"
-        case .moderate: return "Regelmässig aktiv, 3–5× Sport pro Woche"
+        case .light: return "Leichte Bewegung, 1-2× Sport pro Woche"
+        case .moderate: return "Regelmässig aktiv, 3-5× Sport pro Woche"
         case .active: return "Täglich Sport oder körperliche Arbeit"
         case .veryActive: return "Harte körperliche Arbeit und intensiver Sport"
         }

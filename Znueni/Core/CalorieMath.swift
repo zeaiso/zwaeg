@@ -49,7 +49,7 @@ enum CalorieMath {
         }
     }
 
-    /// Weight range (kg) corresponding to BMI 18.5–24.9.
+    /// Weight range (kg) corresponding to BMI 18.5-24.9.
     static func healthyWeightRange(heightCm: Double) -> ClosedRange<Double> {
         let m2 = (heightCm / 100) * (heightCm / 100)
         return (18.5 * m2)...(24.9 * m2)
