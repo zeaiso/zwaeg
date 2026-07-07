@@ -85,10 +85,10 @@ struct ZnueniTabBar: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            tabButton(0, symbol: "book.fill", label: "Tagebuch")
-            tabButton(1, symbol: "trophy.fill", label: "Battles")
+            tabButton(0, symbol: "house.fill", label: "Tagebuch")
+            tabButton(1, symbol: "flame.fill", label: "Battles")
             scanButton
-            tabButton(3, symbol: "function", label: "Rechner")
+            tabButton(3, symbol: "chart.bar.fill", label: "Rechner")
             tabButton(4, symbol: "person.fill", label: "Profil")
         }
         .padding(.horizontal, 10)

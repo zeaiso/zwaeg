@@ -113,6 +113,16 @@ enum MealType: String, Codable, CaseIterable, Identifiable {
         case .snack: return "carrot.fill"
         }
     }
+
+    /// Dative form for buttons like "Zum Frühstück hinzufügen".
+    var addLabel: String {
+        switch self {
+        case .breakfast: return "Zum Frühstück hinzufügen"
+        case .lunch: return "Zum Mittagessen hinzufügen"
+        case .dinner: return "Zum Abendessen hinzufügen"
+        case .snack: return "Zu den Snacks hinzufügen"
+        }
+    }
 }
 
 // MARK: - SwiftData models
