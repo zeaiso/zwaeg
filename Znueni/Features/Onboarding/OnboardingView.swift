@@ -249,8 +249,8 @@ struct OnboardingView: View {
                     .font(.headline)
                     .padding(.horizontal, 28)
                     .padding(.vertical, 14)
-                    .background(Theme.lime)
-                    .foregroundStyle(Theme.ink)
+                    .background(Theme.accent)
+                    .foregroundStyle(Theme.onAccent)
                     .clipShape(Capsule())
             }
         }

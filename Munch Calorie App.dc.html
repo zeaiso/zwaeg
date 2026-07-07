@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  a, a:hover { color: #EE5533; text-decoration: none; }
+</style>
+<script src="image-slot.js"></script>
+</helmet>
+
+<div style="min-height:100%;padding:64px 72px 96px;background:radial-gradient(1100px 640px at 12% 0%, #FFE6DA 0%, transparent 55%), radial-gradient(1000px 640px at 92% 26%, #FFEADF 0%, transparent 52%), linear-gradient(160deg,#FBF6F2 0%,#F8EFE9 100%);font-family:'Plus Jakarta Sans',sans-serif;">
+
+  <!-- ===== Header ===== -->
+  <div style="display:flex;align-items:center;gap:20px;margin-bottom:60px;">
+    <div style="position:relative;width:58px;height:56px;flex-shrink:0;">
+      <div style="position:absolute;inset:0;background:linear-gradient(150deg,#FF9166,#FF5E3A);border-radius:46% 54% 47% 53% / 53% 46% 54% 47%;box-shadow:0 10px 22px -8px rgba(255,90,60,.55);"></div>
+      <div style="position:absolute;top:15px;left:13px;width:14px;height:16px;border-radius:50%;background:#fff;"><div style="position:absolute;bottom:3px;left:3px;width:8px;height:8px;border-radius:50%;background:#2B1712;"></div></div>
+      <div style="position:absolute;top:15px;right:13px;width:14px;height:16px;border-radius:50%;background:#fff;"><div style="position:absolute;bottom:3px;left:3px;width:8px;height:8px;border-radius:50%;background:#2B1712;"></div></div>
+      <div style="position:absolute;top:34px;left:50%;transform:translateX(-50%);width:18px;height:11px;background:#4A211A;border-radius:5px 5px 11px 11px;overflow:hidden;"><div style="position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:11px;height:8px;border-radius:50%;background:#FF7E92;"></div></div>
+    </div>
+    <div>
+      <div style="font-family:'Fredoka';font-weight:600;font-size:34px;color:#EE5533;letter-spacing:-.5px;">Munch</div>
+      <div style="font-size:17px;color:#948881;font-weight:600;margin-top:2px;">A fresh, playful calorie tracker · iOS concept · 7 screens</div>
+    </div>
+  </div>
+
+  <!-- ===== Screen row ===== -->
+  <div style="display:flex;gap:52px;flex-wrap:wrap;align-items:flex-start;">
+
+    <!-- ============ 1. ONBOARDING ============ -->
+    <div data-screen-label="Onboarding" style="flex:0 0 auto;">
+      <div style="position:relative;width:338px;height:722px;border-radius:52px;background:#EAE0D9;padding:11px;box-shadow:0 40px 80px -34px rgba(120,70,40,.45);">
+        <div style="position:relative;width:100%;height:100%;border-radius:43px;overflow:hidden;background:linear-gradient(180deg,#FFF1EA 0%,#FFE0D2 100%);">
+          <div style="position:absolute;top:14px;left:50%;transform:translateX(-50%);width:104px;height:26px;background:#1C1614;border-radius:16px;z-index:5;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 28px 0;"><span style="font-weight:800;font-size:15px;color:#211C1A;">9:41</span><div style="width:20px;height:11px;border:1.5px solid #211C1A;border-radius:3px;"></div></div>
+
+          <div style="text-align:center;margin-top:26px;font-family:'Fredoka';font-weight:600;font-size:40px;color:#EE5533;letter-spacing:-.5px;">Munch</div>
+
+          <!-- mascot big -->
+          <div style="position:relative;width:178px;height:172px;margin:26px auto 0;">
+            <div style="position:absolute;inset:0;background:linear-gradient(150deg,#FF9166,#FF5330);border-radius:46% 54% 47% 53% / 53% 46% 54% 47%;box-shadow:0 26px 46px -18px rgba(255,90,60,.6);"></div>
+            <div style="position:absolute;top:100px;left:30px;width:30px;height:18px;border-radius:50%;background:rgba(214,50,30,.32);"></div>
+            <div style="position:absolute;top:100px;right:30px;width:30px;height:18px;border-radius:50%;background:rgba(214,50,30,.32);"></div>
+            <div style="position:absolute;top:46px;left:42px;width:44px;height:48px;border-radius:50%;background:#fff;"><div style="position:absolute;bottom:9px;left:11px;width:22px;height:22px;border-radius:50%;background:#2B1712;"><div style="position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:#fff;"></div></div></div>
+            <div style="position:absolute;top:46px;right:42px;width:44px;height:48px;border-radius:50%;background:#fff;"><div style="position:absolute;bottom:9px;left:11px;width:22px;height:22px;border-radius:50%;background:#2B1712;"><div style="position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:#fff;"></div></div></div>
+            <div style="position:absolute;top:104px;left:50%;transform:translateX(-50%);width:60px;height:38px;background:#4A211A;border-radius:12px 12px 34px 34px;overflow:hidden;"><div style="position:absolute;top:0;left:0;right:0;height:10px;background:#fff;"></div><div style="position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:34px;height:26px;border-radius:50%;background:#FF7E92;"></div></div>
+            <div style="position:absolute;top:58px;right:-14px;width:40px;height:18px;border-radius:12px;background:#FF6B4A;transform:rotate(-26deg);"></div>
+          </div>
+
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:0 32px 40px;">
+            <div style="font-family:'Fredoka';font-weight:600;font-size:27px;line-height:1.18;color:#211C1A;margin-bottom:12px;">Track calories daily, reach your health goals</div>
+            <div style="font-size:15px;line-height:1.5;color:#8C8079;font-weight:600;margin-bottom:28px;">Munch makes healthy eating simple, fresh, and genuinely fun to stick with.</div>
+            <div style="background:linear-gradient(135deg,#FF9166,#FF5330);border-radius:22px;padding:18px;text-align:center;font-family:'Fredoka';font-weight:600;font-size:18px;color:#fff;box-shadow:0 16px 30px -14px rgba(255,90,60,.85);">Get Started</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:20px;font-weight:700;color:#94887F;font-size:15px;">Onboarding</div>
+    </div>
+
+    <!-- ============ 2. HOME ============ -->
+    <div data-screen-label="Home" style="flex:0 0 auto;">
+      <div style="position:relative;width:338px;height:722px;border-radius:52px;background:#EAE0D9;padding:11px;box-shadow:0 40px 80px -34px rgba(120,70,40,.45);">
+        <div style="position:relative;width:100%;height:100%;border-radius:43px;overflow:hidden;background:#FEFBF9;">
+          <div style="position:absolute;top:14px;left:50%;transform:translateX(-50%);width:104px;height:26px;background:#1C1614;border-radius:16px;z-index:5;"></div>
+
+          <div style="padding:44px 24px 0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:0 4px;"><span style="font-weight:800;font-size:15px;color:#211C1A;">9:41</span><div style="width:20px;height:11px;border:1.5px solid #211C1A;border-radius:3px;"></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;margin-top:14px;margin-bottom:18px;">
+              <div style="position:relative;width:44px;height:42px;flex-shrink:0;">
+                <div style="position:absolute;inset:0;background:linear-gradient(150deg,#FF9166,#FF5330);border-radius:46% 54% 47% 53%/53% 46% 54% 47%;"></div>
+                <div style="position:absolute;top:12px;left:10px;width:11px;height:12px;border-radius:50%;background:#fff;"><div style="position:absolute;bottom:2px;left:2px;width:6px;height:6px;border-radius:50%;background:#2B1712;"></div></div>
+                <div style="position:absolute;top:12px;right:10px;width:11px;height:12px;border-radius:50%;background:#fff;"><div style="position:absolute;bottom:2px;left:2px;width:6px;height:6px;border-radius:50%;background:#2B1712;"></div></div>
+                <div style="position:absolute;top:26px;left:50%;transform:translateX(-50%);width:15px;height:10px;background:#4A211A;border-radius:4px 4px 10px 10px;"></div>
+              </div>
+              <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:#A79A94;">Good morning</div><div style="font-family:'Fredoka';font-weight:600;font-size:22px;color:#211C1A;">Hello Alex</div></div>
+              <div style="width:42px;height:42px;border-radius:14px;background:#FBF0EA;display:flex;align-items:center;justify-content:center;"><div style="width:14px;height:14px;border:2px solid #211C1A;border-radius:6px 6px 0 0;position:relative;"><div style="position:absolute;bottom:-4px;left:-3px;width:18px;height:3px;background:#211C1A;border-radius:2px;"></div></div></div>
+            </div>
+
+            <div style="background:#FFEDE6;border-radius:26px;padding:20px;margin-bottom:14px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                <div style="display:flex;align-items:center;gap:10px;"><div style="width:34px;height:34px;border-radius:11px;background:#fff;display:flex;align-items:center;justify-content:center;"><div style="width:14px;height:14px;border-radius:50%;background:conic-gradient(#FF6B4A 0 200deg,#FBD7CA 200deg 360deg);"></div></div><span style="font-family:'Fredoka';font-weight:600;font-size:17px;color:#211C1A;">Daily Intake</span></div>
+                <div style="background:#211C1A;border-radius:12px;padding:6px 12px;font-size:12px;font-weight:800;color:#FF8A5C;">Day 4</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:#A08F87;margin-bottom:8px;"><span>Progress</span><span style="color:#211C1A;">1,240 / 1,910 kcal</span></div>
+              <div style="position:relative;height:12px;border-radius:8px;background:#FBD7CA;">
+                <div style="position:absolute;left:0;top:0;bottom:0;width:65%;border-radius:8px;background:linear-gradient(90deg,#FF9166,#FF5330);"></div>
+                <div style="position:absolute;left:65%;top:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;background:#fff;border:5px solid #FF6B4A;box-shadow:0 4px 8px rgba(255,90,60,.4);"></div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:12px;margin-bottom:18px;">
+              <div style="flex:1;background:#fff;border:1px solid #F3ECE7;border-radius:22px;padding:16px;">
+                <div style="width:36px;height:36px;border-radius:12px;background:#6C5CE7;margin-bottom:12px;display:flex;align-items:center;justify-content:center;"><div style="width:14px;height:14px;border-radius:50% 50% 50% 0;background:#fff;transform:rotate(-45deg);"></div></div>
+                <div style="font-family:'Fredoka';font-weight:600;font-size:20px;color:#211C1A;">4,500</div>
+                <div style="font-size:12px;font-weight:700;color:#A79A94;">Steps to walk</div>
+              </div>
+              <div style="flex:1;background:#fff;border:1px solid #F3ECE7;border-radius:22px;padding:16px;">
+                <div style="width:36px;height:36px;border-radius:12px;background:#3DAEFF;margin-bottom:12px;display:flex;align-items:center;justify-content:center;"><div style="width:12px;height:16px;border-radius:0 0 50% 50%;background:#fff;transform:rotate(-2deg);"></div></div>
+                <div style="font-family:'Fredoka';font-weight:600;font-size:20px;color:#211C1A;">12 <span style="font-size:13px;color:#A79A94;">glass</span></div>
+                <div style="font-size:12px;font-weight:700;color:#A79A94;">Drink water</div>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;margin-bottom:16px;">
+              <div style="text-align:center;flex:1;"><div style="font-size:12px;font-weight:700;color:#A79A94;margin-bottom:8px;">Sun</div><div style="font-size:15px;font-weight:800;color:#211C1A;">12</div></div>
+              <div style="text-align:center;flex:1;"><div style="font-size:12px;font-weight:700;color:#A79A94;margin-bottom:8px;">Mon</div><div style="font-size:15px;font-weight:800;color:#211C1A;">13</div></div>
+              <div style="text-align:center;flex:1;"><div style="font-size:12px;font-weight:700;color:#A79A94;margin-bottom:8px;">Tue</div><div style="font-size:15px;font-weight:800;color:#211C1A;">14</div></div>
+              <div style="text-align:center;flex:1;"><div style="font-size:12px;font-weight:800;color:#C4472A;margin-bottom:6px;">Wed</div><div style="margin:0 auto;width:32px;height:34px;border-radius:12px;background:linear-gradient(135deg,#FF9166,#FF5330);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#fff;">15</div></div>
+              <div style="text-align:center;flex:1;"><div style="font-size:12px;font-weight:700;color:#A79A94;margin-bottom:8px;">Thu</div><div style="font-size:15px;font-weight:800;color:#211C1A;">16</div></div>
+              <div style="text-align:center;flex:1;"><div style="font-size:12px;font-weight:700;color:#A79A94;margin-bottom:8px;">Fri</div><div style="font-size:15px;font-weight:800;color:#211C1A;">17</div></div>
+              <div style="text-align:center;flex:1;"><div style="font-size:12px;font-weight:700;color:#A79A94;margin-bottom:8px;">Sat</div><div style="font-size:15px;font-weight:800;color:#211C1A;">18</div></div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #F3ECE7;border-radius:20px;padding:11px 13px;">
+                <div style="width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,#FFE0A8,#FFB765);"></div>
+                <div style="flex:1;"><div style="font-weight:800;font-size:15px;color:#211C1A;">Breakfast</div><div style="font-size:12px;font-weight:700;color:#A79A94;">488 / 536 kcal</div></div>
+                <div style="background:#FFEDE6;border-radius:12px;padding:9px 16px;font-size:13px;font-weight:800;color:#D9471F;">Add</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #F3ECE7;border-radius:20px;padding:11px 13px;">
+                <div style="width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,#CDEBA0,#8FD06A);"></div>
+                <div style="flex:1;"><div style="font-weight:800;font-size:15px;color:#211C1A;">Lunch</div><div style="font-size:12px;font-weight:700;color:#A79A94;">645 / 720 kcal</div></div>
+                <div style="background:#FFEDE6;border-radius:12px;padding:9px 16px;font-size:13px;font-weight:800;color:#D9471F;">Add</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="position:absolute;left:0;right:0;bottom:0;height:80px;background:#fff;border-top:1px solid #F3ECE7;display:flex;align-items:center;justify-content:space-around;padding:0 26px 14px;z-index:6;">
+            <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#FF9166,#FF5330);display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"><path d="M4 11 L12 4 L20 11 V20 H4 Z"></path></svg></div>
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#C9BDB5" stroke-width="2.2" stroke-linecap="round"><path d="M5 20 V11 M12 20 V5 M19 20 V14"></path></svg>
+            <div style="width:52px;height:52px;border-radius:50%;background:#1C1614;margin-top:-26px;box-shadow:0 12px 22px rgba(28,22,20,.4);display:flex;align-items:center;justify-content:center;"><div style="width:18px;height:14px;border:2px solid #FF8A5C;border-radius:5px;position:relative;"><div style="position:absolute;top:2.5px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;border:1.5px solid #FF8A5C;"></div></div></div>
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#C9BDB5" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M12 3 C15 8 18 10 15.5 16 A4 4 0 1 1 8.5 16 C7 12 10 9 12 3 Z"></path></svg>
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#C9BDB5" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M5 20 C5 15 19 15 19 20"></path></svg>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:20px;font-weight:700;color:#94887F;font-size:15px;">Home dashboard</div>
+    </div>
+
+    <!-- ============ 3. ADD FOOD ============ -->
+    <div data-screen-label="Add food" style="flex:0 0 auto;">
+      <div style="position:relative;width:338px;height:722px;border-radius:52px;background:#EAE0D9;padding:11px;box-shadow:0 40px 80px -34px rgba(120,70,40,.45);">
+        <div style="position:relative;width:100%;height:100%;border-radius:43px;overflow:hidden;background:#FEFBF9;">
+          <div style="position:absolute;top:14px;left:50%;transform:translateX(-50%);width:104px;height:26px;background:#1C1614;border-radius:16px;z-index:5;"></div>
+
+          <div style="padding:52px 24px 0;">
+            <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px;">
+              <div style="width:40px;height:40px;border-radius:13px;background:#FBF0EA;display:flex;align-items:center;justify-content:center;"><div style="width:11px;height:11px;border-left:2.5px solid #211C1A;border-bottom:2.5px solid #211C1A;transform:rotate(45deg);margin-left:4px;"></div></div>
+              <span style="font-family:'Fredoka';font-weight:600;font-size:23px;color:#211C1A;">Add food</span>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #F1E9E3;border-radius:18px;padding:14px 16px;margin-bottom:16px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9BDB5" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5 L21 21"></path></svg>
+              <span style="font-size:15px;font-weight:700;color:#B4A79F;">Search foods…</span>
+            </div>
+
+            <div style="display:flex;gap:9px;margin-bottom:20px;">
+              <div style="padding:9px 16px;border-radius:14px;background:#1C1614;color:#FF8A5C;font-size:13px;font-weight:800;">Breakfast</div>
+              <div style="padding:9px 16px;border-radius:14px;background:#FBF0EA;color:#8C8079;font-size:13px;font-weight:800;">Lunch</div>
+              <div style="padding:9px 16px;border-radius:14px;background:#FBF0EA;color:#8C8079;font-size:13px;font-weight:800;">Dinner</div>
+              <div style="padding:9px 16px;border-radius:14px;background:#FBF0EA;color:#8C8079;font-size:13px;font-weight:800;">Snack</div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#FF9166,#FF5330);border-radius:22px;padding:16px 18px;margin-bottom:22px;box-shadow:0 16px 28px -18px rgba(255,90,60,.9);">
+              <div style="width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.24);display:flex;align-items:center;justify-content:center;"><div style="width:18px;height:14px;border:2px solid #fff;border-radius:5px;position:relative;"><div style="position:absolute;top:2.5px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;border:1.5px solid #fff;"></div></div></div>
+              <div style="flex:1;"><div style="font-family:'Fredoka';font-weight:600;font-size:16px;color:#fff;">Scan your meal</div><div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);">Point, snap, logged in seconds</div></div>
+              <div style="width:11px;height:11px;border-right:3px solid #fff;border-top:3px solid #fff;transform:rotate(45deg);"></div>
+            </div>
+
+            <div style="font-size:13px;font-weight:800;color:#A79A94;margin-bottom:12px;letter-spacing:.4px;">RECENT</div>
+            <div style="display:flex;flex-direction:column;gap:11px;">
+              <div style="display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #F3ECE7;border-radius:18px;padding:11px 13px;">
+                <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#FFF0C2,#FFDE93);"></div>
+                <div style="flex:1;"><div style="font-weight:800;font-size:15px;color:#211C1A;">Greek yogurt</div><div style="font-size:12px;font-weight:700;color:#A79A94;">1 cup · 130 kcal</div></div>
+                <div style="width:30px;height:30px;border-radius:10px;background:#FFEDE6;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" stroke="#D9471F" stroke-width="3" stroke-linecap="round"><path d="M12 5 V19 M5 12 H19"></path></svg></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #F3ECE7;border-radius:18px;padding:11px 13px;">
+                <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#E7F7D4,#B7E88A);"></div>
+                <div style="flex:1;"><div style="font-weight:800;font-size:15px;color:#211C1A;">Banana</div><div style="font-size:12px;font-weight:700;color:#A79A94;">1 medium · 105 kcal</div></div>
+                <div style="width:30px;height:30px;border-radius:10px;background:#FFEDE6;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" stroke="#D9471F" stroke-width="3" stroke-linecap="round"><path d="M12 5 V19 M5 12 H19"></path></svg></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #F3ECE7;border-radius:18px;padding:11px 13px;">
+                <div style="width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#FFE0DE,#FFB9B2);"></div>
+                <div style="flex:1;"><div style="font-weight:800;font-size:15px;color:#211C1A;">Almonds</div><div style="font-size:12px;font-weight:700;color:#A79A94;">30 g · 173 kcal</div></div>
+                <div style="width:30px;height:30px;border-radius:10px;background:#FFEDE6;display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" stroke="#D9471F" stroke-width="3" stroke-linecap="round"><path d="M12 5 V19 M5 12 H19"></path></svg></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:20px;font-weight:700;color:#94887F;font-size:15px;">Log a meal</div>
+    </div>
+
+    <!-- ============ 4. SCANNER ============ -->
+    <div data-screen-label="Scanner" style="flex:0 0 auto;">
+      <div style="position:relative;width:338px;height:722px;border-radius:52px;background:#EAE0D9;padding:11px;box-shadow:0 40px 80px -34px rgba(120,70,40,.45);">
+        <div style="position:relative;width:100%;height:100%;border-radius:43px;overflow:hidden;background:#1C1614;">
+          <div style="position:absolute;inset:0;">
+            <image-slot id="munch-scan-hero" shape="rect" fit="cover" placeholder="Drop a food photo"></image-slot>
+          </div>
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,16,14,.55) 0%,transparent 22%,transparent 62%,rgba(20,16,14,.72) 100%);pointer-events:none;"></div>
+          <div style="position:absolute;top:14px;left:50%;transform:translateX(-50%);width:104px;height:26px;background:#1C1614;border-radius:16px;z-index:5;"></div>
+
+          <div style="position:absolute;top:46px;left:0;right:0;display:flex;align-items:center;justify-content:center;padding:0 24px;pointer-events:none;">
+            <div style="position:absolute;left:24px;width:40px;height:40px;border-radius:13px;background:rgba(255,255,255,.22);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;pointer-events:auto;"><div style="width:11px;height:11px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(45deg);margin-left:4px;"></div></div>
+            <span style="font-family:'Fredoka';font-weight:600;font-size:20px;color:#fff;">Scanner</span>
+          </div>
+
+          <div style="position:absolute;top:150px;left:36px;right:36px;height:300px;pointer-events:none;">
+            <div style="position:absolute;top:0;left:0;width:40px;height:40px;border-top:4px solid #FF8A5C;border-left:4px solid #FF8A5C;border-radius:14px 0 0 0;"></div>
+            <div style="position:absolute;top:0;right:0;width:40px;height:40px;border-top:4px solid #FF8A5C;border-right:4px solid #FF8A5C;border-radius:0 14px 0 0;"></div>
+            <div style="position:absolute;bottom:0;left:0;width:40px;height:40px;border-bottom:4px solid #FF8A5C;border-left:4px solid #FF8A5C;border-radius:0 0 0 14px;"></div>
+            <div style="position:absolute;bottom:0;right:0;width:40px;height:40px;border-bottom:4px solid #FF8A5C;border-right:4px solid #FF8A5C;border-radius:0 0 14px 0;"></div>
+            <div style="position:absolute;top:50%;left:12px;right:12px;height:3px;background:#FF8A5C;box-shadow:0 0 16px 2px rgba(255,138,92,.85);border-radius:2px;"></div>
+          </div>
+
+          <div style="position:absolute;top:470px;left:50%;transform:translateX(-50%);background:rgba(28,22,20,.78);backdrop-filter:blur(6px);border-radius:14px;padding:9px 16px;display:flex;align-items:center;gap:8px;pointer-events:none;"><div style="width:8px;height:8px;border-radius:50%;background:#FF8A5C;"></div><span style="font-size:13px;font-weight:800;color:#fff;">Fruit bowl · ~240 kcal</span></div>
+
+          <div style="position:absolute;bottom:132px;left:0;right:0;display:flex;justify-content:center;gap:22px;font-size:13px;font-weight:800;pointer-events:none;">
+            <span style="color:#FF8A5C;">Scan Food</span>
+            <span style="color:rgba(255,255,255,.7);">Barcode</span>
+            <span style="color:rgba(255,255,255,.7);">Label</span>
+          </div>
+
+          <div style="position:absolute;bottom:44px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:44px;">
+            <div style="width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.22);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 L4 14 H11 L11 22 L20 10 H13 Z"></path></svg></div>
+            <div style="width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;"><div style="width:58px;height:58px;border-radius:50%;background:#fff;border:3px solid #1C1614;"></div></div>
+            <div style="width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.22);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 8 A8 8 0 1 0 20 15 M20 4 V9 H15"></path></svg></div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:20px;font-weight:700;color:#94887F;font-size:15px;">AI meal scanner</div>
+    </div>
+
+    <!-- ============ 5. MEAL DETAIL ============ -->
+    <div data-screen-label="Meal detail" style="flex:0 0 auto;">
+      <div style="position:relative;width:338px;height:722px;border-radius:52px;background:#EAE0D9;padding:11px;box-shadow:0 40px 80px -34px rgba(120,70,40,.45);">
+        <div style="position:relative;width:100%;height:100%;border-radius:43px;overflow:hidden;background:#FEFBF9;">
+          <div style="position:absolute;top:14px;left:50%;transform:translateX(-50%);width:104px;height:26px;background:#1C1614;border-radius:16px;z-index:5;"></div>
+
+          <div style="position:relative;height:250px;">
+            <image-slot id="munch-meal-hero" shape="rect" fit="cover" placeholder="Drop a food photo"></image-slot>
+            <div style="position:absolute;top:46px;left:22px;width:40px;height:40px;border-radius:13px;background:rgba(255,255,255,.85);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -8px rgba(0,0,0,.4);"><div style="width:11px;height:11px;border-left:2.5px solid #211C1A;border-bottom:2.5px solid #211C1A;transform:rotate(45deg);margin-left:4px;"></div></div>
+          </div>
+
+          <div style="position:relative;margin-top:-28px;background:#FEFBF9;border-radius:30px 30px 0 0;padding:24px 24px 0;">
+            <div style="font-family:'Fredoka';font-weight:600;font-size:25px;color:#211C1A;">Avocado toast</div>
+            <div style="font-size:13px;font-weight:700;color:#A79A94;margin-top:2px;margin-bottom:18px;">Sourdough · smashed avocado · chili flakes</div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid #F3ECE7;border-radius:18px;padding:12px 16px;margin-bottom:16px;">
+              <span style="font-size:15px;font-weight:800;color:#211C1A;">Servings</span>
+              <div style="display:flex;align-items:center;gap:16px;">
+                <div style="width:30px;height:30px;border-radius:10px;background:#FBF0EA;display:flex;align-items:center;justify-content:center;"><div style="width:12px;height:2.5px;background:#211C1A;border-radius:2px;"></div></div>
+                <span style="font-family:'Fredoka';font-weight:600;font-size:18px;color:#211C1A;">1</span>
+                <div style="width:30px;height:30px;border-radius:10px;background:#1C1614;display:flex;align-items:center;justify-content:center;"><svg width="13" height="13" viewBox="0 0 24 24" stroke="#FF8A5C" stroke-width="3" stroke-linecap="round"><path d="M12 5 V19 M5 12 H19"></path></svg></div>
+              </div>
+            </div>
+
+            <div style="text-align:center;background:linear-gradient(135deg,#FF9166,#FF5330);border-radius:24px;padding:22px;margin-bottom:16px;box-shadow:0 18px 32px -18px rgba(255,90,60,.9);">
+              <div style="font-family:'Fredoka';font-weight:600;font-size:46px;color:#fff;line-height:1;">320</div>
+              <div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.88);margin-top:4px;">calories per serving</div>
+            </div>
+
+            <div style="display:flex;gap:11px;">
+              <div style="flex:1;background:#fff;border:1px solid #F3ECE7;border-radius:18px;padding:15px 8px;text-align:center;">
+                <div style="width:32px;height:32px;border-radius:10px;background:#FFEDE6;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;"><div style="width:13px;height:13px;border-radius:50%;background:#FF6B4A;"></div></div>
+                <div style="font-family:'Fredoka';font-weight:600;font-size:17px;color:#211C1A;">9g</div>
+                <div style="font-size:11px;font-weight:700;color:#A79A94;">Protein</div>
+              </div>
+              <div style="flex:1;background:#fff;border:1px solid #F3ECE7;border-radius:18px;padding:15px 8px;text-align:center;">
+                <div style="width:32px;height:32px;border-radius:10px;background:#FFF1D6;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;"><div style="width:13px;height:13px;border-radius:50%;background:#FFB042;"></div></div>
+                <div style="font-family:'Fredoka';font-weight:600;font-size:17px;color:#211C1A;">32g</div>
+                <div style="font-size:11px;font-weight:700;color:#A79A94;">Carbs</div>
+              </div>
+              <div style="flex:1;background:#fff;border:1px solid #F3ECE7;border-radius:18px;padding:15px 8px;text-align:center;">
+                <div style="width:32px;height:32px;border-radius:10px;background:#EDE9FF;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;"><div style="width:13px;height:13px;border-radius:50%;background:#6C5CE7;"></div></div>
+                <div style="font-family:'Fredoka';font-weight:600;font-size:17px;color:#211C1A;">18g</div>
+                <div style="font-size:11px;font-weight:700;color:#A79A94;">Fat</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:14px 24px 24px;background:linear-gradient(to top,#FEFBF9 72%,transparent);">
+            <div style="background:linear-gradient(135deg,#FF9166,#FF5330);border-radius:22px;padding:18px;text-align:center;font-family:'Fredoka';font-weight:600;font-size:18px;color:#fff;box-shadow:0 16px 28px -16px rgba(255,90,60,.9);">Add to breakfast</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:20px;font-weight:700;color:#94887F;font-size:15px;">Meal detail + macros</div>
+    </div>
+
+    <!-- ============ 6. PROGRESS ============ -->
+    <div data-screen-label="Progress" style="flex:0 0 auto;">
+      <div style="position:relative;width:338px;height:722px;border-radius:52px;background:#EAE0D9;padding:11px;box-shadow:0 40px 80px -34px rgba(120,70,40,.45);">
+        <div style="position:relative;width:100%;height:100%;border-radius:43px;overflow:hidden;background:#FEFBF9;">
+          <div style="position:absolute;top:14px;left:50%;transform:translateX(-50%);width:104px;height:26px;background:#1C1614;border-radius:16px;z-index:5;"></div>
+
+          <div style="padding:52px 24px 0;">
+            <div style="font-family:'Fredoka';font-weight:600;font-size:23px;color:#211C1A;">My activity</div>
+            <div style="font-size:13px;font-weight:700;color:#A79A94;margin-bottom:18px;">This week</div>
+
+            <div style="display:flex;gap:12px;margin-bottom:14px;">
+              <div style="flex:1;background:linear-gradient(150deg,#FF9166,#FF5330);border-radius:22px;padding:16px;">
+                <div style="font-family:'Fredoka';font-weight:600;font-size:26px;color:#fff;line-height:1;">1,910</div>
+                <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.85);margin-top:4px;">kcal avg / day</div>
+              </div>
+              <div style="flex:1;background:#1C1614;border-radius:22px;padding:16px;">
+                <div style="font-family:'Fredoka';font-weight:600;font-size:26px;color:#FF8A5C;line-height:1;">−1.4</div>
+                <div style="font-size:11px;font-weight:800;color:#B79B8F;margin-top:4px;">kg this month</div>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid #F3ECE7;border-radius:24px;padding:20px 18px 14px;margin-bottom:14px;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;"><span style="font-family:'Fredoka';font-weight:600;font-size:16px;color:#211C1A;">Calories</span><span style="font-size:12px;font-weight:800;color:#A79A94;">Target 1,910</span></div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;height:110px;gap:9px;">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="width:100%;height:58px;border-radius:8px;background:#FBE7DF;"></div><span style="font-size:11px;font-weight:800;color:#C9BDB5;">S</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="width:100%;height:74px;border-radius:8px;background:#FBE7DF;"></div><span style="font-size:11px;font-weight:800;color:#C9BDB5;">M</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="width:100%;height:50px;border-radius:8px;background:#FBE7DF;"></div><span style="font-size:11px;font-weight:800;color:#C9BDB5;">T</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;"><div style="position:absolute;top:-4px;background:#1C1614;color:#FF8A5C;font-size:10px;font-weight:800;border-radius:8px;padding:3px 7px;">100%</div><div style="width:100%;height:90px;border-radius:8px;background:linear-gradient(#FF9166,#FF5330);margin-top:20px;"></div><span style="font-size:11px;font-weight:800;color:#C4472A;">W</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="width:100%;height:66px;border-radius:8px;background:#FBE7DF;"></div><span style="font-size:11px;font-weight:800;color:#C9BDB5;">T</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="width:100%;height:44px;border-radius:8px;background:#FBE7DF;"></div><span style="font-size:11px;font-weight:800;color:#C9BDB5;">F</span></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="width:100%;height:38px;border-radius:8px;background:#FBE7DF;"></div><span style="font-size:11px;font-weight:800;color:#C9BDB5;">S</span></div>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid #F3ECE7;border-radius:24px;padding:20px 18px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><span style="font-family:'Fredoka';font-weight:600;font-size:16px;color:#211C1A;">Weight journey</span><span style="font-size:12px;font-weight:800;color:#D9471F;">Last 7 days</span></div>
+              <svg viewBox="0 0 270 74" style="width:100%;height:66px;display:block;">
+                <polyline points="4,58 48,52 92,54 136,40 180,32 224,26 264,16" fill="none" stroke="#FF6B4A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                <circle cx="264" cy="16" r="6" fill="#FF6B4A"></circle>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:20px;font-weight:700;color:#94887F;font-size:15px;">Progress &amp; trends</div>
+    </div>
+
+    <!-- ============ 7. PROFILE ============ -->
+    <div data-screen-label="Profile" style="flex:0 0 auto;">
+      <div style="position:relative;width:338px;height:722px;border-radius:52px;background:#EAE0D9;padding:11px;box-shadow:0 40px 80px -34px rgba(120,70,40,.45);">
+        <div style="position:relative;width:100%;height:100%;border-radius:43px;overflow:hidden;background:#FEFBF9;">
+          <div style="position:absolute;top:14px;left:50%;transform:translateX(-50%);width:104px;height:26px;background:#1C1614;border-radius:16px;z-index:5;"></div>
+
+          <div style="padding:52px 24px 0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+              <span style="font-family:'Fredoka';font-weight:600;font-size:23px;color:#211C1A;">Profile</span>
+              <div style="width:40px;height:40px;border-radius:13px;background:#FBF0EA;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#211C1A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"></circle><path d="M12 3 v3 M12 18 v3 M3 12 h3 M18 12 h3 M5.5 5.5 l2 2 M16.5 16.5 l2 2 M18.5 5.5 l-2 2 M7.5 16.5 l-2 2"></path></svg></div>
+            </div>
+
+            <!-- profile hero -->
+            <div style="display:flex;align-items:center;gap:15px;background:linear-gradient(135deg,#FF9166,#FF5330);border-radius:26px;padding:18px;margin-bottom:16px;box-shadow:0 18px 32px -18px rgba(255,90,60,.9);">
+              <div style="width:64px;height:64px;border-radius:20px;background:rgba(255,255,255,.92);position:relative;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+                <div style="position:relative;width:46px;height:44px;">
+                  <div style="position:absolute;inset:0;background:linear-gradient(150deg,#FF9166,#FF5330);border-radius:46% 54% 47% 53%/53% 46% 54% 47%;"></div>
+                  <div style="position:absolute;top:13px;left:10px;width:12px;height:13px;border-radius:50%;background:#fff;"><div style="position:absolute;bottom:2px;left:2px;width:7px;height:7px;border-radius:50%;background:#2B1712;"></div></div>
+                  <div style="position:absolute;top:13px;right:10px;width:12px;height:13px;border-radius:50%;background:#fff;"><div style="position:absolute;bottom:2px;left:2px;width:7px;height:7px;border-radius:50%;background:#2B1712;"></div></div>
+                  <div style="position:absolute;top:28px;left:50%;transform:translateX(-50%);width:16px;height:10px;background:#4A211A;border-radius:4px 4px 10px 10px;"></div>
+                </div>
+              </div>
+              <div style="flex:1;"><div style="font-family:'Fredoka';font-weight:600;font-size:20px;color:#fff;">Alex Jemison</div><div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:2px;">Goal · Lose weight · 1,910 kcal/day</div></div>
+              <div style="background:rgba(255,255,255,.24);border-radius:12px;padding:8px 12px;font-size:12px;font-weight:800;color:#fff;">Edit</div>
+            </div>
+
+            <!-- stats -->
+            <div style="display:flex;gap:11px;margin-bottom:20px;">
+              <div style="flex:1;background:#fff;border:1px solid #F3ECE7;border-radius:18px;padding:14px 8px;text-align:center;"><div style="font-family:'Fredoka';font-weight:600;font-size:20px;color:#211C1A;">12</div><div style="font-size:11px;font-weight:700;color:#A79A94;">Day streak</div></div>
+              <div style="flex:1;background:#fff;border:1px solid #F3ECE7;border-radius:18px;padding:14px 8px;text-align:center;"><div style="font-family:'Fredoka';font-weight:600;font-size:20px;color:#211C1A;">184</div><div style="font-size:11px;font-weight:700;color:#A79A94;">Meals logged</div></div>
+              <div style="flex:1;background:#fff;border:1px solid #F3ECE7;border-radius:18px;padding:14px 8px;text-align:center;"><div style="font-family:'Fredoka';font-weight:600;font-size:20px;color:#211C1A;">68<span style="font-size:12px;color:#A79A94;">kg</span></div><div style="font-size:11px;font-weight:700;color:#A79A94;">Current</div></div>
+            </div>
+
+            <div style="font-size:13px;font-weight:800;color:#A79A94;margin-bottom:12px;letter-spacing:.4px;">ACCOUNT</div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #F3ECE7;border-radius:16px;padding:13px 14px;">
+                <div style="width:34px;height:34px;border-radius:11px;background:#FFEDE6;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF6B4A" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20 C5 15 19 15 19 20"></path></svg></div>
+                <span style="flex:1;font-weight:800;font-size:14px;color:#211C1A;">Personal details</span>
+                <div style="width:8px;height:8px;border-right:2.5px solid #C9BDB5;border-top:2.5px solid #C9BDB5;transform:rotate(45deg);"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #F3ECE7;border-radius:16px;padding:13px 14px;">
+                <div style="width:34px;height:34px;border-radius:11px;background:#EDE9FF;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="8"></circle><path d="M12 12 L12 7 M12 12 L16 14"></path></svg></div>
+                <span style="flex:1;font-weight:800;font-size:14px;color:#211C1A;">Goals &amp; targets</span>
+                <div style="width:8px;height:8px;border-right:2.5px solid #C9BDB5;border-top:2.5px solid #C9BDB5;transform:rotate(45deg);"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #F3ECE7;border-radius:16px;padding:13px 14px;">
+                <div style="width:34px;height:34px;border-radius:11px;background:#E3F0FF;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3DAEFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9 A6 6 0 0 1 18 9 C18 15 20 17 20 17 H4 C4 17 6 15 6 9 Z M10 20 a2.2 2.2 0 0 0 4 0"></path></svg></div>
+                <span style="flex:1;font-weight:800;font-size:14px;color:#211C1A;">Reminders</span>
+                <div style="width:42px;height:24px;border-radius:14px;background:#FF6B4A;position:relative;"><div style="position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;background:#fff;"></div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:13px;background:#fff;border:1px solid #F3ECE7;border-radius:16px;padding:13px 14px;">
+                <div style="width:34px;height:34px;border-radius:11px;background:#FFF1D6;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFA023" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5 a2.5 2.5 0 1 1 3 4 v1.5 M12 18 v.01"></path></svg></div>
+                <span style="flex:1;font-weight:800;font-size:14px;color:#211C1A;">Help &amp; support</span>
+                <div style="width:8px;height:8px;border-right:2.5px solid #C9BDB5;border-top:2.5px solid #C9BDB5;transform:rotate(45deg);"></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="position:absolute;left:0;right:0;bottom:0;height:80px;background:#fff;border-top:1px solid #F3ECE7;display:flex;align-items:center;justify-content:space-around;padding:0 26px 14px;z-index:6;">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#C9BDB5" stroke-width="2.2" stroke-linejoin="round"><path d="M4 11 L12 4 L20 11 V20 H4 Z"></path></svg>
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#C9BDB5" stroke-width="2.2" stroke-linecap="round"><path d="M5 20 V11 M12 20 V5 M19 20 V14"></path></svg>
+            <div style="width:52px;height:52px;border-radius:50%;background:#1C1614;margin-top:-26px;box-shadow:0 12px 22px rgba(28,22,20,.4);display:flex;align-items:center;justify-content:center;"><div style="width:18px;height:14px;border:2px solid #FF8A5C;border-radius:5px;position:relative;"><div style="position:absolute;top:2.5px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;border:1.5px solid #FF8A5C;"></div></div></div>
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#C9BDB5" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><path d="M12 3 C15 8 18 10 15.5 16 A4 4 0 1 1 8.5 16 C7 12 10 9 12 3 Z"></path></svg>
+            <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#FF9166,#FF5330);display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M5 20 C5 15 19 15 19 20"></path></svg></div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:20px;font-weight:700;color:#94887F;font-size:15px;">Profile</div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

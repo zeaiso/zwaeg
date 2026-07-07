@@ -109,10 +109,10 @@ struct ZnueniTabBar: View {
                 Text(label)
                     .font(.system(size: 10, weight: .medium))
             }
-            .foregroundStyle(selection == index ? Theme.ink : Color(.systemGray))
+            .foregroundStyle(selection == index ? Color.appAccent : Color(.systemGray))
             .frame(maxWidth: .infinity)
             .padding(.vertical, 7)
-            .background(selection == index ? Theme.lime : .clear, in: Capsule())
+            .background(selection == index ? Theme.accentSoft : .clear, in: Capsule())
         }
         .buttonStyle(.plain)
     }
@@ -123,10 +123,10 @@ struct ZnueniTabBar: View {
         } label: {
             Image(systemName: "barcode.viewfinder")
                 .font(.system(size: 22, weight: .semibold))
-                .foregroundStyle(selection == 2 ? Theme.lime : .white)
+                .foregroundStyle(Theme.onAccent)
                 .frame(width: 54, height: 54)
-                .background(Theme.ink, in: Circle())
-                .shadow(color: Theme.ink.opacity(0.25), radius: 8, y: 3)
+                .background(selection == 2 ? Theme.ink : Theme.accent, in: Circle())
+                .shadow(color: Theme.accent.opacity(0.35), radius: 8, y: 3)
         }
         .buttonStyle(.plain)
         .offset(y: -14)

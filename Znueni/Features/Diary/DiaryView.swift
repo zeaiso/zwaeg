@@ -78,9 +78,9 @@ struct DiaryView: View {
             Spacer()
             Text(initials)
                 .font(.headline)
-                .foregroundStyle(Theme.ink)
+                .foregroundStyle(Theme.onAccent)
                 .frame(width: 44, height: 44)
-                .background(Theme.lime, in: Circle())
+                .background(Theme.accent, in: Circle())
         }
         .padding(.top, 8)
     }
@@ -110,14 +110,14 @@ struct DiaryView: View {
                     VStack(spacing: 4) {
                         Text(day.formatted(.dateTime.weekday(.narrow)))
                             .font(.caption2.weight(.medium))
-                            .foregroundStyle(isSelected ? Theme.ink : .secondary)
+                            .foregroundStyle(isSelected ? Theme.onAccent.opacity(0.85) : .secondary)
                         Text(day.formatted(.dateTime.day()))
                             .font(.system(.subheadline, design: .rounded).weight(.bold))
-                            .foregroundStyle(Theme.ink)
+                            .foregroundStyle(isSelected ? Theme.onAccent : Theme.ink)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 10)
-                    .background(isSelected ? Theme.lime : Theme.card,
+                    .background(isSelected ? Theme.accent : Theme.card,
                                 in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                     .shadow(color: Theme.ink.opacity(isSelected ? 0.08 : 0.03), radius: 6, y: 2)
                 }
@@ -153,7 +153,7 @@ struct DiaryView: View {
                     ZStack(alignment: .leading) {
                         Capsule().fill(Theme.field)
                         Capsule()
-                            .fill(consumed > profile.dailyCalorieTarget ? Color.orange : Theme.lime)
+                            .fill(consumed > profile.dailyCalorieTarget ? Color.orange : Theme.accent)
                             .frame(width: max(10, geo.size.width * progress))
                             .animation(.spring(duration: 0.5), value: progress)
                     }
@@ -243,8 +243,8 @@ struct DiaryView: View {
                             .font(.caption.weight(.bold))
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
-                            .background(Theme.lime, in: Capsule())
-                            .foregroundStyle(Theme.ink)
+                            .background(Theme.accent, in: Capsule())
+                            .foregroundStyle(Theme.onAccent)
                     }
                     .buttonStyle(.plain)
                 } else {
@@ -296,8 +296,8 @@ struct DiaryView: View {
                         Image(systemName: "plus")
                             .font(.caption.weight(.bold))
                             .frame(width: 26, height: 26)
-                            .background(Theme.lime, in: Circle())
-                            .foregroundStyle(Theme.ink)
+                            .background(Theme.accent, in: Circle())
+                            .foregroundStyle(Theme.onAccent)
                     }
                     .buttonStyle(.plain)
                 }
@@ -327,7 +327,7 @@ struct DiaryView: View {
                         .font(.body.weight(.semibold))
                         .foregroundStyle(Color.appAccent)
                         .frame(width: 42, height: 42)
-                        .background(Theme.limeSoft, in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+                        .background(Theme.accentSoft, in: RoundedRectangle(cornerRadius: 13, style: .continuous))
                     VStack(alignment: .leading, spacing: 2) {
                         Text(meal.label)
                             .font(.headline)
@@ -344,8 +344,8 @@ struct DiaryView: View {
                             .font(.subheadline.weight(.bold))
                             .padding(.horizontal, 18)
                             .padding(.vertical, 8)
-                            .background(Theme.lime, in: Capsule())
-                            .foregroundStyle(Theme.ink)
+                            .background(Theme.accent, in: Capsule())
+                            .foregroundStyle(Theme.onAccent)
                     }
                     .buttonStyle(.plain)
                 }
