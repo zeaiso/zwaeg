@@ -2,28 +2,39 @@ import SwiftUI
 import SwiftData
 import Charts
 
-/// Munch-style activity screen: weekly stats, rounded calorie bars, weight line.
+/// Munch-style activity screen: colored stat tiles, rounded calorie bars,
+/// clean weight line.
 struct ProgressScreen: View {
     let profile: UserProfile
 
+    @Environment(\.dismiss) private var dismiss
     @Query(sort: \WeightEntry.date) private var weights: [WeightEntry]
     @Query private var foodEntries: [FoodEntry]
 
-    @State private var range: RangeOption = .month
+    @State private var range: RangeOption = .week
 
     enum RangeOption: String, CaseIterable, Identifiable {
-        case month = "1M"
-        case threeMonths = "3M"
-        case sixMonths = "6M"
-        case all = "Alle"
+        case week
+        case month
+        case threeMonths
+        case all
 
         var id: String { rawValue }
 
-        var months: Int? {
+        var label: String {
             switch self {
-            case .month: return 1
-            case .threeMonths: return 3
-            case .sixMonths: return 6
+            case .week: return "Letzte 7 Tage"
+            case .month: return "Letzter Monat"
+            case .threeMonths: return "Letzte 3 Monate"
+            case .all: return "Alles"
+            }
+        }
+
+        var days: Int? {
+            switch self {
+            case .week: return 7
+            case .month: return 30
+            case .threeMonths: return 90
             case .all: return nil
             }
         }
@@ -31,7 +42,8 @@ struct ProgressScreen: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
+            VStack(alignment: .leading, spacing: 16) {
+                header
                 statTiles
                 caloriesCard
                 weightCard
@@ -39,11 +51,38 @@ struct ProgressScreen: View {
             .padding(16)
         }
         .background(Theme.background)
-        .navigationTitle("Fortschritt")
-        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .navigationBar)
     }
 
-    // MARK: - Weekly stats
+    // MARK: - Header
+
+    private var header: some View {
+        HStack(spacing: 12) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(Theme.ink)
+                    .frame(width: 38, height: 38)
+                    .background(Theme.card, in: Circle())
+                    .shadow(color: Theme.ink.opacity(0.05), radius: 5, y: 2)
+            }
+            .buttonStyle(.plain)
+            VStack(alignment: .leading, spacing: 1) {
+                Text("Meine Aktivität")
+                    .font(.system(.title2, design: .rounded).bold())
+                    .foregroundStyle(Theme.ink)
+                Text("Diese Woche")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+        }
+        .padding(.top, 8)
+    }
+
+    // MARK: - Stat tiles
 
     private struct DayCalories: Identifiable {
         let id: Date
@@ -76,30 +115,31 @@ struct ProgressScreen: View {
 
     private var statTiles: some View {
         HStack(spacing: 12) {
-            statTile("\(weeklyAverage)", "kcal Ø / Tag", detail: "diese Woche")
-            statTile(monthWeightDelta.map { String(format: "%+.1f", $0) } ?? "–",
-                     "kg diesen Monat",
-                     detail: monthWeightDelta.map { $0 <= 0 ? "weiter so!" : "dranbleiben" } ?? "zu wenig Daten")
+            statTile(value: "\(weeklyAverage)",
+                     label: "kcal Ø / Tag",
+                     background: AnyShapeStyle(LinearGradient(
+                        colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                        startPoint: .topLeading, endPoint: .bottomTrailing)))
+            statTile(value: monthWeightDelta.map { String(format: "%+.1f", $0) } ?? "–",
+                     label: "kg diesen Monat",
+                     background: AnyShapeStyle(Theme.ink))
         }
     }
 
-    private func statTile(_ value: String, _ label: String, detail: String) -> some View {
+    private func statTile(value: String, label: String, background: AnyShapeStyle) -> some View {
         VStack(alignment: .leading, spacing: 3) {
             Text(value)
                 .font(.system(.title, design: .rounded).bold())
-                .foregroundStyle(Theme.ink)
+                .foregroundStyle(.white)
                 .contentTransition(.numericText())
             Text(label)
                 .font(.caption.weight(.semibold))
-                .foregroundStyle(Theme.ink.opacity(0.7))
-            Text(detail)
-                .font(.caption2)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.white.opacity(0.85))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
-        .background(Theme.card, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-        .shadow(color: Theme.ink.opacity(0.04), radius: 8, y: 3)
+        .background(background, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+        .shadow(color: Theme.ink.opacity(0.10), radius: 10, y: 4)
     }
 
     // MARK: - Calories (rounded bars)
@@ -125,31 +165,33 @@ struct ProgressScreen: View {
                 HStack(alignment: .bottom, spacing: 10) {
                     ForEach(days) { item in
                         let isToday = item.day == today
-                        let fraction = max(0.06, Double(item.kcal) / Double(maxValue))
+                        let fraction = max(0.08, Double(item.kcal) / Double(maxValue))
                         VStack(spacing: 6) {
-                            if isToday && item.kcal > 0 {
-                                Text("\(Int((Double(item.kcal) / Double(target) * 100).rounded()))%")
-                                    .font(.system(size: 10, weight: .bold))
-                                    .foregroundStyle(Theme.onAccent)
-                                    .padding(.horizontal, 7)
-                                    .padding(.vertical, 4)
-                                    .background(Theme.ink, in: Capsule())
-                            }
                             GeometryReader { geo in
-                                VStack {
+                                VStack(spacing: 6) {
                                     Spacer(minLength: 0)
-                                    Capsule()
+                                    if isToday && item.kcal > 0 {
+                                        Text("\(Int((Double(item.kcal) / Double(target) * 100).rounded()))%")
+                                            .font(.system(size: 10, weight: .bold))
+                                            .foregroundStyle(.white)
+                                            .padding(.horizontal, 8)
+                                            .padding(.vertical, 4)
+                                            .background(Theme.ink, in: Capsule())
+                                            .fixedSize()
+                                            .frame(maxWidth: .infinity)
+                                    }
+                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
                                         .fill(isToday
                                               ? AnyShapeStyle(LinearGradient(
-                                                    colors: [Theme.accent, Color(red: 1.0, green: 0.57, blue: 0.36)],
+                                                    colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
                                                     startPoint: .top, endPoint: .bottom))
-                                              : AnyShapeStyle(Theme.field))
-                                        .frame(height: max(12, geo.size.height * fraction))
+                                              : AnyShapeStyle(Theme.accentSoft))
+                                        .frame(height: max(16, geo.size.height * fraction))
                                 }
                             }
                             Text(item.day.formatted(.dateTime.weekday(.narrow)))
-                                .font(.caption2.weight(.medium))
-                                .foregroundStyle(isToday ? Theme.ink : .secondary)
+                                .font(.caption.weight(.bold))
+                                .foregroundStyle(isToday ? Color.appAccent : .secondary)
                         }
                     }
                 }
@@ -158,11 +200,11 @@ struct ProgressScreen: View {
         }
     }
 
-    // MARK: - Weight journey
+    // MARK: - Weight journey (clean line)
 
     private var filteredWeights: [WeightEntry] {
-        guard let months = range.months,
-              let cutoff = Calendar.current.date(byAdding: .month, value: -months, to: .now) else {
+        guard let days = range.days,
+              let cutoff = Calendar.current.date(byAdding: .day, value: -days, to: .now) else {
             return weights
         }
         return weights.filter { $0.date >= cutoff }
@@ -171,94 +213,42 @@ struct ProgressScreen: View {
     private var weightCard: some View {
         Card {
             VStack(alignment: .leading, spacing: 14) {
-                VStack(alignment: .leading, spacing: 10) {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Gewichtsverlauf")
-                            .font(.headline)
-                            .foregroundStyle(Theme.ink)
-                        Text(rangeLabel)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                HStack {
+                    Text("Gewichtsverlauf")
+                        .font(.headline)
+                        .foregroundStyle(Theme.ink)
+                    Spacer()
+                    Menu {
+                        ForEach(RangeOption.allCases) { option in
+                            Button(option.label) {
+                                withAnimation(.snappy) { range = option }
+                            }
+                        }
+                    } label: {
+                        Text(range.label)
+                            .font(.caption.weight(.bold))
+                            .foregroundStyle(Color.appAccent)
                     }
-                    rangeChips
                 }
 
                 if filteredWeights.count < 2 {
                     Text("Trage regelmässig dein Gewicht im Profil ein, um den Verlauf zu sehen.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity, minHeight: 100)
+                        .frame(maxWidth: .infinity, minHeight: 80)
                 } else {
-                    weightStats
                     weightChart
                 }
             }
         }
     }
 
-    private var rangeLabel: String {
-        switch range {
-        case .month: return "Letzter Monat"
-        case .threeMonths: return "Letzte 3 Monate"
-        case .sixMonths: return "Letzte 6 Monate"
-        case .all: return "Gesamter Verlauf"
-        }
-    }
-
-    private var rangeChips: some View {
-        HStack(spacing: 6) {
-            ForEach(RangeOption.allCases) { option in
-                Button(option.rawValue) {
-                    withAnimation(.snappy) { range = option }
-                }
-                .font(.caption.weight(.bold))
-                .padding(.horizontal, 10)
-                .padding(.vertical, 6)
-                .background(range == option ? Theme.accent : Theme.field, in: Capsule())
-                .foregroundStyle(range == option ? Theme.onAccent : .secondary)
-                .buttonStyle(.plain)
-            }
-        }
-    }
-
-    private var weightStats: some View {
-        let current = filteredWeights.last?.weightKg ?? 0
-        let first = filteredWeights.first?.weightKg ?? 0
-        let delta = current - first
-        return HStack(spacing: 20) {
-            weightStat("Aktuell", String(format: "%.1f kg", current))
-            weightStat("Veränderung", String(format: "%+.1f kg", delta),
-                       color: delta <= 0 ? Color.appAccent : .orange)
-            weightStat("BMI", String(format: "%.1f", CalorieMath.bmi(weightKg: current, heightCm: profile.heightCm)))
-        }
-    }
-
-    private func weightStat(_ title: String, _ value: String, color: Color = Theme.ink) -> some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Text(title)
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            Text(value)
-                .font(.system(.body, design: .rounded).weight(.bold))
-                .foregroundStyle(color)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
-
     private var weightChart: some View {
         let values = filteredWeights.map(\.weightKg)
-        let minY = (values.min() ?? 0) - 1.5
-        let maxY = (values.max() ?? 100) + 1.5
+        let minY = (values.min() ?? 0) - 1
+        let maxY = (values.max() ?? 100) + 1
         return Chart {
             ForEach(filteredWeights) { entry in
-                AreaMark(
-                    x: .value("Datum", entry.date),
-                    yStart: .value("Basis", minY),
-                    yEnd: .value("Gewicht", entry.weightKg))
-                    .foregroundStyle(
-                        LinearGradient(colors: [Theme.accent.opacity(0.22), .clear],
-                                       startPoint: .top, endPoint: .bottom))
-                    .interpolationMethod(.monotone)
                 LineMark(
                     x: .value("Datum", entry.date),
                     y: .value("Gewicht", entry.weightKg))
@@ -272,14 +262,11 @@ struct ProgressScreen: View {
                     y: .value("Gewicht", last.weightKg))
                     .foregroundStyle(Theme.accent)
                     .symbolSize(140)
-                PointMark(
-                    x: .value("Datum", last.date),
-                    y: .value("Gewicht", last.weightKg))
-                    .foregroundStyle(Theme.card)
-                    .symbolSize(50)
             }
         }
+        .chartXAxis(.hidden)
+        .chartYAxis(.hidden)
         .chartYScale(domain: minY...maxY)
-        .frame(height: 190)
+        .frame(height: 110)
     }
 }
