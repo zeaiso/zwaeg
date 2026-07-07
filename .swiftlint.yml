@@ -1,0 +1,31 @@
+# SwiftLint configuration for Znüni
+included:
+  - Znueni
+
+disabled_rules:
+  - line_length            # SwiftUI view builders get long
+  - todo
+  - trailing_comma
+
+opt_in_rules:
+  - empty_count
+  - closure_spacing
+  - contains_over_first_not_nil
+  - redundant_nil_coalescing
+  - sorted_first_last
+
+type_body_length:
+  warning: 400
+  error: 600
+
+file_length:
+  warning: 500
+  error: 800
+
+function_body_length:
+  warning: 80
+  error: 120
+
+identifier_name:
+  min_length: 2
+  excluded: [x, y, p, c, f]
