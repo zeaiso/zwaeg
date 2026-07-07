@@ -35,6 +35,17 @@ struct RootView: View {
                         context.insert(WeightEntry(date: date, weightKg: 78 + Double(week) * 0.45))
                     }
                 }
+                let start = Calendar.current.date(byAdding: .day, value: -3, to: .now) ?? .now
+                let end = Calendar.current.date(byAdding: .day, value: 3, to: .now) ?? .now
+                context.insert(Challenge(
+                    code: "DEMO42", name: "Wochenbattle", metric: .steps,
+                    startDay: start, endDay: end,
+                    participants: [
+                        ParticipantScore(id: PlayerIdentity.myID, name: "Test", isMe: true,
+                                         scores: ["seed": 24500]),
+                        ParticipantScore(id: "bot-Luca", name: "Luca", isMe: false, scores: [:]),
+                        ParticipantScore(id: "bot-Mia", name: "Mia", isMe: false, scores: [:]),
+                    ]))
             }
         }
     }
@@ -53,12 +64,15 @@ struct MainTabView: View {
             ScannerScreen(profile: profile)
                 .tabItem { Label("Scannen", systemImage: "barcode.viewfinder") }
                 .tag(1)
+            BattlesScreen(profile: profile)
+                .tabItem { Label("Battles", systemImage: "trophy.fill") }
+                .tag(2)
             CalculatorsView(profile: profile)
                 .tabItem { Label("Rechner", systemImage: "function") }
-                .tag(2)
+                .tag(3)
             ProfileView(profile: profile)
                 .tabItem { Label("Profil", systemImage: "person.fill") }
-                .tag(3)
+                .tag(4)
         }
         .tint(.appAccent)
     }

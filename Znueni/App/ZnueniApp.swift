@@ -7,6 +7,6 @@ struct ZnueniApp: App {
         WindowGroup {
             RootView()
         }
-        .modelContainer(for: [UserProfile.self, FoodEntry.self, WeightEntry.self])
+        .modelContainer(for: [UserProfile.self, FoodEntry.self, WeightEntry.self, Challenge.self])
     }
 }
