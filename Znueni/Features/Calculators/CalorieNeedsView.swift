@@ -6,8 +6,10 @@ struct CalorieNeedsView: View {
     @State private var heightCm: Double
     @State private var weightKg: Double
     @State private var activity: ActivityLevel
+    private let goal: Goal
 
     init(profile: UserProfile) {
+        self.goal = profile.goal
         _sex = State(initialValue: profile.sex)
         _age = State(initialValue: Double(profile.age))
         _heightCm = State(initialValue: profile.heightCm)
@@ -102,26 +104,32 @@ struct CalorieNeedsView: View {
     private var goalsCard: some View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
-                Text("Empfehlung je nach Ziel")
+                Text("Deine Empfehlung")
                     .font(.headline)
                     .foregroundStyle(Theme.ink)
-                ForEach(Goal.allCases) { goal in
-                    HStack(spacing: 12) {
-                        Image(systemName: goal.symbol)
-                            .font(.footnote.weight(.bold))
-                            .foregroundStyle(Color.appAccent)
-                            .frame(width: 32, height: 32)
-                            .background(Theme.accentSoft, in: RoundedRectangle(cornerRadius: 10))
+                HStack(spacing: 12) {
+                    Image(systemName: goal.symbol)
+                        .font(.body.weight(.bold))
+                        .foregroundStyle(Color.appAccent)
+                        .frame(width: 40, height: 40)
+                        .background(Theme.accentSoft, in: RoundedRectangle(cornerRadius: 13))
+                    VStack(alignment: .leading, spacing: 2) {
                         Text(goal.label)
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                        Spacer()
-                        Text("\(CalorieMath.dailyTarget(sex: sex, weightKg: weightKg, heightCm: heightCm, age: Int(age), activity: activity, goal: goal)) kcal")
-                            .font(.subheadline.weight(.bold))
+                            .font(.subheadline.weight(.semibold))
                             .foregroundStyle(Theme.ink)
-                            .contentTransition(.numericText())
+                        Text("Dein Ziel")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
                     }
+                    Spacer()
+                    Text("\(CalorieMath.dailyTarget(sex: sex, weightKg: weightKg, heightCm: heightCm, age: Int(age), activity: activity, goal: goal)) kcal")
+                        .font(.system(.title3, design: .rounded).bold())
+                        .foregroundStyle(Color.appAccent)
+                        .contentTransition(.numericText())
                 }
+                Text("Änderbar unter Profil, Ziele & Vorgaben.")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
             }
         }
     }
