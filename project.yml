@@ -21,6 +21,7 @@ targets:
       properties:
         CFBundleDisplayName: Znüni
         UILaunchScreen: {}
+        NSCameraUsageDescription: Znüni benötigt die Kamera zum Scannen von Barcodes.
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         ITSAppUsesNonExemptEncryption: false
