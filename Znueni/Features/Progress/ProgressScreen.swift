@@ -45,7 +45,7 @@ struct ProgressScreen: View {
             }
             .padding(16)
         }
-        .background(Color(.systemGroupedBackground))
+        .background(Theme.background)
         .navigationTitle("Fortschritt")
         .navigationBarTitleDisplayMode(.inline)
     }

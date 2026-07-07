@@ -57,27 +57,79 @@ struct MainTabView: View {
     @State private var selection = LaunchArgs.initialTab
 
     var body: some View {
-        TabView(selection: $selection) {
-            DiaryView(profile: profile)
-                .tabItem { Label("Tagebuch", systemImage: "book.fill") }
-                .tag(0)
-            ScannerScreen(profile: profile)
-                .tabItem { Label("Scannen", systemImage: "barcode.viewfinder") }
-                .tag(1)
-            BattlesScreen(profile: profile)
-                .tabItem { Label("Battles", systemImage: "trophy.fill") }
-                .tag(2)
-            CalculatorsView(profile: profile)
-                .tabItem { Label("Rechner", systemImage: "function") }
-                .tag(3)
-            ProfileView(profile: profile)
-                .tabItem { Label("Profil", systemImage: "person.fill") }
-                .tag(4)
+        ZStack(alignment: .bottom) {
+            Group {
+                switch selection {
+                case 1: BattlesScreen(profile: profile)
+                case 2: ScannerScreen(profile: profile)
+                case 3: CalculatorsView(profile: profile)
+                case 4: ProfileView(profile: profile)
+                default: DiaryView(profile: profile)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .safeAreaInset(edge: .bottom) {
+                Color.clear.frame(height: 66)
+            }
+
+            ZnueniTabBar(selection: $selection)
         }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .tint(.appAccent)
     }
 }
 
-extension Color {
-    static let appAccent = Color(red: 0.15, green: 0.68, blue: 0.38)
+/// Floating pill tab bar with a raised scan button in the middle.
+struct ZnueniTabBar: View {
+    @Binding var selection: Int
+
+    var body: some View {
+        HStack(spacing: 0) {
+            tabButton(0, symbol: "book.fill", label: "Tagebuch")
+            tabButton(1, symbol: "trophy.fill", label: "Battles")
+            scanButton
+            tabButton(3, symbol: "function", label: "Rechner")
+            tabButton(4, symbol: "person.fill", label: "Profil")
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 8)
+        .background(Theme.card, in: Capsule())
+        .shadow(color: Theme.ink.opacity(0.10), radius: 16, y: 6)
+        .padding(.horizontal, 20)
+        .padding(.bottom, 4)
+    }
+
+    private func tabButton(_ index: Int, symbol: String, label: String) -> some View {
+        Button {
+            selection = index
+        } label: {
+            VStack(spacing: 3) {
+                Image(systemName: symbol)
+                    .font(.system(size: 19, weight: .semibold))
+                Text(label)
+                    .font(.system(size: 10, weight: .medium))
+            }
+            .foregroundStyle(selection == index ? Theme.ink : Color(.systemGray))
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 7)
+            .background(selection == index ? Theme.lime : .clear, in: Capsule())
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var scanButton: some View {
+        Button {
+            selection = 2
+        } label: {
+            Image(systemName: "barcode.viewfinder")
+                .font(.system(size: 22, weight: .semibold))
+                .foregroundStyle(selection == 2 ? Theme.lime : .white)
+                .frame(width: 54, height: 54)
+                .background(Theme.ink, in: Circle())
+                .shadow(color: Theme.ink.opacity(0.25), radius: 8, y: 3)
+        }
+        .buttonStyle(.plain)
+        .offset(y: -14)
+        .frame(maxWidth: .infinity)
+    }
 }

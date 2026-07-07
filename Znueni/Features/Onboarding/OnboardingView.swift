@@ -49,7 +49,7 @@ struct OnboardingView: View {
 
             controls
         }
-        .background(Color(.systemGroupedBackground))
+        .background(Theme.background)
     }
 
     // MARK: - Steps
@@ -73,7 +73,7 @@ struct OnboardingView: View {
             TextField("Dein Name", text: $name)
                 .font(.title2)
                 .padding()
-                .background(Color(.secondarySystemGroupedBackground))
+                .background(Theme.card)
                 .clipShape(RoundedRectangle(cornerRadius: 14))
                 .textInputAutocapitalization(.words)
         }
@@ -98,7 +98,7 @@ struct OnboardingView: View {
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 28)
                         .background(sex == s ? Color.appAccent.opacity(0.15)
-                                             : Color(.secondarySystemGroupedBackground))
+                                             : Theme.card)
                         .foregroundStyle(sex == s ? Color.appAccent : .primary)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .overlay(RoundedRectangle(cornerRadius: 20)
@@ -157,7 +157,7 @@ struct OnboardingView: View {
                         }
                     }
                     .padding(14)
-                    .background(Color(.secondarySystemGroupedBackground))
+                    .background(Theme.card)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                     .overlay(RoundedRectangle(cornerRadius: 14)
                         .stroke(activity == level ? Color.appAccent : .clear, lineWidth: 2))
@@ -186,7 +186,7 @@ struct OnboardingView: View {
                         }
                     }
                     .padding(16)
-                    .background(Color(.secondarySystemGroupedBackground))
+                    .background(Theme.card)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                     .overlay(RoundedRectangle(cornerRadius: 14)
                         .stroke(goal == g ? Color.appAccent : .clear, lineWidth: 2))
@@ -249,8 +249,8 @@ struct OnboardingView: View {
                     .font(.headline)
                     .padding(.horizontal, 28)
                     .padding(.vertical, 14)
-                    .background(Color.appAccent)
-                    .foregroundStyle(.white)
+                    .background(Theme.lime)
+                    .foregroundStyle(Theme.ink)
                     .clipShape(Capsule())
             }
         }

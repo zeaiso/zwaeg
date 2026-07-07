@@ -9,8 +9,9 @@ struct Card<Content: View>: View {
         content
             .padding(16)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(.secondarySystemGroupedBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .background(Theme.card)
+            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+            .shadow(color: Theme.ink.opacity(0.05), radius: 10, y: 4)
     }
 }
 
@@ -86,7 +87,7 @@ struct ValueField: View {
                 .font(.system(.title3, design: .rounded).weight(.semibold))
                 .frame(width: 84)
                 .padding(.vertical, 8)
-                .background(Color(.tertiarySystemGroupedBackground),
+                .background(Theme.field,
                             in: RoundedRectangle(cornerRadius: 12))
                 .overlay(RoundedRectangle(cornerRadius: 12)
                     .stroke(isFocused ? Color.appAccent : .clear, lineWidth: 1.5))
@@ -136,7 +137,7 @@ struct BigValueField: View {
                 .font(.system(size: 56, weight: .bold, design: .rounded))
                 .frame(width: 190)
                 .padding(.vertical, 10)
-                .background(Color(.secondarySystemGroupedBackground),
+                .background(Theme.card,
                             in: RoundedRectangle(cornerRadius: 20, style: .continuous))
                 .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous)
                     .stroke(isFocused ? Color.appAccent : Color(.systemGray4), lineWidth: 2))

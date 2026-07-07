@@ -201,6 +201,17 @@ final class FoodEntry {
 }
 
 @Model
+final class WaterDay {
+    @Attribute(.unique) var day: Date
+    var glasses: Int
+
+    init(day: Date, glasses: Int = 0) {
+        self.day = Calendar.current.startOfDay(for: day)
+        self.glasses = glasses
+    }
+}
+
+@Model
 final class WeightEntry {
     var date: Date
     var weightKg: Double

@@ -31,7 +31,7 @@ struct ProductPortionSheet: View {
                 }
                 .padding(16)
             }
-            .background(Color(.systemGroupedBackground))
+            .background(Theme.background)
             .navigationTitle("Portion")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -94,7 +94,7 @@ struct ProductPortionSheet: View {
                         .padding(.horizontal, 10)
                         .padding(.vertical, 6)
                         .background(grams == amount ? Color.appAccent.opacity(0.15)
-                                                    : Color(.tertiarySystemGroupedBackground))
+                                                    : Theme.field)
                         .foregroundStyle(grams == amount ? Color.appAccent : .primary)
                         .clipShape(Capsule())
                         .buttonStyle(.plain)
@@ -130,7 +130,7 @@ struct ProductPortionSheet: View {
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 10)
                             .background(meal == type ? Color.appAccent.opacity(0.15)
-                                                     : Color(.tertiarySystemGroupedBackground))
+                                                     : Theme.field)
                             .foregroundStyle(meal == type ? Color.appAccent : .primary)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                         }

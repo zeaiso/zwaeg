@@ -18,7 +18,7 @@ struct ChallengeDetailView: View {
             }
             .padding(16)
         }
-        .background(Color(.systemGroupedBackground))
+        .background(Theme.background)
         .navigationTitle(challenge.name)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

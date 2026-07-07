@@ -103,7 +103,7 @@ struct CalorieNeedsView: View {
             }
             .padding(16)
         }
-        .background(Color(.systemGroupedBackground))
+        .background(Theme.background)
         .navigationTitle("Kalorienbedarf")
         .navigationBarTitleDisplayMode(.inline)
     }

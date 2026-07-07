@@ -64,7 +64,7 @@ struct IdealWeightView: View {
             }
             .padding(16)
         }
-        .background(Color(.systemGroupedBackground))
+        .background(Theme.background)
         .navigationTitle("Idealgewicht")
         .navigationBarTitleDisplayMode(.inline)
     }

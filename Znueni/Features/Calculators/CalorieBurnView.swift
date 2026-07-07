@@ -58,7 +58,7 @@ struct CalorieBurnView: View {
                                     .frame(maxWidth: .infinity)
                                     .padding(.vertical, 10)
                                     .background(activity == item ? Color.appAccent.opacity(0.15)
-                                                                 : Color(.tertiarySystemGroupedBackground))
+                                                                 : Theme.field)
                                     .foregroundStyle(activity == item ? Color.appAccent : .primary)
                                     .clipShape(RoundedRectangle(cornerRadius: 12))
                                     .overlay(RoundedRectangle(cornerRadius: 12)
@@ -72,7 +72,7 @@ struct CalorieBurnView: View {
             }
             .padding(16)
         }
-        .background(Color(.systemGroupedBackground))
+        .background(Theme.background)
         .navigationTitle("Kalorienverbrauch")
         .navigationBarTitleDisplayMode(.inline)
     }

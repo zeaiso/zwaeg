@@ -27,7 +27,7 @@ struct ScannerScreen: View {
                 Spacer(minLength: 0)
             }
             .padding(16)
-            .background(Color(.systemGroupedBackground))
+            .background(Theme.background)
             .navigationTitle("Scannen")
             .sheet(item: $scannedProduct, onDismiss: { isBusy = false }) { product in
                 ProductPortionSheet(product: product)
@@ -55,7 +55,7 @@ struct ScannerScreen: View {
                         .multilineTextAlignment(.center)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(.secondarySystemGroupedBackground))
+                .background(Theme.card)
             }
         }
         .frame(maxHeight: 420)
@@ -83,7 +83,7 @@ struct ScannerScreen: View {
             .disabled(manualBarcode.filter(\.isNumber).count < 6 || isLoading)
         }
         .padding(12)
-        .background(Color(.secondarySystemGroupedBackground))
+        .background(Theme.card)
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 
