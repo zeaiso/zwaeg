@@ -1,8 +1,8 @@
 import SwiftUI
 import SwiftData
 
-/// Munch-style add-food page: search, meal filter chips, scan banner,
-/// what is already logged in the meal, recents with quick add.
+/// Munch-style add-food page: search, meal filter chips, scan banner and
+/// what is already logged in the meal.
 /// Manual entry is a fallback for foods that cannot be scanned.
 struct AddFoodView: View {
     let day: Date
@@ -33,21 +33,6 @@ struct AddFoodView: View {
         allEntries.filter { $0.day == day && $0.meal == meal }
     }
 
-    /// Most recent unique foods for one-tap re-logging.
-    private var recentFoods: [FoodEntry] {
-        var seen = Set<String>()
-        var result: [FoodEntry] = []
-        for entry in allEntries {
-            let key = entry.name.lowercased()
-            if !seen.contains(key) {
-                seen.insert(key)
-                result.append(entry)
-            }
-            if result.count == 6 { break }
-        }
-        return result
-    }
-
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -65,11 +50,6 @@ struct AddFoodView: View {
                     }
                     ForEach(searchResults) { product in
                         productRow(product)
-                    }
-                } else if !recentFoods.isEmpty {
-                    sectionLabel("ZULETZT")
-                    ForEach(recentFoods) { food in
-                        recentRow(food)
                     }
                 }
                 manualFallback
@@ -274,19 +254,6 @@ struct AddFoodView: View {
                 carbs: product.carbs(for: 100),
                 fat: product.fat(for: 100),
                 flashID: product.id)
-        }
-    }
-
-    private func recentRow(_ food: FoodEntry) -> some View {
-        foodRow(name: food.name,
-                subtitle: "\(food.calories) kcal",
-                added: justAdded == food.name) {
-            add(name: food.name,
-                calories: food.calories,
-                protein: food.proteinG,
-                carbs: food.carbsG,
-                fat: food.fatG,
-                flashID: food.name)
         }
     }
 
