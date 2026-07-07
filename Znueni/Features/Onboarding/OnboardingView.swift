@@ -8,7 +8,7 @@ struct OnboardingView: View {
         case welcome, name, sex, body, activity, goal, result
     }
 
-    @State private var step: Step = .welcome
+    @State private var step: Step = CommandLine.arguments.contains("-onboarding-body") ? .body : .welcome
     @State private var name = ""
     @State private var sex: Sex = .male
     @State private var age = 30.0

@@ -57,6 +57,7 @@ struct CalorieRingView: View {
 
 // MARK: - Value slider row
 
+/// Slider with a tappable number field, so values can be typed directly.
 struct ValueSlider: View {
     let title: String
     @Binding var value: Double
@@ -65,6 +66,12 @@ struct ValueSlider: View {
     let unit: String
     var format: String = "%.0f"
 
+    @FocusState private var isFocused: Bool
+
+    private var fractionDigits: Int {
+        format.contains(".1") ? 1 : 0
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
@@ -72,13 +79,44 @@ struct ValueSlider: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                 Spacer()
-                Text("\(String(format: format, value)) \(unit)")
+                TextField("", value: clampedValue,
+                          format: .number.precision(.fractionLength(0...fractionDigits)))
+                    .keyboardType(fractionDigits == 0 ? .numberPad : .decimalPad)
+                    .focused($isFocused)
+                    .multilineTextAlignment(.center)
                     .font(.system(.body, design: .rounded).weight(.semibold))
-                    .contentTransition(.numericText())
+                    .frame(width: 72)
+                    .padding(.vertical, 6)
+                    .background(Color(.tertiarySystemGroupedBackground),
+                                in: RoundedRectangle(cornerRadius: 10))
+                    .overlay(RoundedRectangle(cornerRadius: 10)
+                        .stroke(isFocused ? Color.appAccent : .clear, lineWidth: 1.5))
+                Text(unit)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
             }
             Slider(value: $value, in: range, step: step)
                 .tint(.appAccent)
         }
+        .toolbar {
+            if isFocused {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Fertig") { isFocused = false }
+                        .fontWeight(.semibold)
+                }
+            }
+        }
+    }
+
+    /// Typed values snap to the slider's step and stay inside the range.
+    private var clampedValue: Binding<Double> {
+        Binding(
+            get: { value },
+            set: { newValue in
+                let clamped = min(max(newValue, range.lowerBound), range.upperBound)
+                value = (clamped / step).rounded() * step
+            })
     }
 }
 
