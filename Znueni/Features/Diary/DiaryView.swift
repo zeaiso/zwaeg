@@ -9,7 +9,7 @@ struct DiaryView: View {
     @Query private var waterDays: [WaterDay]
 
     @State private var selectedDay = Calendar.current.startOfDay(for: .now)
-    @State private var addSheetMeal: MealType?
+    @State private var openMeal: MealType?
     @State private var activity = HealthKitService.DayActivity()
 
     private var health: HealthKitService { HealthKitService.shared }
@@ -42,17 +42,19 @@ struct DiaryView: View {
             }
             .background(Theme.background)
             .toolbar(.hidden, for: .navigationBar)
-            .sheet(item: $addSheetMeal) { meal in
+            .navigationDestination(item: $openMeal) { meal in
                 AddFoodView(day: selectedDay, meal: meal)
             }
             .task(id: selectedDay) {
                 await refreshActivity()
             }
             .onAppear {
-                if CommandLine.arguments.contains("-add-food") {
+                if let flagIndex = CommandLine.arguments.firstIndex(of: "-add-food") {
+                    let next = CommandLine.arguments.indices.contains(flagIndex + 1)
+                        ? CommandLine.arguments[flagIndex + 1] : ""
                     Task {
                         try? await Task.sleep(for: .milliseconds(500))
-                        addSheetMeal = .breakfast
+                        openMeal = MealType(rawValue: next) ?? .breakfast
                     }
                 }
             }
@@ -360,8 +362,10 @@ struct DiaryView: View {
     private func mealCard(_ meal: MealType) -> some View {
         let entries = dayEntries.filter { $0.meal == meal }
         let kcal = entries.reduce(0) { $0 + $1.calories }
-        return Card {
-            VStack(spacing: 10) {
+        return Button {
+            openMeal = meal
+        } label: {
+            Card {
                 HStack(spacing: 12) {
                     Image(systemName: meal.symbol)
                         .font(.body.weight(.semibold))
@@ -379,39 +383,16 @@ struct DiaryView: View {
                             .contentTransition(.numericText())
                     }
                     Spacer()
-                    Button {
-                        addSheetMeal = meal
-                    } label: {
-                        Text("Add")
-                            .font(.subheadline.weight(.bold))
-                            .padding(.horizontal, 18)
-                            .padding(.vertical, 9)
-                            .background(Theme.accentSoft, in: Capsule())
-                            .foregroundStyle(Color.appAccent)
-                    }
-                    .buttonStyle(.plain)
-                }
-                if !entries.isEmpty {
-                    Divider()
-                    ForEach(entries) { entry in
-                        HStack {
-                            Text(entry.name)
-                            Spacer()
-                            Text("\(entry.calories) kcal")
-                                .foregroundStyle(.secondary)
-                        }
-                        .font(.subheadline)
-                        .contextMenu {
-                            Button(role: .destructive) {
-                                context.delete(entry)
-                            } label: {
-                                Label("Löschen", systemImage: "trash")
-                            }
-                        }
-                    }
+                    Text("Add")
+                        .font(.subheadline.weight(.bold))
+                        .padding(.horizontal, 18)
+                        .padding(.vertical, 9)
+                        .background(Theme.accentSoft, in: Capsule())
+                        .foregroundStyle(Color.appAccent)
                 }
             }
         }
+        .buttonStyle(.plain)
     }
 
     private func refreshActivity() async {

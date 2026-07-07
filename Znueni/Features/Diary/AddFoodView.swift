@@ -1,7 +1,9 @@
 import SwiftUI
 import SwiftData
 
-/// Munch-style add-food sheet: search, meal chips, scan banner, recent list with quick add.
+/// Munch-style add-food page: search, meal filter chips, scan banner,
+/// what is already logged in the meal, recents with quick add.
+/// Manual entry is a fallback for foods that cannot be scanned.
 struct AddFoodView: View {
     let day: Date
 
@@ -12,6 +14,7 @@ struct AddFoodView: View {
     @State private var meal: MealType
     @State private var query = ""
     @State private var justAdded: String?
+    @State private var showManual = false
 
     @State private var manualName = ""
     @State private var manualKcal = ""
@@ -23,6 +26,11 @@ struct AddFoodView: View {
 
     private var searchResults: [FoodProduct] {
         Array(SwissFoodDatabase.shared.search(query).prefix(8))
+    }
+
+    /// Entries already logged for this day and the selected meal.
+    private var mealEntries: [FoodEntry] {
+        allEntries.filter { $0.day == day && $0.meal == meal }
     }
 
     /// Most recent unique foods for one-tap re-logging.
@@ -47,10 +55,11 @@ struct AddFoodView: View {
                 searchField
                 mealChips
                 scanBanner
+                loggedSection
                 if query.trimmingCharacters(in: .whitespaces).count >= 2 {
                     sectionLabel("ERGEBNISSE")
                     if searchResults.isEmpty {
-                        Text("Nichts gefunden. Trage es unten manuell ein.")
+                        Text("Nichts gefunden. Scanne den Barcode oder trage es als eigenes Lebensmittel ein.")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                     }
@@ -63,11 +72,12 @@ struct AddFoodView: View {
                         recentRow(food)
                     }
                 }
-                manualCard
+                manualFallback
             }
             .padding(20)
         }
         .background(Theme.background)
+        .toolbar(.hidden, for: .navigationBar)
     }
 
     // MARK: - Header & search
@@ -77,7 +87,7 @@ struct AddFoodView: View {
             Button {
                 dismiss()
             } label: {
-                Image(systemName: "chevron.down")
+                Image(systemName: "chevron.left")
                     .font(.subheadline.weight(.bold))
                     .foregroundStyle(Theme.ink)
                     .frame(width: 38, height: 38)
@@ -157,6 +167,46 @@ struct AddFoodView: View {
             .shadow(color: Theme.accent.opacity(0.35), radius: 10, y: 4)
         }
         .buttonStyle(.plain)
+    }
+
+    // MARK: - Already logged in this meal
+
+    @ViewBuilder
+    private var loggedSection: some View {
+        if !mealEntries.isEmpty {
+            let total = mealEntries.reduce(0) { $0 + $1.calories }
+            sectionLabel("IN \(meal.label.uppercased()) · \(total) KCAL")
+            ForEach(mealEntries) { entry in
+                HStack(spacing: 12) {
+                    RoundedRectangle(cornerRadius: 13, style: .continuous)
+                        .fill(thumbColor(for: entry.name))
+                        .frame(width: 44, height: 44)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(entry.name)
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(Theme.ink)
+                            .lineLimit(1)
+                        Text("\(entry.calories) kcal")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Button {
+                        withAnimation(.snappy) { context.delete(entry) }
+                    } label: {
+                        Image(systemName: "minus")
+                            .font(.subheadline.weight(.bold))
+                            .foregroundStyle(.secondary)
+                            .frame(width: 32, height: 32)
+                            .background(Theme.field, in: Circle())
+                    }
+                    .buttonStyle(.plain)
+                }
+                .padding(12)
+                .background(Theme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+            }
+        }
     }
 
     // MARK: - Rows
@@ -240,38 +290,52 @@ struct AddFoodView: View {
         }
     }
 
-    // MARK: - Manual entry
+    // MARK: - Manual entry (fallback when scanning is not possible)
 
-    private var manualCard: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            sectionLabel("EIGENES LEBENSMITTEL")
-            VStack(spacing: 10) {
-                TextField("Name (z.B. Zopf mit Butter)", text: $manualName)
-                    .padding(12)
-                    .background(Theme.field, in: RoundedRectangle(cornerRadius: 12))
-                HStack(spacing: 10) {
-                    TextField("Kalorien", text: $manualKcal)
-                        .keyboardType(.numberPad)
+    @ViewBuilder
+    private var manualFallback: some View {
+        if showManual {
+            VStack(alignment: .leading, spacing: 10) {
+                sectionLabel("EIGENES LEBENSMITTEL")
+                VStack(spacing: 10) {
+                    TextField("Name (z.B. Zopf mit Butter)", text: $manualName)
                         .padding(12)
                         .background(Theme.field, in: RoundedRectangle(cornerRadius: 12))
-                    Button {
-                        addManual()
-                    } label: {
-                        Text("Hinzufügen")
-                            .font(.subheadline.weight(.bold))
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 12)
-                            .background(Theme.accent, in: Capsule())
-                            .foregroundStyle(Theme.onAccent)
+                    HStack(spacing: 10) {
+                        TextField("Kalorien", text: $manualKcal)
+                            .keyboardType(.numberPad)
+                            .padding(12)
+                            .background(Theme.field, in: RoundedRectangle(cornerRadius: 12))
+                        Button {
+                            addManual()
+                        } label: {
+                            Text("Hinzufügen")
+                                .font(.subheadline.weight(.bold))
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 12)
+                                .background(Theme.accent, in: Capsule())
+                                .foregroundStyle(Theme.onAccent)
+                        }
+                        .buttonStyle(.plain)
+                        .disabled(manualName.trimmingCharacters(in: .whitespaces).isEmpty || Int(manualKcal) == nil)
+                        .opacity(manualName.trimmingCharacters(in: .whitespaces).isEmpty || Int(manualKcal) == nil ? 0.5 : 1)
                     }
-                    .buttonStyle(.plain)
-                    .disabled(manualName.trimmingCharacters(in: .whitespaces).isEmpty || Int(manualKcal) == nil)
-                    .opacity(manualName.trimmingCharacters(in: .whitespaces).isEmpty || Int(manualKcal) == nil ? 0.5 : 1)
                 }
+                .padding(14)
+                .background(Theme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
             }
-            .padding(14)
-            .background(Theme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-            .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+        } else {
+            Button {
+                withAnimation(.snappy) { showManual = true }
+            } label: {
+                Text("Nicht scannbar? Eigenes Lebensmittel eintragen")
+                    .font(.footnote.weight(.medium))
+                    .foregroundStyle(Color.appAccent)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
+            }
+            .buttonStyle(.plain)
         }
     }
 
@@ -294,5 +358,6 @@ struct AddFoodView: View {
             calories: kcal, protein: 0, carbs: 0, fat: 0, flashID: "manual")
         manualName = ""
         manualKcal = ""
+        withAnimation { showManual = false }
     }
 }
