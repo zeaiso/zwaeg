@@ -16,56 +16,70 @@ struct IdealWeightView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                Card {
-                    VStack(spacing: 20) {
-                        Picker("Geschlecht", selection: $sex) {
-                            ForEach(Sex.allCases) { s in
-                                Text(s.label).tag(s)
-                            }
-                        }
-                        .pickerStyle(.segmented)
-                        ValueField(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
+                DetailHeader(title: "Idealgewicht", subtitle: "Zielbereich nach 4 Formeln")
+                inputCard
+                resultCard
+                formulasCard
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 24)
+        }
+        .background(Theme.background)
+        .toolbar(.hidden, for: .navigationBar)
+    }
+
+    private var inputCard: some View {
+        Card {
+            VStack(spacing: 14) {
+                Picker("Geschlecht", selection: $sex) {
+                    ForEach(Sex.allCases) { s in
+                        Text(s.label).tag(s)
                     }
                 }
+                .pickerStyle(.segmented)
+                ValueField(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
+            }
+        }
+    }
 
-                Card {
-                    VStack(spacing: 12) {
-                        Text("Dein Idealgewicht")
+    private var resultCard: some View {
+        VStack(spacing: 6) {
+            Text("\(String(format: "%.0f", range.lowerBound)) bis \(String(format: "%.0f", range.upperBound)) kg")
+                .font(.system(size: 40, weight: .bold, design: .rounded))
+                .foregroundStyle(.white)
+                .contentTransition(.numericText())
+            Text("Dein Idealgewicht-Bereich")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.white.opacity(0.9))
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 26)
+        .background(
+            LinearGradient(colors: [Color(red: 0.52, green: 0.48, blue: 0.95), Color(red: 0.68, green: 0.6, blue: 0.98)],
+                           startPoint: .topLeading, endPoint: .bottomTrailing),
+            in: RoundedRectangle(cornerRadius: 26, style: .continuous))
+        .shadow(color: Color(red: 0.52, green: 0.48, blue: 0.95).opacity(0.35), radius: 12, y: 5)
+    }
+
+    private var formulasCard: some View {
+        Card {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Nach Formel")
+                    .font(.headline)
+                    .foregroundStyle(Theme.ink)
+                ForEach(CalorieMath.idealWeights(sex: sex, heightCm: heightCm)) { result in
+                    HStack {
+                        Text(result.formula)
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
-                            .frame(maxWidth: .infinity)
-                        ResultNumber(
-                            value: "\(String(format: "%.0f", range.lowerBound))-\(String(format: "%.0f", range.upperBound))",
-                            unit: "kg")
-                        Text("Bereich über vier anerkannte Formeln")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                    }
-                    .frame(maxWidth: .infinity)
-                }
-
-                Card {
-                    VStack(spacing: 12) {
-                        ForEach(CalorieMath.idealWeights(sex: sex, heightCm: heightCm)) { result in
-                            HStack {
-                                Text(result.formula)
-                                    .foregroundStyle(.secondary)
-                                Spacer()
-                                Text("\(String(format: "%.1f", result.weightKg)) kg")
-                                    .fontWeight(.semibold)
-                                    .contentTransition(.numericText())
-                            }
-                            if result.id != CalorieMath.idealWeights(sex: sex, heightCm: heightCm).last?.id {
-                                Divider()
-                            }
-                        }
+                        Spacer()
+                        Text("\(String(format: "%.1f", result.weightKg)) kg")
+                            .font(.subheadline.weight(.bold))
+                            .foregroundStyle(Theme.ink)
+                            .contentTransition(.numericText())
                     }
                 }
             }
-            .padding(16)
         }
-        .background(Theme.background)
-        .navigationTitle("Idealgewicht")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }

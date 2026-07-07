@@ -26,85 +26,103 @@ struct CalorieNeedsView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                Card {
-                    VStack(spacing: 20) {
-                        Picker("Geschlecht", selection: $sex) {
-                            ForEach(Sex.allCases) { s in
-                                Text(s.label).tag(s)
-                            }
-                        }
-                        .pickerStyle(.segmented)
-                        ValueField(title: "Alter", value: $age, range: 14...99, step: 1, unit: "Jahre")
-                        ValueField(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
-                        ValueField(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
-                        Picker("Aktivität", selection: $activity) {
-                            ForEach(ActivityLevel.allCases) { level in
-                                Text(level.label).tag(level)
-                            }
-                        }
-                        .pickerStyle(.menu)
-                        .tint(.appAccent)
+                DetailHeader(title: "Kalorienbedarf", subtitle: "Grund- & Gesamtumsatz pro Tag")
+                inputCard
+                resultTiles
+                goalsCard
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 24)
+        }
+        .background(Theme.background)
+        .toolbar(.hidden, for: .navigationBar)
+    }
+
+    private var inputCard: some View {
+        Card {
+            VStack(spacing: 14) {
+                Picker("Geschlecht", selection: $sex) {
+                    ForEach(Sex.allCases) { s in
+                        Text(s.label).tag(s)
                     }
                 }
-
-                Card {
-                    VStack(spacing: 14) {
-                        HStack {
-                            VStack(spacing: 4) {
-                                Text("Grundumsatz")
-                                    .font(.footnote)
-                                    .foregroundStyle(.secondary)
-                                Text("\(Int(bmr.rounded()))")
-                                    .font(.system(.title, design: .rounded).bold())
-                                    .contentTransition(.numericText())
-                                Text("kcal/Tag")
-                                    .font(.caption2)
-                                    .foregroundStyle(.tertiary)
-                            }
-                            .frame(maxWidth: .infinity)
-                            Divider()
-                            VStack(spacing: 4) {
-                                Text("Gesamtumsatz")
-                                    .font(.footnote)
-                                    .foregroundStyle(.secondary)
-                                Text("\(Int(tdee.rounded()))")
-                                    .font(.system(.title, design: .rounded).bold())
-                                    .foregroundStyle(Color.appAccent)
-                                    .contentTransition(.numericText())
-                                Text("kcal/Tag")
-                                    .font(.caption2)
-                                    .foregroundStyle(.tertiary)
-                            }
-                            .frame(maxWidth: .infinity)
+                .pickerStyle(.segmented)
+                ValueField(title: "Alter", value: $age, range: 14...99, step: 1, unit: "Jahre")
+                Divider()
+                ValueField(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
+                Divider()
+                ValueField(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
+                Divider()
+                HStack {
+                    Text("Aktivität")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Picker("Aktivität", selection: $activity) {
+                        ForEach(ActivityLevel.allCases) { level in
+                            Text(level.label).tag(level)
                         }
                     }
+                    .pickerStyle(.menu)
+                    .tint(Color.appAccent)
                 }
+            }
+        }
+    }
 
-                Card {
-                    VStack(spacing: 12) {
-                        Text("Empfehlung je nach Ziel")
-                            .font(.subheadline.weight(.semibold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        ForEach(Goal.allCases) { goal in
-                            HStack {
-                                Image(systemName: goal.symbol)
-                                    .foregroundStyle(Color.appAccent)
-                                Text(goal.label)
-                                    .foregroundStyle(.secondary)
-                                Spacer()
-                                Text("\(CalorieMath.dailyTarget(sex: sex, weightKg: weightKg, heightCm: heightCm, age: Int(age), activity: activity, goal: goal)) kcal")
-                                    .fontWeight(.semibold)
-                                    .contentTransition(.numericText())
-                            }
+    private var resultTiles: some View {
+        HStack(spacing: 12) {
+            resultTile(value: "\(Int(tdee.rounded()))",
+                       label: "Gesamtumsatz",
+                       background: AnyShapeStyle(LinearGradient(
+                          colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                          startPoint: .topLeading, endPoint: .bottomTrailing)))
+            resultTile(value: "\(Int(bmr.rounded()))",
+                       label: "Grundumsatz",
+                       background: AnyShapeStyle(Theme.ink))
+        }
+    }
+
+    private func resultTile(value: String, label: String, background: AnyShapeStyle) -> some View {
+        VStack(alignment: .leading, spacing: 3) {
+            Text(value)
+                .font(.system(.title, design: .rounded).bold())
+                .foregroundStyle(.white)
+                .contentTransition(.numericText())
+            Text("\(label) · kcal/Tag")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.white.opacity(0.85))
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(16)
+        .background(background, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+        .shadow(color: Theme.ink.opacity(0.10), radius: 10, y: 4)
+    }
+
+    private var goalsCard: some View {
+        Card {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Empfehlung je nach Ziel")
+                    .font(.headline)
+                    .foregroundStyle(Theme.ink)
+                ForEach(Goal.allCases) { goal in
+                    HStack(spacing: 12) {
+                        Image(systemName: goal.symbol)
+                            .font(.footnote.weight(.bold))
+                            .foregroundStyle(Color.appAccent)
+                            .frame(width: 32, height: 32)
+                            .background(Theme.accentSoft, in: RoundedRectangle(cornerRadius: 10))
+                        Text(goal.label)
                             .font(.subheadline)
-                        }
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                        Text("\(CalorieMath.dailyTarget(sex: sex, weightKg: weightKg, heightCm: heightCm, age: Int(age), activity: activity, goal: goal)) kcal")
+                            .font(.subheadline.weight(.bold))
+                            .foregroundStyle(Theme.ink)
+                            .contentTransition(.numericText())
                     }
                 }
             }
-            .padding(16)
         }
-        .background(Theme.background)
-        .navigationTitle("Kalorienbedarf")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }

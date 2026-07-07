@@ -18,62 +18,83 @@ struct CalorieBurnView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                Card {
-                    VStack(spacing: 12) {
-                        Text("Verbrauch")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                        ResultNumber(value: "\(Int(burned.rounded()))", unit: "kcal", color: .orange)
-                        Text("\(activity.name) · \(Int(minutes)) Min · \(String(format: "%.1f", weightKg)) kg")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                    }
-                    .frame(maxWidth: .infinity)
-                }
+                DetailHeader(title: "Kalorienverbrauch", subtitle: "Verbrauch pro Aktivität")
+                resultCard
+                inputCard
+                activityCard
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 24)
+        }
+        .background(Theme.background)
+        .toolbar(.hidden, for: .navigationBar)
+    }
 
-                Card {
-                    VStack(spacing: 20) {
-                        ValueField(title: "Dauer", value: $minutes, range: 5...240, step: 5, unit: "Min")
-                        ValueField(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
-                    }
-                }
+    private var resultCard: some View {
+        VStack(spacing: 6) {
+            Text("\(Int(burned.rounded()))")
+                .font(.system(size: 54, weight: .bold, design: .rounded))
+                .foregroundStyle(.white)
+                .contentTransition(.numericText())
+            Text("kcal verbrannt")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.white.opacity(0.9))
+            Text("\(activity.name) · \(Int(minutes)) Min · \(String(format: "%.1f", weightKg)) kg")
+                .font(.caption)
+                .foregroundStyle(.white.opacity(0.85))
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 26)
+        .background(
+            LinearGradient(colors: [Color(red: 0.35, green: 0.75, blue: 0.5), Color(red: 0.55, green: 0.85, blue: 0.6)],
+                           startPoint: .topLeading, endPoint: .bottomTrailing),
+            in: RoundedRectangle(cornerRadius: 26, style: .continuous))
+        .shadow(color: Color(red: 0.35, green: 0.75, blue: 0.5).opacity(0.35), radius: 12, y: 5)
+    }
 
-                Card {
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Aktivität")
-                            .font(.subheadline.weight(.semibold))
-                        LazyVGrid(columns: columns, spacing: 10) {
-                            ForEach(CalorieMath.activities) { item in
-                                Button {
-                                    activity = item
-                                } label: {
-                                    VStack(spacing: 6) {
-                                        Image(systemName: item.symbol)
-                                            .font(.title3)
-                                        Text(item.name)
-                                            .font(.caption2.weight(.medium))
-                                            .multilineTextAlignment(.center)
-                                            .lineLimit(2, reservesSpace: true)
-                                    }
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 10)
-                                    .background(activity == item ? Color.appAccent.opacity(0.15)
-                                                                 : Theme.field)
-                                    .foregroundStyle(activity == item ? Color.appAccent : .primary)
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                                    .overlay(RoundedRectangle(cornerRadius: 12)
-                                        .stroke(activity == item ? Color.appAccent : .clear, lineWidth: 1.5))
-                                }
-                                .buttonStyle(.plain)
+    private var inputCard: some View {
+        Card {
+            VStack(spacing: 14) {
+                ValueField(title: "Dauer", value: $minutes, range: 5...240, step: 5, unit: "Min")
+                Divider()
+                ValueField(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
+            }
+        }
+    }
+
+    private var activityCard: some View {
+        Card {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Aktivität")
+                    .font(.headline)
+                    .foregroundStyle(Theme.ink)
+                LazyVGrid(columns: columns, spacing: 10) {
+                    ForEach(CalorieMath.activities) { item in
+                        Button {
+                            withAnimation(.snappy) { activity = item }
+                        } label: {
+                            VStack(spacing: 6) {
+                                Image(systemName: item.symbol)
+                                    .font(.title3)
+                                Text(item.name)
+                                    .font(.caption2.weight(.semibold))
+                                    .multilineTextAlignment(.center)
+                                    .lineLimit(2, reservesSpace: true)
                             }
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                            .background(activity == item
+                                        ? AnyShapeStyle(LinearGradient(
+                                            colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                                            startPoint: .topLeading, endPoint: .bottomTrailing))
+                                        : AnyShapeStyle(Theme.field),
+                                        in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                            .foregroundStyle(activity == item ? .white : Theme.ink)
                         }
+                        .buttonStyle(.plain)
                     }
                 }
             }
-            .padding(16)
         }
-        .background(Theme.background)
-        .navigationTitle("Kalorienverbrauch")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }

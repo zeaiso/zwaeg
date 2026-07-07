@@ -16,42 +16,130 @@ struct BMICalculatorView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                Card {
-                    VStack(spacing: 20) {
-                        ValueField(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
-                        ValueField(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
-                    }
-                }
-
-                Card {
-                    VStack(spacing: 16) {
-                        Text("Dein BMI")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .frame(maxWidth: .infinity)
-                        ResultNumber(value: String(format: "%.1f", bmi), unit: "", color: category.color)
-                        Text(category.label)
-                            .font(.headline)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                            .background(category.color.opacity(0.15), in: Capsule())
-                            .foregroundStyle(category.color)
-                        BMIScaleView(bmi: bmi)
-                            .padding(.top, 4)
-                        Text("Normalgewicht für deine Grösse: \(String(format: "%.0f", healthyRange.lowerBound))-\(String(format: "%.0f", healthyRange.upperBound)) kg")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                            .frame(maxWidth: .infinity)
-                            .multilineTextAlignment(.center)
-                    }
-                    .frame(maxWidth: .infinity)
-                }
+                DetailHeader(title: "BMI-Rechner", subtitle: "Body-Mass-Index & Einordnung")
+                inputCard
+                resultCard
+                scaleCard
+                supportCard
             }
-            .padding(16)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 24)
         }
         .background(Theme.background)
-        .navigationTitle("BMI-Rechner")
-        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .navigationBar)
+    }
+
+    private var inputCard: some View {
+        Card {
+            VStack(spacing: 14) {
+                ValueField(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
+                Divider()
+                ValueField(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
+            }
+        }
+    }
+
+    private var resultCard: some View {
+        VStack(spacing: 8) {
+            Text(String(format: "%.1f", bmi))
+                .font(.system(size: 54, weight: .bold, design: .rounded))
+                .foregroundStyle(.white)
+                .contentTransition(.numericText())
+            Text(category.label)
+                .font(.subheadline.weight(.bold))
+                .padding(.horizontal, 14)
+                .padding(.vertical, 6)
+                .background(.white.opacity(0.25), in: Capsule())
+                .foregroundStyle(.white)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 26)
+        .background(
+            LinearGradient(colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                           startPoint: .topLeading, endPoint: .bottomTrailing),
+            in: RoundedRectangle(cornerRadius: 26, style: .continuous))
+        .shadow(color: Theme.accent.opacity(0.35), radius: 12, y: 5)
+    }
+
+    private var scaleCard: some View {
+        Card {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Einordnung")
+                    .font(.headline)
+                    .foregroundStyle(Theme.ink)
+                BMIScaleView(bmi: bmi)
+                Text("Normalgewicht für deine Grösse: \(String(format: "%.0f", healthyRange.lowerBound)) bis \(String(format: "%.0f", healthyRange.upperBound)) kg")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    // MARK: - Support & resources
+
+    @ViewBuilder
+    private var supportCard: some View {
+        switch category {
+        case .normal:
+            Card {
+                HStack(spacing: 12) {
+                    Image(systemName: "checkmark.seal.fill")
+                        .font(.title3)
+                        .foregroundStyle(Color(red: 0.13, green: 0.66, blue: 0.42))
+                    Text("Alles im grünen Bereich. Weiter so!")
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(Theme.ink)
+                }
+            }
+        case .underweight:
+            supportLinks(
+                intro: "Untergewicht kann viele Ursachen haben. Sprich mit deiner Hausärztin oder deinem Hausarzt, wenn es dich beschäftigt.",
+                links: [
+                    ("Arbeitsgemeinschaft Ess-Störungen AES", "https://www.aes.ch"),
+                    ("BAG · Ernährung & Bewegung", "https://www.bag.admin.ch"),
+                ])
+        case .overweight, .obese1, .obese2, .obese3:
+            supportLinks(
+                intro: "Du bist nicht allein. Kleine Schritte zählen, und professionelle Unterstützung hilft. Deine Hausärztin oder dein Hausarzt ist eine gute erste Anlaufstelle.",
+                links: [
+                    ("Schweizer Adipositas-Stiftung SAPS", "https://www.saps.ch"),
+                    ("Ernährungsberatung SVDE", "https://www.svde-asdd.ch"),
+                    ("BAG · Ernährung & Bewegung", "https://www.bag.admin.ch"),
+                ])
+        }
+    }
+
+    private func supportLinks(intro: String, links: [(String, String)]) -> some View {
+        Card {
+            VStack(alignment: .leading, spacing: 12) {
+                Label("Unterstützung & Infos", systemImage: "heart.fill")
+                    .font(.headline)
+                    .foregroundStyle(Theme.ink)
+                Text(intro)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                ForEach(links, id: \.1) { name, urlString in
+                    if let url = URL(string: urlString) {
+                        Link(destination: url) {
+                            HStack(spacing: 10) {
+                                Image(systemName: "link")
+                                    .font(.caption.weight(.bold))
+                                    .foregroundStyle(Color.appAccent)
+                                    .frame(width: 30, height: 30)
+                                    .background(Theme.accentSoft, in: RoundedRectangle(cornerRadius: 10))
+                                Text(name)
+                                    .font(.subheadline.weight(.medium))
+                                    .foregroundStyle(Theme.ink)
+                                Spacer()
+                                Image(systemName: "arrow.up.right")
+                                    .font(.caption.weight(.semibold))
+                                    .foregroundStyle(.tertiary)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

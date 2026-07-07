@@ -15,6 +15,44 @@ struct Card<Content: View>: View {
     }
 }
 
+// MARK: - Detail header
+
+/// Back button, title and optional subtitle for pushed detail pages.
+struct DetailHeader: View {
+    let title: String
+    var subtitle: String?
+
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        HStack(spacing: 12) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(Theme.ink)
+                    .frame(width: 38, height: 38)
+                    .background(Theme.card, in: Circle())
+                    .shadow(color: Theme.ink.opacity(0.05), radius: 5, y: 2)
+            }
+            .buttonStyle(.plain)
+            VStack(alignment: .leading, spacing: 1) {
+                Text(title)
+                    .font(.system(.title2, design: .rounded).bold())
+                    .foregroundStyle(Theme.ink)
+                if let subtitle {
+                    Text(subtitle)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            Spacer()
+        }
+        .padding(.top, 8)
+    }
+}
+
 // MARK: - Value input rows
 
 /// Compact row with a typeable number field: title left, value and unit right.
