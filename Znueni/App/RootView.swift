@@ -30,6 +30,11 @@ struct RootView: View {
             if profiles.isEmpty && LaunchArgs.seedProfile {
                 context.insert(UserProfile(name: "Test", sex: .male, age: 30, heightCm: 178,
                                            weightKg: 78, activity: .moderate, goal: .lose))
+                for week in 0..<9 {
+                    if let date = Calendar.current.date(byAdding: .weekOfYear, value: -week, to: .now) {
+                        context.insert(WeightEntry(date: date, weightKg: 78 + Double(week) * 0.45))
+                    }
+                }
             }
         }
     }

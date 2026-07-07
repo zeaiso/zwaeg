@@ -7,6 +7,7 @@ struct ProfileView: View {
 
     @State private var weightText = ""
     @State private var showWeightSaved = false
+    @State private var showProgress = false
 
     var body: some View {
         NavigationStack {
@@ -22,6 +23,19 @@ struct ProfileView: View {
                             Text("Ziel: \(profile.goal.label) · \(profile.dailyCalorieTarget) kcal/Tag")
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+
+                Section {
+                    NavigationLink {
+                        ProgressScreen(profile: profile)
+                    } label: {
+                        Label {
+                            Text("Fortschritt & Gewichtsverlauf")
+                        } icon: {
+                            Image(systemName: "chart.line.uptrend.xyaxis")
+                                .foregroundStyle(Color.appAccent)
                         }
                     }
                 }
@@ -67,6 +81,14 @@ struct ProfileView: View {
                 }
             }
             .navigationTitle("Profil")
+            .navigationDestination(isPresented: $showProgress) {
+                ProgressScreen(profile: profile)
+            }
+            .onAppear {
+                if CommandLine.arguments.contains("-open-progress") {
+                    showProgress = true
+                }
+            }
             .onChange(of: profile.sexRaw) { recalc() }
             .onChange(of: profile.age) { recalc() }
             .onChange(of: profile.heightCm) { recalc() }
@@ -83,6 +105,7 @@ struct ProfileView: View {
         guard let weight = parsedWeight, weight > 20, weight < 400 else { return }
         profile.weightKg = weight
         context.insert(WeightEntry(weightKg: weight))
+        Task { await HealthKitService.shared.saveWeight(weight) }
         recalc()
         weightText = ""
         withAnimation { showWeightSaved = true }
