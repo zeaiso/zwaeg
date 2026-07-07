@@ -51,10 +51,19 @@ struct RootView: View {
     }
 }
 
+/// Shared tab selection so any screen (e.g. the add-food scan banner) can switch tabs.
+@Observable
+final class TabRouter {
+    static let shared = TabRouter()
+    var selection = LaunchArgs.initialTab
+}
+
 struct MainTabView: View {
     let profile: UserProfile
 
-    @State private var selection = LaunchArgs.initialTab
+    @State private var router = TabRouter.shared
+
+    private var selection: Int { router.selection }
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -72,64 +81,62 @@ struct MainTabView: View {
                 Color.clear.frame(height: 66)
             }
 
-            ZnueniTabBar(selection: $selection)
+            ZnueniTabBar(router: router)
         }
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .tint(.appAccent)
     }
 }
 
-/// Floating pill tab bar with a raised scan button in the middle.
+/// Floating pill tab bar, icon only: active tab in a coral circle, dark scan button.
 struct ZnueniTabBar: View {
-    @Binding var selection: Int
+    @Bindable var router: TabRouter
 
     var body: some View {
         HStack(spacing: 0) {
-            tabButton(0, symbol: "house.fill", label: "Tagebuch")
-            tabButton(1, symbol: "flame.fill", label: "Battles")
+            tabButton(0, symbol: "house.fill")
+            tabButton(1, symbol: "flame.fill")
             scanButton
-            tabButton(3, symbol: "chart.bar.fill", label: "Rechner")
-            tabButton(4, symbol: "person.fill", label: "Profil")
+            tabButton(3, symbol: "chart.bar.fill")
+            tabButton(4, symbol: "person.fill")
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 8)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 9)
         .background(Theme.card, in: Capsule())
         .shadow(color: Theme.ink.opacity(0.10), radius: 16, y: 6)
-        .padding(.horizontal, 20)
+        .padding(.horizontal, 24)
         .padding(.bottom, 4)
     }
 
-    private func tabButton(_ index: Int, symbol: String, label: String) -> some View {
+    private func tabButton(_ index: Int, symbol: String) -> some View {
         Button {
-            selection = index
+            router.selection = index
         } label: {
-            VStack(spacing: 3) {
-                Image(systemName: symbol)
-                    .font(.system(size: 19, weight: .semibold))
-                Text(label)
-                    .font(.system(size: 10, weight: .medium))
-            }
-            .foregroundStyle(selection == index ? Color.appAccent : Color(.systemGray))
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 7)
-            .background(selection == index ? Theme.accentSoft : .clear, in: Capsule())
+            Image(systemName: symbol)
+                .font(.system(size: 19, weight: .semibold))
+                .foregroundStyle(router.selection == index ? Theme.onAccent : Color(.systemGray2))
+                .frame(width: 46, height: 46)
+                .background(router.selection == index ? AnyShapeStyle(Theme.accent.gradient)
+                                                      : AnyShapeStyle(.clear),
+                            in: Circle())
         }
         .buttonStyle(.plain)
+        .frame(maxWidth: .infinity)
     }
 
     private var scanButton: some View {
         Button {
-            selection = 2
+            router.selection = 2
         } label: {
             Image(systemName: "barcode.viewfinder")
                 .font(.system(size: 22, weight: .semibold))
-                .foregroundStyle(Theme.onAccent)
-                .frame(width: 54, height: 54)
-                .background(selection == 2 ? Theme.ink : Theme.accent, in: Circle())
-                .shadow(color: Theme.accent.opacity(0.35), radius: 8, y: 3)
+                .foregroundStyle(router.selection == 2 ? Theme.onAccent : Color.appAccent)
+                .frame(width: 56, height: 56)
+                .background(Theme.ink, in: Circle())
+                .shadow(color: Theme.ink.opacity(0.3), radius: 8, y: 3)
         }
         .buttonStyle(.plain)
-        .offset(y: -14)
+        .offset(y: -16)
         .frame(maxWidth: .infinity)
     }
 }

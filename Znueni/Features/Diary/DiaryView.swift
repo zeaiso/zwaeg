@@ -27,12 +27,12 @@ struct DiaryView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     header
-                    weekStrip
                     intakeCard
                     HStack(spacing: 16) {
                         stepsCard
                         waterCard
                     }
+                    weekStrip
                     ForEach(MealType.allCases) { meal in
                         mealCard(meal)
                     }
@@ -47,6 +47,14 @@ struct DiaryView: View {
             }
             .task(id: selectedDay) {
                 await refreshActivity()
+            }
+            .onAppear {
+                if CommandLine.arguments.contains("-add-food") {
+                    Task {
+                        try? await Task.sleep(for: .milliseconds(500))
+                        addSheetMeal = .breakfast
+                    }
+                }
             }
         }
     }
@@ -63,24 +71,31 @@ struct DiaryView: View {
 
     private var header: some View {
         HStack(spacing: 12) {
-            VStack(alignment: .leading, spacing: 2) {
-                HStack(spacing: 5) {
-                    Text(greeting)
-                    Image(systemName: "hand.wave.fill")
-                        .foregroundStyle(Color(red: 0.95, green: 0.73, blue: 0.2))
-                }
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                Text(profile.name.isEmpty ? "Willkommen!" : profile.name)
-                    .font(.system(.title, design: .rounded).bold())
-                    .foregroundStyle(Theme.ink)
-            }
-            Spacer()
             Text(initials)
                 .font(.headline)
                 .foregroundStyle(Theme.onAccent)
-                .frame(width: 44, height: 44)
-                .background(Theme.accent, in: Circle())
+                .frame(width: 46, height: 46)
+                .background(Theme.accent.gradient, in: Circle())
+            VStack(alignment: .leading, spacing: 1) {
+                Text(greeting)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                Text(profile.name.isEmpty ? "Willkommen!" : "Hallo \(profile.name)")
+                    .font(.system(.title3, design: .rounded).bold())
+                    .foregroundStyle(Theme.ink)
+            }
+            Spacer()
+            NavigationLink {
+                RemindersPlaceholderView()
+            } label: {
+                Image(systemName: "bell")
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(Theme.ink)
+                    .frame(width: 42, height: 42)
+                    .background(Theme.card, in: Circle())
+                    .shadow(color: Theme.ink.opacity(0.05), radius: 6, y: 2)
+            }
+            .buttonStyle(.plain)
         }
         .padding(.top, 8)
     }
@@ -90,43 +105,25 @@ struct DiaryView: View {
         return parts.isEmpty ? "Z" : String(parts).uppercased()
     }
 
-    // MARK: - Week strip
-
-    private var lastSevenDays: [Date] {
+    /// Consecutive days with at least one logged food, ending today or yesterday.
+    private var streak: Int {
+        let loggedDays = Set(allEntries.map(\.day))
         let calendar = Calendar.current
-        let today = calendar.startOfDay(for: .now)
-        return (0..<7).reversed().compactMap {
-            calendar.date(byAdding: .day, value: -$0, to: today)
+        var day = calendar.startOfDay(for: .now)
+        if !loggedDays.contains(day) {
+            guard let yesterday = calendar.date(byAdding: .day, value: -1, to: day) else { return 0 }
+            day = yesterday
         }
+        var count = 0
+        while loggedDays.contains(day) {
+            count += 1
+            guard let previous = calendar.date(byAdding: .day, value: -1, to: day) else { break }
+            day = previous
+        }
+        return count
     }
 
-    private var weekStrip: some View {
-        HStack(spacing: 8) {
-            ForEach(lastSevenDays, id: \.self) { day in
-                let isSelected = day == selectedDay
-                Button {
-                    withAnimation(.snappy) { selectedDay = day }
-                } label: {
-                    VStack(spacing: 4) {
-                        Text(day.formatted(.dateTime.weekday(.narrow)))
-                            .font(.caption2.weight(.medium))
-                            .foregroundStyle(isSelected ? Theme.onAccent.opacity(0.85) : .secondary)
-                        Text(day.formatted(.dateTime.day()))
-                            .font(.system(.subheadline, design: .rounded).weight(.bold))
-                            .foregroundStyle(isSelected ? Theme.onAccent : Theme.ink)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-                    .background(isSelected ? Theme.accent : Theme.card,
-                                in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                    .shadow(color: Theme.ink.opacity(isSelected ? 0.08 : 0.03), radius: 6, y: 2)
-                }
-                .buttonStyle(.plain)
-            }
-        }
-    }
-
-    // MARK: - Intake
+    // MARK: - Daily intake (peach card, slider look)
 
     private var progress: Double {
         guard profile.dailyCalorieTarget > 0 else { return 0 }
@@ -134,105 +131,79 @@ struct DiaryView: View {
     }
 
     private var intakeCard: some View {
-        Card {
-            VStack(alignment: .leading, spacing: 14) {
-                HStack {
-                    Label("Tagesbilanz", systemImage: "fork.knife")
-                        .font(.headline)
-                        .foregroundStyle(Theme.ink)
-                    Spacer()
-                    Text("\(Int((progress * 100).rounded())) %")
-                        .font(.system(.subheadline, design: .rounded).weight(.bold))
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 5)
-                        .background(Theme.yellow, in: Capsule())
-                        .foregroundStyle(Theme.ink)
-                }
-
-                GeometryReader { geo in
-                    ZStack(alignment: .leading) {
-                        Capsule().fill(Theme.field)
-                        Capsule()
-                            .fill(consumed > profile.dailyCalorieTarget ? Color.orange : Theme.accent)
-                            .frame(width: max(10, geo.size.width * progress))
-                            .animation(.spring(duration: 0.5), value: progress)
-                    }
-                }
-                .frame(height: 14)
-
-                HStack {
-                    intakeStat("Gegessen", "\(consumed)")
-                    Divider().frame(height: 28)
-                    intakeStat("Verbrannt", health.isConnected ? "\(activity.activeKcal)" : "–")
-                    Divider().frame(height: 28)
-                    intakeStat("Übrig", "\(max(0, profile.dailyCalorieTarget - consumed))")
-                }
-
-                macroRow
+        VStack(spacing: 14) {
+            HStack(spacing: 10) {
+                Image(systemName: "chart.pie.fill")
+                    .font(.footnote.weight(.bold))
+                    .foregroundStyle(Color.appAccent)
+                    .frame(width: 34, height: 34)
+                    .background(Theme.card, in: RoundedRectangle(cornerRadius: 11, style: .continuous))
+                Text("Tagesbilanz")
+                    .font(.headline)
+                    .foregroundStyle(Theme.ink)
+                Spacer()
+                Text("Tag \(max(1, streak))")
+                    .font(.caption.weight(.bold))
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Theme.ink, in: Capsule())
+                    .foregroundStyle(Theme.onAccent)
             }
-        }
-    }
 
-    private func intakeStat(_ title: String, _ value: String) -> some View {
-        VStack(spacing: 2) {
-            Text(value)
-                .font(.system(.body, design: .rounded).weight(.bold))
-                .foregroundStyle(Theme.ink)
-                .contentTransition(.numericText())
-            Text(title)
-                .font(.caption2)
-                .foregroundStyle(.secondary)
-        }
-        .frame(maxWidth: .infinity)
-    }
+            HStack {
+                Text("Fortschritt")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Spacer()
+                Text("\(consumed) / \(profile.dailyCalorieTarget) kcal")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Theme.ink)
+                    .contentTransition(.numericText())
+            }
 
-    private var macroRow: some View {
-        let protein = dayEntries.reduce(0.0) { $0 + $1.proteinG }
-        let carbs = dayEntries.reduce(0.0) { $0 + $1.carbsG }
-        let fat = dayEntries.reduce(0.0) { $0 + $1.fatG }
-        return HStack(spacing: 14) {
-            macroBadge("Protein", grams: protein, color: .blue)
-            macroBadge("Kohlenh.", grams: carbs, color: .orange)
-            macroBadge("Fett", grams: fat, color: .purple)
-            Spacer()
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    Capsule()
+                        .fill(Color.white.opacity(0.7))
+                    Capsule()
+                        .fill(LinearGradient(
+                            colors: [Color(red: 1.0, green: 0.55, blue: 0.35), Theme.accent],
+                            startPoint: .leading, endPoint: .trailing))
+                        .frame(width: max(14, geo.size.width * progress))
+                    Circle()
+                        .fill(Theme.card)
+                        .stroke(Theme.accent, lineWidth: 5)
+                        .frame(width: 19, height: 19)
+                        .offset(x: max(0, geo.size.width * progress - 19))
+                        .animation(.spring(duration: 0.5), value: progress)
+                }
+            }
+            .frame(height: 14)
         }
-    }
-
-    private func macroBadge(_ name: String, grams: Double, color: Color) -> some View {
-        HStack(spacing: 5) {
-            Circle().fill(color).frame(width: 8, height: 8)
-            Text("\(name) \(Int(grams.rounded()))g")
-                .font(.caption.weight(.medium))
-                .foregroundStyle(.secondary)
-        }
+        .padding(16)
+        .background(Theme.accentSoft, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
     }
 
     // MARK: - Steps & water
 
     private var stepsCard: some View {
         Card {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Text("Schritte")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(Theme.ink)
-                    Spacer()
-                    Image(systemName: "figure.walk")
-                        .font(.footnote.weight(.bold))
-                        .foregroundStyle(.white)
-                        .frame(width: 30, height: 30)
-                        .background(Color.orange.gradient, in: Circle())
-                }
+            VStack(alignment: .leading, spacing: 10) {
+                Image(systemName: "figure.walk")
+                    .font(.body.weight(.bold))
+                    .foregroundStyle(.white)
+                    .frame(width: 40, height: 40)
+                    .background(Color(red: 0.48, green: 0.42, blue: 0.93).gradient,
+                                in: RoundedRectangle(cornerRadius: 13, style: .continuous))
                 if health.isConnected {
                     Text("\(activity.steps)")
                         .font(.system(.title2, design: .rounded).bold())
                         .foregroundStyle(Theme.ink)
                         .contentTransition(.numericText())
-                    Text("heute")
-                        .font(.caption2)
+                    Text("Schritte heute")
+                        .font(.caption)
                         .foregroundStyle(.secondary)
                 } else if HealthKitService.isAvailable {
-                    Spacer(minLength: 2)
                     Button {
                         Task {
                             await health.requestAuthorization()
@@ -243,13 +214,19 @@ struct DiaryView: View {
                             .font(.caption.weight(.bold))
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
-                            .background(Theme.accent, in: Capsule())
-                            .foregroundStyle(Theme.onAccent)
+                            .background(Theme.accentSoft, in: Capsule())
+                            .foregroundStyle(Color.appAccent)
                     }
                     .buttonStyle(.plain)
+                    Text("Schritte aus Health")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 } else {
                     Text("–")
                         .font(.system(.title2, design: .rounded).bold())
+                    Text("Schritte")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
             }
         }
@@ -262,23 +239,15 @@ struct DiaryView: View {
     private var waterCard: some View {
         let glasses = waterEntry?.glasses ?? 0
         return Card {
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Text("Wasser")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(Theme.ink)
-                    Spacer()
                     Image(systemName: "drop.fill")
-                        .font(.footnote.weight(.bold))
+                        .font(.body.weight(.bold))
                         .foregroundStyle(.white)
-                        .frame(width: 30, height: 30)
-                        .background(Color.blue.gradient, in: Circle())
-                }
-                Text("\(glasses) Glas")
-                    .font(.system(.title2, design: .rounded).bold())
-                    .foregroundStyle(Theme.ink)
-                    .contentTransition(.numericText())
-                HStack(spacing: 10) {
+                        .frame(width: 40, height: 40)
+                        .background(Color(red: 0.24, green: 0.64, blue: 1.0).gradient,
+                                    in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+                    Spacer()
                     Button {
                         addWater(-1)
                     } label: {
@@ -301,6 +270,18 @@ struct DiaryView: View {
                     }
                     .buttonStyle(.plain)
                 }
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    Text("\(glasses)")
+                        .font(.system(.title2, design: .rounded).bold())
+                        .foregroundStyle(Theme.ink)
+                        .contentTransition(.numericText())
+                    Text("Glas")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+                Text("Wasser trinken")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
         }
     }
@@ -315,7 +296,66 @@ struct DiaryView: View {
         }
     }
 
+    // MARK: - Week strip (transparent, selected day in coral square)
+
+    private var lastSevenDays: [Date] {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: .now)
+        return (0..<7).reversed().compactMap {
+            calendar.date(byAdding: .day, value: -$0, to: today)
+        }
+    }
+
+    private var weekStrip: some View {
+        HStack(spacing: 0) {
+            ForEach(lastSevenDays, id: \.self) { day in
+                let isSelected = day == selectedDay
+                Button {
+                    withAnimation(.snappy) { selectedDay = day }
+                } label: {
+                    VStack(spacing: 8) {
+                        Text(day.formatted(.dateTime.weekday(.abbreviated)))
+                            .font(.caption.weight(isSelected ? .bold : .medium))
+                            .foregroundStyle(isSelected ? Color.appAccent : .secondary)
+                        Text(day.formatted(.dateTime.day()))
+                            .font(.system(.subheadline, design: .rounded).weight(.bold))
+                            .foregroundStyle(isSelected ? Theme.onAccent : Theme.ink)
+                            .frame(width: 36, height: 36)
+                            .background(isSelected ? AnyShapeStyle(Theme.accent.gradient) : AnyShapeStyle(.clear),
+                                        in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(.vertical, 4)
+    }
+
     // MARK: - Meals
+
+    private func mealGradient(_ meal: MealType) -> LinearGradient {
+        let colors: [Color]
+        switch meal {
+        case .breakfast: colors = [Color(red: 1.0, green: 0.72, blue: 0.4), Color(red: 0.99, green: 0.85, blue: 0.55)]
+        case .lunch: colors = [Color(red: 0.55, green: 0.83, blue: 0.5), Color(red: 0.73, green: 0.91, blue: 0.6)]
+        case .dinner: colors = [Color(red: 0.52, green: 0.48, blue: 0.95), Color(red: 0.7, green: 0.62, blue: 0.98)]
+        case .snack: colors = [Color(red: 1.0, green: 0.55, blue: 0.62), Color(red: 1.0, green: 0.72, blue: 0.68)]
+        }
+        return LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing)
+    }
+
+    /// Rough per-meal share of the daily budget, like the mockup's "488 / 536 kcal".
+    private func mealBudget(_ meal: MealType) -> Int {
+        let share: Double
+        switch meal {
+        case .breakfast: share = 0.25
+        case .lunch: share = 0.35
+        case .dinner: share = 0.30
+        case .snack: share = 0.10
+        }
+        return Int((Double(profile.dailyCalorieTarget) * share).rounded())
+    }
 
     private func mealCard(_ meal: MealType) -> some View {
         let entries = dayEntries.filter { $0.meal == meal }
@@ -325,16 +365,18 @@ struct DiaryView: View {
                 HStack(spacing: 12) {
                     Image(systemName: meal.symbol)
                         .font(.body.weight(.semibold))
-                        .foregroundStyle(Color.appAccent)
-                        .frame(width: 42, height: 42)
-                        .background(Theme.accentSoft, in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+                        .foregroundStyle(.white)
+                        .frame(width: 46, height: 46)
+                        .background(mealGradient(meal),
+                                    in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                     VStack(alignment: .leading, spacing: 2) {
                         Text(meal.label)
                             .font(.headline)
                             .foregroundStyle(Theme.ink)
-                        Text(kcal > 0 ? "\(kcal) kcal" : "Noch nichts geloggt")
+                        Text("\(kcal) / \(mealBudget(meal)) kcal")
                             .font(.caption)
                             .foregroundStyle(.secondary)
+                            .contentTransition(.numericText())
                     }
                     Spacer()
                     Button {
@@ -343,9 +385,9 @@ struct DiaryView: View {
                         Text("Add")
                             .font(.subheadline.weight(.bold))
                             .padding(.horizontal, 18)
-                            .padding(.vertical, 8)
-                            .background(Theme.accent, in: Capsule())
-                            .foregroundStyle(Theme.onAccent)
+                            .padding(.vertical, 9)
+                            .background(Theme.accentSoft, in: Capsule())
+                            .foregroundStyle(Color.appAccent)
                     }
                     .buttonStyle(.plain)
                 }

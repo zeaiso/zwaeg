@@ -1,26 +1,28 @@
 import SwiftUI
 import SwiftData
 
+/// Munch-style add-food sheet: search, meal chips, scan banner, recent list with quick add.
 struct AddFoodView: View {
     let day: Date
-    let meal: MealType
 
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \FoodEntry.createdAt, order: .reverse) private var allEntries: [FoodEntry]
 
-    @State private var name = ""
-    @State private var caloriesText = ""
-    @State private var proteinText = ""
-    @State private var carbsText = ""
-    @State private var fatText = ""
-
+    @State private var meal: MealType
     @State private var query = ""
-    @State private var selectedProduct: FoodProduct?
-    @State private var gramsText = "100"
+    @State private var justAdded: String?
+
+    @State private var manualName = ""
+    @State private var manualKcal = ""
+
+    init(day: Date, meal: MealType) {
+        self.day = day
+        _meal = State(initialValue: meal)
+    }
 
     private var searchResults: [FoodProduct] {
-        Array(SwissFoodDatabase.shared.search(query).prefix(6))
+        Array(SwissFoodDatabase.shared.search(query).prefix(8))
     }
 
     /// Most recent unique foods for one-tap re-logging.
@@ -33,124 +35,264 @@ struct AddFoodView: View {
                 seen.insert(key)
                 result.append(entry)
             }
-            if result.count == 8 { break }
+            if result.count == 6 { break }
         }
         return result
     }
 
-    private var calories: Int? { Int(caloriesText) }
-
     var body: some View {
-        NavigationStack {
-            Form {
-                Section("Suche") {
-                    TextField("z.B. Zopf, Apfel, Rösti", text: $query)
-                        .autocorrectionDisabled()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                header
+                searchField
+                mealChips
+                scanBanner
+                if query.trimmingCharacters(in: .whitespaces).count >= 2 {
+                    sectionLabel("ERGEBNISSE")
+                    if searchResults.isEmpty {
+                        Text("Nichts gefunden. Trage es unten manuell ein.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
                     ForEach(searchResults) { product in
-                        Button {
-                            select(product)
-                        } label: {
-                            HStack {
-                                Text(product.name)
-                                    .foregroundStyle(.primary)
-                                Spacer()
-                                if selectedProduct == product {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .foregroundStyle(Color.appAccent)
-                                }
-                                Text("\(Int(product.kcalPer100g.rounded())) kcal/100g")
-                                    .font(.footnote)
-                                    .foregroundStyle(.secondary)
-                            }
-                        }
+                        productRow(product)
+                    }
+                } else if !recentFoods.isEmpty {
+                    sectionLabel("ZULETZT")
+                    ForEach(recentFoods) { food in
+                        recentRow(food)
                     }
                 }
-                if selectedProduct != nil {
-                    Section("Menge") {
-                        HStack {
-                            TextField("100", text: $gramsText)
-                                .keyboardType(.numberPad)
-                            Text("g")
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                }
-                Section("Lebensmittel") {
-                    TextField("Name (z.B. Zopf mit Butter)", text: $name)
-                    TextField("Kalorien (kcal)", text: $caloriesText)
-                        .keyboardType(.numberPad)
-                }
-                Section("Makros (optional)") {
-                    TextField("Protein (g)", text: $proteinText)
-                        .keyboardType(.decimalPad)
-                    TextField("Kohlenhydrate (g)", text: $carbsText)
-                        .keyboardType(.decimalPad)
-                    TextField("Fett (g)", text: $fatText)
-                        .keyboardType(.decimalPad)
-                }
-                if !recentFoods.isEmpty {
-                    Section("Zuletzt geloggt") {
-                        ForEach(recentFoods) { food in
-                            Button {
-                                name = food.name
-                                caloriesText = "\(food.calories)"
-                                proteinText = food.proteinG > 0 ? String(format: "%.0f", food.proteinG) : ""
-                                carbsText = food.carbsG > 0 ? String(format: "%.0f", food.carbsG) : ""
-                                fatText = food.fatG > 0 ? String(format: "%.0f", food.fatG) : ""
-                            } label: {
-                                HStack {
-                                    Text(food.name)
-                                        .foregroundStyle(.primary)
-                                    Spacer()
-                                    Text("\(food.calories) kcal")
-                                        .foregroundStyle(.secondary)
-                                }
-                            }
-                        }
-                    }
-                }
+                manualCard
             }
-            .navigationTitle(meal.label)
-            .navigationBarTitleDisplayMode(.inline)
-            .onChange(of: gramsText) { applyPortion() }
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Abbrechen") { dismiss() }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Hinzufügen") { save() }
-                        .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty || calories == nil)
+            .padding(20)
+        }
+        .background(Theme.background)
+    }
+
+    // MARK: - Header & search
+
+    private var header: some View {
+        HStack(spacing: 12) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "chevron.down")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(Theme.ink)
+                    .frame(width: 38, height: 38)
+                    .background(Theme.card, in: Circle())
+                    .shadow(color: Theme.ink.opacity(0.05), radius: 5, y: 2)
+            }
+            .buttonStyle(.plain)
+            Text("Essen hinzufügen")
+                .font(.system(.title2, design: .rounded).bold())
+                .foregroundStyle(Theme.ink)
+            Spacer()
+        }
+    }
+
+    private var searchField: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "magnifyingglass")
+                .foregroundStyle(.secondary)
+            TextField("Lebensmittel suchen...", text: $query)
+                .autocorrectionDisabled()
+        }
+        .padding(14)
+        .background(Theme.card, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+    }
+
+    private var mealChips: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(MealType.allCases) { type in
+                    Button {
+                        withAnimation(.snappy) { meal = type }
+                    } label: {
+                        Text(type.label)
+                            .font(.subheadline.weight(.semibold))
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 9)
+                            .background(meal == type ? Theme.ink : Theme.card, in: Capsule())
+                            .foregroundStyle(meal == type ? Theme.onAccent : .secondary)
+                    }
+                    .buttonStyle(.plain)
                 }
             }
         }
     }
 
-    private func select(_ product: FoodProduct) {
-        selectedProduct = product
-        name = product.displayName
-        applyPortion()
+    // MARK: - Scan banner
+
+    private var scanBanner: some View {
+        Button {
+            dismiss()
+            TabRouter.shared.selection = 2
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "barcode.viewfinder")
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .frame(width: 44, height: 44)
+                    .background(.white.opacity(0.25), in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Scanne dein Essen")
+                        .font(.headline)
+                    Text("Barcode scannen, in Sekunden geloggt")
+                        .font(.caption)
+                        .opacity(0.9)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.subheadline.weight(.bold))
+            }
+            .foregroundStyle(.white)
+            .padding(14)
+            .background(
+                LinearGradient(colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                               startPoint: .topLeading, endPoint: .bottomTrailing),
+                in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .shadow(color: Theme.accent.opacity(0.35), radius: 10, y: 4)
+        }
+        .buttonStyle(.plain)
     }
 
-    /// Recomputes calories and macros from the selected product and gram amount.
-    private func applyPortion() {
-        guard let product = selectedProduct else { return }
-        let grams = Double(gramsText.replacingOccurrences(of: ",", with: ".")) ?? 0
-        caloriesText = "\(product.kcal(for: grams))"
-        proteinText = String(format: "%.1f", product.protein(for: grams))
-        carbsText = String(format: "%.1f", product.carbs(for: grams))
-        fatText = String(format: "%.1f", product.fat(for: grams))
+    // MARK: - Rows
+
+    private func sectionLabel(_ text: String) -> some View {
+        Text(text)
+            .font(.caption.weight(.bold))
+            .foregroundStyle(.secondary)
+            .padding(.leading, 4)
     }
 
-    private func save() {
-        guard let kcal = calories else { return }
-        let entry = FoodEntry(
-            day: day, meal: meal,
-            name: name.trimmingCharacters(in: .whitespaces),
-            calories: kcal,
-            proteinG: Double(proteinText.replacingOccurrences(of: ",", with: ".")) ?? 0,
-            carbsG: Double(carbsText.replacingOccurrences(of: ",", with: ".")) ?? 0,
-            fatG: Double(fatText.replacingOccurrences(of: ",", with: ".")) ?? 0)
+    private static let thumbColors: [Color] = [
+        Color(red: 0.99, green: 0.87, blue: 0.6),
+        Color(red: 0.78, green: 0.92, blue: 0.66),
+        Color(red: 1.0, green: 0.8, blue: 0.79),
+        Color(red: 0.75, green: 0.87, blue: 0.99),
+        Color(red: 0.93, green: 0.83, blue: 0.99),
+    ]
+
+    private func thumbColor(for name: String) -> Color {
+        var hash: UInt64 = 5381
+        for byte in name.utf8 {
+            hash = hash &* 33 &+ UInt64(byte)
+        }
+        return Self.thumbColors[Int(hash % UInt64(Self.thumbColors.count))]
+    }
+
+    private func foodRow(name: String, subtitle: String, added: Bool, action: @escaping () -> Void) -> some View {
+        HStack(spacing: 12) {
+            RoundedRectangle(cornerRadius: 13, style: .continuous)
+                .fill(thumbColor(for: name))
+                .frame(width: 44, height: 44)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(name)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.ink)
+                    .lineLimit(1)
+                Text(subtitle)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            Button(action: action) {
+                Image(systemName: added ? "checkmark" : "plus")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(added ? Theme.onAccent : Color.appAccent)
+                    .frame(width: 32, height: 32)
+                    .background(added ? AnyShapeStyle(Theme.accent) : AnyShapeStyle(Theme.accentSoft),
+                                in: Circle())
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(12)
+        .background(Theme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+    }
+
+    private func productRow(_ product: FoodProduct) -> some View {
+        foodRow(name: product.name,
+                subtitle: "100 g · \(Int(product.kcalPer100g.rounded())) kcal",
+                added: justAdded == product.id) {
+            add(name: product.displayName,
+                calories: product.kcal(for: 100),
+                protein: product.protein(for: 100),
+                carbs: product.carbs(for: 100),
+                fat: product.fat(for: 100),
+                flashID: product.id)
+        }
+    }
+
+    private func recentRow(_ food: FoodEntry) -> some View {
+        foodRow(name: food.name,
+                subtitle: "\(food.calories) kcal",
+                added: justAdded == food.name) {
+            add(name: food.name,
+                calories: food.calories,
+                protein: food.proteinG,
+                carbs: food.carbsG,
+                fat: food.fatG,
+                flashID: food.name)
+        }
+    }
+
+    // MARK: - Manual entry
+
+    private var manualCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            sectionLabel("EIGENES LEBENSMITTEL")
+            VStack(spacing: 10) {
+                TextField("Name (z.B. Zopf mit Butter)", text: $manualName)
+                    .padding(12)
+                    .background(Theme.field, in: RoundedRectangle(cornerRadius: 12))
+                HStack(spacing: 10) {
+                    TextField("Kalorien", text: $manualKcal)
+                        .keyboardType(.numberPad)
+                        .padding(12)
+                        .background(Theme.field, in: RoundedRectangle(cornerRadius: 12))
+                    Button {
+                        addManual()
+                    } label: {
+                        Text("Hinzufügen")
+                            .font(.subheadline.weight(.bold))
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 12)
+                            .background(Theme.accent, in: Capsule())
+                            .foregroundStyle(Theme.onAccent)
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(manualName.trimmingCharacters(in: .whitespaces).isEmpty || Int(manualKcal) == nil)
+                    .opacity(manualName.trimmingCharacters(in: .whitespaces).isEmpty || Int(manualKcal) == nil ? 0.5 : 1)
+                }
+            }
+            .padding(14)
+            .background(Theme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+            .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+        }
+    }
+
+    // MARK: - Saving
+
+    private func add(name: String, calories: Int, protein: Double, carbs: Double, fat: Double, flashID: String) {
+        let entry = FoodEntry(day: day, meal: meal, name: name, calories: calories,
+                              proteinG: protein, carbsG: carbs, fatG: fat)
         context.insert(entry)
-        dismiss()
+        withAnimation(.snappy) { justAdded = flashID }
+        Task {
+            try? await Task.sleep(for: .seconds(1.2))
+            withAnimation { justAdded = nil }
+        }
+    }
+
+    private func addManual() {
+        guard let kcal = Int(manualKcal) else { return }
+        add(name: manualName.trimmingCharacters(in: .whitespaces),
+            calories: kcal, protein: 0, carbs: 0, fat: 0, flashID: "manual")
+        manualName = ""
+        manualKcal = ""
     }
 }
