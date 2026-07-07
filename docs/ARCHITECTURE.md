@@ -1,0 +1,43 @@
+# Architecture
+
+Znüni is a native SwiftUI app, iOS 17+, built local first. There is no backend: personal data lives in SwiftData on the device, and the only network calls are barcode lookups against Open Food Facts.
+
+## Module layout
+
+```
+Znueni/
+  App/        Entry point, root navigation, custom tab bar, debug launch args
+  Core/       UI-free logic and shared UI primitives
+    CalorieMath.swift      BMI, ideal weight, BMR/TDEE, MET calculations
+    Theme.swift            Design tokens (Munch palette)
+    SharedUI.swift         Card, ValueField, BigValueField, ResultNumber
+    Food/                  FoodProduct, Open Food Facts client, Swiss food list
+    Health/                HealthKitService (steps, active energy, weight)
+    Battles/               Challenge model, score engine, sync services
+  Features/   One folder per screen area (Diary, Scanner, Calculators,
+              Battles, Progress, Profile, Onboarding)
+  Models/     SwiftData models and shared enums
+  Resources/  swiss_foods.json (bundled offline food list)
+```
+
+## Data model (SwiftData)
+
+- `UserProfile`: body data, activity level, goal, computed daily calorie target
+- `FoodEntry`: one logged food per meal and day, calories plus macros
+- `WeightEntry`: weight history for the progress chart
+- `WaterDay`: glasses of water per day
+- `Challenge`: battle metadata plus participants stored as JSON data
+
+Enums (`Sex`, `ActivityLevel`, `Goal`, `MealType`, `BattleMetric`) are stored as raw strings for painless SwiftData persistence.
+
+## Key decisions
+
+- **XcodeGen** generates the Xcode project from `project.yml`. Generated files (`Znueni.xcodeproj`, `Info.plist`, `Znueni.entitlements`) are gitignored.
+- **CalorieMath is UI-free** so the battle score engine reuses the same formulas.
+- **Battles are backend-less**: participants meet via a 6-character join code. `ChallengeSyncService` has two implementations: `LocalChallengeService` (deterministic demo opponents) and `CloudKitChallengeService` (public database records, one per score per day). The flag `AppConfig.cloudKitEnabled` selects between them; enabling CloudKit also requires the iCloud entitlement and a paid Apple Developer account.
+- **Food data**: barcode lookups hit the Swiss Open Food Facts instance and prefer German product names. Generic foods come from a curated 107-item JSON bundled with the app. A full import of the Swiss food composition database can replace the JSON later.
+- **Theme tokens** in `Theme.swift` carry the whole design. The app is pinned to light mode because the design language is light.
+
+## Design language
+
+The UI follows the "Munch" concept (see the design export in the repo root): warm cream background, soft white cards with large radii, coral accent with white text, peach chips, SF Rounded type, a floating pill tab bar with a raised scan button, and one question per screen in onboarding.

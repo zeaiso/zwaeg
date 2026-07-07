@@ -1,0 +1,45 @@
+# Development
+
+## Building
+
+```sh
+brew install xcodegen
+xcodegen generate
+xcodebuild -project Znueni.xcodeproj -scheme Znueni \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
+```
+
+Or open `Znueni.xcodeproj` in Xcode and hit Run. Regenerate the project with `xcodegen generate` whenever files are added or removed or `project.yml` changes.
+
+## Debug launch arguments
+
+Useful for driving the app from the CLI or Xcode scheme arguments:
+
+| Argument | Effect |
+|---|---|
+| `-seed-profile` | Creates a test profile with weight history and a demo battle when no profile exists |
+| `-tab <0-4>` | Opens a specific tab (0 diary, 1 battles, 2 scanner, 3 calculators, 4 profile) |
+| `-onboarding-body` | Jumps onboarding straight to the age question |
+| `-open-progress` | Auto-navigates to the progress screen (combine with `-tab 4`) |
+| `-open-battle` | Opens the first active battle (combine with `-tab 1`) |
+| `-demo-product` | Opens the meal detail sheet with a sample product (combine with `-tab 2`) |
+
+Example:
+
+```sh
+xcrun simctl launch "iPhone 17 Pro" ch.emanuell.znueni -seed-profile -tab 2 -demo-product
+```
+
+## Simulator notes
+
+- The simulator has no camera; the scanner shows a manual barcode entry fallback. Verified test barcode: `7610036010305` (Villars chocolate).
+- The Health store is empty in the simulator; steps and active energy read 0. Add samples in the simulator Health app to test the flow.
+- Downloaded simulator runtimes may lack the color emoji font. The UI uses SF Symbols for anything meaningful.
+- Screenshots: `xcrun simctl io "iPhone 17 Pro" screenshot out.png`
+
+## Conventions
+
+- German UI strings with Swiss spelling (Grösse, Mässig). Code, comments and docs in English.
+- No en or em dashes in any text; use plain hyphens or rephrase.
+- Design tokens live in `Core/Theme.swift`; do not hardcode colors in views unless they are one-off semantic colors.
+- Commit each logical unit separately, right when it is done and verified.
