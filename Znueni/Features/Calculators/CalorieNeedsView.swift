@@ -34,9 +34,9 @@ struct CalorieNeedsView: View {
                             }
                         }
                         .pickerStyle(.segmented)
-                        ValueSlider(title: "Alter", value: $age, range: 14...99, step: 1, unit: "Jahre")
-                        ValueSlider(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
-                        ValueSlider(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
+                        ValueField(title: "Alter", value: $age, range: 14...99, step: 1, unit: "Jahre")
+                        ValueField(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
+                        ValueField(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
                         Picker("Aktivität", selection: $activity) {
                             ForEach(ActivityLevel.allCases) { level in
                                 Text(level.label).tag(level)

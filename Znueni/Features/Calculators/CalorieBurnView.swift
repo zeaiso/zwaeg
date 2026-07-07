@@ -33,8 +33,8 @@ struct CalorieBurnView: View {
 
                 Card {
                     VStack(spacing: 20) {
-                        ValueSlider(title: "Dauer", value: $minutes, range: 5...240, step: 5, unit: "Min")
-                        ValueSlider(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
+                        ValueField(title: "Dauer", value: $minutes, range: 5...240, step: 5, unit: "Min")
+                        ValueField(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
                     }
                 }
 

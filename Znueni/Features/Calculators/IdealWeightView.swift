@@ -24,7 +24,7 @@ struct IdealWeightView: View {
                             }
                         }
                         .pickerStyle(.segmented)
-                        ValueSlider(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
+                        ValueField(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
                     }
                 }
 

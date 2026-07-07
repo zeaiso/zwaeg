@@ -5,10 +5,10 @@ struct OnboardingView: View {
     @Environment(\.modelContext) private var context
 
     private enum Step: Int, CaseIterable {
-        case welcome, name, sex, body, activity, goal, result
+        case welcome, name, sex, age, height, weight, activity, goal, result
     }
 
-    @State private var step: Step = CommandLine.arguments.contains("-onboarding-body") ? .body : .welcome
+    @State private var step: Step = CommandLine.arguments.contains("-onboarding-body") ? .age : .welcome
     @State private var name = ""
     @State private var sex: Sex = .male
     @State private var age = 30.0
@@ -36,7 +36,9 @@ struct OnboardingView: View {
                 case .welcome: welcome
                 case .name: nameStep
                 case .sex: sexStep
-                case .body: bodyStep
+                case .age: ageStep
+                case .height: heightStep
+                case .weight: weightStep
                 case .activity: activityStep
                 case .goal: goalStep
                 case .result: resultStep
@@ -108,16 +110,31 @@ struct OnboardingView: View {
         }
     }
 
-    private var bodyStep: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            stepTitle("Dein Körper")
-            Card {
-                VStack(spacing: 20) {
-                    ValueSlider(title: "Alter", value: $age, range: 14...99, step: 1, unit: "Jahre")
-                    ValueSlider(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
-                    ValueSlider(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
-                }
-            }
+    private var ageStep: some View {
+        questionStep("Wie alt bist du?") {
+            BigValueField(value: $age, range: 14...99, step: 1, unit: "Jahre")
+        }
+    }
+
+    private var heightStep: some View {
+        questionStep("Wie gross bist du?") {
+            BigValueField(value: $heightCm, range: 130...220, step: 1, unit: "cm")
+        }
+    }
+
+    private var weightStep: some View {
+        questionStep("Wie viel wiegst du?") {
+            BigValueField(value: $weightKg, range: 40...200, step: 0.5, unit: "kg", fractionDigits: 1)
+        }
+    }
+
+    private func questionStep<Content: View>(_ title: String,
+                                             @ViewBuilder content: () -> Content) -> some View {
+        VStack(spacing: 40) {
+            stepTitle(title)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            content()
+            Spacer(minLength: 0)
         }
     }
 

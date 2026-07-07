@@ -55,10 +55,10 @@ struct CalorieRingView: View {
     }
 }
 
-// MARK: - Value slider row
+// MARK: - Value input rows
 
-/// Slider with a tappable number field, so values can be typed directly.
-struct ValueSlider: View {
+/// Compact row with a typeable number field: title left, value and unit right.
+struct ValueField: View {
     let title: String
     @Binding var value: Double
     let range: ClosedRange<Double>
@@ -73,30 +73,27 @@ struct ValueSlider: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack {
-                Text(title)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                Spacer()
-                TextField("", value: clampedValue,
-                          format: .number.precision(.fractionLength(0...fractionDigits)))
-                    .keyboardType(fractionDigits == 0 ? .numberPad : .decimalPad)
-                    .focused($isFocused)
-                    .multilineTextAlignment(.center)
-                    .font(.system(.body, design: .rounded).weight(.semibold))
-                    .frame(width: 72)
-                    .padding(.vertical, 6)
-                    .background(Color(.tertiarySystemGroupedBackground),
-                                in: RoundedRectangle(cornerRadius: 10))
-                    .overlay(RoundedRectangle(cornerRadius: 10)
-                        .stroke(isFocused ? Color.appAccent : .clear, lineWidth: 1.5))
-                Text(unit)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-            Slider(value: $value, in: range, step: step)
-                .tint(.appAccent)
+        HStack {
+            Text(title)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+            Spacer()
+            TextField("", value: clampedValue,
+                      format: .number.precision(.fractionLength(0...fractionDigits)))
+                .keyboardType(fractionDigits == 0 ? .numberPad : .decimalPad)
+                .focused($isFocused)
+                .multilineTextAlignment(.center)
+                .font(.system(.title3, design: .rounded).weight(.semibold))
+                .frame(width: 84)
+                .padding(.vertical, 8)
+                .background(Color(.tertiarySystemGroupedBackground),
+                            in: RoundedRectangle(cornerRadius: 12))
+                .overlay(RoundedRectangle(cornerRadius: 12)
+                    .stroke(isFocused ? Color.appAccent : .clear, lineWidth: 1.5))
+            Text(unit)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .frame(minWidth: 34, alignment: .leading)
         }
         .toolbar {
             if isFocused {
@@ -109,7 +106,59 @@ struct ValueSlider: View {
         }
     }
 
-    /// Typed values snap to the slider's step and stay inside the range.
+    private var clampedValue: Binding<Double> {
+        Binding(
+            get: { value },
+            set: { newValue in
+                let clamped = min(max(newValue, range.lowerBound), range.upperBound)
+                value = (clamped / step).rounded() * step
+            })
+    }
+}
+
+/// Large centered number input for one-question-per-screen flows.
+struct BigValueField: View {
+    @Binding var value: Double
+    let range: ClosedRange<Double>
+    let step: Double
+    let unit: String
+    var fractionDigits: Int = 0
+
+    @FocusState private var isFocused: Bool
+
+    var body: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 12) {
+            TextField("", value: clampedValue,
+                      format: .number.precision(.fractionLength(0...fractionDigits)))
+                .keyboardType(fractionDigits == 0 ? .numberPad : .decimalPad)
+                .focused($isFocused)
+                .multilineTextAlignment(.center)
+                .font(.system(size: 56, weight: .bold, design: .rounded))
+                .frame(width: 190)
+                .padding(.vertical, 10)
+                .background(Color(.secondarySystemGroupedBackground),
+                            in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+                .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .stroke(isFocused ? Color.appAccent : Color(.systemGray4), lineWidth: 2))
+            Text(unit)
+                .font(.title2.weight(.medium))
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .onAppear {
+            isFocused = true
+        }
+        .toolbar {
+            if isFocused {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Fertig") { isFocused = false }
+                        .fontWeight(.semibold)
+                }
+            }
+        }
+    }
+
     private var clampedValue: Binding<Double> {
         Binding(
             get: { value },

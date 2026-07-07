@@ -18,8 +18,8 @@ struct BMICalculatorView: View {
             VStack(spacing: 16) {
                 Card {
                     VStack(spacing: 20) {
-                        ValueSlider(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
-                        ValueSlider(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
+                        ValueField(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
+                        ValueField(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
                     }
                 }
 

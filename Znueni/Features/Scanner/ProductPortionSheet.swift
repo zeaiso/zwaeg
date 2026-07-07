@@ -84,7 +84,7 @@ struct ProductPortionSheet: View {
                         macroLine("Fett", product.fat(for: grams))
                     }
                 }
-                ValueSlider(title: "Menge", value: $grams, range: 5...500, step: 5, unit: "g")
+                ValueField(title: "Menge", value: $grams, range: 5...500, step: 5, unit: "g")
                 HStack(spacing: 8) {
                     ForEach([25.0, 50, 100, 150, 200, 300], id: \.self) { amount in
                         Button("\(Int(amount))") {
