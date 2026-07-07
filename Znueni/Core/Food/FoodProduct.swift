@@ -16,6 +16,8 @@ struct FoodProduct: Identifiable, Hashable {
     let fatPer100g: Double
     let barcode: String?
     let source: Source
+    /// Grams per serving when the source provides it; UI falls back to 100 g.
+    var servingGrams: Double? = nil
 
     var displayName: String {
         if let brand, !brand.isEmpty, !name.localizedCaseInsensitiveContains(brand) {

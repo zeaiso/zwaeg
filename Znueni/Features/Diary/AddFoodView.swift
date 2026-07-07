@@ -15,6 +15,7 @@ struct AddFoodView: View {
     @State private var query = ""
     @State private var justAdded: String?
     @State private var showManual = false
+    @State private var detailProduct: FoodProduct?
 
     @State private var manualName = ""
     @State private var manualKcal = ""
@@ -58,6 +59,10 @@ struct AddFoodView: View {
         }
         .background(Theme.background)
         .toolbar(.hidden, for: .navigationBar)
+        .sheet(item: $detailProduct) { product in
+            ProductPortionSheet(product: product, day: day, initialMeal: meal)
+                .presentationDetents([.large])
+        }
     }
 
     // MARK: - Header & search
@@ -214,21 +219,27 @@ struct AddFoodView: View {
         return Self.thumbColors[Int(hash % UInt64(Self.thumbColors.count))]
     }
 
-    private func foodRow(name: String, subtitle: String, added: Bool, action: @escaping () -> Void) -> some View {
+    private func foodRow(name: String, subtitle: String, added: Bool,
+                         onOpen: @escaping () -> Void, action: @escaping () -> Void) -> some View {
         HStack(spacing: 12) {
-            RoundedRectangle(cornerRadius: 13, style: .continuous)
-                .fill(thumbColor(for: name))
-                .frame(width: 44, height: 44)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(name)
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(Theme.ink)
-                    .lineLimit(1)
-                Text(subtitle)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+            Button(action: onOpen) {
+                HStack(spacing: 12) {
+                    RoundedRectangle(cornerRadius: 13, style: .continuous)
+                        .fill(thumbColor(for: name))
+                        .frame(width: 44, height: 44)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(name)
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(Theme.ink)
+                            .lineLimit(1)
+                        Text(subtitle)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                }
             }
-            Spacer()
+            .buttonStyle(.plain)
             Button(action: action) {
                 Image(systemName: added ? "checkmark" : "plus")
                     .font(.subheadline.weight(.bold))
@@ -247,7 +258,8 @@ struct AddFoodView: View {
     private func productRow(_ product: FoodProduct) -> some View {
         foodRow(name: product.name,
                 subtitle: "100 g · \(Int(product.kcalPer100g.rounded())) kcal",
-                added: justAdded == product.id) {
+                added: justAdded == product.id,
+                onOpen: { detailProduct = product }) {
             add(name: product.displayName,
                 calories: product.kcal(for: 100),
                 protein: product.protein(for: 100),

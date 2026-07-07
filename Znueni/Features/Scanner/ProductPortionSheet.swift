@@ -1,15 +1,27 @@
 import SwiftUI
 import SwiftData
 
-/// Munch-style meal detail: portion, big calorie number, macro tiles, add button.
+/// Munch-style product detail: servings stepper, big calorie card,
+/// macro tiles and an add button for the target meal.
 struct ProductPortionSheet: View {
     let product: FoodProduct
+    var day: Date = Calendar.current.startOfDay(for: .now)
+    var initialMeal: MealType?
 
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
 
-    @State private var grams = 100.0
-    @State private var meal: MealType = ProductPortionSheet.defaultMeal()
+    @State private var servings = 1.0
+    @State private var meal: MealType = .breakfast
+
+    /// Grams behind one serving; database items default to 100 g.
+    private var servingGrams: Double {
+        product.servingGrams ?? 100
+    }
+
+    private var totalGrams: Double {
+        servingGrams * servings
+    }
 
     private static func defaultMeal(now: Date = .now) -> MealType {
         switch Calendar.current.component(.hour, from: now) {
@@ -24,105 +36,145 @@ struct ProductPortionSheet: View {
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    grabber
+                VStack(alignment: .leading, spacing: 18) {
                     titleBlock
-                    calorieBlock
-                    portionBlock
+                    servingsRow
+                    calorieCard
                     macroTiles
-                    mealPicker
+                    mealChips
                 }
                 .padding(20)
             }
             addButton
         }
         .background(Theme.background)
-    }
-
-    private var grabber: some View {
-        Capsule()
-            .fill(Theme.field)
-            .frame(width: 44, height: 5)
-            .frame(maxWidth: .infinity)
-    }
-
-    private var titleBlock: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(product.displayName)
-                .font(.system(.title2, design: .rounded).bold())
-                .foregroundStyle(Theme.ink)
-            HStack(spacing: 8) {
-                Label(product.source == .openFoodFacts ? "Open Food Facts" : "Schweizer Lebensmittel",
-                      systemImage: product.source == .openFoodFacts ? "barcode" : "mountain.2.fill")
-                    .font(.caption.weight(.semibold))
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(Theme.accentSoft, in: Capsule())
-                    .foregroundStyle(Color.appAccent)
-                Text("\(Int(product.kcalPer100g.rounded())) kcal / 100 g")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
+        .onAppear {
+            meal = initialMeal ?? Self.defaultMeal()
         }
     }
 
-    private var calorieBlock: some View {
-        HStack(alignment: .firstTextBaseline, spacing: 8) {
-            Text("\(product.kcal(for: grams))")
-                .font(.system(size: 54, weight: .bold, design: .rounded))
+    // MARK: - Title
+
+    private var titleBlock: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Capsule()
+                .fill(Theme.field)
+                .frame(width: 44, height: 5)
+                .frame(maxWidth: .infinity)
+                .padding(.bottom, 6)
+            Text(product.name)
+                .font(.system(.title, design: .rounded).bold())
                 .foregroundStyle(Theme.ink)
-                .contentTransition(.numericText())
-            Text("Kalorien pro Portion")
+            Text(subtitle)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
     }
 
-    private var portionBlock: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Portion")
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(Theme.ink)
-            HStack(spacing: 8) {
-                ForEach([25.0, 50, 100, 150, 200, 300], id: \.self) { amount in
-                    Button("\(Int(amount))") {
-                        withAnimation(.snappy) { grams = amount }
-                    }
-                    .font(.footnote.weight(.bold))
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
-                    .background(grams == amount ? Theme.accent : Theme.card, in: Capsule())
-                    .foregroundStyle(grams == amount ? Theme.onAccent : Theme.ink)
-                    .buttonStyle(.plain)
-                    .shadow(color: Theme.ink.opacity(0.04), radius: 4, y: 2)
-                }
-            }
-            ValueField(title: "Menge", value: $grams, range: 5...1000, step: 5, unit: "g")
-                .padding(14)
-                .background(Theme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+    private var subtitle: String {
+        var parts: [String] = []
+        if let brand = product.brand, !brand.isEmpty {
+            parts.append(brand)
         }
+        parts.append(product.source == .openFoodFacts ? "Open Food Facts" : "Schweizer Lebensmittel")
+        parts.append("1 Portion = \(Int(servingGrams.rounded())) g")
+        return parts.joined(separator: " · ")
     }
+
+    // MARK: - Servings
+
+    private var servingsRow: some View {
+        HStack {
+            Text("Portionen")
+                .font(.headline)
+                .foregroundStyle(Theme.ink)
+            Spacer()
+            Button {
+                withAnimation(.snappy) { servings = max(0.5, servings - 0.5) }
+            } label: {
+                Image(systemName: "minus")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(Theme.ink)
+                    .frame(width: 34, height: 34)
+                    .background(Theme.accentSoft, in: Circle())
+            }
+            .buttonStyle(.plain)
+            Text(servingsLabel)
+                .font(.system(.title3, design: .rounded).bold())
+                .foregroundStyle(Theme.ink)
+                .frame(minWidth: 44)
+                .contentTransition(.numericText())
+            Button {
+                withAnimation(.snappy) { servings = min(10, servings + 0.5) }
+            } label: {
+                Image(systemName: "plus")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(Theme.onAccent)
+                    .frame(width: 34, height: 34)
+                    .background(Theme.ink, in: Circle())
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(16)
+        .background(Theme.card, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .shadow(color: Theme.ink.opacity(0.04), radius: 8, y: 3)
+    }
+
+    private var servingsLabel: String {
+        servings.truncatingRemainder(dividingBy: 1) == 0
+            ? "\(Int(servings))"
+            : String(format: "%.1f", servings)
+    }
+
+    // MARK: - Calories
+
+    private var calorieCard: some View {
+        VStack(spacing: 4) {
+            Text("\(product.kcal(for: servingGrams))")
+                .font(.system(size: 52, weight: .bold, design: .rounded))
+                .foregroundStyle(.white)
+            Text("Kalorien pro Portion")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.white.opacity(0.9))
+            if servings != 1 {
+                Text("\(servingsLabel) Portionen · \(product.kcal(for: totalGrams)) kcal gesamt")
+                    .font(.caption)
+                    .foregroundStyle(.white.opacity(0.85))
+                    .padding(.top, 2)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 26)
+        .background(
+            LinearGradient(colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                           startPoint: .topLeading, endPoint: .bottomTrailing),
+            in: RoundedRectangle(cornerRadius: 26, style: .continuous))
+        .shadow(color: Theme.accent.opacity(0.35), radius: 12, y: 5)
+    }
+
+    // MARK: - Macros
 
     private var macroTiles: some View {
         HStack(spacing: 12) {
-            macroTile("\(format(product.protein(for: grams)))g", "Protein", Color(red: 1.0, green: 0.42, blue: 0.29))
-            macroTile("\(format(product.carbs(for: grams)))g", "Kohlenhydrate", Color(red: 0.42, green: 0.36, blue: 0.91))
-            macroTile("\(format(product.fat(for: grams)))g", "Fett", Color(red: 0.24, green: 0.68, blue: 1.0))
+            macroTile(product.protein(for: totalGrams), "Protein", Theme.accent)
+            macroTile(product.carbs(for: totalGrams), "Kohlenhydrate", Color(red: 1.0, green: 0.72, blue: 0.25))
+            macroTile(product.fat(for: totalGrams), "Fett", Color(red: 0.52, green: 0.48, blue: 0.95))
         }
     }
 
-    private func format(_ value: Double) -> String {
-        value < 10 ? String(format: "%.1f", value) : "\(Int(value.rounded()))"
-    }
-
-    private func macroTile(_ value: String, _ label: String, _ color: Color) -> some View {
-        VStack(spacing: 4) {
-            Text(value)
-                .font(.system(.title3, design: .rounded).bold())
-                .foregroundStyle(color)
+    private func macroTile(_ grams: Double, _ label: String, _ color: Color) -> some View {
+        VStack(spacing: 8) {
+            Circle()
+                .fill(color)
+                .frame(width: 10, height: 10)
+                .frame(width: 34, height: 34)
+                .background(color.opacity(0.14), in: RoundedRectangle(cornerRadius: 11, style: .continuous))
+            Text("\(formatGrams(grams))g")
+                .font(.system(.body, design: .rounded).bold())
+                .foregroundStyle(Theme.ink)
                 .contentTransition(.numericText())
             Text(label)
-                .font(.caption2.weight(.medium))
+                .font(.caption2)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
@@ -133,36 +185,34 @@ struct ProductPortionSheet: View {
         .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
     }
 
-    private var mealPicker: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("Mahlzeit")
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(Theme.ink)
-            HStack(spacing: 8) {
-                ForEach(MealType.allCases) { type in
-                    Button {
-                        withAnimation(.snappy) { meal = type }
-                    } label: {
-                        VStack(spacing: 4) {
-                            Image(systemName: type.symbol)
-                            Text(type.label)
-                                .font(.caption2.weight(.medium))
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.7)
-                        }
+    private func formatGrams(_ value: Double) -> String {
+        value < 10 ? String(format: "%.1f", value) : "\(Int(value.rounded()))"
+    }
+
+    // MARK: - Meal selection
+
+    private var mealChips: some View {
+        HStack(spacing: 8) {
+            ForEach(MealType.allCases) { type in
+                Button {
+                    withAnimation(.snappy) { meal = type }
+                } label: {
+                    Text(type.label)
+                        .font(.caption.weight(.semibold))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.75)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                        .background(meal == type ? Theme.accentSoft : Theme.card,
-                                    in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                        .foregroundStyle(meal == type ? Color.appAccent : .secondary)
-                        .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
-                            .stroke(meal == type ? Color.appAccent.opacity(0.5) : .clear, lineWidth: 1.5))
-                    }
-                    .buttonStyle(.plain)
+                        .background(meal == type ? Theme.ink : Theme.card, in: Capsule())
+                        .foregroundStyle(meal == type ? Theme.onAccent : .secondary)
                 }
+                .buttonStyle(.plain)
             }
         }
     }
+
+    // MARK: - Add
 
     private var addButton: some View {
         Button {
@@ -172,8 +222,12 @@ struct ProductPortionSheet: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
-                .background(Theme.accent, in: Capsule())
+                .background(
+                    LinearGradient(colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                                   startPoint: .leading, endPoint: .trailing),
+                    in: Capsule())
                 .foregroundStyle(Theme.onAccent)
+                .shadow(color: Theme.accent.opacity(0.35), radius: 10, y: 4)
         }
         .buttonStyle(.plain)
         .padding(.horizontal, 20)
@@ -184,12 +238,12 @@ struct ProductPortionSheet: View {
 
     private func save() {
         let entry = FoodEntry(
-            day: .now, meal: meal,
+            day: day, meal: meal,
             name: product.displayName,
-            calories: product.kcal(for: grams),
-            proteinG: product.protein(for: grams),
-            carbsG: product.carbs(for: grams),
-            fatG: product.fat(for: grams))
+            calories: product.kcal(for: totalGrams),
+            proteinG: product.protein(for: totalGrams),
+            carbsG: product.carbs(for: totalGrams),
+            fatG: product.fat(for: totalGrams))
         context.insert(entry)
         dismiss()
     }

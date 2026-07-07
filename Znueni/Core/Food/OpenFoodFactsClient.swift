@@ -20,7 +20,7 @@ enum OpenFoodFactsClient {
         let digits = barcode.filter(\.isNumber)
         guard (6...14).contains(digits.count) else { throw LookupError.invalidBarcode }
 
-        let fields = "product_name,product_name_de,brands,nutriments"
+        let fields = "product_name,product_name_de,brands,nutriments,serving_quantity"
         guard let url = URL(string: "https://ch.openfoodfacts.org/api/v2/product/\(digits)?fields=\(fields)") else {
             throw LookupError.invalidBarcode
         }
@@ -59,7 +59,8 @@ enum OpenFoodFactsClient {
             carbsPer100g: nutriments?.carbohydrates100g ?? 0,
             fatPer100g: nutriments?.fat100g ?? 0,
             barcode: digits,
-            source: .openFoodFacts)
+            source: .openFoodFacts,
+            servingGrams: product.servingQuantity.flatMap { $0 > 0 ? $0 : nil })
     }
 
     // MARK: - Response types
@@ -74,12 +75,29 @@ enum OpenFoodFactsClient {
         let productNameDe: String?
         let brands: String?
         let nutriments: OFFNutriments?
+        let servingQuantity: Double?
 
         enum CodingKeys: String, CodingKey {
             case productName = "product_name"
             case productNameDe = "product_name_de"
             case brands
             case nutriments
+            case servingQuantity = "serving_quantity"
+        }
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            productName = try? container.decode(String.self, forKey: .productName)
+            productNameDe = try? container.decode(String.self, forKey: .productNameDe)
+            brands = try? container.decode(String.self, forKey: .brands)
+            nutriments = try? container.decode(OFFNutriments.self, forKey: .nutriments)
+            if let value = try? container.decode(Double.self, forKey: .servingQuantity) {
+                servingQuantity = value
+            } else if let text = try? container.decode(String.self, forKey: .servingQuantity) {
+                servingQuantity = Double(text)
+            } else {
+                servingQuantity = nil
+            }
         }
     }
 
