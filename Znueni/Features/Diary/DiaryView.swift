@@ -9,6 +9,9 @@ struct DiaryView: View {
 
     @State private var selectedDay = Calendar.current.startOfDay(for: .now)
     @State private var addSheetMeal: MealType?
+    @State private var activity = HealthKitService.DayActivity()
+
+    private var health: HealthKitService { HealthKitService.shared }
 
     private var dayEntries: [FoodEntry] {
         allEntries.filter { $0.day == selectedDay }
@@ -23,6 +26,9 @@ struct DiaryView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     summaryCard
+                    if HealthKitService.isAvailable {
+                        activityCard
+                    }
                     ForEach(MealType.allCases) { meal in
                         mealCard(meal)
                     }
@@ -37,6 +43,9 @@ struct DiaryView: View {
             }
             .sheet(item: $addSheetMeal) { meal in
                 AddFoodView(day: selectedDay, meal: meal)
+            }
+            .task(id: selectedDay) {
+                await refreshActivity()
             }
         }
     }
@@ -129,6 +138,64 @@ struct DiaryView: View {
             Text(value)
                 .font(.footnote.weight(.semibold))
         }
+    }
+
+    // MARK: - Activity (Apple Health)
+
+    private var activityCard: some View {
+        Card {
+            if health.isConnected {
+                HStack(spacing: 0) {
+                    activityStat(symbol: "figure.walk", value: "\(activity.steps)", label: "Schritte")
+                    Divider().frame(height: 34)
+                    activityStat(symbol: "flame.fill", value: "\(activity.activeKcal) kcal", label: "Aktivenergie")
+                }
+            } else {
+                HStack(spacing: 12) {
+                    Image(systemName: "heart.fill")
+                        .font(.title3)
+                        .foregroundStyle(.pink)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Apple Health")
+                            .font(.subheadline.weight(.semibold))
+                        Text("Schritte und Verbrauch anzeigen")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Button("Verbinden") {
+                        Task {
+                            await health.requestAuthorization()
+                            await refreshActivity()
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.appAccent)
+                }
+            }
+        }
+    }
+
+    private func activityStat(symbol: String, value: String, label: String) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: symbol)
+                .font(.title3)
+                .foregroundStyle(Color.appAccent)
+            VStack(alignment: .leading, spacing: 1) {
+                Text(value)
+                    .font(.system(.body, design: .rounded).weight(.bold))
+                    .contentTransition(.numericText())
+                Text(label)
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    private func refreshActivity() async {
+        guard health.isConnected else { return }
+        activity = await health.activity(for: selectedDay)
     }
 
     // MARK: - Meals

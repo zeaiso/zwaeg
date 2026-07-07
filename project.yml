@@ -25,6 +25,12 @@ targets:
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         ITSAppUsesNonExemptEncryption: false
+        NSHealthShareUsageDescription: Znüni liest Schritte und Aktivenergie, um deinen Tagesverbrauch anzuzeigen.
+        NSHealthUpdateUsageDescription: Znüni speichert dein geloggtes Gewicht in Apple Health.
+    entitlements:
+      path: Znueni/Znueni.entitlements
+      properties:
+        com.apple.developer.healthkit: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.znueni
