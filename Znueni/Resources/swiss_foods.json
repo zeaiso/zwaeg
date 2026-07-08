@@ -1,109 +1,8783 @@
 [
-  {"name": "Zopf", "kcal": 320, "protein": 9.5, "carbs": 52, "fat": 8.5},
-  {"name": "Gipfeli", "kcal": 400, "protein": 8, "carbs": 45, "fat": 21},
-  {"name": "Ruchbrot", "kcal": 245, "protein": 8.5, "carbs": 47, "fat": 1.5},
-  {"name": "Weissbrot", "kcal": 260, "protein": 8, "carbs": 51, "fat": 2},
-  {"name": "Vollkornbrot", "kcal": 220, "protein": 8.5, "carbs": 39, "fat": 3},
-  {"name": "Knäckebrot", "kcal": 350, "protein": 10, "carbs": 66, "fat": 4.5},
-  {"name": "Birchermüesli", "kcal": 110, "protein": 3.5, "carbs": 16, "fat": 3.5},
-  {"name": "Haferflocken", "kcal": 370, "protein": 13, "carbs": 59, "fat": 7},
-  {"name": "Rösti", "kcal": 155, "protein": 2.5, "carbs": 21, "fat": 7},
-  {"name": "Älplermagronen", "kcal": 165, "protein": 6.5, "carbs": 18, "fat": 7.5},
-  {"name": "Fondue (Käsemasse)", "kcal": 330, "protein": 17, "carbs": 4, "fat": 26},
-  {"name": "Raclettekäse", "kcal": 360, "protein": 23, "carbs": 0.5, "fat": 30},
-  {"name": "Emmentaler", "kcal": 395, "protein": 29, "carbs": 0.1, "fat": 31},
-  {"name": "Gruyère", "kcal": 410, "protein": 27, "carbs": 0.4, "fat": 33},
-  {"name": "Appenzeller", "kcal": 390, "protein": 26, "carbs": 0.1, "fat": 32},
-  {"name": "Tilsiter", "kcal": 355, "protein": 26, "carbs": 0.1, "fat": 28},
-  {"name": "Sbrinz", "kcal": 420, "protein": 30, "carbs": 0.4, "fat": 33},
-  {"name": "Tête de Moine", "kcal": 400, "protein": 26, "carbs": 0.5, "fat": 33},
-  {"name": "Vacherin Fribourgeois", "kcal": 360, "protein": 23, "carbs": 0.5, "fat": 30},
-  {"name": "Mozzarella", "kcal": 255, "protein": 18, "carbs": 1, "fat": 20},
-  {"name": "Hüttenkäse", "kcal": 100, "protein": 12, "carbs": 3, "fat": 4.5},
-  {"name": "Quark (mager)", "kcal": 67, "protein": 12, "carbs": 4, "fat": 0.3},
-  {"name": "Joghurt nature", "kcal": 64, "protein": 4.5, "carbs": 5, "fat": 3.5},
-  {"name": "Milch (3.5%)", "kcal": 64, "protein": 3.3, "carbs": 4.7, "fat": 3.5},
-  {"name": "Milch (Drink, 2.5%)", "kcal": 55, "protein": 3.3, "carbs": 4.8, "fat": 2.5},
-  {"name": "Butter", "kcal": 740, "protein": 0.7, "carbs": 0.6, "fat": 82},
-  {"name": "Rahm (Vollrahm)", "kcal": 340, "protein": 2.2, "carbs": 3, "fat": 35},
-  {"name": "Ei", "kcal": 155, "protein": 13, "carbs": 1, "fat": 11},
-  {"name": "Cervelat", "kcal": 275, "protein": 12, "carbs": 1, "fat": 25},
-  {"name": "Bratwurst (Kalb)", "kcal": 290, "protein": 12, "carbs": 1, "fat": 27},
-  {"name": "Landjäger", "kcal": 430, "protein": 26, "carbs": 1.5, "fat": 36},
-  {"name": "Bündnerfleisch", "kcal": 200, "protein": 39, "carbs": 0.5, "fat": 4},
-  {"name": "Salami", "kcal": 380, "protein": 22, "carbs": 1, "fat": 32},
-  {"name": "Schinken (gekocht)", "kcal": 115, "protein": 20, "carbs": 1, "fat": 3.5},
-  {"name": "Speck (geräuchert)", "kcal": 450, "protein": 15, "carbs": 0.5, "fat": 43},
-  {"name": "Pouletbrust", "kcal": 110, "protein": 23, "carbs": 0, "fat": 1.5},
-  {"name": "Pouletschenkel", "kcal": 175, "protein": 18, "carbs": 0, "fat": 11},
-  {"name": "Rindfleisch (mager)", "kcal": 130, "protein": 22, "carbs": 0, "fat": 4.5},
-  {"name": "Rindshackfleisch", "kcal": 240, "protein": 19, "carbs": 0, "fat": 18},
-  {"name": "Schweinsfilet", "kcal": 110, "protein": 22, "carbs": 0, "fat": 2},
-  {"name": "Kalbfleisch", "kcal": 105, "protein": 21, "carbs": 0, "fat": 2.5},
-  {"name": "Lachs", "kcal": 205, "protein": 20, "carbs": 0, "fat": 14},
-  {"name": "Forelle", "kcal": 105, "protein": 19, "carbs": 0, "fat": 3},
-  {"name": "Egli (Flussbarsch)", "kcal": 90, "protein": 18, "carbs": 0, "fat": 1.5},
-  {"name": "Thon (in Wasser)", "kcal": 110, "protein": 25, "carbs": 0, "fat": 1},
-  {"name": "Tofu", "kcal": 125, "protein": 12, "carbs": 1.5, "fat": 7.5},
-  {"name": "Quorn", "kcal": 105, "protein": 14, "carbs": 4.5, "fat": 3},
-  {"name": "Linsen (gekocht)", "kcal": 115, "protein": 9, "carbs": 17, "fat": 0.5},
-  {"name": "Kichererbsen (gekocht)", "kcal": 130, "protein": 7, "carbs": 19, "fat": 2.5},
-  {"name": "Teigwaren (gekocht)", "kcal": 155, "protein": 5.5, "carbs": 30, "fat": 1},
-  {"name": "Reis (gekocht)", "kcal": 130, "protein": 2.5, "carbs": 28, "fat": 0.3},
-  {"name": "Kartoffeln (gekocht)", "kcal": 70, "protein": 2, "carbs": 15, "fat": 0.1},
-  {"name": "Pommes Frites", "kcal": 290, "protein": 3.5, "carbs": 37, "fat": 14},
-  {"name": "Gschwellti", "kcal": 70, "protein": 2, "carbs": 15, "fat": 0.1},
-  {"name": "Polenta (gekocht)", "kcal": 85, "protein": 2, "carbs": 18, "fat": 0.4},
-  {"name": "Spätzli", "kcal": 145, "protein": 5.5, "carbs": 25, "fat": 2.5},
-  {"name": "Couscous (gekocht)", "kcal": 112, "protein": 3.8, "carbs": 23, "fat": 0.2},
-  {"name": "Quinoa (gekocht)", "kcal": 120, "protein": 4.4, "carbs": 21, "fat": 1.9},
-  {"name": "Apfel", "kcal": 52, "protein": 0.3, "carbs": 14, "fat": 0.2},
-  {"name": "Banane", "kcal": 89, "protein": 1.1, "carbs": 23, "fat": 0.3},
-  {"name": "Orange", "kcal": 47, "protein": 0.9, "carbs": 12, "fat": 0.1},
-  {"name": "Birne", "kcal": 57, "protein": 0.4, "carbs": 15, "fat": 0.1},
-  {"name": "Trauben", "kcal": 69, "protein": 0.7, "carbs": 18, "fat": 0.2},
-  {"name": "Erdbeeren", "kcal": 32, "protein": 0.7, "carbs": 8, "fat": 0.3},
-  {"name": "Heidelbeeren", "kcal": 57, "protein": 0.7, "carbs": 14, "fat": 0.3},
-  {"name": "Aprikose", "kcal": 48, "protein": 1.4, "carbs": 11, "fat": 0.4},
-  {"name": "Kirschen", "kcal": 63, "protein": 1.1, "carbs": 16, "fat": 0.2},
-  {"name": "Zwetschgen", "kcal": 46, "protein": 0.7, "carbs": 11, "fat": 0.3},
-  {"name": "Tomate", "kcal": 18, "protein": 0.9, "carbs": 3.9, "fat": 0.2},
-  {"name": "Gurke", "kcal": 15, "protein": 0.7, "carbs": 3.6, "fat": 0.1},
-  {"name": "Rüebli", "kcal": 41, "protein": 0.9, "carbs": 10, "fat": 0.2},
-  {"name": "Broccoli", "kcal": 34, "protein": 2.8, "carbs": 7, "fat": 0.4},
-  {"name": "Blumenkohl", "kcal": 25, "protein": 1.9, "carbs": 5, "fat": 0.3},
-  {"name": "Zucchetti", "kcal": 17, "protein": 1.2, "carbs": 3.1, "fat": 0.3},
-  {"name": "Peperoni", "kcal": 31, "protein": 1, "carbs": 6, "fat": 0.3},
-  {"name": "Spinat", "kcal": 23, "protein": 2.9, "carbs": 3.6, "fat": 0.4},
-  {"name": "Kopfsalat", "kcal": 15, "protein": 1.4, "carbs": 2.9, "fat": 0.2},
-  {"name": "Avocado", "kcal": 160, "protein": 2, "carbs": 9, "fat": 15},
-  {"name": "Nüsslisalat", "kcal": 21, "protein": 2, "carbs": 3.6, "fat": 0.4},
-  {"name": "Baumnüsse", "kcal": 655, "protein": 15, "carbs": 14, "fat": 65},
-  {"name": "Mandeln", "kcal": 580, "protein": 21, "carbs": 22, "fat": 50},
-  {"name": "Erdnüsse", "kcal": 570, "protein": 26, "carbs": 16, "fat": 49},
-  {"name": "Studentenfutter", "kcal": 460, "protein": 13, "carbs": 44, "fat": 26},
-  {"name": "Schokolade (Milch)", "kcal": 535, "protein": 7.5, "carbs": 57, "fat": 31},
-  {"name": "Schokolade (dunkel)", "kcal": 545, "protein": 6, "carbs": 46, "fat": 36},
-  {"name": "Branchli", "kcal": 525, "protein": 6, "carbs": 55, "fat": 31},
-  {"name": "Basler Läckerli", "kcal": 395, "protein": 6, "carbs": 74, "fat": 8},
-  {"name": "Willisauer Ringli", "kcal": 380, "protein": 6, "carbs": 83, "fat": 2},
-  {"name": "Biberli", "kcal": 390, "protein": 7, "carbs": 68, "fat": 10},
-  {"name": "Nussgipfel", "kcal": 435, "protein": 8, "carbs": 45, "fat": 25},
-  {"name": "Ovomaltine (Pulver)", "kcal": 370, "protein": 8, "carbs": 74, "fat": 4.5},
-  {"name": "Rivella rot", "kcal": 37, "protein": 0, "carbs": 9, "fat": 0},
-  {"name": "Rivella blau", "kcal": 7, "protein": 0, "carbs": 1.5, "fat": 0},
-  {"name": "Apfelsaft", "kcal": 46, "protein": 0.1, "carbs": 11, "fat": 0.1},
-  {"name": "Orangensaft", "kcal": 45, "protein": 0.7, "carbs": 10, "fat": 0.2},
-  {"name": "Cola", "kcal": 42, "protein": 0, "carbs": 10.6, "fat": 0},
-  {"name": "Bier (Lager)", "kcal": 43, "protein": 0.5, "carbs": 3.2, "fat": 0},
-  {"name": "Rotwein", "kcal": 85, "protein": 0.1, "carbs": 2.6, "fat": 0},
-  {"name": "Weisswein", "kcal": 82, "protein": 0.1, "carbs": 2.6, "fat": 0},
-  {"name": "Olivenöl", "kcal": 884, "protein": 0, "carbs": 0, "fat": 100},
-  {"name": "Rapsöl", "kcal": 884, "protein": 0, "carbs": 0, "fat": 100},
-  {"name": "Honig", "kcal": 304, "protein": 0.3, "carbs": 82, "fat": 0},
-  {"name": "Konfitüre", "kcal": 250, "protein": 0.4, "carbs": 60, "fat": 0.1},
-  {"name": "Zucker", "kcal": 400, "protein": 0, "carbs": 100, "fat": 0},
-  {"name": "Pizza Margherita", "kcal": 250, "protein": 11, "carbs": 31, "fat": 9},
-  {"name": "Dürüm/Kebab", "kcal": 215, "protein": 12, "carbs": 20, "fat": 10},
-  {"name": "Sandwich (Schinken)", "kcal": 240, "protein": 11, "carbs": 30, "fat": 8}
+{
+"name": "Agar Agar",
+"kcal": 160.0,
+"protein": 2.4,
+"carbs": 0.0,
+"fat": 0.2
+},
+{
+"name": "Agavensirup",
+"kcal": 293.0,
+"protein": 0.2,
+"carbs": 73.1,
+"fat": 0.0,
+"synonyms": "Agavendicksaft"
+},
+{
+"name": "Ahornsirup",
+"kcal": 271.0,
+"protein": 0.0,
+"carbs": 67.2,
+"fat": 0.2
+},
+{
+"name": "Alge, Nori, getrocknet",
+"kcal": 255.0,
+"protein": 31.5,
+"carbs": 10.5,
+"fat": 1.6,
+"synonyms": "Algen, getrocknet"
+},
+{
+"name": "Amaranth, Samen, gekocht (ohne Zugabe von Fett und Salz)",
+"kcal": 119.0,
+"protein": 5.0,
+"carbs": 18.1,
+"fat": 2.1
+},
+{
+"name": "Amaranth, Samen, roh",
+"kcal": 376.0,
+"protein": 15.8,
+"carbs": 56.8,
+"fat": 7.0
+},
+{
+"name": "Amaretti (Mandelgebäck)",
+"kcal": 464.0,
+"protein": 8.8,
+"carbs": 76.7,
+"fat": 13.0
+},
+{
+"name": "Amaro Ramazzotti (30 vol%)",
+"kcal": 220.0,
+"protein": 0.0,
+"carbs": 17.3,
+"fat": 0.0
+},
+{
+"name": "Ananas in Ananassaft, Konserve, abgetropft",
+"kcal": 60.0,
+"protein": 0.5,
+"carbs": 13.6,
+"fat": 0.1
+},
+{
+"name": "Ananas in Ananassaft, Konserve, nicht abgetropft",
+"kcal": 59.0,
+"protein": 0.4,
+"carbs": 13.6,
+"fat": 0.1
+},
+{
+"name": "Ananas in Sirup, Konserve, abgetropft",
+"kcal": 70.0,
+"protein": 0.5,
+"carbs": 15.9,
+"fat": 0.1
+},
+{
+"name": "Ananas mit Süssungsmittel, Konserve, abgetropft",
+"kcal": 42.0,
+"protein": 0.5,
+"carbs": 9.4,
+"fat": 0.1
+},
+{
+"name": "Ananas, roh",
+"kcal": 52.0,
+"protein": 0.5,
+"carbs": 11.7,
+"fat": 0.1
+},
+{
+"name": "Ananassaft",
+"kcal": 51.0,
+"protein": 0.4,
+"carbs": 12.1,
+"fat": 0.1
+},
+{
+"name": "Apfel, gedünstet, abgetropft (ohne Zugabe von Zucker)",
+"kcal": 56.0,
+"protein": 0.3,
+"carbs": 12.2,
+"fat": 0.3
+},
+{
+"name": "Apfel, geschält, getrocknet",
+"kcal": 264.0,
+"protein": 1.4,
+"carbs": 55.4,
+"fat": 1.6,
+"synonyms": "Dörrapfel"
+},
+{
+"name": "Apfel, roh",
+"kcal": 52.0,
+"protein": 0.3,
+"carbs": 11.6,
+"fat": 0.3
+},
+{
+"name": "Apfelkuchen, hausgemacht, gebacken (mit Blätterteig)",
+"kcal": 160.0,
+"protein": 2.7,
+"carbs": 19.7,
+"fat": 7.5,
+"synonyms": "Apfelwähe"
+},
+{
+"name": "Apfelkuchen, hausgemacht, gebacken (mit Kuchenteig)",
+"kcal": 162.0,
+"protein": 2.9,
+"carbs": 20.5,
+"fat": 7.3,
+"synonyms": "Apfelwähe"
+},
+{
+"name": "Apfelmus, gezuckert (Konserve)",
+"kcal": 89.0,
+"protein": 0.3,
+"carbs": 20.5,
+"fat": 0.3
+},
+{
+"name": "Apfelmus, ungezuckert (Konserve)",
+"kcal": 55.0,
+"protein": 0.3,
+"carbs": 11.7,
+"fat": 0.3
+},
+{
+"name": "Apfelsaft",
+"kcal": 48.0,
+"protein": 0.2,
+"carbs": 11.4,
+"fat": 0.1,
+"synonyms": "Süssmost"
+},
+{
+"name": "Apfelwein, 4 vol%",
+"kcal": 32.0,
+"protein": 0.0,
+"carbs": 2.5,
+"fat": 0.0,
+"synonyms": "Cider;Saurer Most;Apfelmost"
+},
+{
+"name": "Apfelwein, 6.2 vol%",
+"kcal": 64.0,
+"protein": 0.0,
+"carbs": 7.3,
+"fat": 0.0,
+"synonyms": "Cider;Saurer Most;Apfelmost"
+},
+{
+"name": "Appenzeller, viertelfett",
+"kcal": 235.0,
+"protein": 33.1,
+"carbs": 0.0,
+"fat": 11.4
+},
+{
+"name": "Appenzeller, vollfett",
+"kcal": 384.0,
+"protein": 24.3,
+"carbs": 0.0,
+"fat": 31.7
+},
+{
+"name": "Aprikose in Sirup, Konserve, abgetropft",
+"kcal": 62.0,
+"protein": 0.9,
+"carbs": 13.7,
+"fat": 0.1,
+"synonyms": "Marille"
+},
+{
+"name": "Aprikose mit Süssungsmittel, Konserve, abgetropft",
+"kcal": 40.0,
+"protein": 0.9,
+"carbs": 8.2,
+"fat": 0.1
+},
+{
+"name": "Aprikose, gedünstet, abgetropft (ohne Zugabe von Zucker)",
+"kcal": 45.0,
+"protein": 1.0,
+"carbs": 9.0,
+"fat": 0.2,
+"synonyms": "Marille"
+},
+{
+"name": "Aprikose, getrocknet",
+"kcal": 239.0,
+"protein": 2.9,
+"carbs": 59.1,
+"fat": 0.5,
+"synonyms": "Marille;Dörraprikose"
+},
+{
+"name": "Aprikose, roh",
+"kcal": 44.0,
+"protein": 0.8,
+"carbs": 9.0,
+"fat": 0.1,
+"synonyms": "Marille"
+},
+{
+"name": "Aprikosenkuchen, hausgemacht, gebacken (mit Blätterteig)",
+"kcal": 154.0,
+"protein": 3.1,
+"carbs": 17.8,
+"fat": 7.4,
+"synonyms": "Marille;Aprikosenwähe"
+},
+{
+"name": "Aprikosenkuchen, hausgemacht, gebacken (mit Kuchenteig)",
+"kcal": 156.0,
+"protein": 3.3,
+"carbs": 18.6,
+"fat": 7.2,
+"synonyms": "Marille;Aprikosenwähe"
+},
+{
+"name": "Artischocken, Herz, abgetropft (Konserve)",
+"kcal": 27.0,
+"protein": 1.8,
+"carbs": 2.3,
+"fat": 0.5
+},
+{
+"name": "Aubergine, gedämpft (ohne Zugabe von Salz)",
+"kcal": 21.0,
+"protein": 1.1,
+"carbs": 2.4,
+"fat": 0.1
+},
+{
+"name": "Aubergine, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 24.0,
+"protein": 1.3,
+"carbs": 2.8,
+"fat": 0.2,
+"synonyms": "Eierfrucht"
+},
+{
+"name": "Aubergine, roh",
+"kcal": 21.0,
+"protein": 1.1,
+"carbs": 2.4,
+"fat": 0.1,
+"synonyms": "Eierfrucht"
+},
+{
+"name": "Auberginen-Piccata, zubereitet",
+"kcal": 138.0,
+"protein": 5.6,
+"carbs": 8.9,
+"fat": 8.3
+},
+{
+"name": "Auberginenscheiben, paniert, zubereitet",
+"kcal": 136.0,
+"protein": 4.7,
+"carbs": 14.6,
+"fat": 5.8
+},
+{
+"name": "Aufschnitt (Durchschnitt)",
+"kcal": 274.0,
+"protein": 13.8,
+"carbs": 0.7,
+"fat": 24.0
+},
+{
+"name": "Avocado, roh",
+"kcal": 158.0,
+"protein": 1.6,
+"carbs": 1.2,
+"fat": 15.1
+},
+{
+"name": "Balsamicoessig",
+"kcal": 128.0,
+"protein": 0.7,
+"carbs": 25.8,
+"fat": 0.6,
+"synonyms": "Aceto Balsamico;Balsamessig"
+},
+{
+"name": "Bami Goreng, zubereitet",
+"kcal": 130.0,
+"protein": 13.5,
+"carbs": 13.1,
+"fat": 2.4
+},
+{
+"name": "Banane, gedörrt",
+"kcal": 370.0,
+"protein": 3.9,
+"carbs": 80.7,
+"fat": 1.8,
+"synonyms": "Bananenchips"
+},
+{
+"name": "Banane, getrocknet",
+"kcal": 273.0,
+"protein": 3.0,
+"carbs": 60.2,
+"fat": 1.0
+},
+{
+"name": "Banane, roh",
+"kcal": 90.0,
+"protein": 1.1,
+"carbs": 19.7,
+"fat": 0.2
+},
+{
+"name": "Barbecue Grillsauce",
+"kcal": 131.0,
+"protein": 0.6,
+"carbs": 30.3,
+"fat": 0.6
+},
+{
+"name": "Basilikum, roh",
+"kcal": 46.0,
+"protein": 3.1,
+"carbs": 5.1,
+"fat": 0.8
+},
+{
+"name": "Basler Leckerli",
+"kcal": 412.0,
+"protein": 7.5,
+"carbs": 75.0,
+"fat": 7.9
+},
+{
+"name": "Bauernbrot",
+"kcal": 242.0,
+"protein": 9.2,
+"carbs": 44.3,
+"fat": 2.0,
+"synonyms": "Burebrot"
+},
+{
+"name": "Bauernschüblig",
+"kcal": 524.0,
+"protein": 21.3,
+"carbs": 0.3,
+"fat": 48.5
+},
+{
+"name": "Baumnuss",
+"kcal": 709.0,
+"protein": 15.7,
+"carbs": 6.9,
+"fat": 67.3,
+"synonyms": "Walnuss"
+},
+{
+"name": "Baumnussbrot",
+"kcal": 331.0,
+"protein": 9.2,
+"carbs": 30.2,
+"fat": 17.9
+},
+{
+"name": "Baumnussöl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Beeren (Durchschnitt), gekocht (ohne Zugabe von Zucker)",
+"kcal": 38.0,
+"protein": 0.9,
+"carbs": 5.9,
+"fat": 0.5
+},
+{
+"name": "Beeren (Durchschnitt), roh",
+"kcal": 43.0,
+"protein": 0.9,
+"carbs": 7.0,
+"fat": 0.5
+},
+{
+"name": "Berliner",
+"kcal": 336.0,
+"protein": 8.4,
+"carbs": 45.8,
+"fat": 12.8,
+"synonyms": "Pfannkuchen"
+},
+{
+"name": "Berner Alpkäse",
+"kcal": 453.0,
+"protein": 27.1,
+"carbs": 0.0,
+"fat": 38.3
+},
+{
+"name": "Berner Hobelkäse",
+"kcal": 491.0,
+"protein": 30.0,
+"carbs": 0.0,
+"fat": 41.2
+},
+{
+"name": "Berner Zungenwurst",
+"kcal": 333.0,
+"protein": 17.3,
+"carbs": 0.0,
+"fat": 29.4
+},
+{
+"name": "Biber",
+"kcal": 355.0,
+"protein": 7.8,
+"carbs": 65.4,
+"fat": 5.6
+},
+{
+"name": "Bier Panache (Durchschnitt)",
+"kcal": 39.0,
+"protein": 0.2,
+"carbs": 7.4,
+"fat": 0.0
+},
+{
+"name": "Bier, alkoholfrei",
+"kcal": 23.0,
+"protein": 0.4,
+"carbs": 4.9,
+"fat": 0.0
+},
+{
+"name": "Bier, Lager",
+"kcal": 42.0,
+"protein": 0.5,
+"carbs": 3.1,
+"fat": 0.0
+},
+{
+"name": "Bierhefe, getrocknet",
+"kcal": 354.0,
+"protein": 47.9,
+"carbs": 26.5,
+"fat": 4.2,
+"synonyms": "Hefepulver;Trockenhefe;Bäckerhefe"
+},
+{
+"name": "Bierwurst",
+"kcal": 291.0,
+"protein": 15.6,
+"carbs": 0.0,
+"fat": 25.4
+},
+{
+"name": "Birchermüesli, zubereitet (ungezuckert)",
+"kcal": 86.0,
+"protein": 2.6,
+"carbs": 11.1,
+"fat": 3.1
+},
+{
+"name": "Birne in Sirup, Konserve, abgetropft",
+"kcal": 71.0,
+"protein": 0.4,
+"carbs": 15.2,
+"fat": 0.4
+},
+{
+"name": "Birne mit Süssungsmittel, Konserve, abgetropft",
+"kcal": 50.0,
+"protein": 0.5,
+"carbs": 9.9,
+"fat": 0.3
+},
+{
+"name": "Birne, gedünstet, abgetropft (ohne Zugabe von Zucker)",
+"kcal": 57.0,
+"protein": 0.6,
+"carbs": 11.3,
+"fat": 0.4
+},
+{
+"name": "Birne, getrocknet",
+"kcal": 288.0,
+"protein": 2.3,
+"carbs": 59.7,
+"fat": 1.4,
+"synonyms": "Trockenbirne;Dörrbirne"
+},
+{
+"name": "Birne, roh",
+"kcal": 54.0,
+"protein": 0.5,
+"carbs": 10.9,
+"fat": 0.3
+},
+{
+"name": "Birnendicksaft",
+"kcal": 351.0,
+"protein": 3.1,
+"carbs": 81.0,
+"fat": 1.7
+},
+{
+"name": "Birnenkuchen, hausgemacht, gebacken (mit Blätterteig)",
+"kcal": 161.0,
+"protein": 2.8,
+"carbs": 19.2,
+"fat": 7.5,
+"synonyms": "Birnenwähe"
+},
+{
+"name": "Birnenkuchen, hausgemacht, gebacken (mit Kuchenteig)",
+"kcal": 163.0,
+"protein": 3.1,
+"carbs": 20.0,
+"fat": 7.3,
+"synonyms": "Birnenwähe"
+},
+{
+"name": "Birnensaft",
+"kcal": 50.0,
+"protein": 0.4,
+"carbs": 11.6,
+"fat": 0.2
+},
+{
+"name": "Birnenweggen",
+"kcal": 363.0,
+"protein": 4.9,
+"carbs": 57.2,
+"fat": 10.4
+},
+{
+"name": "Blanc battu mit Früchten, mit Süsstoffen",
+"kcal": 67.0,
+"protein": 8.0,
+"carbs": 8.3,
+"fat": 0.2
+},
+{
+"name": "Blanc battu, nature, mager",
+"kcal": 47.0,
+"protein": 7.8,
+"carbs": 3.9,
+"fat": 0.0
+},
+{
+"name": "Blattgemüse (Durchschnitt exkl. Salate), gedämpft (ohne Zugabe von Salz)",
+"kcal": 23.0,
+"protein": 1.4,
+"carbs": 2.7,
+"fat": 0.3
+},
+{
+"name": "Blattgemüse (Durchschnitt exkl. Salate), gedünstet (ohne Zugabe von Salz und Fett)",
+"kcal": 24.0,
+"protein": 1.4,
+"carbs": 2.8,
+"fat": 0.3
+},
+{
+"name": "Blattgemüse (Durchschnitt exkl. Salate), gekocht (ohne Zugabe von Salz und Fett)",
+"kcal": 22.0,
+"protein": 1.3,
+"carbs": 2.6,
+"fat": 0.3
+},
+{
+"name": "Blattsalat (Durchschnitt), roh",
+"kcal": 17.0,
+"protein": 1.3,
+"carbs": 1.6,
+"fat": 0.3
+},
+{
+"name": "Blauschimmelkäse (Durchschnitt)",
+"kcal": 370.0,
+"protein": 19.1,
+"carbs": 0.1,
+"fat": 32.6
+},
+{
+"name": "Blumenkohl, gedämpft (ohne Zugabe von Salz)",
+"kcal": 26.0,
+"protein": 1.8,
+"carbs": 2.1,
+"fat": 0.7
+},
+{
+"name": "Blumenkohl, roh",
+"kcal": 26.0,
+"protein": 1.8,
+"carbs": 2.1,
+"fat": 0.7
+},
+{
+"name": "Blutwurst",
+"kcal": 149.0,
+"protein": 10.2,
+"carbs": 2.5,
+"fat": 10.9
+},
+{
+"name": "Blätterteig (mit pflanzichem Fett), ungebacken",
+"kcal": 385.0,
+"protein": 5.7,
+"carbs": 35.1,
+"fat": 24.3
+},
+{
+"name": "Blätterteig, hausgemacht (Butter), ungebacken",
+"kcal": 364.0,
+"protein": 5.2,
+"carbs": 29.4,
+"fat": 24.7
+},
+{
+"name": "Blätterteig, hausgemacht (mit pflanzlichem Fett), ungebacken",
+"kcal": 349.0,
+"protein": 5.2,
+"carbs": 29.3,
+"fat": 23.2
+},
+{
+"name": "Blätterteigstängel",
+"kcal": 490.0,
+"protein": 7.1,
+"carbs": 40.4,
+"fat": 32.9,
+"synonyms": "Flûtes"
+},
+{
+"name": "Bohne (alle Arten), gekocht (ohne Zugabe von Fett und Salz)",
+"kcal": 111.0,
+"protein": 7.7,
+"carbs": 14.5,
+"fat": 0.6
+},
+{
+"name": "Bohne (alle Arten), getrocknet",
+"kcal": 305.0,
+"protein": 20.9,
+"carbs": 40.7,
+"fat": 1.5,
+"synonyms": "Borlotti Bohne;Rote Bohne;Weisse Bohne"
+},
+{
+"name": "Bohne, grün, gedämpft (ohne Zugabe von Salz)",
+"kcal": 34.0,
+"protein": 2.0,
+"carbs": 4.4,
+"fat": 0.2,
+"synonyms": "Gartenbohne"
+},
+{
+"name": "Bohne, grün, getrocknet",
+"kcal": 318.0,
+"protein": 20.2,
+"carbs": 42.1,
+"fat": 2.0,
+"synonyms": "Dörrbohne"
+},
+{
+"name": "Bohne, grün, roh",
+"kcal": 32.0,
+"protein": 1.9,
+"carbs": 4.1,
+"fat": 0.2,
+"synonyms": "Gartenbohne"
+},
+{
+"name": "Bolognaisesauce",
+"kcal": 96.0,
+"protein": 6.3,
+"carbs": 8.3,
+"fat": 4.0,
+"synonyms": "Tomaten-Hackfleischsauce"
+},
+{
+"name": "Bouillon, Fleisch, zubereitet",
+"kcal": 5.0,
+"protein": 0.3,
+"carbs": 0.2,
+"fat": 0.3,
+"synonyms": "Klare Brühe"
+},
+{
+"name": "Bouillon, Geflügel, zubereitet",
+"kcal": 5.0,
+"protein": 0.3,
+"carbs": 0.3,
+"fat": 0.3,
+"synonyms": "Klare Brühe"
+},
+{
+"name": "Bouillon, Gemüse, zubereitet",
+"kcal": 6.0,
+"protein": 0.3,
+"carbs": 0.4,
+"fat": 0.4,
+"synonyms": "Klare Brühe"
+},
+{
+"name": "Branchli (Milchschokolade mit Haselnusscrèmefüllung)",
+"kcal": 556.0,
+"protein": 8.3,
+"carbs": 49.1,
+"fat": 35.4,
+"synonyms": "Schokoladenstängeli"
+},
+{
+"name": "Branntwein aus Getreide, 40 vol% (z.B. Whisky)",
+"kcal": 247.0,
+"protein": 0.0,
+"carbs": 0.1,
+"fat": 0.0,
+"synonyms": "Getreideschnaps"
+},
+{
+"name": "Branntwein aus Wein (z.B.Cognac, Brandy)",
+"kcal": 240.0,
+"protein": 0.0,
+"carbs": 2.0,
+"fat": 0.0
+},
+{
+"name": "Branntwein aus Zuckerrohr (z.B. Rum)",
+"kcal": 234.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0,
+"synonyms": "Zuckerrohrschnaps"
+},
+{
+"name": "Bratbutter",
+"kcal": 885.0,
+"protein": 0.1,
+"carbs": 0.0,
+"fat": 98.3
+},
+{
+"name": "Bratensauce, gebunden",
+"kcal": 53.0,
+"protein": 1.6,
+"carbs": 4.6,
+"fat": 3.0
+},
+{
+"name": "Bratensauce, klar",
+"kcal": 44.0,
+"protein": 1.5,
+"carbs": 3.5,
+"fat": 2.5
+},
+{
+"name": "Bresaola",
+"kcal": 155.0,
+"protein": 32.4,
+"carbs": 0.4,
+"fat": 2.6
+},
+{
+"name": "Brie, Rahm",
+"kcal": 342.0,
+"protein": 17.7,
+"carbs": 0.0,
+"fat": 30.0
+},
+{
+"name": "Brie, vollfett",
+"kcal": 298.0,
+"protein": 21.4,
+"carbs": 0.0,
+"fat": 23.5
+},
+{
+"name": "Broccoli, gedämpft (ohne Zugabe von Salz)",
+"kcal": 35.0,
+"protein": 3.3,
+"carbs": 2.9,
+"fat": 0.5
+},
+{
+"name": "Broccoli, roh",
+"kcal": 39.0,
+"protein": 3.6,
+"carbs": 3.2,
+"fat": 0.6
+},
+{
+"name": "Brombeere, roh",
+"kcal": 47.0,
+"protein": 1.1,
+"carbs": 6.5,
+"fat": 0.7
+},
+{
+"name": "Brombeerkuchen, hausgemacht (mit süssem Mürbeteig)",
+"kcal": 215.0,
+"protein": 3.2,
+"carbs": 22.3,
+"fat": 11.7
+},
+{
+"name": "Brombeerkuchen, hausgemacht, gebacken (mit Blätterteig)",
+"kcal": 156.0,
+"protein": 3.3,
+"carbs": 16.0,
+"fat": 7.8,
+"synonyms": "Brombeerwähe"
+},
+{
+"name": "Brombeerkuchen, hausgemacht, gebacken (mit Kuchenteig)",
+"kcal": 159.0,
+"protein": 3.5,
+"carbs": 16.8,
+"fat": 7.7,
+"synonyms": "Brombeerwähe"
+},
+{
+"name": "Brot (Durchschnitt)",
+"kcal": 264.0,
+"protein": 9.2,
+"carbs": 44.6,
+"fat": 4.6
+},
+{
+"name": "Brunnenkresse, roh",
+"kcal": 19.0,
+"protein": 1.7,
+"carbs": 1.9,
+"fat": 0.2
+},
+{
+"name": "Brunsli",
+"kcal": 515.0,
+"protein": 14.9,
+"carbs": 43.3,
+"fat": 29.8
+},
+{
+"name": "Brühwürste geräuchert (Durchschnitt)",
+"kcal": 249.0,
+"protein": 14.0,
+"carbs": 0.5,
+"fat": 21.2
+},
+{
+"name": "Brühwürste ungeräuchert (Durchschnitt)",
+"kcal": 250.0,
+"protein": 13.3,
+"carbs": 0.8,
+"fat": 21.5
+},
+{
+"name": "Buchweizen, Korn geschält",
+"kcal": 341.0,
+"protein": 13.1,
+"carbs": 62.4,
+"fat": 3.1
+},
+{
+"name": "Buchweizenmehl",
+"kcal": 343.0,
+"protein": 12.0,
+"carbs": 65.4,
+"fat": 2.8
+},
+{
+"name": "Burger mit Fisch",
+"kcal": 262.0,
+"protein": 12.2,
+"carbs": 26.7,
+"fat": 11.5
+},
+{
+"name": "Burger mit Poulet",
+"kcal": 247.0,
+"protein": 12.7,
+"carbs": 23.8,
+"fat": 11.0
+},
+{
+"name": "Burger, vegan aus Soja-oder Erbsenprotein, roh",
+"kcal": 197.0,
+"protein": 18.0,
+"carbs": 4.1,
+"fat": 11.1
+},
+{
+"name": "Buttergipfeli, hell",
+"kcal": 432.0,
+"protein": 8.7,
+"carbs": 43.5,
+"fat": 24.2
+},
+{
+"name": "Buttergipfeli, Vollkorn",
+"kcal": 365.0,
+"protein": 6.8,
+"carbs": 37.3,
+"fat": 19.7,
+"synonyms": "Rusticogipfeli"
+},
+{
+"name": "Buttermilch",
+"kcal": 34.0,
+"protein": 3.4,
+"carbs": 4.0,
+"fat": 0.5
+},
+{
+"name": "Butterweggli",
+"kcal": 309.0,
+"protein": 9.4,
+"carbs": 47.3,
+"fat": 8.7
+},
+{
+"name": "Butterzopf",
+"kcal": 325.0,
+"protein": 9.0,
+"carbs": 45.7,
+"fat": 11.4
+},
+{
+"name": "Butterzopf, Vollkorn",
+"kcal": 272.0,
+"protein": 9.5,
+"carbs": 40.4,
+"fat": 6.4
+},
+{
+"name": "Bäckerhefe, gepresst",
+"kcal": 96.0,
+"protein": 16.7,
+"carbs": 1.1,
+"fat": 1.2,
+"synonyms": "Bierhefe"
+},
+{
+"name": "Béchamelsauce, hausgemacht",
+"kcal": 147.0,
+"protein": 4.2,
+"carbs": 10.1,
+"fat": 9.9
+},
+{
+"name": "Bündner Gerstensuppe",
+"kcal": 42.0,
+"protein": 1.4,
+"carbs": 6.7,
+"fat": 0.9
+},
+{
+"name": "Bürli (halbweiss)",
+"kcal": 215.0,
+"protein": 8.6,
+"carbs": 41.4,
+"fat": 1.0
+},
+{
+"name": "Café crème, ungezuckert",
+"kcal": 13.0,
+"protein": 0.3,
+"carbs": 0.5,
+"fat": 1.1
+},
+{
+"name": "Cake Financier",
+"kcal": 440.0,
+"protein": 11.1,
+"carbs": 38.5,
+"fat": 26.1,
+"synonyms": "Mandel-Cake"
+},
+{
+"name": "Cake, nature \"Gleichschwer\", hausgemacht",
+"kcal": 430.0,
+"protein": 6.9,
+"carbs": 44.7,
+"fat": 24.7
+},
+{
+"name": "Calimocho (Rotwein mit Cola)",
+"kcal": 55.0,
+"protein": 0.1,
+"carbs": 5.2,
+"fat": 0.0
+},
+{
+"name": "Camembert, halbfett",
+"kcal": 188.0,
+"protein": 24.4,
+"carbs": 0.0,
+"fat": 10.0,
+"synonyms": "Tomme léger;Weichkäse, léger;Weichkäse, halbfett"
+},
+{
+"name": "Camembert, Rahm",
+"kcal": 355.0,
+"protein": 17.1,
+"carbs": 0.0,
+"fat": 31.7
+},
+{
+"name": "Camembert, vollfett",
+"kcal": 297.0,
+"protein": 20.8,
+"carbs": 0.0,
+"fat": 23.7
+},
+{
+"name": "Cannelloni mit Fleischfüllung, zubereitet",
+"kcal": 178.0,
+"protein": 9.5,
+"carbs": 13.9,
+"fat": 9.0
+},
+{
+"name": "Cannelloni mit Spinat-Ricotta-Füllung, zubereitet",
+"kcal": 221.0,
+"protein": 7.8,
+"carbs": 14.6,
+"fat": 14.3
+},
+{
+"name": "Cappuccino (ohne Schokoladenpulver), ungezuckert",
+"kcal": 42.0,
+"protein": 2.0,
+"carbs": 2.9,
+"fat": 2.5
+},
+{
+"name": "Capuns, zubereitet",
+"kcal": 165.0,
+"protein": 8.0,
+"carbs": 9.7,
+"fat": 10.2,
+"synonyms": "Mangoldwickel"
+},
+{
+"name": "Cashewnuss",
+"kcal": 619.0,
+"protein": 21.5,
+"carbs": 23.2,
+"fat": 48.1,
+"synonyms": "Cashewkern"
+},
+{
+"name": "Cervelat",
+"kcal": 249.0,
+"protein": 13.4,
+"carbs": 0.5,
+"fat": 21.5,
+"synonyms": "Bockwurst;Stumpen;Chlöpfer"
+},
+{
+"name": "Champignon (Konserve)",
+"kcal": 19.0,
+"protein": 2.2,
+"carbs": 0.5,
+"fat": 0.3
+},
+{
+"name": "Champignon, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 29.0,
+"protein": 4.2,
+"carbs": 1.2,
+"fat": 0.3
+},
+{
+"name": "Champignon, roh",
+"kcal": 25.0,
+"protein": 3.7,
+"carbs": 1.1,
+"fat": 0.3
+},
+{
+"name": "Cheeseburger",
+"kcal": 281.0,
+"protein": 13.2,
+"carbs": 24.3,
+"fat": 14.2
+},
+{
+"name": "Chia-Samen",
+"kcal": 482.0,
+"protein": 21.4,
+"carbs": 1.8,
+"fat": 34.1
+},
+{
+"name": "Chicorée, gedämpft (ohne Zugabe von Salz)",
+"kcal": 20.0,
+"protein": 1.1,
+"carbs": 2.8,
+"fat": 0.2,
+"synonyms": "Brüsseler Endivie"
+},
+{
+"name": "Chicorée, roh",
+"kcal": 20.0,
+"protein": 1.1,
+"carbs": 2.8,
+"fat": 0.2,
+"synonyms": "Brüsseler Endivie"
+},
+{
+"name": "Chili con carne, zubereitet",
+"kcal": 116.0,
+"protein": 10.4,
+"carbs": 9.0,
+"fat": 3.5
+},
+{
+"name": "Chinakohl, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 14.0,
+"protein": 1.3,
+"carbs": 1.2,
+"fat": 0.2,
+"synonyms": "Japankohl;Selleriekohl;Pekingkohl"
+},
+{
+"name": "Chinakohl, roh",
+"kcal": 14.0,
+"protein": 1.4,
+"carbs": 1.2,
+"fat": 0.2,
+"synonyms": "Japankohl;Selleriekohl;Pekingkohl"
+},
+{
+"name": "Chräbeli (Anisgebäck)",
+"kcal": 366.0,
+"protein": 8.6,
+"carbs": 75.3,
+"fat": 2.9
+},
+{
+"name": "Cicorino rot, roh",
+"kcal": 19.0,
+"protein": 1.4,
+"carbs": 1.6,
+"fat": 0.1
+},
+{
+"name": "Cocktailsauce mit Rapsöl-Mayonnaise, hausgemacht",
+"kcal": 696.0,
+"protein": 2.4,
+"carbs": 3.8,
+"fat": 74.5
+},
+{
+"name": "Colagetränk, gezuckert",
+"kcal": 40.0,
+"protein": 0.0,
+"carbs": 10.0,
+"fat": 0.0
+},
+{
+"name": "Colagetränk, mit Süssstoffen",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Coleslaw Salat, zubereitet",
+"kcal": 119.0,
+"protein": 1.6,
+"carbs": 4.7,
+"fat": 9.8
+},
+{
+"name": "Cookie, Schokolade",
+"kcal": 502.0,
+"protein": 6.5,
+"carbs": 59.0,
+"fat": 25.9
+},
+{
+"name": "Coppa",
+"kcal": 319.0,
+"protein": 28.8,
+"carbs": 0.3,
+"fat": 22.5
+},
+{
+"name": "Cordon bleu aus Kalbsplätzli, gebraten",
+"kcal": 233.0,
+"protein": 22.9,
+"carbs": 10.3,
+"fat": 11.0
+},
+{
+"name": "Cordon bleu aus Schweinsplätzli, gebraten",
+"kcal": 241.0,
+"protein": 23.2,
+"carbs": 10.3,
+"fat": 11.7
+},
+{
+"name": "Cornet Glace",
+"kcal": 292.0,
+"protein": 3.4,
+"carbs": 37.8,
+"fat": 13.5
+},
+{
+"name": "Cornflakes",
+"kcal": 376.0,
+"protein": 7.6,
+"carbs": 81.5,
+"fat": 1.2
+},
+{
+"name": "Cornflakes mit Zucker glasiert",
+"kcal": 382.0,
+"protein": 5.7,
+"carbs": 86.0,
+"fat": 0.9
+},
+{
+"name": "Cotechino",
+"kcal": 450.0,
+"protein": 17.2,
+"carbs": 0.0,
+"fat": 42.3
+},
+{
+"name": "Cotto (Fleischerzeugnis)",
+"kcal": 93.0,
+"protein": 15.7,
+"carbs": 0.6,
+"fat": 3.1
+},
+{
+"name": "Couscous-Körner (vorgekochtes Hartweizengriess), gekocht (ohne Zugabe von Fett und Salz)",
+"kcal": 158.0,
+"protein": 5.0,
+"carbs": 31.0,
+"fat": 1.0
+},
+{
+"name": "Cracker, Salzgebäck, Apérogebäck",
+"kcal": 449.0,
+"protein": 9.2,
+"carbs": 66.3,
+"fat": 15.9
+},
+{
+"name": "Crevettencocktail, zubereitet",
+"kcal": 168.0,
+"protein": 4.4,
+"carbs": 4.0,
+"fat": 13.4
+},
+{
+"name": "Croque Monsieur",
+"kcal": 260.0,
+"protein": 16.4,
+"carbs": 26.6,
+"fat": 9.4,
+"synonyms": "Toast mit Schinken und Käse"
+},
+{
+"name": "Crèmeschnitte",
+"kcal": 301.0,
+"protein": 4.1,
+"carbs": 28.8,
+"fat": 18.8
+},
+{
+"name": "Crêpes mit Camembert, zubereitet",
+"kcal": 247.0,
+"protein": 11.9,
+"carbs": 14.9,
+"fat": 15.5
+},
+{
+"name": "Crêpes mit Champignonfüllung, zubereitet",
+"kcal": 139.0,
+"protein": 5.9,
+"carbs": 7.9,
+"fat": 9.0
+},
+{
+"name": "Crêpes mit Gemüsefüllung, zubereitet",
+"kcal": 166.0,
+"protein": 6.1,
+"carbs": 13.9,
+"fat": 9.2
+},
+{
+"name": "Crêpes mit Nutella, zubereitet",
+"kcal": 377.0,
+"protein": 7.9,
+"carbs": 35.8,
+"fat": 22.1
+},
+{
+"name": "Crêpes mit Schinken, zubereitet",
+"kcal": 193.0,
+"protein": 12.9,
+"carbs": 13.2,
+"fat": 9.7
+},
+{
+"name": "Crêpes mit Speck, zubereitet",
+"kcal": 253.0,
+"protein": 11.3,
+"carbs": 15.0,
+"fat": 16.3
+},
+{
+"name": "Crêpes mit Zimt und Zucker, zubereitet",
+"kcal": 254.0,
+"protein": 8.3,
+"carbs": 29.0,
+"fat": 11.5
+},
+{
+"name": "Crêpes nature, zubereitet",
+"kcal": 234.0,
+"protein": 9.4,
+"carbs": 19.0,
+"fat": 13.2
+},
+{
+"name": "Dattel, getrocknet",
+"kcal": 287.0,
+"protein": 2.4,
+"carbs": 64.7,
+"fat": 0.4
+},
+{
+"name": "Dinkelmehl, Ruch, Typ 1100",
+"kcal": 348.0,
+"protein": 14.3,
+"carbs": 65.0,
+"fat": 2.2
+},
+{
+"name": "Dinkelmehl, Vollkorn, Typ 1900",
+"kcal": 345.0,
+"protein": 15.0,
+"carbs": 58.0,
+"fat": 2.5
+},
+{
+"name": "Dinkelmehl, weiss, Typ 550",
+"kcal": 348.0,
+"protein": 13.3,
+"carbs": 68.2,
+"fat": 1.6
+},
+{
+"name": "Distelöl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Donut mit Schokoladen-Glasur",
+"kcal": 364.0,
+"protein": 6.4,
+"carbs": 44.0,
+"fat": 17.6
+},
+{
+"name": "Doppelrahm, pasteurisiert",
+"kcal": 468.0,
+"protein": 1.9,
+"carbs": 2.7,
+"fat": 50.0
+},
+{
+"name": "Dorsch, Filet, gedämpft (ohne Zusatz von Fett und Salz)",
+"kcal": 74.0,
+"protein": 17.0,
+"carbs": 0.0,
+"fat": 0.6
+},
+{
+"name": "Dorsch, roh",
+"kcal": 78.0,
+"protein": 18.1,
+"carbs": 0.0,
+"fat": 0.6,
+"synonyms": "Kabeljau"
+},
+{
+"name": "Dulce de Leche",
+"kcal": 299.0,
+"protein": 5.7,
+"carbs": 52.6,
+"fat": 7.3,
+"synonyms": "Milchkonfitüre"
+},
+{
+"name": "Dörrbohne, eingeweicht, gedämpft (ohne Zugabe von Salz)",
+"kcal": 79.0,
+"protein": 5.1,
+"carbs": 10.5,
+"fat": 0.5
+},
+{
+"name": "Edamame (unreife Sojabohne), geschält, gefroren",
+"kcal": 143.0,
+"protein": 11.5,
+"carbs": 5.1,
+"fat": 7.4
+},
+{
+"name": "Edelkastanie, roh",
+"kcal": 210.0,
+"protein": 2.9,
+"carbs": 41.2,
+"fat": 1.9,
+"synonyms": "Marroni"
+},
+{
+"name": "Egli, roh",
+"kcal": 79.0,
+"protein": 18.0,
+"carbs": 0.0,
+"fat": 0.7,
+"synonyms": "Flussbarsch"
+},
+{
+"name": "Eierlikör, 16.5 vol%",
+"kcal": 285.0,
+"protein": 4.0,
+"carbs": 28.0,
+"fat": 7.0
+},
+{
+"name": "Eieromeletten mit Käse, zubereitet",
+"kcal": 192.0,
+"protein": 14.0,
+"carbs": 1.2,
+"fat": 14.5,
+"synonyms": "Französische Omeletten"
+},
+{
+"name": "Eieromeletten mit Schinken, zubereitet",
+"kcal": 143.0,
+"protein": 12.8,
+"carbs": 1.3,
+"fat": 9.6,
+"synonyms": "Französische Omeletten"
+},
+{
+"name": "Eieromeletten mit Speck, zubereitet",
+"kcal": 175.0,
+"protein": 12.5,
+"carbs": 1.3,
+"fat": 13.4,
+"synonyms": "Französische Omeletten"
+},
+{
+"name": "Eieromeletten, zubereitet",
+"kcal": 151.0,
+"protein": 11.4,
+"carbs": 1.4,
+"fat": 11.1,
+"synonyms": "Französische Omeletten"
+},
+{
+"name": "Eierschwamm, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 28.0,
+"protein": 2.6,
+"carbs": 0.2,
+"fat": 0.6,
+"synonyms": "Pfifferling"
+},
+{
+"name": "Eierschwamm, roh",
+"kcal": 24.0,
+"protein": 2.3,
+"carbs": 0.2,
+"fat": 0.5,
+"synonyms": "Pfifferling"
+},
+{
+"name": "Eisbergsalat, roh",
+"kcal": 15.0,
+"protein": 0.8,
+"carbs": 2.1,
+"fat": 0.2
+},
+{
+"name": "Eistee, gezuckert",
+"kcal": 30.0,
+"protein": 0.0,
+"carbs": 7.5,
+"fat": 0.0
+},
+{
+"name": "Emmentaler, vollfett",
+"kcal": 408.0,
+"protein": 28.4,
+"carbs": 0.0,
+"fat": 32.6
+},
+{
+"name": "Endivie, roh",
+"kcal": 16.0,
+"protein": 1.8,
+"carbs": 1.2,
+"fat": 0.2,
+"synonyms": "Frisée Salat"
+},
+{
+"name": "Energy Drink mit Koffein, Taurin und Vitaminen mit Süssstoffen",
+"kcal": 1.0,
+"protein": 0.0,
+"carbs": 0.2,
+"fat": 0.0
+},
+{
+"name": "Energy Drink mit Koffein, Taurin und Vitaminen, gezuckert",
+"kcal": 44.0,
+"protein": 0.0,
+"carbs": 10.9,
+"fat": 0.0
+},
+{
+"name": "Engadiner Nusstorte",
+"kcal": 481.0,
+"protein": 7.0,
+"carbs": 49.9,
+"fat": 27.7
+},
+{
+"name": "Erbse (Konserve)",
+"kcal": 87.0,
+"protein": 4.8,
+"carbs": 12.8,
+"fat": 0.8
+},
+{
+"name": "Erbse (Konserve), aufgewärmt (ohne Zugabe von Salz)",
+"kcal": 89.0,
+"protein": 4.9,
+"carbs": 13.1,
+"fat": 0.8
+},
+{
+"name": "Erbse, grün, gedämpft (ohne Zugabe von Salz)",
+"kcal": 99.0,
+"protein": 7.6,
+"carbs": 12.5,
+"fat": 0.8
+},
+{
+"name": "Erbse, grün, roh",
+"kcal": 90.0,
+"protein": 6.9,
+"carbs": 11.3,
+"fat": 0.7,
+"synonyms": "Erbsli"
+},
+{
+"name": "Erbse, grün, tiefgekühlt",
+"kcal": 81.0,
+"protein": 5.3,
+"carbs": 10.8,
+"fat": 0.7,
+"synonyms": "Erbsli, gefroren"
+},
+{
+"name": "Erbse, reif, getrocknet",
+"kcal": 331.0,
+"protein": 21.3,
+"carbs": 51.9,
+"fat": 1.7,
+"synonyms": "Erbse, geschält, getrocknet"
+},
+{
+"name": "Erbse, reif, getrocknet, gekocht (ohne Zusatz von Fett und Salz)",
+"kcal": 137.0,
+"protein": 9.0,
+"carbs": 21.2,
+"fat": 0.7
+},
+{
+"name": "Erbsen und Karotten (Konserve)",
+"kcal": 68.0,
+"protein": 4.2,
+"carbs": 9.6,
+"fat": 0.6,
+"synonyms": "Rüebli"
+},
+{
+"name": "Erbsen und Karotten (Konserve), aufgewärmt (ohne Zugabe von Salz)",
+"kcal": 70.0,
+"protein": 4.3,
+"carbs": 9.8,
+"fat": 0.6,
+"synonyms": "Rüebli"
+},
+{
+"name": "Erdbeere, roh",
+"kcal": 38.0,
+"protein": 0.6,
+"carbs": 6.0,
+"fat": 0.4
+},
+{
+"name": "Erdnuss",
+"kcal": 623.0,
+"protein": 26.1,
+"carbs": 14.8,
+"fat": 49.1
+},
+{
+"name": "Erdnuss mit Schokoladeüberzug",
+"kcal": 498.0,
+"protein": 9.5,
+"carbs": 55.9,
+"fat": 25.0
+},
+{
+"name": "Erdnuss, geröstet, gesalzen",
+"kcal": 631.0,
+"protein": 26.2,
+"carbs": 15.0,
+"fat": 50.0
+},
+{
+"name": "Erdnuss, geröstet, ohne Salz",
+"kcal": 637.0,
+"protein": 26.8,
+"carbs": 11.3,
+"fat": 51.9
+},
+{
+"name": "Erdnuss-Flips",
+"kcal": 507.0,
+"protein": 13.2,
+"carbs": 56.5,
+"fat": 24.2
+},
+{
+"name": "Erdnussbutter",
+"kcal": 636.0,
+"protein": 26.1,
+"carbs": 12.5,
+"fat": 51.8
+},
+{
+"name": "Erdnussöl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Espresso crème, ungezuckert",
+"kcal": 28.0,
+"protein": 0.5,
+"carbs": 0.8,
+"fat": 2.5
+},
+{
+"name": "Essig",
+"kcal": 21.0,
+"protein": 0.1,
+"carbs": 0.7,
+"fat": 0.0
+},
+{
+"name": "Essig-Öl-Salatsauce, hausgemacht (mit Rapsöl)",
+"kcal": 287.0,
+"protein": 0.7,
+"carbs": 2.5,
+"fat": 30.2
+},
+{
+"name": "Extrudierte teilentfettet Soja (Granulat, Schnetzel), trocken",
+"kcal": 322.0,
+"protein": 49.9,
+"carbs": 9.0,
+"fat": 4.4
+},
+{
+"name": "Falafel, frittiert (in HOLL Rapsöl frittiert)",
+"kcal": 225.0,
+"protein": 8.4,
+"carbs": 26.9,
+"fat": 7.9
+},
+{
+"name": "Fasnachtschüechli",
+"kcal": 553.0,
+"protein": 11.5,
+"carbs": 51.7,
+"fat": 32.9
+},
+{
+"name": "Federkohl, gedünstet (ohne Zugabe von Salz und Fett)",
+"kcal": 44.0,
+"protein": 4.3,
+"carbs": 2.6,
+"fat": 0.9,
+"synonyms": "Grünkohl"
+},
+{
+"name": "Federkohl, roh",
+"kcal": 44.0,
+"protein": 4.3,
+"carbs": 2.5,
+"fat": 0.9,
+"synonyms": "Grünkohl"
+},
+{
+"name": "Feige, getrocknet",
+"kcal": 267.0,
+"protein": 3.1,
+"carbs": 55.9,
+"fat": 1.2,
+"synonyms": "Dörrfeige"
+},
+{
+"name": "Feige, roh",
+"kcal": 71.0,
+"protein": 1.2,
+"carbs": 13.5,
+"fat": 0.5
+},
+{
+"name": "Felche, roh",
+"kcal": 98.0,
+"protein": 19.2,
+"carbs": 0.0,
+"fat": 2.3
+},
+{
+"name": "Fenchel, gedämpft (ohne Zugabe von Salz)",
+"kcal": 22.0,
+"protein": 1.0,
+"carbs": 2.5,
+"fat": 0.4
+},
+{
+"name": "Fenchel, roh",
+"kcal": 23.0,
+"protein": 1.0,
+"carbs": 2.6,
+"fat": 0.4
+},
+{
+"name": "Fermentierter Teig",
+"kcal": 199.0,
+"protein": 7.8,
+"carbs": 38.3,
+"fat": 0.9
+},
+{
+"name": "Fisch (Durchschnitt), Filet, gedämpft (ohne Zusatz von Fett und Salz)",
+"kcal": 123.0,
+"protein": 17.9,
+"carbs": 0.0,
+"fat": 5.8
+},
+{
+"name": "Fisch (Durchschnitt), roh",
+"kcal": 124.0,
+"protein": 19.1,
+"carbs": 0.0,
+"fat": 5.3
+},
+{
+"name": "Fischstäbchen (paniert und vorfritiert), gebraten in HOLL-Rapsöl",
+"kcal": 302.0,
+"protein": 16.0,
+"carbs": 16.8,
+"fat": 18.9
+},
+{
+"name": "Fischstäbchen (paniert und vorfritiert), im Ofen gebacken (ohne Zugabe von Fett)",
+"kcal": 251.0,
+"protein": 16.7,
+"carbs": 17.6,
+"fat": 12.4
+},
+{
+"name": "Fischstäbchen, paniert und vorfritiert",
+"kcal": 232.0,
+"protein": 15.5,
+"carbs": 15.5,
+"fat": 11.9
+},
+{
+"name": "Flammkuchen, gebacken",
+"kcal": 254.0,
+"protein": 7.8,
+"carbs": 27.0,
+"fat": 12.3,
+"synonyms": "Flammkuchen"
+},
+{
+"name": "Flammkuchenteig, ungebacken",
+"kcal": 221.0,
+"protein": 7.5,
+"carbs": 39.9,
+"fat": 2.9
+},
+{
+"name": "Fleisch (Durchschnitt exkl. Innereien), roh",
+"kcal": 140.0,
+"protein": 21.5,
+"carbs": 0.0,
+"fat": 6.0
+},
+{
+"name": "Fleischkäse",
+"kcal": 256.0,
+"protein": 12.5,
+"carbs": 1.4,
+"fat": 22.3
+},
+{
+"name": "Fleischlasagne, zubereitet",
+"kcal": 141.0,
+"protein": 8.8,
+"carbs": 12.4,
+"fat": 6.0
+},
+{
+"name": "Florentiner",
+"kcal": 514.0,
+"protein": 9.3,
+"carbs": 50.7,
+"fat": 28.7
+},
+{
+"name": "Flunder, Filet, gedämpft (ohne Zusatz von Fett und Salz)",
+"kcal": 78.0,
+"protein": 15.5,
+"carbs": 0.0,
+"fat": 1.8
+},
+{
+"name": "Flunder, roh",
+"kcal": 80.0,
+"protein": 16.5,
+"carbs": 0.0,
+"fat": 1.6
+},
+{
+"name": "Fondue klassisch, zubereitet",
+"kcal": 306.0,
+"protein": 18.2,
+"carbs": 1.0,
+"fat": 22.0
+},
+{
+"name": "Fondue mit Apfelwein, zubereitet",
+"kcal": 283.0,
+"protein": 18.7,
+"carbs": 1.6,
+"fat": 21.5
+},
+{
+"name": "Fondue moitié-moitié, zubereitet",
+"kcal": 291.0,
+"protein": 16.7,
+"carbs": 1.0,
+"fat": 20.8
+},
+{
+"name": "Forelle, ganz, gekocht (ohne Zusatz von Fett und Salz)",
+"kcal": 115.0,
+"protein": 16.6,
+"carbs": 0.0,
+"fat": 5.4
+},
+{
+"name": "Forelle, geräuchert",
+"kcal": 177.0,
+"protein": 23.4,
+"carbs": 0.0,
+"fat": 9.3
+},
+{
+"name": "Forelle, roh",
+"kcal": 127.0,
+"protein": 17.7,
+"carbs": 0.0,
+"fat": 6.2,
+"synonyms": "Bachforelle"
+},
+{
+"name": "Fotzelschnitte ungezuckert",
+"kcal": 222.0,
+"protein": 8.0,
+"carbs": 24.5,
+"fat": 9.9
+},
+{
+"name": "Freiburger Vacherin",
+"kcal": 370.0,
+"protein": 23.5,
+"carbs": 0.0,
+"fat": 30.4
+},
+{
+"name": "Frischkäse, Doppelrahm",
+"kcal": 351.0,
+"protein": 11.1,
+"carbs": 4.5,
+"fat": 32.1
+},
+{
+"name": "Frischkäsezubereitung zum Streichen (rund 20% Fett), nature",
+"kcal": 226.0,
+"protein": 7.5,
+"carbs": 1.4,
+"fat": 21.2
+},
+{
+"name": "Fruchtcocktail in Sirup, Konserve, abgetropft",
+"kcal": 77.0,
+"protein": 0.6,
+"carbs": 17.3,
+"fat": 0.2
+},
+{
+"name": "Fruchtcocktail mit Süssungsmittel, Konserve, abgetropft",
+"kcal": 47.0,
+"protein": 0.7,
+"carbs": 9.5,
+"fat": 0.2
+},
+{
+"name": "Fruchtsaft (Durchschnitt), ungezuckert",
+"kcal": 47.0,
+"protein": 0.4,
+"carbs": 10.8,
+"fat": 0.1
+},
+{
+"name": "Fruchtsaft-Schorle (Durchschnitt, 60% Saft - 40% Wasser), ungezuckert",
+"kcal": 28.0,
+"protein": 0.3,
+"carbs": 6.5,
+"fat": 0.1
+},
+{
+"name": "Fruchtwähe/-kuchen (Durchschnitt)",
+"kcal": 176.0,
+"protein": 3.2,
+"carbs": 19.5,
+"fat": 8.9
+},
+{
+"name": "Fruchtwähe/-kuchen mit Blätterteig (Durchschnitt)",
+"kcal": 155.0,
+"protein": 3.0,
+"carbs": 17.6,
+"fat": 7.6
+},
+{
+"name": "Fruchtwähe/-kuchen mit Kuchenteig (Durchschnitt)",
+"kcal": 158.0,
+"protein": 3.3,
+"carbs": 18.4,
+"fat": 7.4
+},
+{
+"name": "Fruchtwähe/-kuchen mit süssem Mürbeteig (Durchschnitt)",
+"kcal": 215.0,
+"protein": 3.3,
+"carbs": 22.5,
+"fat": 11.7
+},
+{
+"name": "Früchte (Durchschnitt), gekocht (ohne Zugabe von Zucker)",
+"kcal": 50.0,
+"protein": 0.6,
+"carbs": 10.1,
+"fat": 0.3
+},
+{
+"name": "Früchte (Durchschnitt), getrocknet",
+"kcal": 278.0,
+"protein": 2.5,
+"carbs": 60.5,
+"fat": 1.1,
+"synonyms": "Früchte, gedörrt (Durchschnitt);Dörrfrüchte (Durchschnitt)"
+},
+{
+"name": "Früchte (Durchschnitt), roh",
+"kcal": 56.0,
+"protein": 0.7,
+"carbs": 11.5,
+"fat": 0.3
+},
+{
+"name": "Frühlingsrolle, frittiert",
+"kcal": 224.0,
+"protein": 6.5,
+"carbs": 23.1,
+"fat": 11.2
+},
+{
+"name": "Fünfkornbier",
+"kcal": 40.0,
+"protein": 0.6,
+"carbs": 2.0,
+"fat": 0.0
+},
+{
+"name": "Garnele, gekocht",
+"kcal": 50.0,
+"protein": 9.0,
+"carbs": 1.3,
+"fat": 1.0,
+"synonyms": "Crevette;Scampi;Shrimp"
+},
+{
+"name": "Garnele, roh",
+"kcal": 60.0,
+"protein": 11.4,
+"carbs": 1.2,
+"fat": 1.1,
+"synonyms": "Crevette;Scampi;Shrimp"
+},
+{
+"name": "Gazpacho",
+"kcal": 33.0,
+"protein": 0.7,
+"carbs": 3.4,
+"fat": 1.6
+},
+{
+"name": "Geflügelfleisch (Durchschnitt exkl. Innereien), roh",
+"kcal": 134.0,
+"protein": 21.6,
+"carbs": 0.1,
+"fat": 5.3
+},
+{
+"name": "Geflügelfleisch mit Haut (Durchschnitt), roh",
+"kcal": 161.0,
+"protein": 20.0,
+"carbs": 0.0,
+"fat": 9.0
+},
+{
+"name": "Geflügelfleisch ohne Haut (Durchschnitt exkl. Innereien), roh",
+"kcal": 114.0,
+"protein": 22.9,
+"carbs": 0.1,
+"fat": 2.5
+},
+{
+"name": "Geflügellyoner",
+"kcal": 205.0,
+"protein": 13.5,
+"carbs": 0.9,
+"fat": 16.4
+},
+{
+"name": "Gehacktes (Durchschnitt aus Rind, Kalb, Schwein, Poulet), gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 205.0,
+"protein": 24.4,
+"carbs": 0.0,
+"fat": 12.0
+},
+{
+"name": "Gehacktes (Durchschnitt aus Rind, Kalb, Schwein, Poulet), roh",
+"kcal": 183.0,
+"protein": 20.1,
+"carbs": 0.0,
+"fat": 11.4
+},
+{
+"name": "Gehacktes, vegan aus Soja-oder Erbsenprotein, roh",
+"kcal": 167.0,
+"protein": 14.8,
+"carbs": 5.0,
+"fat": 8.4
+},
+{
+"name": "Gehacktes/Geschnetzeltes/Pätzli, vegetarisch aus Mykoprotein, roh",
+"kcal": 92.0,
+"protein": 13.4,
+"carbs": 1.6,
+"fat": 2.3
+},
+{
+"name": "Gemüse (Durchschnitt), gekocht (ohne Zugabe von Salz und Fett)",
+"kcal": 28.0,
+"protein": 1.2,
+"carbs": 4.0,
+"fat": 0.3
+},
+{
+"name": "Gemüse (Durchschnitt), roh",
+"kcal": 29.0,
+"protein": 1.3,
+"carbs": 4.3,
+"fat": 0.3
+},
+{
+"name": "Gemüsegratin, gebacken",
+"kcal": 58.0,
+"protein": 2.6,
+"carbs": 2.4,
+"fat": 3.9
+},
+{
+"name": "Gemüselasagne, zubereitet",
+"kcal": 133.0,
+"protein": 4.3,
+"carbs": 11.2,
+"fat": 7.6
+},
+{
+"name": "Gepuffter Weizen mit Honig oder andere Zuckerarten",
+"kcal": 377.0,
+"protein": 8.4,
+"carbs": 78.2,
+"fat": 2.2
+},
+{
+"name": "Gepufftes oder extrudiertes Getreide mit Kakao oder Schokolade",
+"kcal": 380.0,
+"protein": 8.9,
+"carbs": 76.6,
+"fat": 2.8
+},
+{
+"name": "Gerstenflocken",
+"kcal": 333.0,
+"protein": 8.5,
+"carbs": 66.1,
+"fat": 1.5
+},
+{
+"name": "Gerstotto, gekocht",
+"kcal": 131.0,
+"protein": 3.0,
+"carbs": 22.2,
+"fat": 2.4
+},
+{
+"name": "Geschnetzeltes (Durchschnitt aus Rind, Kalb, Schwein, Geflügel), gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 142.0,
+"protein": 29.5,
+"carbs": 0.2,
+"fat": 2.6
+},
+{
+"name": "Geschnetzeltes (Durchschnitt aus Rind, Kalb, Schwein, Geflügel), roh",
+"kcal": 111.0,
+"protein": 22.5,
+"carbs": 0.2,
+"fat": 2.3
+},
+{
+"name": "Geschnetzeltes, vegan aus Soja-oder Erbsenprotein, roh",
+"kcal": 139.0,
+"protein": 20.7,
+"carbs": 3.5,
+"fat": 3.3
+},
+{
+"name": "Getreide-Flakes aus Vollkornweizen und Reis mit roten Früchten",
+"kcal": 379.0,
+"protein": 8.4,
+"carbs": 79.5,
+"fat": 1.6
+},
+{
+"name": "Getreide-Flakes aus Vollkornweizen und Reis mit Schokolade",
+"kcal": 408.0,
+"protein": 8.1,
+"carbs": 76.2,
+"fat": 6.6
+},
+{
+"name": "Getreide-Flakes aus Vollkornweizen und Reis, nature",
+"kcal": 382.0,
+"protein": 8.5,
+"carbs": 80.7,
+"fat": 1.5
+},
+{
+"name": "Getreide-Kissen, gefüllt mit Schokolade und Haselnuss",
+"kcal": 446.0,
+"protein": 6.3,
+"carbs": 66.6,
+"fat": 16.1
+},
+{
+"name": "Getreideflocken (Durchschnitt)",
+"kcal": 352.0,
+"protein": 11.5,
+"carbs": 63.5,
+"fat": 3.7
+},
+{
+"name": "Getreideriegel mit Schokoladeüberzug",
+"kcal": 460.0,
+"protein": 8.7,
+"carbs": 57.9,
+"fat": 20.3
+},
+{
+"name": "Getreideriegel, ohne Ueberzug und Füllung",
+"kcal": 418.0,
+"protein": 8.2,
+"carbs": 64.0,
+"fat": 13.0
+},
+{
+"name": "Gipfeli (Durchschnitt)",
+"kcal": 398.0,
+"protein": 7.8,
+"carbs": 40.4,
+"fat": 22.0
+},
+{
+"name": "Glaceriegel oder Stängel (Rahmglace) mit Schokoladeüberzug",
+"kcal": 359.0,
+"protein": 5.1,
+"carbs": 35.8,
+"fat": 21.4
+},
+{
+"name": "Glarner Schabziger",
+"kcal": 132.0,
+"protein": 31.6,
+"carbs": 0.0,
+"fat": 0.5,
+"synonyms": "Glarner Kräuterkäse"
+},
+{
+"name": "Gorgonzola",
+"kcal": 357.0,
+"protein": 19.0,
+"carbs": 0.1,
+"fat": 31.2
+},
+{
+"name": "Granatapfel, roh",
+"kcal": 81.0,
+"protein": 1.4,
+"carbs": 14.3,
+"fat": 1.2
+},
+{
+"name": "Grapefruit (weiss oder rot), roh",
+"kcal": 39.0,
+"protein": 0.9,
+"carbs": 8.0,
+"fat": 0.2,
+"synonyms": "Pampelmuse"
+},
+{
+"name": "Greyerzer, vollfett",
+"kcal": 396.0,
+"protein": 26.4,
+"carbs": 0.0,
+"fat": 32.0,
+"synonyms": "Gruyère"
+},
+{
+"name": "Griessbrei, zubereitet (mit teilentrahmter Milch, ohne Zugabe von Zucker)",
+"kcal": 93.0,
+"protein": 4.7,
+"carbs": 11.3,
+"fat": 3.0
+},
+{
+"name": "Griessbrei, zubereitet (mit Vollmilch, ohne Zugabe von Zucker)",
+"kcal": 93.0,
+"protein": 4.7,
+"carbs": 11.3,
+"fat": 3.0
+},
+{
+"name": "Griessköpfli mit Zucker",
+"kcal": 117.0,
+"protein": 4.4,
+"carbs": 18.2,
+"fat": 2.8
+},
+{
+"name": "Griessschnitte, zubereitet (mit teilentrahmter Milch)",
+"kcal": 142.0,
+"protein": 6.3,
+"carbs": 14.3,
+"fat": 6.4
+},
+{
+"name": "Griessschnitte, zubereitet (mit Vollmilch)",
+"kcal": 151.0,
+"protein": 6.2,
+"carbs": 14.3,
+"fat": 7.5
+},
+{
+"name": "Grittibänz",
+"kcal": 329.0,
+"protein": 9.2,
+"carbs": 46.9,
+"fat": 11.1
+},
+{
+"name": "Guacamole",
+"kcal": 192.0,
+"protein": 2.2,
+"carbs": 5.9,
+"fat": 16.5
+},
+{
+"name": "Gulaschsuppe",
+"kcal": 67.0,
+"protein": 4.8,
+"carbs": 6.3,
+"fat": 2.4
+},
+{
+"name": "Gummibonbon mit Fruchtessenz",
+"kcal": 341.0,
+"protein": 6.6,
+"carbs": 78.6,
+"fat": 0.0
+},
+{
+"name": "Gurke, in Essig eingelegt",
+"kcal": 14.0,
+"protein": 0.7,
+"carbs": 2.1,
+"fat": 0.1,
+"synonyms": "Cornichon;Essiggurke"
+},
+{
+"name": "Gurke, roh",
+"kcal": 12.0,
+"protein": 0.7,
+"carbs": 1.8,
+"fat": 0.0,
+"synonyms": "Salatgurke"
+},
+{
+"name": "Hackbraten, hausgemacht, im Ofen gebacken",
+"kcal": 175.0,
+"protein": 15.0,
+"carbs": 8.1,
+"fat": 9.0
+},
+{
+"name": "Hackplätzli (Rind), hausgemacht, gebraten (ohne Zugabe von Fett)",
+"kcal": 208.0,
+"protein": 18.3,
+"carbs": 6.5,
+"fat": 12.0
+},
+{
+"name": "Hackplätzli (Rind), hausgemacht, gebraten in Rapsöl HOLL",
+"kcal": 231.0,
+"protein": 17.8,
+"carbs": 6.4,
+"fat": 14.7
+},
+{
+"name": "Haferbrei, zubereitet (mit teilentrahmter Milch, ohne Zugabe von Zucker)",
+"kcal": 133.0,
+"protein": 6.3,
+"carbs": 15.8,
+"fat": 4.6
+},
+{
+"name": "Haferbrei, zubereitet (mit Vollmilch, ohne Zugabe von Zucker)",
+"kcal": 147.0,
+"protein": 6.2,
+"carbs": 15.8,
+"fat": 6.2
+},
+{
+"name": "Haferflocken",
+"kcal": 381.0,
+"protein": 13.5,
+"carbs": 59.5,
+"fat": 7.5
+},
+{
+"name": "Hafergetränk, nature",
+"kcal": 47.0,
+"protein": 0.5,
+"carbs": 7.8,
+"fat": 1.5
+},
+{
+"name": "Hafergetränk, nature mit Calcium und Vitaminen angereichert",
+"kcal": 48.0,
+"protein": 0.5,
+"carbs": 7.8,
+"fat": 1.5
+},
+{
+"name": "Haferkleie",
+"kcal": 371.0,
+"protein": 18.5,
+"carbs": 50.8,
+"fat": 7.0
+},
+{
+"name": "Halbentrahmte Milch 1.5% Fett, UHT",
+"kcal": 46.0,
+"protein": 3.2,
+"carbs": 4.8,
+"fat": 1.5
+},
+{
+"name": "Halbfettbutter",
+"kcal": 391.0,
+"protein": 4.8,
+"carbs": 3.5,
+"fat": 39.8
+},
+{
+"name": "Halbrahm, pasteurisiert",
+"kcal": 274.0,
+"protein": 2.3,
+"carbs": 3.3,
+"fat": 27.9
+},
+{
+"name": "Halbrahm, UHT",
+"kcal": 251.0,
+"protein": 2.5,
+"carbs": 3.7,
+"fat": 25.1
+},
+{
+"name": "Halbweissbrot",
+"kcal": 240.0,
+"protein": 9.4,
+"carbs": 46.4,
+"fat": 1.1
+},
+{
+"name": "Halbweissbrot (mit jodiertem Kochsalz)",
+"kcal": 240.0,
+"protein": 9.4,
+"carbs": 46.4,
+"fat": 1.1
+},
+{
+"name": "Hamburger, doppelt",
+"kcal": 258.0,
+"protein": 11.9,
+"carbs": 24.7,
+"fat": 12.1
+},
+{
+"name": "Hanföl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Hart- und Halbhartkäse, vollfett (Durchschnitt)",
+"kcal": 397.0,
+"protein": 26.6,
+"carbs": 0.0,
+"fat": 32.1
+},
+{
+"name": "Hartkaramellen, Hartbonbons",
+"kcal": 385.0,
+"protein": 0.5,
+"carbs": 95.0,
+"fat": 0.3
+},
+{
+"name": "Hartweizen, vorgekochtes geschältest Korn, gekocht (ohne Zugabe von Salz und Fett)",
+"kcal": 149.0,
+"protein": 5.9,
+"carbs": 27.4,
+"fat": 0.9
+},
+{
+"name": "Hartweizengriess, trocken",
+"kcal": 347.0,
+"protein": 13.3,
+"carbs": 66.8,
+"fat": 1.6
+},
+{
+"name": "Hase (Durchschnitt), roh",
+"kcal": 105.0,
+"protein": 22.0,
+"carbs": 0.0,
+"fat": 1.9
+},
+{
+"name": "Haselnuss",
+"kcal": 661.0,
+"protein": 16.4,
+"carbs": 10.1,
+"fat": 59.5
+},
+{
+"name": "Haselnuss-Schokolade-Brotaufstrich",
+"kcal": 549.0,
+"protein": 6.0,
+"carbs": 55.9,
+"fat": 32.8
+},
+{
+"name": "Haselnusskekse",
+"kcal": 473.0,
+"protein": 6.7,
+"carbs": 47.4,
+"fat": 27.7,
+"synonyms": "Haselnussguetzli"
+},
+{
+"name": "Haselnussmakrone",
+"kcal": 544.0,
+"protein": 12.2,
+"carbs": 37.5,
+"fat": 37.0
+},
+{
+"name": "Haselnussstängeli",
+"kcal": 567.0,
+"protein": 10.5,
+"carbs": 47.0,
+"fat": 36.6
+},
+{
+"name": "Haselnussöl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Hecht, roh",
+"kcal": 81.0,
+"protein": 18.4,
+"carbs": 0.0,
+"fat": 0.8
+},
+{
+"name": "Hefeteig (mit Butter), süss, ungebacken",
+"kcal": 311.0,
+"protein": 8.7,
+"carbs": 43.2,
+"fat": 11.1
+},
+{
+"name": "Hefeteig (mit pflanzlichem Fett), süss, ungebacken",
+"kcal": 300.0,
+"protein": 9.2,
+"carbs": 39.9,
+"fat": 11.1
+},
+{
+"name": "Heidelbeere, gefriergetrocknet",
+"kcal": 338.0,
+"protein": 6.1,
+"carbs": 56.4,
+"fat": 4.4
+},
+{
+"name": "Heidelbeere, roh",
+"kcal": 51.0,
+"protein": 0.9,
+"carbs": 10.6,
+"fat": 0.2
+},
+{
+"name": "Heilbutt, Atlantisch, roh",
+"kcal": 118.0,
+"protein": 20.6,
+"carbs": 0.0,
+"fat": 3.9,
+"synonyms": "Weisser Heilbutt"
+},
+{
+"name": "Himbeere, roh",
+"kcal": 44.0,
+"protein": 1.2,
+"carbs": 5.8,
+"fat": 0.8
+},
+{
+"name": "Hinterschinken",
+"kcal": 104.0,
+"protein": 20.2,
+"carbs": 0.7,
+"fat": 2.3
+},
+{
+"name": "Hirsch (Durchschnitt), roh",
+"kcal": 112.0,
+"protein": 20.6,
+"carbs": 0.0,
+"fat": 3.3
+},
+{
+"name": "Hirsch, Entrecôte, roh",
+"kcal": 111.0,
+"protein": 23.1,
+"carbs": 0.0,
+"fat": 2.1
+},
+{
+"name": "Hirse, Korn geschält",
+"kcal": 360.0,
+"protein": 10.6,
+"carbs": 68.8,
+"fat": 3.9
+},
+{
+"name": "Hirseflocken, Vollkorn",
+"kcal": 360.0,
+"protein": 10.6,
+"carbs": 68.8,
+"fat": 3.9
+},
+{
+"name": "Hirsotto, gekocht",
+"kcal": 144.0,
+"protein": 3.6,
+"carbs": 24.7,
+"fat": 3.0
+},
+{
+"name": "Hollandaisesauce",
+"kcal": 212.0,
+"protein": 3.0,
+"carbs": 9.3,
+"fat": 18.0
+},
+{
+"name": "Holunderbeere, schwarz, roh",
+"kcal": 63.0,
+"protein": 2.5,
+"carbs": 7.4,
+"fat": 1.7
+},
+{
+"name": "Honig (Blütenhonig)",
+"kcal": 306.0,
+"protein": 0.4,
+"carbs": 76.0,
+"fat": 0.0
+},
+{
+"name": "Hot Dog in Weissbrot mit Ketchup und Senf",
+"kcal": 216.0,
+"protein": 9.1,
+"carbs": 29.6,
+"fat": 6.3
+},
+{
+"name": "Hummus",
+"kcal": 202.0,
+"protein": 7.3,
+"carbs": 9.1,
+"fat": 14.0
+},
+{
+"name": "Hühnerei, ganz, festgekocht",
+"kcal": 156.0,
+"protein": 14.0,
+"carbs": 0.3,
+"fat": 10.9
+},
+{
+"name": "Hühnerei, ganz, roh",
+"kcal": 140.0,
+"protein": 12.6,
+"carbs": 0.3,
+"fat": 9.8
+},
+{
+"name": "Hühnereigelb, roh (Eidotter)",
+"kcal": 349.0,
+"protein": 16.4,
+"carbs": 0.3,
+"fat": 31.3
+},
+{
+"name": "Hühnereiweiss, roh (Eiklar)",
+"kcal": 45.0,
+"protein": 10.8,
+"carbs": 0.4,
+"fat": 0.0
+},
+{
+"name": "Hülsenfrüchte (Durchschnitt), gekocht (ohne Zugabe von Fett und Salz)",
+"kcal": 127.0,
+"protein": 9.6,
+"carbs": 14.7,
+"fat": 1.9
+},
+{
+"name": "Hülsenfrüchte (Durchschnitt), getrocknet",
+"kcal": 336.0,
+"protein": 25.1,
+"carbs": 39.7,
+"fat": 4.9
+},
+{
+"name": "Hüttenkäse, nature",
+"kcal": 100.0,
+"protein": 12.4,
+"carbs": 2.4,
+"fat": 4.5,
+"synonyms": "Cottage cheese"
+},
+{
+"name": "Ingwer, roh",
+"kcal": 33.0,
+"protein": 1.1,
+"carbs": 3.4,
+"fat": 1.1
+},
+{
+"name": "Instant-Kartoffelstock, zubereitet (mit Wasser und Butter)",
+"kcal": 80.0,
+"protein": 2.0,
+"carbs": 11.5,
+"fat": 2.8
+},
+{
+"name": "Joghurt Bifidus, nature",
+"kcal": 66.0,
+"protein": 4.0,
+"carbs": 4.5,
+"fat": 3.6
+},
+{
+"name": "Joghurt gezuckert (Durchschnitt)",
+"kcal": 105.0,
+"protein": 3.7,
+"carbs": 14.7,
+"fat": 3.4
+},
+{
+"name": "Joghurt mit Aroma, mager, mit Süssstoffen",
+"kcal": 47.0,
+"protein": 4.4,
+"carbs": 7.0,
+"fat": 0.1
+},
+{
+"name": "Joghurt mit Früchten, mager, mit Süssstoffen",
+"kcal": 49.0,
+"protein": 4.5,
+"carbs": 7.0,
+"fat": 0.1
+},
+{
+"name": "Joghurt, Erdbeer",
+"kcal": 101.0,
+"protein": 3.4,
+"carbs": 15.2,
+"fat": 2.7
+},
+{
+"name": "Joghurt, Haselnuss",
+"kcal": 119.0,
+"protein": 3.8,
+"carbs": 15.0,
+"fat": 4.6
+},
+{
+"name": "Joghurt, Mokka",
+"kcal": 99.0,
+"protein": 3.7,
+"carbs": 14.1,
+"fat": 3.1
+},
+{
+"name": "Joghurt, Mokka, Bio",
+"kcal": 95.0,
+"protein": 3.4,
+"carbs": 13.1,
+"fat": 3.3
+},
+{
+"name": "Joghurt, nature",
+"kcal": 66.0,
+"protein": 3.9,
+"carbs": 4.5,
+"fat": 3.6
+},
+{
+"name": "Joghurt, nature, mager",
+"kcal": 42.0,
+"protein": 4.7,
+"carbs": 5.5,
+"fat": 0.1
+},
+{
+"name": "Joghurt, Schokolade",
+"kcal": 120.0,
+"protein": 3.9,
+"carbs": 16.9,
+"fat": 3.9
+},
+{
+"name": "Joghurt, Vanille",
+"kcal": 98.0,
+"protein": 3.7,
+"carbs": 14.0,
+"fat": 3.0
+},
+{
+"name": "Joghurt-Salatsauce (ohne Öl)",
+"kcal": 58.0,
+"protein": 3.2,
+"carbs": 4.5,
+"fat": 3.0
+},
+{
+"name": "Joghurt-Salatsauce, hausgemacht",
+"kcal": 279.0,
+"protein": 2.2,
+"carbs": 8.0,
+"fat": 26.5
+},
+{
+"name": "Joghurtalternative, aus Kokosnuss, mit Früchten oder Aroma, gezuckert",
+"kcal": 107.0,
+"protein": 0.7,
+"carbs": 12.3,
+"fat": 5.9
+},
+{
+"name": "Joghurtalternative, aus Kokosnuss, nature",
+"kcal": 92.0,
+"protein": 0.7,
+"carbs": 5.0,
+"fat": 7.6
+},
+{
+"name": "Joghurtalternative, aus Mandel, mit Früchten oder Aroma, gezuckert",
+"kcal": 99.0,
+"protein": 2.3,
+"carbs": 10.3,
+"fat": 5.4
+},
+{
+"name": "Joghurtalternative, aus Mandel, nature",
+"kcal": 60.0,
+"protein": 1.3,
+"carbs": 4.8,
+"fat": 4.0
+},
+{
+"name": "Joghurtalternative, aus Soja, mit Früchten oder Aroma, gezuckert",
+"kcal": 76.0,
+"protein": 3.6,
+"carbs": 11.1,
+"fat": 1.7
+},
+{
+"name": "Joghurtalternative, aus Soja, mit Früchten oder Aroma, gezuckert, mit Calcium und Vitaminen angereichert",
+"kcal": 85.0,
+"protein": 3.0,
+"carbs": 12.9,
+"fat": 2.3
+},
+{
+"name": "Joghurtalternative, aus Soja, nature",
+"kcal": 43.0,
+"protein": 4.1,
+"carbs": 2.1,
+"fat": 1.9
+},
+{
+"name": "Joghurtalternative, aus Soja, nature, mit Calcium und Vitaminen angereichert",
+"kcal": 40.0,
+"protein": 3.9,
+"carbs": 1.1,
+"fat": 2.1
+},
+{
+"name": "Johannisbeere, rot, roh",
+"kcal": 50.0,
+"protein": 1.6,
+"carbs": 7.1,
+"fat": 0.7
+},
+{
+"name": "Johannisbeere, schwarz, roh",
+"kcal": 71.0,
+"protein": 1.3,
+"carbs": 9.7,
+"fat": 0.9
+},
+{
+"name": "Johannisbeerkuchen, hausgemacht (mit süssem Mürbeteig)",
+"kcal": 216.0,
+"protein": 3.5,
+"carbs": 22.6,
+"fat": 11.7
+},
+{
+"name": "Johannisbeerkuchen, hausgemacht, gebacken (mit Kuchenteig)",
+"kcal": 161.0,
+"protein": 3.9,
+"carbs": 17.2,
+"fat": 7.7
+},
+{
+"name": "Johannisbeerkuchen, hausgmacht, gebacken (mit Blätterteig)",
+"kcal": 158.0,
+"protein": 3.6,
+"carbs": 16.4,
+"fat": 7.8,
+"synonyms": "Johannisbeerwähe"
+},
+{
+"name": "Jägersauce",
+"kcal": 58.0,
+"protein": 2.2,
+"carbs": 8.0,
+"fat": 1.8
+},
+{
+"name": "Kaffee löslich, Pulver",
+"kcal": 253.0,
+"protein": 11.2,
+"carbs": 42.6,
+"fat": 0.0,
+"synonyms": "Instant-Kaffee"
+},
+{
+"name": "Kaffee, schwarz, ungezuckert",
+"kcal": 2.0,
+"protein": 0.1,
+"carbs": 0.3,
+"fat": 0.0
+},
+{
+"name": "Kaffeerahm",
+"kcal": 161.0,
+"protein": 2.6,
+"carbs": 3.8,
+"fat": 15.0
+},
+{
+"name": "Kakaobutter",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Kakaogetränk, gezuckert, Pulver",
+"kcal": 386.0,
+"protein": 6.5,
+"carbs": 78.5,
+"fat": 3.4
+},
+{
+"name": "Kakaogetränk, gezuckert, zubereitet (mit Milch)",
+"kcal": 81.0,
+"protein": 3.4,
+"carbs": 10.0,
+"fat": 3.0
+},
+{
+"name": "Kakaopulver, entölt, ohne Zucker",
+"kcal": 343.0,
+"protein": 24.8,
+"carbs": 19.6,
+"fat": 12.0
+},
+{
+"name": "Kakaopulver, ohne Zucker",
+"kcal": 380.0,
+"protein": 22.4,
+"carbs": 11.6,
+"fat": 20.6
+},
+{
+"name": "Kaki, roh",
+"kcal": 77.0,
+"protein": 0.9,
+"carbs": 16.0,
+"fat": 0.3
+},
+{
+"name": "Kalb, Brust, gekocht (ohne Zugabe von Fett und Salz)",
+"kcal": 234.0,
+"protein": 23.5,
+"carbs": 0.0,
+"fat": 15.5
+},
+{
+"name": "Kalb, Brust, roh",
+"kcal": 204.0,
+"protein": 18.3,
+"carbs": 0.0,
+"fat": 14.5
+},
+{
+"name": "Kalb, Eckstück, roh",
+"kcal": 103.0,
+"protein": 22.2,
+"carbs": 0.0,
+"fat": 1.6,
+"synonyms": "Plätzli"
+},
+{
+"name": "Kalb, Filet, roh",
+"kcal": 119.0,
+"protein": 21.2,
+"carbs": 0.0,
+"fat": 3.8
+},
+{
+"name": "Kalb, Gehacktes, roh",
+"kcal": 105.0,
+"protein": 20.5,
+"carbs": 0.0,
+"fat": 2.6,
+"synonyms": "Hackfleisch"
+},
+{
+"name": "Kalb, Geschnetzeltes, gebraten (ohne Zugabe von Fett und Salz)",
+"kcal": 123.0,
+"protein": 28.2,
+"carbs": 0.0,
+"fat": 1.1
+},
+{
+"name": "Kalb, Geschnetzeltes, roh",
+"kcal": 98.0,
+"protein": 22.0,
+"carbs": 0.0,
+"fat": 1.1
+},
+{
+"name": "Kalb, Haxe, geschmort (ohne Zugabe von Fett und Salz)",
+"kcal": 158.0,
+"protein": 29.7,
+"carbs": 0.0,
+"fat": 4.3
+},
+{
+"name": "Kalb, Haxe, roh",
+"kcal": 116.0,
+"protein": 20.7,
+"carbs": 0.0,
+"fat": 3.7
+},
+{
+"name": "Kalb, Kotelett, roh",
+"kcal": 161.0,
+"protein": 20.7,
+"carbs": 0.0,
+"fat": 8.7
+},
+{
+"name": "Kalb, Leber, roh",
+"kcal": 127.0,
+"protein": 19.6,
+"carbs": 4.6,
+"fat": 3.4
+},
+{
+"name": "Kalb, Milken, roh",
+"kcal": 96.0,
+"protein": 17.2,
+"carbs": 0.0,
+"fat": 3.0,
+"synonyms": "Bries"
+},
+{
+"name": "Kalb, Niere, roh",
+"kcal": 95.0,
+"protein": 15.8,
+"carbs": 1.0,
+"fat": 3.1
+},
+{
+"name": "Kalb, Nierstück, Steak, gebraten (ohne Zugabe von Fett und Salz)",
+"kcal": 144.0,
+"protein": 27.3,
+"carbs": 0.0,
+"fat": 3.9
+},
+{
+"name": "Kalb, Nierstück, Steak, roh",
+"kcal": 113.0,
+"protein": 22.8,
+"carbs": 0.0,
+"fat": 2.4
+},
+{
+"name": "Kalb, Runder Mocken, roh",
+"kcal": 104.0,
+"protein": 21.9,
+"carbs": 0.0,
+"fat": 1.8,
+"synonyms": "Saftplätzli"
+},
+{
+"name": "Kalb, Schulter, Braten, im Ofen gebraten (ohne Zugabe von Fett und Salz)",
+"kcal": 161.0,
+"protein": 28.6,
+"carbs": 0.0,
+"fat": 5.2
+},
+{
+"name": "Kalb, Schulter, Braten, roh",
+"kcal": 122.0,
+"protein": 20.2,
+"carbs": 0.0,
+"fat": 4.6
+},
+{
+"name": "Kalb, Voressen, roh",
+"kcal": 102.0,
+"protein": 20.0,
+"carbs": 0.0,
+"fat": 2.4,
+"synonyms": "Ragout"
+},
+{
+"name": "Kalb, Zunge, roh",
+"kcal": 186.0,
+"protein": 17.2,
+"carbs": 1.9,
+"fat": 12.2
+},
+{
+"name": "Kalbfleisch (Durchschnitt exkl. Innereien, Kotelett), roh",
+"kcal": 127.0,
+"protein": 21.1,
+"carbs": 0.0,
+"fat": 4.8
+},
+{
+"name": "Kalbsbratwurst",
+"kcal": 228.0,
+"protein": 12.5,
+"carbs": 1.2,
+"fat": 19.2
+},
+{
+"name": "Kalbsbratwurst, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 232.0,
+"protein": 13.0,
+"carbs": 1.3,
+"fat": 19.4
+},
+{
+"name": "Kalbsgeschnetzeltes an Currysauce, hausgemacht",
+"kcal": 111.0,
+"protein": 13.1,
+"carbs": 3.3,
+"fat": 5.0
+},
+{
+"name": "Kalbspiccata, zubereitet",
+"kcal": 217.0,
+"protein": 22.5,
+"carbs": 5.5,
+"fat": 11.6
+},
+{
+"name": "Kalbsplätzli, gebraten (ohne Zugabe von Fett und Salz)",
+"kcal": 128.0,
+"protein": 28.4,
+"carbs": 0.0,
+"fat": 1.6
+},
+{
+"name": "Kalbsplätzli, gebraten in HOLL-Rapsöl",
+"kcal": 185.0,
+"protein": 26.8,
+"carbs": 0.0,
+"fat": 8.6
+},
+{
+"name": "Kalbsragout mit Sauce, zubereitet",
+"kcal": 85.0,
+"protein": 10.7,
+"carbs": 2.9,
+"fat": 3.2,
+"synonyms": "Voressen"
+},
+{
+"name": "Kalmar, roh",
+"kcal": 77.0,
+"protein": 14.4,
+"carbs": 2.2,
+"fat": 1.2,
+"synonyms": "Tintenfisch;Calamare;Polpo;Seppia"
+},
+{
+"name": "Kaninchen (Durchschnitt), gekocht (ohne Zusatz von Fett und Salz)",
+"kcal": 177.0,
+"protein": 26.1,
+"carbs": 0.0,
+"fat": 8.0
+},
+{
+"name": "Kaninchen (Durchschnitt), roh",
+"kcal": 150.0,
+"protein": 20.5,
+"carbs": 0.0,
+"fat": 7.5
+},
+{
+"name": "Kaninchen, Filet, roh",
+"kcal": 111.0,
+"protein": 24.3,
+"carbs": 0.0,
+"fat": 1.5
+},
+{
+"name": "Kapern, in Essig eingelegt",
+"kcal": 38.0,
+"protein": 2.2,
+"carbs": 3.5,
+"fat": 0.9
+},
+{
+"name": "Karotte, gedämpft (ohne Zugabe von Salz)",
+"kcal": 44.0,
+"protein": 0.7,
+"carbs": 8.0,
+"fat": 0.4,
+"synonyms": "Rüebli"
+},
+{
+"name": "Karotte, roh",
+"kcal": 42.0,
+"protein": 0.6,
+"carbs": 7.6,
+"fat": 0.4,
+"synonyms": "Möhre;Rüebli"
+},
+{
+"name": "Karottensaft",
+"kcal": 30.0,
+"protein": 0.6,
+"carbs": 6.2,
+"fat": 0.1,
+"synonyms": "Rüeblisaft"
+},
+{
+"name": "Kartoffel, früh, ungeschält, im Wasser gekocht (ohne Salz)",
+"kcal": 66.0,
+"protein": 1.8,
+"carbs": 13.6,
+"fat": 0.1
+},
+{
+"name": "Kartoffel, geschält, gedämpft (ohne Zugabe von Salz)",
+"kcal": 75.0,
+"protein": 2.0,
+"carbs": 15.6,
+"fat": 0.1,
+"synonyms": "Gschwellti"
+},
+{
+"name": "Kartoffel, geschält, roh",
+"kcal": 76.0,
+"protein": 2.0,
+"carbs": 15.6,
+"fat": 0.1,
+"synonyms": "Kartoffeln"
+},
+{
+"name": "Kartoffel, ungeschält, im Ofen gebacken (ohne Zugabe von Fett und Salz)",
+"kcal": 100.0,
+"protein": 2.5,
+"carbs": 20.7,
+"fat": 0.2
+},
+{
+"name": "Kartoffelflocken mit Milchpulver und Salz (Instant-Kartoffelstock)",
+"kcal": 365.0,
+"protein": 11.3,
+"carbs": 65.5,
+"fat": 5.3,
+"synonyms": "Instant-Kartoffelstock"
+},
+{
+"name": "Kartoffelgnocchi, gekocht",
+"kcal": 177.0,
+"protein": 5.0,
+"carbs": 33.6,
+"fat": 2.1
+},
+{
+"name": "Kartoffelgratin dauphinois, zubereitet",
+"kcal": 128.0,
+"protein": 2.5,
+"carbs": 11.3,
+"fat": 7.8
+},
+{
+"name": "Kartoffelgratin Savoyer Art, zubereitet",
+"kcal": 75.0,
+"protein": 2.1,
+"carbs": 10.6,
+"fat": 2.3
+},
+{
+"name": "Kartoffelsalat mit Essig-Öl-Sauce",
+"kcal": 96.0,
+"protein": 1.7,
+"carbs": 12.8,
+"fat": 3.8
+},
+{
+"name": "Kartoffelsalat mit Mayonnaise-Joghurt-Sauce",
+"kcal": 78.0,
+"protein": 1.8,
+"carbs": 12.4,
+"fat": 2.0
+},
+{
+"name": "Kartoffelstock, zubereitet (mit Rahm und Butter)",
+"kcal": 139.0,
+"protein": 2.0,
+"carbs": 12.9,
+"fat": 8.4
+},
+{
+"name": "Kartoffelstock, zubereitet (mit teilentrahmter Milch und Butter)",
+"kcal": 88.0,
+"protein": 2.2,
+"carbs": 13.2,
+"fat": 2.6
+},
+{
+"name": "Kartoffelstock, zubereitet (mit Vollmilch und Butter)",
+"kcal": 90.0,
+"protein": 2.2,
+"carbs": 13.2,
+"fat": 2.8
+},
+{
+"name": "Kartoffelstärke",
+"kcal": 336.0,
+"protein": 0.6,
+"carbs": 83.1,
+"fat": 0.1
+},
+{
+"name": "Kebab im Fladenbrot",
+"kcal": 121.0,
+"protein": 7.6,
+"carbs": 14.6,
+"fat": 3.4
+},
+{
+"name": "Kefe, gedämpft (ohne Zugabe von Salz)",
+"kcal": 52.0,
+"protein": 4.1,
+"carbs": 6.9,
+"fat": 0.3,
+"synonyms": "Zuckerschote;Kiefelerbse"
+},
+{
+"name": "Kefe, roh",
+"kcal": 48.0,
+"protein": 3.8,
+"carbs": 6.4,
+"fat": 0.3,
+"synonyms": "Zuckerschote;Kiefelerbse"
+},
+{
+"name": "Ketchup",
+"kcal": 117.0,
+"protein": 2.0,
+"carbs": 26.0,
+"fat": 0.4
+},
+{
+"name": "Kichererbse, gekocht (ohne Zugabe von Fett und Salz)",
+"kcal": 127.0,
+"protein": 7.3,
+"carbs": 16.8,
+"fat": 2.0
+},
+{
+"name": "Kichererbse, getrocknet",
+"kcal": 327.0,
+"protein": 18.6,
+"carbs": 44.3,
+"fat": 4.9
+},
+{
+"name": "Kirsch",
+"kcal": 245.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0,
+"synonyms": "Kirschenbrand;Kirschschnaps;Kirschwasser;Kirschbranntwein"
+},
+{
+"name": "Kirsche, gedünstet, abgetropft (ohne Zugabe von Zucker)",
+"kcal": 58.0,
+"protein": 0.9,
+"carbs": 12.0,
+"fat": 0.5
+},
+{
+"name": "Kirsche, roh",
+"kcal": 62.0,
+"protein": 0.8,
+"carbs": 13.0,
+"fat": 0.4
+},
+{
+"name": "Kirschenkuchen, hausgemacht, gebacken (mit Blätterteig)",
+"kcal": 167.0,
+"protein": 3.1,
+"carbs": 20.7,
+"fat": 7.6,
+"synonyms": "Kirschenwähe"
+},
+{
+"name": "Kirschenkuchen, hausgemacht, gebacken (mit Kuchenteig)",
+"kcal": 169.0,
+"protein": 3.3,
+"carbs": 21.5,
+"fat": 7.4,
+"synonyms": "Kirschenwähe"
+},
+{
+"name": "Kiwi, roh",
+"kcal": 58.0,
+"protein": 0.9,
+"carbs": 11.0,
+"fat": 0.6
+},
+{
+"name": "Knoblauch, roh",
+"kcal": 107.0,
+"protein": 6.4,
+"carbs": 16.3,
+"fat": 0.5
+},
+{
+"name": "Knollensellerie, gedämpft (ohne Zugabe von Salz)",
+"kcal": 32.0,
+"protein": 1.4,
+"carbs": 4.0,
+"fat": 0.3
+},
+{
+"name": "Knollensellerie, roh",
+"kcal": 32.0,
+"protein": 1.4,
+"carbs": 4.0,
+"fat": 0.3
+},
+{
+"name": "Knuspermüeslimischung mit Früchten, gezuckert",
+"kcal": 426.0,
+"protein": 8.7,
+"carbs": 60.0,
+"fat": 15.1
+},
+{
+"name": "Knuspermüeslimischung mit Nüssen and Samen, gezuckert",
+"kcal": 432.0,
+"protein": 11.3,
+"carbs": 56.2,
+"fat": 16.2
+},
+{
+"name": "Knuspermüeslimischung mit Schokolade",
+"kcal": 443.0,
+"protein": 9.0,
+"carbs": 59.0,
+"fat": 17.4
+},
+{
+"name": "Knuspermüeslimischung, angereichert mit Vitaminen und Mineralien",
+"kcal": 420.0,
+"protein": 10.3,
+"carbs": 63.4,
+"fat": 11.9
+},
+{
+"name": "Knuspermüeslimischung, gezuckert (Durchschnitt)",
+"kcal": 432.0,
+"protein": 9.4,
+"carbs": 58.8,
+"fat": 15.9
+},
+{
+"name": "Knäckebrot, Vollkorn",
+"kcal": 325.0,
+"protein": 12.0,
+"carbs": 57.9,
+"fat": 1.7
+},
+{
+"name": "Knäckebrot, Vollkorn mit Leinsamen",
+"kcal": 345.0,
+"protein": 12.9,
+"carbs": 52.4,
+"fat": 5.8
+},
+{
+"name": "Knäckebrot, Vollkorn mit Sesam",
+"kcal": 354.0,
+"protein": 13.1,
+"carbs": 52.4,
+"fat": 6.9
+},
+{
+"name": "Knöpflimehl",
+"kcal": 347.0,
+"protein": 12.9,
+"carbs": 67.6,
+"fat": 1.5,
+"synonyms": "Spätzlimehl"
+},
+{
+"name": "Kochbutter",
+"kcal": 745.0,
+"protein": 0.5,
+"carbs": 0.7,
+"fat": 82.2
+},
+{
+"name": "Kochpökelware (Durchschnitt)",
+"kcal": 223.0,
+"protein": 19.8,
+"carbs": 0.7,
+"fat": 15.6
+},
+{
+"name": "Kochsalz mit Jod",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Kochsalz mit Jod und Fluor",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0,
+"synonyms": "Speisesalz"
+},
+{
+"name": "Kochsalz ohne Jod und Fluor",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0,
+"synonyms": "Speisesalz"
+},
+{
+"name": "Kochspeck",
+"kcal": 322.0,
+"protein": 17.8,
+"carbs": 0.6,
+"fat": 27.6
+},
+{
+"name": "Kochwürste (Durchschnitt)",
+"kcal": 278.0,
+"protein": 15.4,
+"carbs": 1.1,
+"fat": 23.5
+},
+{
+"name": "Kohlgemüse (Durchschnitt), gekocht (ohne Zugabe von Salz und Fett)",
+"kcal": 31.0,
+"protein": 2.1,
+"carbs": 3.1,
+"fat": 0.5
+},
+{
+"name": "Kohlgemüse (Durchschnitt), roh",
+"kcal": 32.0,
+"protein": 2.2,
+"carbs": 3.3,
+"fat": 0.5
+},
+{
+"name": "Kohlrabi, gedämpft (ohne Zugabe von Salz)",
+"kcal": 28.0,
+"protein": 2.0,
+"carbs": 3.9,
+"fat": 0.2,
+"synonyms": "Rübkohl"
+},
+{
+"name": "Kohlrabi, roh",
+"kcal": 27.0,
+"protein": 1.9,
+"carbs": 3.7,
+"fat": 0.2,
+"synonyms": "Rübkohl"
+},
+{
+"name": "Kokosfett",
+"kcal": 894.0,
+"protein": 0.8,
+"carbs": 0.0,
+"fat": 99.0
+},
+{
+"name": "Kokosmakronen",
+"kcal": 549.0,
+"protein": 6.9,
+"carbs": 35.1,
+"fat": 38.9
+},
+{
+"name": "Kokosnuss",
+"kcal": 384.0,
+"protein": 4.6,
+"carbs": 4.8,
+"fat": 36.5
+},
+{
+"name": "Kokosnuss, getrocknet (Kokosrapseln, Kokosflocken)",
+"kcal": 653.0,
+"protein": 7.6,
+"carbs": 5.3,
+"fat": 61.3
+},
+{
+"name": "Kokosnussgetränk, nature",
+"kcal": 22.0,
+"protein": 0.4,
+"carbs": 2.8,
+"fat": 1.0
+},
+{
+"name": "Kokosnussgetränk, nature mit Calcium und Vitaminen angereichert",
+"kcal": 22.0,
+"protein": 0.4,
+"carbs": 2.8,
+"fat": 1.0
+},
+{
+"name": "Kokosnussmilch",
+"kcal": 214.0,
+"protein": 2.4,
+"carbs": 3.1,
+"fat": 21.3,
+"synonyms": "Kokosmilch"
+},
+{
+"name": "Kondensmilch, gezuckert",
+"kcal": 339.0,
+"protein": 8.0,
+"carbs": 54.3,
+"fat": 10.0
+},
+{
+"name": "Kondensmilch, ungezuckert",
+"kcal": 131.0,
+"protein": 6.4,
+"carbs": 9.3,
+"fat": 7.6
+},
+{
+"name": "Konfitüre",
+"kcal": 246.0,
+"protein": 0.5,
+"carbs": 58.7,
+"fat": 0.5,
+"synonyms": "Marmelade"
+},
+{
+"name": "Konfitüre, energievermindert mit Süssstoffen",
+"kcal": 136.0,
+"protein": 0.5,
+"carbs": 31.9,
+"fat": 0.5,
+"synonyms": "Marmelade"
+},
+{
+"name": "Kopfsalat, roh",
+"kcal": 16.0,
+"protein": 1.3,
+"carbs": 1.1,
+"fat": 0.4
+},
+{
+"name": "Kotelett (Durchschnitt aus Kalb, Schwein, Lamm), gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 223.0,
+"protein": 28.8,
+"carbs": 0.0,
+"fat": 12.0
+},
+{
+"name": "Kotelett (Durchschnitt aus Kalb, Schwein, Lamm), roh",
+"kcal": 177.0,
+"protein": 21.3,
+"carbs": 0.0,
+"fat": 10.2
+},
+{
+"name": "Krustentiere (Durchschnitt), roh",
+"kcal": 77.0,
+"protein": 15.5,
+"carbs": 1.0,
+"fat": 1.2
+},
+{
+"name": "Kuchenteig (mit Butter), ungebacken",
+"kcal": 375.0,
+"protein": 6.7,
+"carbs": 38.5,
+"fat": 21.2,
+"synonyms": "Wähenteig"
+},
+{
+"name": "Kuchenteig (mit pflanzlichem Fett), ungebacken",
+"kcal": 394.0,
+"protein": 6.6,
+"carbs": 38.1,
+"fat": 23.5,
+"synonyms": "Wähenteig"
+},
+{
+"name": "Kuchenteig, Vollkorn (mit Butter), ungebacken",
+"kcal": 372.0,
+"protein": 7.6,
+"carbs": 33.8,
+"fat": 21.5
+},
+{
+"name": "Kuchenteig, Vollkorn (mit pflanzichem Fett), ungebacken",
+"kcal": 359.0,
+"protein": 7.6,
+"carbs": 33.7,
+"fat": 20.2
+},
+{
+"name": "Käse in Salzlake (Kuhmilch)",
+"kcal": 256.0,
+"protein": 16.0,
+"carbs": 1.4,
+"fat": 20.7
+},
+{
+"name": "Käse in Salzlake (Schaf- und Ziegenmilch)",
+"kcal": 281.0,
+"protein": 14.8,
+"carbs": 0.7,
+"fat": 24.3,
+"synonyms": "Feta"
+},
+{
+"name": "Käsealternative, aus Cashewnuss",
+"kcal": 442.0,
+"protein": 14.5,
+"carbs": 15.2,
+"fat": 35.3
+},
+{
+"name": "Käsealternative, aus Kokosöl und Stärke",
+"kcal": 272.0,
+"protein": 0.5,
+"carbs": 21.2,
+"fat": 20.1
+},
+{
+"name": "Käsekuchen, gebacken (mit Blätterteig)",
+"kcal": 300.0,
+"protein": 13.8,
+"carbs": 11.7,
+"fat": 21.9,
+"synonyms": "Käsewähe"
+},
+{
+"name": "Käsekuchen, gebacken (mit Kuchenteig)",
+"kcal": 303.0,
+"protein": 14.3,
+"carbs": 14.5,
+"fat": 20.8,
+"synonyms": "Käsewähe"
+},
+{
+"name": "Käsereibutter",
+"kcal": 747.0,
+"protein": 0.4,
+"carbs": 0.6,
+"fat": 82.5
+},
+{
+"name": "Käseschnitte, zubereitet",
+"kcal": 272.0,
+"protein": 13.8,
+"carbs": 26.0,
+"fat": 12.1
+},
+{
+"name": "Kürbis, gedämpft (ohne Zugabe von Salz)",
+"kcal": 29.0,
+"protein": 1.1,
+"carbs": 4.7,
+"fat": 0.1
+},
+{
+"name": "Kürbis, roh",
+"kcal": 28.0,
+"protein": 1.1,
+"carbs": 4.6,
+"fat": 0.1,
+"synonyms": "Riesenkürbis"
+},
+{
+"name": "Kürbis-Piccata, zubereitet",
+"kcal": 140.0,
+"protein": 5.5,
+"carbs": 9.4,
+"fat": 8.5
+},
+{
+"name": "Kürbiskerne",
+"kcal": 615.0,
+"protein": 35.6,
+"carbs": 4.7,
+"fat": 49.1
+},
+{
+"name": "Kürbiskernöl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Kürbisscheiben, paniert, zubereitet",
+"kcal": 144.0,
+"protein": 4.7,
+"carbs": 16.7,
+"fat": 5.8
+},
+{
+"name": "Lachs, geräuchert",
+"kcal": 173.0,
+"protein": 23.2,
+"carbs": 0.0,
+"fat": 8.9
+},
+{
+"name": "Lachs, Wildfang, roh",
+"kcal": 182.0,
+"protein": 19.7,
+"carbs": 0.0,
+"fat": 11.5
+},
+{
+"name": "Lachs, Zucht, Filet, gedämpft (ohne Zusatz von Fett und Salz)",
+"kcal": 200.0,
+"protein": 18.7,
+"carbs": 0.0,
+"fat": 13.9
+},
+{
+"name": "Lachs, Zucht, roh",
+"kcal": 223.0,
+"protein": 19.9,
+"carbs": 0.0,
+"fat": 15.9
+},
+{
+"name": "Lamm, Filet, \"medium\" gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 147.0,
+"protein": 25.8,
+"carbs": 0.0,
+"fat": 4.8
+},
+{
+"name": "Lamm, Filet, roh",
+"kcal": 122.0,
+"protein": 20.4,
+"carbs": 0.0,
+"fat": 4.5
+},
+{
+"name": "Lamm, Gigot, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 203.0,
+"protein": 28.6,
+"carbs": 0.0,
+"fat": 9.8
+},
+{
+"name": "Lamm, Gigot, roh (Schweiz, Neuseeland)",
+"kcal": 155.0,
+"protein": 20.2,
+"carbs": 0.0,
+"fat": 8.2,
+"synonyms": "Keule"
+},
+{
+"name": "Lamm, Kotelett, roh (Schweiz)",
+"kcal": 179.0,
+"protein": 20.2,
+"carbs": 0.0,
+"fat": 10.9
+},
+{
+"name": "Lamm, Nierstück, roh (Australien, Neuseeland)",
+"kcal": 117.0,
+"protein": 21.8,
+"carbs": 0.0,
+"fat": 3.3
+},
+{
+"name": "Lamm, Racks, roh (Australien, Neuseeland)",
+"kcal": 156.0,
+"protein": 20.3,
+"carbs": 0.0,
+"fat": 8.3
+},
+{
+"name": "Lamm, Voressen, roh (Schweiz)",
+"kcal": 154.0,
+"protein": 19.6,
+"carbs": 0.0,
+"fat": 8.4,
+"synonyms": "Ragout"
+},
+{
+"name": "Lamm/Schaf (Durchschnitt exkl. Innereien, Kotelett), roh",
+"kcal": 137.0,
+"protein": 20.5,
+"carbs": 0.0,
+"fat": 6.1
+},
+{
+"name": "Lammragout mit Sauce, zubereitet",
+"kcal": 113.0,
+"protein": 11.1,
+"carbs": 3.0,
+"fat": 6.1,
+"synonyms": "Voressen"
+},
+{
+"name": "Landjäger",
+"kcal": 491.0,
+"protein": 26.6,
+"carbs": 0.0,
+"fat": 42.7
+},
+{
+"name": "Latte macchiato, ungezuckert",
+"kcal": 54.0,
+"protein": 2.5,
+"carbs": 3.7,
+"fat": 3.2
+},
+{
+"name": "Lattich, roh",
+"kcal": 17.0,
+"protein": 1.2,
+"carbs": 1.2,
+"fat": 0.3
+},
+{
+"name": "Lauch, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 34.0,
+"protein": 2.1,
+"carbs": 4.2,
+"fat": 0.2
+},
+{
+"name": "Lauch, roh",
+"kcal": 32.0,
+"protein": 2.0,
+"carbs": 4.0,
+"fat": 0.2
+},
+{
+"name": "Laugenbrötli (mit jodiertem Kochsalz)",
+"kcal": 285.0,
+"protein": 9.3,
+"carbs": 48.9,
+"fat": 5.3,
+"synonyms": "Silserli"
+},
+{
+"name": "Laugengebäck trocken (Bretzel, Sticks)",
+"kcal": 363.0,
+"protein": 8.6,
+"carbs": 72.1,
+"fat": 4.3
+},
+{
+"name": "Laugengipfeli (mit jodiertem Kochsalz)",
+"kcal": 423.0,
+"protein": 9.1,
+"carbs": 39.4,
+"fat": 25.0,
+"synonyms": "Silsergipfeli"
+},
+{
+"name": "Leber (Durchschnitt aus Rind, Kalb, Schwein), gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 155.0,
+"protein": 23.5,
+"carbs": 4.4,
+"fat": 4.9
+},
+{
+"name": "Leber (Durchschnitt aus Rind, Kalb, Schwein), roh",
+"kcal": 133.0,
+"protein": 20.3,
+"carbs": 3.6,
+"fat": 4.2
+},
+{
+"name": "Leberwurst",
+"kcal": 253.0,
+"protein": 19.8,
+"carbs": 0.5,
+"fat": 19.1
+},
+{
+"name": "Lebkuchen",
+"kcal": 404.0,
+"protein": 6.5,
+"carbs": 61.6,
+"fat": 13.8
+},
+{
+"name": "Lebkuchen mit Schokoladeüberzug",
+"kcal": 444.0,
+"protein": 6.5,
+"carbs": 60.2,
+"fat": 18.9
+},
+{
+"name": "Leinsamen",
+"kcal": 533.0,
+"protein": 21.3,
+"carbs": 3.6,
+"fat": 42.2
+},
+{
+"name": "Leinöl, kaltgepresst",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Lemon Curd",
+"kcal": 317.0,
+"protein": 6.4,
+"carbs": 36.8,
+"fat": 16.0,
+"synonyms": "Zitronencrème"
+},
+{
+"name": "Limburger (Münster)",
+"kcal": 273.0,
+"protein": 20.0,
+"carbs": 0.0,
+"fat": 21.4
+},
+{
+"name": "Limonade, mit Aroma, gezuckert",
+"kcal": 38.0,
+"protein": 0.0,
+"carbs": 9.5,
+"fat": 0.0
+},
+{
+"name": "Linse, ganz, gekocht (ohne Zugabe von Fett und Salz)",
+"kcal": 115.0,
+"protein": 8.8,
+"carbs": 15.6,
+"fat": 0.5
+},
+{
+"name": "Linse, ganz, getrocknet",
+"kcal": 324.0,
+"protein": 24.4,
+"carbs": 44.8,
+"fat": 1.5,
+"synonyms": "Linsen"
+},
+{
+"name": "Linse, geschält, gekocht (ohne Zugabe von Fett und Salz)",
+"kcal": 134.0,
+"protein": 11.0,
+"carbs": 19.0,
+"fat": 0.6
+},
+{
+"name": "Linse, geschält, getrocknet",
+"kcal": 334.0,
+"protein": 27.0,
+"carbs": 48.0,
+"fat": 1.5
+},
+{
+"name": "Linzertorte",
+"kcal": 424.0,
+"protein": 7.5,
+"carbs": 43.7,
+"fat": 23.6
+},
+{
+"name": "Litchi, roh",
+"kcal": 77.0,
+"protein": 1.1,
+"carbs": 16.1,
+"fat": 0.5
+},
+{
+"name": "Luganighe",
+"kcal": 292.0,
+"protein": 21.7,
+"carbs": 0.5,
+"fat": 22.4
+},
+{
+"name": "Lyoner",
+"kcal": 244.0,
+"protein": 11.5,
+"carbs": 0.5,
+"fat": 21.8
+},
+{
+"name": "Löffelbiscuit",
+"kcal": 413.0,
+"protein": 12.2,
+"carbs": 71.8,
+"fat": 8.3
+},
+{
+"name": "Madeleine (mit Butter)",
+"kcal": 460.0,
+"protein": 7.3,
+"carbs": 51.3,
+"fat": 24.8
+},
+{
+"name": "Madeleine (mit Pflanzenöl)",
+"kcal": 434.0,
+"protein": 7.9,
+"carbs": 55.1,
+"fat": 20.0
+},
+{
+"name": "Magermilch, UHT",
+"kcal": 33.0,
+"protein": 3.3,
+"carbs": 4.7,
+"fat": 0.1
+},
+{
+"name": "Magermilchpulver",
+"kcal": 348.0,
+"protein": 34.3,
+"carbs": 50.5,
+"fat": 1.0
+},
+{
+"name": "Mailänderli",
+"kcal": 431.0,
+"protein": 7.1,
+"carbs": 53.2,
+"fat": 20.8
+},
+{
+"name": "Mais, gedämpft (ohne Zugabe von Salz)",
+"kcal": 92.0,
+"protein": 3.5,
+"carbs": 13.6,
+"fat": 1.9,
+"synonyms": "Gemüsemais;Zuckermais"
+},
+{
+"name": "Mais, roh",
+"kcal": 85.0,
+"protein": 3.2,
+"carbs": 12.6,
+"fat": 1.8,
+"synonyms": "Maiskörner, roh;Gemüsemais;Zuckermais"
+},
+{
+"name": "Mais-Bällchen, knusprig mit Honig",
+"kcal": 379.0,
+"protein": 5.9,
+"carbs": 83.5,
+"fat": 1.5
+},
+{
+"name": "Mais-Chips (Apérogebäck)",
+"kcal": 509.0,
+"protein": 7.8,
+"carbs": 56.0,
+"fat": 27.2
+},
+{
+"name": "Maisgriess, gekocht",
+"kcal": 79.0,
+"protein": 2.0,
+"carbs": 16.7,
+"fat": 0.2,
+"synonyms": "Polenta"
+},
+{
+"name": "Maisgriess, trocken",
+"kcal": 350.0,
+"protein": 8.8,
+"carbs": 73.8,
+"fat": 1.1,
+"synonyms": "Polenta"
+},
+{
+"name": "Maiskeimöl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Maiskölbchen, in Essig eingelegt",
+"kcal": 119.0,
+"protein": 3.4,
+"carbs": 21.0,
+"fat": 1.4
+},
+{
+"name": "Maisstärke",
+"kcal": 354.0,
+"protein": 0.3,
+"carbs": 88.0,
+"fat": 0.0
+},
+{
+"name": "Malibu Coconut (21 vol%)",
+"kcal": 187.0,
+"protein": 0.0,
+"carbs": 19.2,
+"fat": 0.0
+},
+{
+"name": "Malzgetränk mit Kakao, mit Vitaminen und Mineralien angereichert, Pulver",
+"kcal": 372.0,
+"protein": 10.7,
+"carbs": 76.4,
+"fat": 1.8
+},
+{
+"name": "Malzgetränk mit Kakao, mit Vitaminen und Mineralien angereichert, zubereitet (mit Milch)",
+"kcal": 80.0,
+"protein": 3.7,
+"carbs": 9.8,
+"fat": 2.9
+},
+{
+"name": "Mandarine, roh",
+"kcal": 45.0,
+"protein": 0.8,
+"carbs": 9.2,
+"fat": 0.2
+},
+{
+"name": "Mandel",
+"kcal": 624.0,
+"protein": 25.6,
+"carbs": 7.8,
+"fat": 52.1
+},
+{
+"name": "Mandel, geröstet ohne Fett, gesalzen",
+"kcal": 637.0,
+"protein": 25.4,
+"carbs": 10.1,
+"fat": 52.5
+},
+{
+"name": "Mandel, geröstet, gesalzen",
+"kcal": 649.0,
+"protein": 25.6,
+"carbs": 7.2,
+"fat": 55.2
+},
+{
+"name": "Mandelgetränk, nature",
+"kcal": 33.0,
+"protein": 1.1,
+"carbs": 1.3,
+"fat": 2.6
+},
+{
+"name": "Mandelgetränk, nature, mit Calcium und Vitaminen angereichert",
+"kcal": 33.0,
+"protein": 1.1,
+"carbs": 1.3,
+"fat": 2.6
+},
+{
+"name": "Mango, getrocknet",
+"kcal": 293.0,
+"protein": 2.9,
+"carbs": 61.1,
+"fat": 2.2
+},
+{
+"name": "Mango, roh",
+"kcal": 68.0,
+"protein": 0.6,
+"carbs": 14.3,
+"fat": 0.6
+},
+{
+"name": "Mangold, gedämpft (ohne Zugabe von Salz)",
+"kcal": 20.0,
+"protein": 1.3,
+"carbs": 2.0,
+"fat": 0.3,
+"synonyms": "Krautstiel"
+},
+{
+"name": "Mangold, roh",
+"kcal": 16.0,
+"protein": 1.0,
+"carbs": 1.6,
+"fat": 0.2,
+"synonyms": "Krautstiele"
+},
+{
+"name": "Maniok, Wurzelknolle, gekocht (ohne Zugabe von Salz)",
+"kcal": 147.0,
+"protein": 1.4,
+"carbs": 33.8,
+"fat": 0.3
+},
+{
+"name": "Maniok, Wurzelknolle, roh",
+"kcal": 157.0,
+"protein": 1.4,
+"carbs": 36.3,
+"fat": 0.3,
+"synonyms": "Yuca;Kassave;Cassava"
+},
+{
+"name": "Margarine, 35 - 40 % Fett",
+"kcal": 357.0,
+"protein": 0.3,
+"carbs": 1.1,
+"fat": 39.0
+},
+{
+"name": "Margarine, ohne Butter, 70 - 80 % Fett",
+"kcal": 696.0,
+"protein": 0.5,
+"carbs": 0.2,
+"fat": 77.0
+},
+{
+"name": "Marmorkuchen",
+"kcal": 356.0,
+"protein": 7.4,
+"carbs": 42.6,
+"fat": 17.1,
+"synonyms": "Marmorcake"
+},
+{
+"name": "Marzipan",
+"kcal": 474.0,
+"protein": 8.0,
+"carbs": 68.6,
+"fat": 17.6
+},
+{
+"name": "Mascarpone",
+"kcal": 435.0,
+"protein": 4.5,
+"carbs": 4.1,
+"fat": 44.5
+},
+{
+"name": "Mayonnaise",
+"kcal": 693.0,
+"protein": 1.4,
+"carbs": 2.6,
+"fat": 75.2
+},
+{
+"name": "Mayonnaise mit Rapsöl, hausgemacht",
+"kcal": 792.0,
+"protein": 2.4,
+"carbs": 0.1,
+"fat": 86.9
+},
+{
+"name": "Mayonnaise, kalorienvermindert",
+"kcal": 327.0,
+"protein": 0.9,
+"carbs": 3.3,
+"fat": 34.5
+},
+{
+"name": "Mehl (Durchschnitt)",
+"kcal": 344.0,
+"protein": 12.0,
+"carbs": 68.8,
+"fat": 1.4
+},
+{
+"name": "Mehl, hell (Durchschnitt)",
+"kcal": 345.0,
+"protein": 12.0,
+"carbs": 69.7,
+"fat": 1.3
+},
+{
+"name": "Mehlomeletten mit Apfelmus, zubereitet",
+"kcal": 113.0,
+"protein": 3.5,
+"carbs": 16.7,
+"fat": 3.2
+},
+{
+"name": "Mehlomeletten mit Champignonfüllung, zubereitet",
+"kcal": 130.0,
+"protein": 5.4,
+"carbs": 11.7,
+"fat": 6.5
+},
+{
+"name": "Mehlomeletten mit Gemüsefüllung, zubereitet",
+"kcal": 144.0,
+"protein": 5.3,
+"carbs": 17.7,
+"fat": 5.5
+},
+{
+"name": "Mehlomeletten mit Käse, zubereitet",
+"kcal": 194.0,
+"protein": 10.0,
+"carbs": 18.2,
+"fat": 8.9
+},
+{
+"name": "Mehlomeletten mit Nutella, zubereitet",
+"kcal": 266.0,
+"protein": 6.7,
+"carbs": 30.4,
+"fat": 12.7
+},
+{
+"name": "Mehlomeletten mit Schinken, zubereitet",
+"kcal": 155.0,
+"protein": 9.7,
+"carbs": 17.3,
+"fat": 5.1
+},
+{
+"name": "Mehlomeletten mit Speck, zubereitet",
+"kcal": 188.0,
+"protein": 9.3,
+"carbs": 17.3,
+"fat": 8.9
+},
+{
+"name": "Mehlomeletten mit Zimt und Zucker, zubereitet",
+"kcal": 186.0,
+"protein": 6.6,
+"carbs": 26.2,
+"fat": 5.9
+},
+{
+"name": "Mehlomeletten, hausgemacht, zubereitet",
+"kcal": 175.0,
+"protein": 7.0,
+"carbs": 22.2,
+"fat": 6.3
+},
+{
+"name": "Melasse, Melassesirup",
+"kcal": 274.0,
+"protein": 1.2,
+"carbs": 67.2,
+"fat": 0.0
+},
+{
+"name": "Meringue",
+"kcal": 401.0,
+"protein": 5.0,
+"carbs": 94.0,
+"fat": 0.5
+},
+{
+"name": "Miesmuschel, gekocht",
+"kcal": 108.0,
+"protein": 17.2,
+"carbs": 5.1,
+"fat": 2.1
+},
+{
+"name": "Miesmuschel, roh",
+"kcal": 85.0,
+"protein": 11.7,
+"carbs": 3.4,
+"fat": 2.7
+},
+{
+"name": "Milch (Durchschnitt)",
+"kcal": 59.0,
+"protein": 3.2,
+"carbs": 4.8,
+"fat": 2.9
+},
+{
+"name": "Milchkaffee dunkel, ungezuckert",
+"kcal": 16.0,
+"protein": 0.7,
+"carbs": 1.2,
+"fat": 0.9,
+"synonyms": "Schale"
+},
+{
+"name": "Milchkaffee hell, ungezuckert",
+"kcal": 22.0,
+"protein": 1.0,
+"carbs": 1.6,
+"fat": 1.2,
+"synonyms": "Schale"
+},
+{
+"name": "Milchkaffee, ungezuckert",
+"kcal": 19.0,
+"protein": 0.9,
+"carbs": 1.4,
+"fat": 1.1,
+"synonyms": "Schale"
+},
+{
+"name": "Milchreis, zubereitet (mit teilentrahmter Milch, ohne Zugabe von Zucker)",
+"kcal": 129.0,
+"protein": 5.3,
+"carbs": 19.0,
+"fat": 3.5
+},
+{
+"name": "Milchreis, zubereitet (mit Vollmilch, ohne Zugabe von Zucker)",
+"kcal": 143.0,
+"protein": 5.1,
+"carbs": 19.0,
+"fat": 5.1
+},
+{
+"name": "Milchschokolade",
+"kcal": 537.0,
+"protein": 6.5,
+"carbs": 56.9,
+"fat": 31.1
+},
+{
+"name": "Milchschokolade mit Alkoholfüllung",
+"kcal": 484.0,
+"protein": 5.6,
+"carbs": 59.1,
+"fat": 22.8
+},
+{
+"name": "Milchschokolade mit Crèmefüllung (Gianduja, Nougat)",
+"kcal": 571.0,
+"protein": 7.9,
+"carbs": 47.6,
+"fat": 38.1
+},
+{
+"name": "Milchschokolade mit Mandel-Honig-Nougat",
+"kcal": 534.0,
+"protein": 7.3,
+"carbs": 54.8,
+"fat": 31.3
+},
+{
+"name": "Milchschokolade mit Nüssen",
+"kcal": 568.0,
+"protein": 8.7,
+"carbs": 46.2,
+"fat": 38.1
+},
+{
+"name": "Milchschokolade mit Weinbeeren, Nüssen und Mandeln",
+"kcal": 509.0,
+"protein": 8.4,
+"carbs": 52.7,
+"fat": 28.5
+},
+{
+"name": "Mineralwasser Acqua Panna",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Adelbodner",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Adello",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Allegra (Malix)",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Appenzell (Gontenbad)",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Aproz (Aproz)",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Aquella (Bouillets)",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Arkina",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Badoit (St Galmier)",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Contrex",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Cristallo (Lostorf)",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Elmer",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Eptinger",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Evian (Cachat)",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Henniez",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Knutwiler",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Passugger (Theophilquelle)",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Perrier",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Rhäzünser",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser San Pellegrino",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Valais (Montis)",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Valser Classic/Naturelle (St. Petersquelle)",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Valser Silence (St. Paulsquelle)",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Vittel",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Volvic",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Mineralwasser Zurzacher",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Minestrone",
+"kcal": 53.0,
+"protein": 2.0,
+"carbs": 7.0,
+"fat": 1.8
+},
+{
+"name": "Minipic Würstchen",
+"kcal": 460.0,
+"protein": 26.1,
+"carbs": 0.8,
+"fat": 39.1
+},
+{
+"name": "Mirabelle, gedünstet, abgetropft (ohne Zugabe von Zucker)",
+"kcal": 70.0,
+"protein": 0.7,
+"carbs": 16.6,
+"fat": 0.2
+},
+{
+"name": "Mirabelle, roh",
+"kcal": 76.0,
+"protein": 0.6,
+"carbs": 18.0,
+"fat": 0.2
+},
+{
+"name": "Molke, süss",
+"kcal": 24.0,
+"protein": 0.8,
+"carbs": 4.7,
+"fat": 0.2,
+"synonyms": "Süssmolke"
+},
+{
+"name": "Morchel, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 34.0,
+"protein": 2.8,
+"carbs": 0.6,
+"fat": 0.4
+},
+{
+"name": "Morchel, roh",
+"kcal": 29.0,
+"protein": 2.5,
+"carbs": 0.5,
+"fat": 0.3
+},
+{
+"name": "Mortadella",
+"kcal": 306.0,
+"protein": 15.7,
+"carbs": 0.8,
+"fat": 26.6
+},
+{
+"name": "Mostbröckli",
+"kcal": 150.0,
+"protein": 32.6,
+"carbs": 0.5,
+"fat": 1.9
+},
+{
+"name": "Mozzarella",
+"kcal": 256.0,
+"protein": 19.5,
+"carbs": 0.7,
+"fat": 19.5
+},
+{
+"name": "Müeslimischung, Getreideflocken mit Früchten und Nüssen, gezuckert",
+"kcal": 365.0,
+"protein": 11.4,
+"carbs": 62.3,
+"fat": 5.6
+},
+{
+"name": "Müeslimischung, Getreideflocken mit Früchten und Nüssen, ungesüsst",
+"kcal": 372.0,
+"protein": 11.3,
+"carbs": 57.4,
+"fat": 8.3
+},
+{
+"name": "Mürbeteig (mit Butter), süss, gebacken",
+"kcal": 530.0,
+"protein": 9.8,
+"carbs": 57.3,
+"fat": 28.6
+},
+{
+"name": "Mürbeteig (mit Butter), süss, ungebacken",
+"kcal": 424.0,
+"protein": 7.8,
+"carbs": 45.8,
+"fat": 22.9
+},
+{
+"name": "Mürbeteig (mit pflanzlichem Fett), süss, gebacken",
+"kcal": 494.0,
+"protein": 8.0,
+"carbs": 58.4,
+"fat": 24.9
+},
+{
+"name": "Mürbeteig (mit pflanzlichem Fett), süss, ungebacken",
+"kcal": 395.0,
+"protein": 6.4,
+"carbs": 46.7,
+"fat": 19.9
+},
+{
+"name": "Mütschli",
+"kcal": 255.0,
+"protein": 8.7,
+"carbs": 51.8,
+"fat": 0.8
+},
+{
+"name": "Nasi Goreng, zubereitet",
+"kcal": 124.0,
+"protein": 10.8,
+"carbs": 16.1,
+"fat": 1.8
+},
+{
+"name": "Nektarine, roh",
+"kcal": 55.0,
+"protein": 1.0,
+"carbs": 11.3,
+"fat": 0.3
+},
+{
+"name": "Nugget, vegan, aus Pflanzenproteinen, roh",
+"kcal": 250.0,
+"protein": 15.5,
+"carbs": 19.7,
+"fat": 10.9
+},
+{
+"name": "Nussgipfel aus Blätterteig",
+"kcal": 419.0,
+"protein": 6.8,
+"carbs": 36.2,
+"fat": 26.9
+},
+{
+"name": "Nussgipfel aus Hefeteig",
+"kcal": 318.0,
+"protein": 7.7,
+"carbs": 41.9,
+"fat": 12.6
+},
+{
+"name": "Nussschnecke aus Hefeteig",
+"kcal": 445.0,
+"protein": 12.2,
+"carbs": 54.9,
+"fat": 18.7,
+"synonyms": "Hefeschnecke"
+},
+{
+"name": "Nüsslisalat, roh",
+"kcal": 18.0,
+"protein": 2.0,
+"carbs": 0.8,
+"fat": 0.2,
+"synonyms": "Rapunzelsalat;Feldsalat"
+},
+{
+"name": "Ofen-Frites, tiefgekühlt",
+"kcal": 154.0,
+"protein": 2.4,
+"carbs": 23.4,
+"fat": 5.1,
+"synonyms": "Ofen-Pommes"
+},
+{
+"name": "Olive, grün, in Salzlake, abgetropft",
+"kcal": 154.0,
+"protein": 1.3,
+"carbs": 0.0,
+"fat": 15.7
+},
+{
+"name": "Olive, schwarz",
+"kcal": 176.0,
+"protein": 1.4,
+"carbs": 0.8,
+"fat": 17.2
+},
+{
+"name": "Olivenöl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Orange, roh",
+"kcal": 45.0,
+"protein": 0.8,
+"carbs": 8.0,
+"fat": 0.2,
+"synonyms": "Apfelsine"
+},
+{
+"name": "Orangeat",
+"kcal": 306.0,
+"protein": 0.4,
+"carbs": 74.3,
+"fat": 0.3
+},
+{
+"name": "Orangennektar",
+"kcal": 44.0,
+"protein": 0.4,
+"carbs": 10.5,
+"fat": 0.0
+},
+{
+"name": "Orangensaft",
+"kcal": 42.0,
+"protein": 0.6,
+"carbs": 9.6,
+"fat": 0.1
+},
+{
+"name": "Palmöl - Palmfett",
+"kcal": 899.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 99.9
+},
+{
+"name": "Panettone",
+"kcal": 354.0,
+"protein": 6.4,
+"carbs": 56.5,
+"fat": 10.7
+},
+{
+"name": "Paniermehl",
+"kcal": 373.0,
+"protein": 12.7,
+"carbs": 73.5,
+"fat": 2.1,
+"synonyms": "Semmelmehl"
+},
+{
+"name": "Pantli",
+"kcal": 538.0,
+"protein": 21.1,
+"carbs": 0.9,
+"fat": 50.0
+},
+{
+"name": "Papaya, reif, roh",
+"kcal": 44.0,
+"protein": 0.5,
+"carbs": 9.5,
+"fat": 0.1
+},
+{
+"name": "Paprika (Gewürz)",
+"kcal": 358.0,
+"protein": 14.8,
+"carbs": 34.9,
+"fat": 13.0
+},
+{
+"name": "Paranuss",
+"kcal": 698.0,
+"protein": 17.0,
+"carbs": 4.2,
+"fat": 66.5
+},
+{
+"name": "Pariserbrot",
+"kcal": 255.0,
+"protein": 9.0,
+"carbs": 51.2,
+"fat": 0.9,
+"synonyms": "Parisette;Baguette"
+},
+{
+"name": "Parmesan",
+"kcal": 401.0,
+"protein": 30.5,
+"carbs": 0.0,
+"fat": 31.0,
+"synonyms": "Parmiggiano"
+},
+{
+"name": "Passionsfrucht, roh",
+"kcal": 102.0,
+"protein": 2.1,
+"carbs": 10.9,
+"fat": 3.0,
+"synonyms": "Maracuja"
+},
+{
+"name": "Pastinake, gekocht (ohne Zugabe von Salz)",
+"kcal": 58.0,
+"protein": 1.2,
+"carbs": 11.4,
+"fat": 0.4
+},
+{
+"name": "Pastinake, roh",
+"kcal": 62.0,
+"protein": 1.3,
+"carbs": 12.1,
+"fat": 0.4
+},
+{
+"name": "Pastis 51 de Marseille (45 vol%)",
+"kcal": 271.0,
+"protein": 0.0,
+"carbs": 2.1,
+"fat": 0.0
+},
+{
+"name": "Peperoni, grün, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 27.0,
+"protein": 1.1,
+"carbs": 3.7,
+"fat": 0.4
+},
+{
+"name": "Peperoni, grün, roh",
+"kcal": 22.0,
+"protein": 0.9,
+"carbs": 3.0,
+"fat": 0.3
+},
+{
+"name": "Peperoni, rot, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 39.0,
+"protein": 1.1,
+"carbs": 7.2,
+"fat": 0.1
+},
+{
+"name": "Peperoni, rot, roh",
+"kcal": 32.0,
+"protein": 0.9,
+"carbs": 5.9,
+"fat": 0.1
+},
+{
+"name": "Pestosauce, grün",
+"kcal": 436.0,
+"protein": 5.6,
+"carbs": 6.6,
+"fat": 42.5
+},
+{
+"name": "Pestosauce, rot",
+"kcal": 410.0,
+"protein": 6.2,
+"carbs": 13.1,
+"fat": 36.2
+},
+{
+"name": "Petersilie, roh",
+"kcal": 58.0,
+"protein": 3.9,
+"carbs": 7.4,
+"fat": 0.5,
+"synonyms": "Peterli"
+},
+{
+"name": "Petit Beurre",
+"kcal": 431.0,
+"protein": 8.7,
+"carbs": 70.2,
+"fat": 12.4
+},
+{
+"name": "Petit Beurre mit Schokolade",
+"kcal": 482.0,
+"protein": 7.7,
+"carbs": 63.8,
+"fat": 21.3
+},
+{
+"name": "Petit Beurre, Vollkorn",
+"kcal": 426.0,
+"protein": 9.6,
+"carbs": 65.3,
+"fat": 12.7
+},
+{
+"name": "Pfefferminze, roh",
+"kcal": 49.0,
+"protein": 3.8,
+"carbs": 5.3,
+"fat": 0.7
+},
+{
+"name": "Pferd, Filet, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 139.0,
+"protein": 27.8,
+"carbs": 0.0,
+"fat": 3.1
+},
+{
+"name": "Pferd, Filet, roh",
+"kcal": 112.0,
+"protein": 21.4,
+"carbs": 0.0,
+"fat": 2.9
+},
+{
+"name": "Pferderagout mit Sauce, zubereitet",
+"kcal": 93.0,
+"protein": 11.8,
+"carbs": 3.0,
+"fat": 3.6,
+"synonyms": "Voressen"
+},
+{
+"name": "Pfirsich in Sirup, Konserve, abgetropft",
+"kcal": 82.0,
+"protein": 0.7,
+"carbs": 18.6,
+"fat": 0.1
+},
+{
+"name": "Pfirsich mit Süssungsmittel, Konserve, abgetropft",
+"kcal": 40.0,
+"protein": 0.8,
+"carbs": 8.1,
+"fat": 0.1
+},
+{
+"name": "Pfirsich, gelb, roh",
+"kcal": 43.0,
+"protein": 0.8,
+"carbs": 8.9,
+"fat": 0.1
+},
+{
+"name": "Pflaume, gedünstet, abgetropft (ohne Zugabe von Zucker)",
+"kcal": 48.0,
+"protein": 0.7,
+"carbs": 10.1,
+"fat": 0.2
+},
+{
+"name": "Pflaume, getrocknet",
+"kcal": 227.0,
+"protein": 1.6,
+"carbs": 55.4,
+"fat": 0.4,
+"synonyms": "Backpflaume;Dörrpflaume"
+},
+{
+"name": "Pflaume, roh",
+"kcal": 48.0,
+"protein": 0.6,
+"carbs": 10.2,
+"fat": 0.2
+},
+{
+"name": "Pflaumenkuchen, hausgemacht, gebacken (mit Blätterteig)",
+"kcal": 157.0,
+"protein": 2.9,
+"carbs": 18.7,
+"fat": 7.5,
+"synonyms": "Pflaumenwähe"
+},
+{
+"name": "Pflaumenkuchen, hausgemacht, gebacken (mit Kuchenteig)",
+"kcal": 159.0,
+"protein": 3.2,
+"carbs": 19.5,
+"fat": 7.3
+},
+{
+"name": "Pilz (Durchschnitt), gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 30.0,
+"protein": 4.1,
+"carbs": 1.2,
+"fat": 0.3
+},
+{
+"name": "Pilz (Durchschnitt), roh",
+"kcal": 26.0,
+"protein": 3.6,
+"carbs": 1.0,
+"fat": 0.3
+},
+{
+"name": "Pilzrisotto, zubereitet",
+"kcal": 128.0,
+"protein": 4.0,
+"carbs": 18.5,
+"fat": 3.9
+},
+{
+"name": "Pilzsauce, gebunden",
+"kcal": 132.0,
+"protein": 3.9,
+"carbs": 8.5,
+"fat": 8.9
+},
+{
+"name": "Pilzsuppe",
+"kcal": 38.0,
+"protein": 1.1,
+"carbs": 5.5,
+"fat": 1.2
+},
+{
+"name": "Pinienkerne",
+"kcal": 688.0,
+"protein": 16.5,
+"carbs": 13.0,
+"fat": 61.9
+},
+{
+"name": "Pistazie",
+"kcal": 621.0,
+"protein": 25.5,
+"carbs": 12.3,
+"fat": 50.3
+},
+{
+"name": "Pizza al tonno, gebacken",
+"kcal": 225.0,
+"protein": 11.9,
+"carbs": 26.6,
+"fat": 7.5,
+"synonyms": "Pizza mit Thon"
+},
+{
+"name": "Pizza Calzone, gebacken",
+"kcal": 224.0,
+"protein": 11.4,
+"carbs": 26.6,
+"fat": 7.6
+},
+{
+"name": "Pizza Hawaii, gebacken",
+"kcal": 195.0,
+"protein": 9.5,
+"carbs": 24.3,
+"fat": 6.3
+},
+{
+"name": "Pizza Margherita, gebacken",
+"kcal": 238.0,
+"protein": 9.9,
+"carbs": 30.0,
+"fat": 8.4
+},
+{
+"name": "Pizza mit Gemüse, gebacken",
+"kcal": 125.0,
+"protein": 5.7,
+"carbs": 17.6,
+"fat": 3.2
+},
+{
+"name": "Pizza mit Mascarpone und Rucola, gebacken",
+"kcal": 239.0,
+"protein": 9.5,
+"carbs": 27.6,
+"fat": 9.7
+},
+{
+"name": "Pizza Prosciutto e Funghi, gebacken",
+"kcal": 204.0,
+"protein": 10.7,
+"carbs": 24.0,
+"fat": 6.9,
+"synonyms": "Pizza mit Schinken und Pilzen"
+},
+{
+"name": "Pizza Prosciutto, gebacken",
+"kcal": 218.0,
+"protein": 10.6,
+"carbs": 28.8,
+"fat": 6.4,
+"synonyms": "Pizza mit Schinken"
+},
+{
+"name": "Pizza Quattro Formaggi, gebacken",
+"kcal": 297.0,
+"protein": 12.3,
+"carbs": 37.2,
+"fat": 10.6
+},
+{
+"name": "Pizzateig (mit Olivenöl), ungebacken",
+"kcal": 229.0,
+"protein": 7.0,
+"carbs": 41.2,
+"fat": 3.6
+},
+{
+"name": "Plätzli (Durchschnitt aus Geflügel, Kalb, Rind, Schwein), gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 141.0,
+"protein": 29.7,
+"carbs": 0.2,
+"fat": 2.4
+},
+{
+"name": "Plätzli (Durchschnitt aus Rind, Kalb, Schwein, Geflügel), paniert, gebraten",
+"kcal": 229.0,
+"protein": 23.9,
+"carbs": 10.2,
+"fat": 10.2,
+"synonyms": "Schnitzel, paniert;Fleisch paniert"
+},
+{
+"name": "Plätzli (Durchschnitt aus Rind, Kalb, Schwein, Geflügel), roh",
+"kcal": 110.0,
+"protein": 22.6,
+"carbs": 0.2,
+"fat": 2.1
+},
+{
+"name": "Polenta nera (aus Maisgriess und Buchweizenmehl), gekocht",
+"kcal": 111.0,
+"protein": 4.1,
+"carbs": 12.4,
+"fat": 4.8
+},
+{
+"name": "Pommes Chips",
+"kcal": 538.0,
+"protein": 4.9,
+"carbs": 49.3,
+"fat": 34.8
+},
+{
+"name": "Pommes Chips fettreduziert",
+"kcal": 468.0,
+"protein": 5.9,
+"carbs": 59.2,
+"fat": 22.1
+},
+{
+"name": "Pommes Frites (im Ofen gebacken), ungesalzen",
+"kcal": 213.0,
+"protein": 3.8,
+"carbs": 32.6,
+"fat": 6.6,
+"synonyms": "Ofen-Pommes"
+},
+{
+"name": "Pommes Frites (in HO Sonnenblumenöl frittiert), ungesalzen",
+"kcal": 286.0,
+"protein": 3.2,
+"carbs": 32.4,
+"fat": 15.4
+},
+{
+"name": "Popcorn",
+"kcal": 367.0,
+"protein": 12.0,
+"carbs": 62.9,
+"fat": 4.2,
+"synonyms": "Puffmais"
+},
+{
+"name": "Portwein, 18.5 vol%",
+"kcal": 152.0,
+"protein": 0.2,
+"carbs": 12.0,
+"fat": 0.0,
+"synonyms": "Porto"
+},
+{
+"name": "Poulet, Brust, mit Haut, roh",
+"kcal": 152.0,
+"protein": 23.3,
+"carbs": 0.0,
+"fat": 6.5
+},
+{
+"name": "Poulet, Brust, ohne Haut, roh",
+"kcal": 107.0,
+"protein": 24.6,
+"carbs": 0.0,
+"fat": 1.0,
+"synonyms": "Pouletschnitzel"
+},
+{
+"name": "Poulet, Brust, Schnitzel oder Geschnetzeltes, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 128.0,
+"protein": 30.1,
+"carbs": 0.0,
+"fat": 0.8
+},
+{
+"name": "Poulet, ganz, mit Haut, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 193.0,
+"protein": 25.1,
+"carbs": 0.0,
+"fat": 10.3
+},
+{
+"name": "Poulet, ganz, mit Haut, roh",
+"kcal": 168.0,
+"protein": 18.8,
+"carbs": 0.0,
+"fat": 10.3
+},
+{
+"name": "Poulet, Schenkel, mit Haut, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 187.0,
+"protein": 23.9,
+"carbs": 0.0,
+"fat": 10.2
+},
+{
+"name": "Poulet, Schenkel, mit Haut, roh",
+"kcal": 163.0,
+"protein": 17.9,
+"carbs": 0.0,
+"fat": 10.2
+},
+{
+"name": "Poulet, Schenkel, ohne Haut, roh",
+"kcal": 135.0,
+"protein": 19.7,
+"carbs": 0.0,
+"fat": 6.2
+},
+{
+"name": "Pouletgeschnetzeltes an Currysauce, hausgemacht",
+"kcal": 116.0,
+"protein": 14.6,
+"carbs": 3.3,
+"fat": 4.8
+},
+{
+"name": "Preiselbeere, roh",
+"kcal": 36.0,
+"protein": 0.3,
+"carbs": 6.2,
+"fat": 0.5,
+"synonyms": "Moosbeere"
+},
+{
+"name": "Prussien",
+"kcal": 438.0,
+"protein": 4.7,
+"carbs": 53.8,
+"fat": 22.4,
+"synonyms": "Palmiers"
+},
+{
+"name": "Pudding, Caramel",
+"kcal": 125.0,
+"protein": 3.4,
+"carbs": 23.0,
+"fat": 2.1,
+"synonyms": "Flan"
+},
+{
+"name": "Pudding, Schokolade",
+"kcal": 121.0,
+"protein": 3.0,
+"carbs": 21.0,
+"fat": 2.6,
+"synonyms": "Flan"
+},
+{
+"name": "Pudding, Vanille",
+"kcal": 102.0,
+"protein": 2.8,
+"carbs": 18.0,
+"fat": 2.1,
+"synonyms": "Flan"
+},
+{
+"name": "Puffreis, knusprig",
+"kcal": 385.0,
+"protein": 6.3,
+"carbs": 86.0,
+"fat": 1.5
+},
+{
+"name": "Quark, mit Früchten, gezuckert",
+"kcal": 112.0,
+"protein": 8.4,
+"carbs": 14.1,
+"fat": 2.4
+},
+{
+"name": "Quark, nature, halbfett",
+"kcal": 99.0,
+"protein": 9.4,
+"carbs": 4.1,
+"fat": 5.0
+},
+{
+"name": "Quark, nature, mager",
+"kcal": 61.0,
+"protein": 10.6,
+"carbs": 4.2,
+"fat": 0.2
+},
+{
+"name": "Quark, nature, Rahm",
+"kcal": 183.0,
+"protein": 6.9,
+"carbs": 3.7,
+"fat": 15.6
+},
+{
+"name": "Quarkblätterteig (mit Butter), ungebacken",
+"kcal": 401.0,
+"protein": 7.1,
+"carbs": 29.0,
+"fat": 28.3
+},
+{
+"name": "Quarkblätterteig (mit pflanzlichem Fett), ungebacken",
+"kcal": 388.0,
+"protein": 7.1,
+"carbs": 28.8,
+"fat": 26.9
+},
+{
+"name": "Quiche Lorraine, gebacken (mit Blätterteig)",
+"kcal": 291.0,
+"protein": 8.5,
+"carbs": 11.5,
+"fat": 23.4
+},
+{
+"name": "Quiche Lorraine, gebacken (mit Kuchenteig)",
+"kcal": 295.0,
+"protein": 9.0,
+"carbs": 14.5,
+"fat": 22.2
+},
+{
+"name": "Quinoa, gekocht (ohne Zugabe von Salz und Fett)",
+"kcal": 117.0,
+"protein": 4.4,
+"carbs": 19.1,
+"fat": 2.0
+},
+{
+"name": "Quinoa, roh",
+"kcal": 362.0,
+"protein": 13.3,
+"carbs": 58.2,
+"fat": 6.6
+},
+{
+"name": "Quitte, gekocht, abgetropft (ohne Zugabe von Zucker)",
+"kcal": 49.0,
+"protein": 0.5,
+"carbs": 7.3,
+"fat": 0.6
+},
+{
+"name": "Quitte, roh",
+"kcal": 47.0,
+"protein": 0.4,
+"carbs": 7.3,
+"fat": 0.5
+},
+{
+"name": "Raclettekäse",
+"kcal": 357.0,
+"protein": 25.9,
+"carbs": 0.0,
+"fat": 27.9
+},
+{
+"name": "Radieschen, roh",
+"kcal": 14.0,
+"protein": 0.9,
+"carbs": 1.5,
+"fat": 0.1,
+"synonyms": "Radisli"
+},
+{
+"name": "Rahm (Durchschnitt)",
+"kcal": 279.0,
+"protein": 2.2,
+"carbs": 3.3,
+"fat": 28.6
+},
+{
+"name": "Rahmglace, Aroma",
+"kcal": 278.0,
+"protein": 4.1,
+"carbs": 24.2,
+"fat": 17.9
+},
+{
+"name": "Rahmglace, Frucht",
+"kcal": 185.0,
+"protein": 3.5,
+"carbs": 24.7,
+"fat": 8.0,
+"synonyms": "Rahmeis"
+},
+{
+"name": "Rahmkaramellen",
+"kcal": 351.0,
+"protein": 0.4,
+"carbs": 79.3,
+"fat": 3.6,
+"synonyms": "Rahmbonbons"
+},
+{
+"name": "Rahmspinat, gekocht",
+"kcal": 65.0,
+"protein": 2.9,
+"carbs": 4.0,
+"fat": 3.8
+},
+{
+"name": "Rande, gedämpft (ohne Zugabe von Salz)",
+"kcal": 56.0,
+"protein": 2.0,
+"carbs": 10.0,
+"fat": 0.4,
+"synonyms": "Rote Beete"
+},
+{
+"name": "Rande, roh",
+"kcal": 48.0,
+"protein": 1.7,
+"carbs": 8.4,
+"fat": 0.3,
+"synonyms": "Rote Beete"
+},
+{
+"name": "Rapsöl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Rapsöl HOLL (high oleic, low linolenic)",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Ratatouille, zubereitet",
+"kcal": 45.0,
+"protein": 1.3,
+"carbs": 4.1,
+"fat": 2.1
+},
+{
+"name": "Reblochon",
+"kcal": 307.0,
+"protein": 19.9,
+"carbs": 0.0,
+"fat": 25.2
+},
+{
+"name": "Reh, Ragout, roh",
+"kcal": 105.0,
+"protein": 22.0,
+"carbs": 0.0,
+"fat": 1.9,
+"synonyms": "Rehpfeffer"
+},
+{
+"name": "Reh, Schnitzel, roh",
+"kcal": 105.0,
+"protein": 22.5,
+"carbs": 0.0,
+"fat": 1.7
+},
+{
+"name": "Reibkäse",
+"kcal": 406.0,
+"protein": 29.3,
+"carbs": 0.0,
+"fat": 32.1
+},
+{
+"name": "Reis parboiled, gekocht in Salzwasser (unjodiert)",
+"kcal": 120.0,
+"protein": 2.4,
+"carbs": 26.7,
+"fat": 0.3
+},
+{
+"name": "Reis parboiled, trocken",
+"kcal": 356.0,
+"protein": 7.5,
+"carbs": 78.6,
+"fat": 1.0
+},
+{
+"name": "Reis poliert, gekocht in Salzwasser (unjodiert)",
+"kcal": 116.0,
+"protein": 2.3,
+"carbs": 25.8,
+"fat": 0.3
+},
+{
+"name": "Reis poliert, trocken",
+"kcal": 352.0,
+"protein": 7.4,
+"carbs": 78.0,
+"fat": 0.9
+},
+{
+"name": "Reis unpoliert, gekocht in Salzwasser (unjodiert)",
+"kcal": 126.0,
+"protein": 2.7,
+"carbs": 25.7,
+"fat": 1.0,
+"synonyms": "Vollkornreis"
+},
+{
+"name": "Reis unpoliert, trocken",
+"kcal": 350.0,
+"protein": 7.4,
+"carbs": 71.4,
+"fat": 2.8,
+"synonyms": "Vollkornreis"
+},
+{
+"name": "Reisgetränk, nature",
+"kcal": 54.0,
+"protein": 0.2,
+"carbs": 10.3,
+"fat": 1.3
+},
+{
+"name": "Reisgetränk, nature mit Calcium angereichert",
+"kcal": 54.0,
+"protein": 0.2,
+"carbs": 10.3,
+"fat": 1.3
+},
+{
+"name": "Rettich, roh",
+"kcal": 24.0,
+"protein": 1.0,
+"carbs": 3.9,
+"fat": 0.1
+},
+{
+"name": "Rhabarber, roh",
+"kcal": 22.0,
+"protein": 0.8,
+"carbs": 1.5,
+"fat": 0.2
+},
+{
+"name": "Rhabarberkompott, gezuckert",
+"kcal": 84.0,
+"protein": 0.7,
+"carbs": 18.8,
+"fat": 0.2
+},
+{
+"name": "Rhabarberkuchen, gebacken (mit Blätterteig)",
+"kcal": 133.0,
+"protein": 3.0,
+"carbs": 12.3,
+"fat": 7.5,
+"synonyms": "Rhabarberwähe"
+},
+{
+"name": "Rhabarberkuchen, hausgemacht, gebacken (mit Kuchenteig)",
+"kcal": 136.0,
+"protein": 3.3,
+"carbs": 13.1,
+"fat": 7.3,
+"synonyms": "Rhabarberwähe"
+},
+{
+"name": "Rind, Brust, gekocht (ohne Zugabe von Fett und Salz)",
+"kcal": 254.0,
+"protein": 28.3,
+"carbs": 0.0,
+"fat": 15.6
+},
+{
+"name": "Rind, Brust, roh",
+"kcal": 188.0,
+"protein": 18.9,
+"carbs": 0.0,
+"fat": 12.5
+},
+{
+"name": "Rind, Eckstück, roh",
+"kcal": 111.0,
+"protein": 22.6,
+"carbs": 0.0,
+"fat": 2.3,
+"synonyms": "Plätzli"
+},
+{
+"name": "Rind, Entrecôte, \"medium\" gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 162.0,
+"protein": 30.2,
+"carbs": 0.0,
+"fat": 4.6
+},
+{
+"name": "Rind, Entrecôte, roh",
+"kcal": 133.0,
+"protein": 23.2,
+"carbs": 0.0,
+"fat": 4.5
+},
+{
+"name": "Rind, Filet, \"medium\" gebraten (ohne Zustatz von Fett und Salz)",
+"kcal": 147.0,
+"protein": 27.7,
+"carbs": 0.0,
+"fat": 4.0
+},
+{
+"name": "Rind, Filet, roh",
+"kcal": 123.0,
+"protein": 21.9,
+"carbs": 0.0,
+"fat": 4.0
+},
+{
+"name": "Rind, Gehacktes, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 211.0,
+"protein": 32.6,
+"carbs": 0.0,
+"fat": 8.9,
+"synonyms": "Hackfleisch"
+},
+{
+"name": "Rind, Gehacktes, mager, roh",
+"kcal": 154.0,
+"protein": 21.6,
+"carbs": 0.0,
+"fat": 7.5,
+"synonyms": "Hackfleisch"
+},
+{
+"name": "Rind, Gehacktes, roh",
+"kcal": 208.0,
+"protein": 19.2,
+"carbs": 0.0,
+"fat": 14.6,
+"synonyms": "Hackfleisch"
+},
+{
+"name": "Rind, Geschnetzeltes, roh",
+"kcal": 102.0,
+"protein": 22.2,
+"carbs": 0.0,
+"fat": 1.5
+},
+{
+"name": "Rind, Hals, roh",
+"kcal": 150.0,
+"protein": 19.3,
+"carbs": 0.0,
+"fat": 8.1,
+"synonyms": "Gulasch;Voressen"
+},
+{
+"name": "Rind, Hohrücken, roh",
+"kcal": 165.0,
+"protein": 21.1,
+"carbs": 0.0,
+"fat": 9.0
+},
+{
+"name": "Rind, Leber, roh",
+"kcal": 142.0,
+"protein": 20.5,
+"carbs": 5.3,
+"fat": 4.3
+},
+{
+"name": "Rind, Runder Mocken, roh",
+"kcal": 106.0,
+"protein": 22.4,
+"carbs": 0.0,
+"fat": 1.8,
+"synonyms": "Saftplätzli"
+},
+{
+"name": "Rind, Schulter, Braten \"medium\", im Ofen gebraten (ohne Zugabe von Fett und Salz)",
+"kcal": 146.0,
+"protein": 28.5,
+"carbs": 0.0,
+"fat": 3.6
+},
+{
+"name": "Rind, Schulter, Braten \"rare\", im Ofen gebraten (ohne Zugabe von Fett und Salz)",
+"kcal": 135.0,
+"protein": 26.3,
+"carbs": 0.0,
+"fat": 3.3
+},
+{
+"name": "Rind, Schulter, Braten \"well done\", im Ofen gebraten (ohne Zugabe von Fett und Salz)",
+"kcal": 170.0,
+"protein": 33.1,
+"carbs": 0.0,
+"fat": 4.2
+},
+{
+"name": "Rind, Schulter, Braten, roh",
+"kcal": 117.0,
+"protein": 21.6,
+"carbs": 0.0,
+"fat": 3.5
+},
+{
+"name": "Rind, Siedfleisch, durchzogen,  roh",
+"kcal": 227.0,
+"protein": 19.5,
+"carbs": 0.0,
+"fat": 16.6
+},
+{
+"name": "Rind, Siedfleisch, durchzogen, gekocht (ohne Zusatz von Fett und Salz)",
+"kcal": 276.0,
+"protein": 26.6,
+"carbs": 0.0,
+"fat": 18.9
+},
+{
+"name": "Rind, Siedfleisch, mager, gekocht (ohne Zusatz von Fett and Salz)",
+"kcal": 190.0,
+"protein": 31.7,
+"carbs": 0.0,
+"fat": 7.1
+},
+{
+"name": "Rind, Siedfleisch, mager, roh",
+"kcal": 132.0,
+"protein": 20.7,
+"carbs": 0.0,
+"fat": 5.5
+},
+{
+"name": "Rind, Voressen, roh",
+"kcal": 97.0,
+"protein": 21.2,
+"carbs": 0.0,
+"fat": 1.3,
+"synonyms": "Ragout"
+},
+{
+"name": "Rind, Zunge, roh",
+"kcal": 196.0,
+"protein": 16.0,
+"carbs": 3.7,
+"fat": 13.0
+},
+{
+"name": "Rindfleisch (Durchschnitt exkl. Innereien, Rippensteak), roh",
+"kcal": 137.0,
+"protein": 21.4,
+"carbs": 0.0,
+"fat": 5.7
+},
+{
+"name": "Rindsragout mit Sauce, zubereitet",
+"kcal": 85.0,
+"protein": 11.6,
+"carbs": 3.0,
+"fat": 2.8,
+"synonyms": "Voressen"
+},
+{
+"name": "Rindstatar, zubereitet",
+"kcal": 125.0,
+"protein": 16.1,
+"carbs": 3.2,
+"fat": 5.2
+},
+{
+"name": "Rippli (Nierstück), roh",
+"kcal": 156.0,
+"protein": 21.7,
+"carbs": 0.5,
+"fat": 7.5
+},
+{
+"name": "Risotto mit Käse, hausgemacht",
+"kcal": 143.0,
+"protein": 4.2,
+"carbs": 23.1,
+"fat": 3.7
+},
+{
+"name": "Risotto ohne Käse, zubereitet",
+"kcal": 124.0,
+"protein": 2.3,
+"carbs": 24.8,
+"fat": 1.6
+},
+{
+"name": "Ristretto crème, ungezuckert",
+"kcal": 47.0,
+"protein": 0.8,
+"carbs": 1.3,
+"fat": 4.3
+},
+{
+"name": "Riz Casimir mit Kalbfleisch, zubereitet",
+"kcal": 121.0,
+"protein": 6.4,
+"carbs": 16.1,
+"fat": 3.3
+},
+{
+"name": "Riz Casimir mit Poulet, zubereitet",
+"kcal": 123.0,
+"protein": 6.9,
+"carbs": 16.1,
+"fat": 3.3
+},
+{
+"name": "Roggenbrot mit Sauerteig",
+"kcal": 210.0,
+"protein": 6.5,
+"carbs": 39.0,
+"fat": 0.9
+},
+{
+"name": "Roggenmehl, halbweiss, Typ 815",
+"kcal": 334.0,
+"protein": 6.9,
+"carbs": 71.0,
+"fat": 1.0
+},
+{
+"name": "Roggenmehl, Ruch, Typ 1050",
+"kcal": 340.0,
+"protein": 9.0,
+"carbs": 67.8,
+"fat": 1.2
+},
+{
+"name": "Roggenmehl, Vollkorn, Schrot, Typ 1800",
+"kcal": 321.0,
+"protein": 10.8,
+"carbs": 56.6,
+"fat": 1.5
+},
+{
+"name": "Roggenschrotbrot",
+"kcal": 225.0,
+"protein": 7.7,
+"carbs": 40.0,
+"fat": 1.1
+},
+{
+"name": "Rohessspeck",
+"kcal": 400.0,
+"protein": 22.1,
+"carbs": 0.6,
+"fat": 34.3,
+"synonyms": "Bauernspeck, roh, geräuchert;Bauernspeck"
+},
+{
+"name": "Rohpökelwaren (Durchschnitt)",
+"kcal": 240.0,
+"protein": 31.0,
+"carbs": 0.4,
+"fat": 12.7
+},
+{
+"name": "Rohschinken",
+"kcal": 229.0,
+"protein": 31.0,
+"carbs": 0.3,
+"fat": 11.5
+},
+{
+"name": "Rohwürste mit abgebrochener Reifung (Durchschnitt)",
+"kcal": 312.0,
+"protein": 17.6,
+"carbs": 0.7,
+"fat": 26.5
+},
+{
+"name": "Rohwürste/Dauerwürste (Durchschnitt)",
+"kcal": 443.0,
+"protein": 22.2,
+"carbs": 0.2,
+"fat": 39.2
+},
+{
+"name": "Rollgerste",
+"kcal": 337.0,
+"protein": 9.1,
+"carbs": 64.0,
+"fat": 2.0,
+"synonyms": "Gerstengraupen"
+},
+{
+"name": "Rollmops",
+"kcal": 191.0,
+"protein": 13.7,
+"carbs": 3.0,
+"fat": 13.8,
+"synonyms": "Hering, sauer"
+},
+{
+"name": "Rollschinken",
+"kcal": 181.0,
+"protein": 20.3,
+"carbs": 1.2,
+"fat": 10.6
+},
+{
+"name": "Rollschinken, gekocht (ohne Zusatz von Fett und Salz)",
+"kcal": 188.0,
+"protein": 23.3,
+"carbs": 1.4,
+"fat": 9.9
+},
+{
+"name": "Roquefort",
+"kcal": 382.0,
+"protein": 19.2,
+"carbs": 0.0,
+"fat": 33.9
+},
+{
+"name": "Rosenkohl, gedämpft (ohne Zugabe von Salz)",
+"kcal": 37.0,
+"protein": 3.6,
+"carbs": 3.0,
+"fat": 0.4
+},
+{
+"name": "Rosenkohl, roh",
+"kcal": 41.0,
+"protein": 4.0,
+"carbs": 3.3,
+"fat": 0.4
+},
+{
+"name": "Rosine, getrocknet",
+"kcal": 321.0,
+"protein": 3.0,
+"carbs": 73.2,
+"fat": 0.9,
+"synonyms": "Sultanine;Weinbeere"
+},
+{
+"name": "Rosmarin, roh",
+"kcal": 62.0,
+"protein": 0.8,
+"carbs": 7.7,
+"fat": 2.5
+},
+{
+"name": "Rotkohl, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 25.0,
+"protein": 1.0,
+"carbs": 3.7,
+"fat": 0.2,
+"synonyms": "Blaukraut;Rotkraut"
+},
+{
+"name": "Rotkohl, roh",
+"kcal": 29.0,
+"protein": 1.1,
+"carbs": 4.3,
+"fat": 0.2,
+"synonyms": "Blaukraut;Rotkraut"
+},
+{
+"name": "Ruchbrot",
+"kcal": 234.0,
+"protein": 9.5,
+"carbs": 44.3,
+"fat": 1.2
+},
+{
+"name": "Ruchbrot (mit jodiertem Kochsalz)",
+"kcal": 234.0,
+"protein": 9.5,
+"carbs": 44.3,
+"fat": 1.2
+},
+{
+"name": "Rucola, roh",
+"kcal": 22.0,
+"protein": 3.6,
+"carbs": 0.1,
+"fat": 0.4,
+"synonyms": "Rauke"
+},
+{
+"name": "Russischer Salat, zubereitet",
+"kcal": 197.0,
+"protein": 2.5,
+"carbs": 9.7,
+"fat": 15.9
+},
+{
+"name": "Rösti (Fertig-Rösti), ungebraten",
+"kcal": 108.0,
+"protein": 1.9,
+"carbs": 14.9,
+"fat": 4.1
+},
+{
+"name": "Rüeblitorte",
+"kcal": 303.0,
+"protein": 11.1,
+"carbs": 25.8,
+"fat": 16.4,
+"synonyms": "Rüeblikuchen;Rüeblicake"
+},
+{
+"name": "Rührei mit Champignons, zubereitet",
+"kcal": 127.0,
+"protein": 9.8,
+"carbs": 1.5,
+"fat": 9.0
+},
+{
+"name": "Rührei mit Kräutern, zubereitet",
+"kcal": 141.0,
+"protein": 10.6,
+"carbs": 1.9,
+"fat": 10.0
+},
+{
+"name": "Rührei mit Käse, zubereitet",
+"kcal": 157.0,
+"protein": 11.8,
+"carbs": 1.3,
+"fat": 11.6
+},
+{
+"name": "Rührei mit Schinken, zubereitet",
+"kcal": 143.0,
+"protein": 12.8,
+"carbs": 1.3,
+"fat": 9.7
+},
+{
+"name": "Rührei, zubereitet",
+"kcal": 147.0,
+"protein": 11.2,
+"carbs": 1.3,
+"fat": 10.8
+},
+{
+"name": "Sablé, Butter",
+"kcal": 474.0,
+"protein": 5.9,
+"carbs": 53.1,
+"fat": 26.2
+},
+{
+"name": "Salametti",
+"kcal": 343.0,
+"protein": 14.8,
+"carbs": 0.3,
+"fat": 31.4
+},
+{
+"name": "Salami",
+"kcal": 367.0,
+"protein": 24.1,
+"carbs": 0.0,
+"fat": 30.1
+},
+{
+"name": "Salami (Billiglinie)",
+"kcal": 422.0,
+"protein": 22.0,
+"carbs": 0.0,
+"fat": 37.1
+},
+{
+"name": "Salatsauce französisch, hausgemacht (mit Rapsöl)",
+"kcal": 377.0,
+"protein": 0.9,
+"carbs": 1.3,
+"fat": 40.8
+},
+{
+"name": "Salatsauce italienisch, hausgemacht (mit Olivenöl)",
+"kcal": 421.0,
+"protein": 0.3,
+"carbs": 1.0,
+"fat": 46.1
+},
+{
+"name": "Salatsauce, französisch",
+"kcal": 360.0,
+"protein": 1.4,
+"carbs": 4.5,
+"fat": 37.4
+},
+{
+"name": "Salatsauce, italienisch",
+"kcal": 309.0,
+"protein": 0.1,
+"carbs": 4.9,
+"fat": 32.1
+},
+{
+"name": "Salbei, roh",
+"kcal": 59.0,
+"protein": 1.7,
+"carbs": 6.9,
+"fat": 2.1
+},
+{
+"name": "Salsiz",
+"kcal": 415.0,
+"protein": 25.2,
+"carbs": 0.0,
+"fat": 34.9
+},
+{
+"name": "Saltimbocca, gebraten in HOLL-Rapsöl",
+"kcal": 216.0,
+"protein": 28.8,
+"carbs": 0.1,
+"fat": 11.2
+},
+{
+"name": "Salz, Himalayasalz",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Salz, Meersalz, Fleur de sel",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Salz, Meersalz, Standard, weiss, ohne zugesetztes Jod und Fluor",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Samen, Kerne, Nüsse (Durchschnitt), ungesalzen",
+"kcal": 618.0,
+"protein": 20.8,
+"carbs": 9.4,
+"fat": 52.9
+},
+{
+"name": "Samosa, frittiert",
+"kcal": 382.0,
+"protein": 6.4,
+"carbs": 30.6,
+"fat": 25.3
+},
+{
+"name": "Samosa, gebacken",
+"kcal": 353.0,
+"protein": 6.8,
+"carbs": 32.5,
+"fat": 21.0
+},
+{
+"name": "Sandwich (Baguette) mit Aufschnitt",
+"kcal": 154.0,
+"protein": 5.3,
+"carbs": 17.3,
+"fat": 6.8
+},
+{
+"name": "Sandwich (Baguette) mit Fleischkäse",
+"kcal": 217.0,
+"protein": 8.0,
+"carbs": 25.3,
+"fat": 9.0
+},
+{
+"name": "Sandwich (Baguette) mit Halbhartkäse",
+"kcal": 176.0,
+"protein": 6.7,
+"carbs": 20.2,
+"fat": 7.3
+},
+{
+"name": "Sandwich (Baguette) mit Mozzarella",
+"kcal": 161.0,
+"protein": 5.9,
+"carbs": 20.2,
+"fat": 5.9
+},
+{
+"name": "Sandwich (Baguette) mit Rohschinken",
+"kcal": 162.0,
+"protein": 8.8,
+"carbs": 18.8,
+"fat": 5.4
+},
+{
+"name": "Sandwich (Baguette) mit Salami",
+"kcal": 156.0,
+"protein": 5.8,
+"carbs": 18.4,
+"fat": 6.2
+},
+{
+"name": "Sandwich (Baguette) mit Schinken",
+"kcal": 129.0,
+"protein": 6.3,
+"carbs": 17.4,
+"fat": 3.5
+},
+{
+"name": "Sandwich (Baguette) mit Trockenfleisch",
+"kcal": 139.0,
+"protein": 7.2,
+"carbs": 18.4,
+"fat": 3.7
+},
+{
+"name": "Sandwich (Baguette) mit Weichkäse",
+"kcal": 181.0,
+"protein": 6.3,
+"carbs": 21.5,
+"fat": 7.3
+},
+{
+"name": "Sandwich (Ruchbrot) mit Aufschnitt",
+"kcal": 148.0,
+"protein": 5.5,
+"carbs": 15.3,
+"fat": 6.8
+},
+{
+"name": "Sandwich (Ruchbrot) mit Fleischkäse",
+"kcal": 207.0,
+"protein": 8.2,
+"carbs": 22.0,
+"fat": 9.1
+},
+{
+"name": "Sandwich (Ruchbrot) mit Halbhartkäse",
+"kcal": 169.0,
+"protein": 6.9,
+"carbs": 17.6,
+"fat": 7.4
+},
+{
+"name": "Sandwich (Ruchbrot) mit Mozzarella",
+"kcal": 153.0,
+"protein": 6.1,
+"carbs": 17.7,
+"fat": 6.0
+},
+{
+"name": "Sandwich (Ruchbrot) mit Rohschinken",
+"kcal": 155.0,
+"protein": 9.0,
+"carbs": 16.4,
+"fat": 5.5
+},
+{
+"name": "Sandwich (Ruchbrot) mit Salami",
+"kcal": 149.0,
+"protein": 5.9,
+"carbs": 16.2,
+"fat": 6.3
+},
+{
+"name": "Sandwich (Ruchbrot) mit Schinken",
+"kcal": 123.0,
+"protein": 6.4,
+"carbs": 15.3,
+"fat": 3.6
+},
+{
+"name": "Sandwich (Ruchbrot) mit Trockenfleisch",
+"kcal": 132.0,
+"protein": 7.4,
+"carbs": 16.2,
+"fat": 3.8
+},
+{
+"name": "Sandwich (Ruchbrot) mit Weichkäse",
+"kcal": 172.0,
+"protein": 6.5,
+"carbs": 18.8,
+"fat": 7.4
+},
+{
+"name": "Sardelle im Öl, abgetropft",
+"kcal": 182.0,
+"protein": 26.4,
+"carbs": 0.2,
+"fat": 8.5
+},
+{
+"name": "Sardellenpaste",
+"kcal": 272.0,
+"protein": 19.8,
+"carbs": 0.2,
+"fat": 21.3
+},
+{
+"name": "Sardine im Öl, abgetropft",
+"kcal": 204.0,
+"protein": 24.4,
+"carbs": 0.5,
+"fat": 11.6
+},
+{
+"name": "Sardine, in Tomatensauce, Konserve",
+"kcal": 177.0,
+"protein": 18.5,
+"carbs": 0.9,
+"fat": 10.8
+},
+{
+"name": "Sardine, roh",
+"kcal": 134.0,
+"protein": 19.8,
+"carbs": 0.0,
+"fat": 6.1
+},
+{
+"name": "Saucisse aux choux",
+"kcal": 363.0,
+"protein": 15.9,
+"carbs": 1.6,
+"fat": 32.4
+},
+{
+"name": "Saucisson",
+"kcal": 403.0,
+"protein": 18.2,
+"carbs": 0.5,
+"fat": 36.4
+},
+{
+"name": "Saucisson vaudois",
+"kcal": 358.0,
+"protein": 16.5,
+"carbs": 0.2,
+"fat": 32.3
+},
+{
+"name": "Saucisson, gekocht (ohne Zusatz von Fett und Salz)",
+"kcal": 442.0,
+"protein": 21.1,
+"carbs": 0.6,
+"fat": 39.4
+},
+{
+"name": "Sauerkraut, in Essig eingelegt",
+"kcal": 19.0,
+"protein": 1.3,
+"carbs": 1.7,
+"fat": 0.3,
+"synonyms": "Sauerkohl"
+},
+{
+"name": "Sauerrahm",
+"kcal": 336.0,
+"protein": 2.4,
+"carbs": 2.8,
+"fat": 35.0,
+"synonyms": "Crème fraîche"
+},
+{
+"name": "Saurer Halbrahm",
+"kcal": 173.0,
+"protein": 2.7,
+"carbs": 3.2,
+"fat": 16.6
+},
+{
+"name": "Sbrinz",
+"kcal": 415.0,
+"protein": 28.0,
+"carbs": 0.0,
+"fat": 33.2
+},
+{
+"name": "Scampi (Kaisergranat), roh",
+"kcal": 93.0,
+"protein": 19.6,
+"carbs": 0.8,
+"fat": 1.3
+},
+{
+"name": "Schafmilch",
+"kcal": 105.0,
+"protein": 5.5,
+"carbs": 4.7,
+"fat": 7.1
+},
+{
+"name": "Schalotte, roh",
+"kcal": 66.0,
+"protein": 1.8,
+"carbs": 12.2,
+"fat": 0.5
+},
+{
+"name": "Schaumwein",
+"kcal": 71.0,
+"protein": 0.2,
+"carbs": 1.5,
+"fat": 0.0,
+"synonyms": "Champagner;Prosecco;Sekt"
+},
+{
+"name": "Schinkengipfeli",
+"kcal": 340.0,
+"protein": 11.1,
+"carbs": 26.0,
+"fat": 20.9
+},
+{
+"name": "Schmelzkäse, Scheibe, Rahm",
+"kcal": 327.0,
+"protein": 14.3,
+"carbs": 0.0,
+"fat": 30.0
+},
+{
+"name": "Schmelzkäse, Scheibe, viertelfett",
+"kcal": 155.0,
+"protein": 19.4,
+"carbs": 0.0,
+"fat": 8.6
+},
+{
+"name": "Schmelzkäse, Scheibe, vollfett",
+"kcal": 316.0,
+"protein": 22.8,
+"carbs": 0.0,
+"fat": 25.0
+},
+{
+"name": "Schmelzkäse, streichfähig, Rahm",
+"kcal": 316.0,
+"protein": 12.9,
+"carbs": 0.0,
+"fat": 29.4
+},
+{
+"name": "Schmelzkäse, streichfähig, viertelfett",
+"kcal": 150.0,
+"protein": 16.4,
+"carbs": 0.0,
+"fat": 9.3
+},
+{
+"name": "Schmelzkäse, streichfähig, vollfett",
+"kcal": 247.0,
+"protein": 14.1,
+"carbs": 0.0,
+"fat": 21.2
+},
+{
+"name": "Schnittlauch, roh",
+"kcal": 30.0,
+"protein": 3.0,
+"carbs": 1.9,
+"fat": 0.6
+},
+{
+"name": "Schnitzelbrot mit Cocktailsauce",
+"kcal": 262.0,
+"protein": 14.5,
+"carbs": 25.1,
+"fat": 11.2,
+"synonyms": "Plätzlibrot"
+},
+{
+"name": "Schnitzelbrot mit Tartarsauce",
+"kcal": 242.0,
+"protein": 13.9,
+"carbs": 23.2,
+"fat": 10.1,
+"synonyms": "Plätzlibrot"
+},
+{
+"name": "Schoggibrötli",
+"kcal": 366.0,
+"protein": 8.6,
+"carbs": 49.7,
+"fat": 14.3
+},
+{
+"name": "Schokolade, dunkel (bitter)",
+"kcal": 537.0,
+"protein": 5.7,
+"carbs": 53.4,
+"fat": 31.8
+},
+{
+"name": "Schokolade, weiss",
+"kcal": 567.0,
+"protein": 6.7,
+"carbs": 55.8,
+"fat": 35.2
+},
+{
+"name": "Schokoladencake/ -gugelhopf/ -muffin, hausgemacht",
+"kcal": 424.0,
+"protein": 8.1,
+"carbs": 47.3,
+"fat": 21.9
+},
+{
+"name": "Schokoladencrème",
+"kcal": 122.0,
+"protein": 3.6,
+"carbs": 20.0,
+"fat": 3.0
+},
+{
+"name": "Schokoladenkuchen, feucht, hausgemacht",
+"kcal": 503.0,
+"protein": 6.3,
+"carbs": 44.6,
+"fat": 32.8,
+"synonyms": "Schokoladenfondant"
+},
+{
+"name": "Schokoladenpulver",
+"kcal": 398.0,
+"protein": 5.3,
+"carbs": 71.3,
+"fat": 7.8
+},
+{
+"name": "Scholle, roh",
+"kcal": 85.0,
+"protein": 17.1,
+"carbs": 0.0,
+"fat": 1.9,
+"synonyms": "Goldbutt"
+},
+{
+"name": "Schwarzwurzel, gedämpft (ohne Zugabe von Salz)",
+"kcal": 56.0,
+"protein": 1.5,
+"carbs": 2.2,
+"fat": 0.3
+},
+{
+"name": "Schwarzwurzel, roh",
+"kcal": 54.0,
+"protein": 1.4,
+"carbs": 2.1,
+"fat": 0.3
+},
+{
+"name": "Schwarzwälder Kirschtorte",
+"kcal": 248.0,
+"protein": 3.9,
+"carbs": 21.4,
+"fat": 16.1
+},
+{
+"name": "Schwein, Brustspitz, roh",
+"kcal": 239.0,
+"protein": 17.9,
+"carbs": 0.0,
+"fat": 18.6
+},
+{
+"name": "Schwein, Eckstück, Plätzli, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 162.0,
+"protein": 33.0,
+"carbs": 0.0,
+"fat": 3.3
+},
+{
+"name": "Schwein, Eckstück, roh",
+"kcal": 115.0,
+"protein": 22.6,
+"carbs": 0.0,
+"fat": 2.7,
+"synonyms": "Plätzli"
+},
+{
+"name": "Schwein, Filet, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 153.0,
+"protein": 29.3,
+"carbs": 0.0,
+"fat": 4.0
+},
+{
+"name": "Schwein, Filet, roh",
+"kcal": 121.0,
+"protein": 22.2,
+"carbs": 0.0,
+"fat": 3.6
+},
+{
+"name": "Schwein, Gehacktes, roh",
+"kcal": 159.0,
+"protein": 20.5,
+"carbs": 0.0,
+"fat": 8.5,
+"synonyms": "Hackfleisch"
+},
+{
+"name": "Schwein, Geschnetzeltes, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 176.0,
+"protein": 29.8,
+"carbs": 0.0,
+"fat": 6.4
+},
+{
+"name": "Schwein, Geschnetzeltes, roh",
+"kcal": 134.0,
+"protein": 21.3,
+"carbs": 0.0,
+"fat": 5.4
+},
+{
+"name": "Schwein, Hals, Steak, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 255.0,
+"protein": 26.4,
+"carbs": 0.0,
+"fat": 16.6
+},
+{
+"name": "Schwein, Hals, Steak, roh",
+"kcal": 203.0,
+"protein": 18.9,
+"carbs": 0.0,
+"fat": 14.1
+},
+{
+"name": "Schwein, Haxe, geschmort (ohne zusatz von Fett und Salz)",
+"kcal": 239.0,
+"protein": 36.6,
+"carbs": 0.9,
+"fat": 9.9
+},
+{
+"name": "Schwein, Haxe, roh",
+"kcal": 173.0,
+"protein": 25.6,
+"carbs": 0.7,
+"fat": 7.6
+},
+{
+"name": "Schwein, Kotelett, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 240.0,
+"protein": 31.3,
+"carbs": 0.0,
+"fat": 12.8
+},
+{
+"name": "Schwein, Kotelett, roh",
+"kcal": 179.0,
+"protein": 21.4,
+"carbs": 0.0,
+"fat": 10.4
+},
+{
+"name": "Schwein, Leber, roh",
+"kcal": 131.0,
+"protein": 20.7,
+"carbs": 0.9,
+"fat": 4.9
+},
+{
+"name": "Schwein, Nierstück, roh",
+"kcal": 138.0,
+"protein": 22.9,
+"carbs": 0.0,
+"fat": 5.1
+},
+{
+"name": "Schwein, Runder Mocken, roh",
+"kcal": 127.0,
+"protein": 20.6,
+"carbs": 0.0,
+"fat": 4.9,
+"synonyms": "Plätzli"
+},
+{
+"name": "Schwein, Schulter, Braten \"medium\", im Ofen gebraten (ohne Zugabe von Fett und Salz)",
+"kcal": 202.0,
+"protein": 29.6,
+"carbs": 0.0,
+"fat": 9.3
+},
+{
+"name": "Schwein, Schulter, Braten \"well done\", im Ofen gebraten (ohne Zugabe von Fett und Salz)",
+"kcal": 221.0,
+"protein": 32.5,
+"carbs": 0.0,
+"fat": 10.2
+},
+{
+"name": "Schwein, Schulter, Braten, roh",
+"kcal": 181.0,
+"protein": 24.6,
+"carbs": 0.0,
+"fat": 9.2
+},
+{
+"name": "Schwein, Voressen, roh",
+"kcal": 135.0,
+"protein": 20.9,
+"carbs": 0.0,
+"fat": 5.7,
+"synonyms": "Ragout"
+},
+{
+"name": "Schweinefleisch (Durchschnitt exkl. Innereien, Kotelett, Haxe), roh",
+"kcal": 160.0,
+"protein": 21.4,
+"carbs": 0.0,
+"fat": 8.3
+},
+{
+"name": "Schweineschmalz",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Schweinsbratwurst",
+"kcal": 236.0,
+"protein": 16.2,
+"carbs": 0.5,
+"fat": 18.8,
+"synonyms": "Bauernbratwurst"
+},
+{
+"name": "Schweinsbratwurst, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 283.0,
+"protein": 19.8,
+"carbs": 0.6,
+"fat": 22.3
+},
+{
+"name": "Schweinspiccata, zubereitet",
+"kcal": 226.0,
+"protein": 22.9,
+"carbs": 5.5,
+"fat": 12.4
+},
+{
+"name": "Schweinsragout mit Sauce, zubereitet",
+"kcal": 105.0,
+"protein": 11.5,
+"carbs": 3.0,
+"fat": 5.1
+},
+{
+"name": "Schweinswurst",
+"kcal": 268.0,
+"protein": 16.2,
+"carbs": 0.5,
+"fat": 22.4
+},
+{
+"name": "Schümliguetzli",
+"kcal": 444.0,
+"protein": 4.2,
+"carbs": 83.5,
+"fat": 9.9,
+"synonyms": "Schümli; Schaumgebäck; Schaumkeks"
+},
+{
+"name": "Schümliguetzli mit Schokolade",
+"kcal": 486.0,
+"protein": 5.2,
+"carbs": 71.5,
+"fat": 19.4,
+"synonyms": "Choco-Schümli"
+},
+{
+"name": "Schützenwurst",
+"kcal": 244.0,
+"protein": 9.2,
+"carbs": 0.2,
+"fat": 23.0
+},
+{
+"name": "Seehecht, roh",
+"kcal": 74.0,
+"protein": 17.0,
+"carbs": 0.0,
+"fat": 0.6
+},
+{
+"name": "Seelachs, roh",
+"kcal": 84.0,
+"protein": 19.3,
+"carbs": 0.0,
+"fat": 0.8,
+"synonyms": "Pollack;Köhler;Kohlfisch"
+},
+{
+"name": "Seezunge, roh",
+"kcal": 80.0,
+"protein": 18.7,
+"carbs": 0.0,
+"fat": 0.6
+},
+{
+"name": "Seitan",
+"kcal": 193.0,
+"protein": 28.0,
+"carbs": 3.0,
+"fat": 7.2
+},
+{
+"name": "Sellerie-Piccata, zubereitet",
+"kcal": 136.0,
+"protein": 5.4,
+"carbs": 8.4,
+"fat": 8.2
+},
+{
+"name": "Selleriescheiben, paniert, zubereitet",
+"kcal": 139.0,
+"protein": 4.7,
+"carbs": 15.4,
+"fat": 5.7
+},
+{
+"name": "Semmeli",
+"kcal": 245.0,
+"protein": 9.2,
+"carbs": 48.5,
+"fat": 0.9
+},
+{
+"name": "Senf",
+"kcal": 124.0,
+"protein": 7.1,
+"carbs": 3.8,
+"fat": 7.7
+},
+{
+"name": "Sesamsamen ungeschält",
+"kcal": 619.0,
+"protein": 23.1,
+"carbs": 4.0,
+"fat": 53.8
+},
+{
+"name": "Sesamsamen, geschält",
+"kcal": 660.0,
+"protein": 26.8,
+"carbs": 4.6,
+"fat": 57.4
+},
+{
+"name": "Sesamöl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Sherry, 18.5 vol%",
+"kcal": 118.0,
+"protein": 0.1,
+"carbs": 3.6,
+"fat": 0.0,
+"synonyms": "Jerez"
+},
+{
+"name": "Siedfleischsalat, zubereitet",
+"kcal": 201.0,
+"protein": 15.0,
+"carbs": 1.5,
+"fat": 14.9
+},
+{
+"name": "Silberzwiebel, in Essig eingelegt",
+"kcal": 28.0,
+"protein": 0.9,
+"carbs": 4.9,
+"fat": 0.2
+},
+{
+"name": "Sirup unverdünnt",
+"kcal": 286.0,
+"protein": 0.1,
+"carbs": 70.6,
+"fat": 0.1
+},
+{
+"name": "Sirup zubereitet (verdünnt im Verhältnis 1:5.5)",
+"kcal": 55.0,
+"protein": 0.0,
+"carbs": 13.5,
+"fat": 0.0
+},
+{
+"name": "Sojabohne, gekocht (ohne Zugabe von Fett und Salz)",
+"kcal": 157.0,
+"protein": 15.0,
+"carbs": 3.3,
+"fat": 7.3
+},
+{
+"name": "Sojabohne, getrocknet",
+"kcal": 396.0,
+"protein": 38.2,
+"carbs": 8.7,
+"fat": 18.3
+},
+{
+"name": "Sojagetränk, nature",
+"kcal": 40.0,
+"protein": 3.6,
+"carbs": 1.5,
+"fat": 2.1
+},
+{
+"name": "Sojagetränk, nature, mit Calcium and Vitaminen angereichert",
+"kcal": 40.0,
+"protein": 3.6,
+"carbs": 1.5,
+"fat": 2.1
+},
+{
+"name": "Sojamehl, entfettet",
+"kcal": 296.0,
+"protein": 51.5,
+"carbs": 7.5,
+"fat": 1.2
+},
+{
+"name": "Sojamehl, vollfett",
+"kcal": 470.0,
+"protein": 40.8,
+"carbs": 17.3,
+"fat": 22.4
+},
+{
+"name": "Sojasauce",
+"kcal": 56.0,
+"protein": 8.1,
+"carbs": 4.1,
+"fat": 0.6
+},
+{
+"name": "Sojasprossen, roh",
+"kcal": 55.0,
+"protein": 5.5,
+"carbs": 4.7,
+"fat": 1.0,
+"synonyms": "Sojakeime"
+},
+{
+"name": "Sojaöl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Sonnenblumenkerne",
+"kcal": 621.0,
+"protein": 25.1,
+"carbs": 3.6,
+"fat": 54.5
+},
+{
+"name": "Sonnenblumenöl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Sonnenblumenöl HO (high oleic), raffiniert",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Sorbet, Frucht",
+"kcal": 137.0,
+"protein": 0.2,
+"carbs": 32.1,
+"fat": 0.0
+},
+{
+"name": "Spargel (weiss und grün), gedämpft (ohne Zugabe von Salz)",
+"kcal": 25.0,
+"protein": 2.0,
+"carbs": 2.7,
+"fat": 0.3
+},
+{
+"name": "Spargel (weiss und grün), roh",
+"kcal": 26.0,
+"protein": 2.2,
+"carbs": 2.8,
+"fat": 0.3
+},
+{
+"name": "Spargel, grün, roh",
+"kcal": 26.0,
+"protein": 1.9,
+"carbs": 3.1,
+"fat": 0.3
+},
+{
+"name": "Spargel, weiss, roh",
+"kcal": 26.0,
+"protein": 2.4,
+"carbs": 2.5,
+"fat": 0.3
+},
+{
+"name": "Spinat, gedämpft (ohne Zugabe von Salz)",
+"kcal": 31.0,
+"protein": 3.3,
+"carbs": 1.6,
+"fat": 0.8
+},
+{
+"name": "Spinat, roh",
+"kcal": 25.0,
+"protein": 2.6,
+"carbs": 1.3,
+"fat": 0.6
+},
+{
+"name": "Spinatkuchen, gebacken (mit Blätterteig)",
+"kcal": 189.0,
+"protein": 6.1,
+"carbs": 11.5,
+"fat": 12.8,
+"synonyms": "Spinatwähe"
+},
+{
+"name": "Spinatkuchen, gebacken (mit Kuchenteig)",
+"kcal": 192.0,
+"protein": 6.5,
+"carbs": 13.8,
+"fat": 11.9,
+"synonyms": "Spinatwähe"
+},
+{
+"name": "Spirituosen 40 vol% (z.B. Vodka, Gin)",
+"kcal": 234.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Spitzbube (Mürbeteiggebäck mit Konfitüre)",
+"kcal": 499.0,
+"protein": 5.8,
+"carbs": 60.3,
+"fat": 25.6
+},
+{
+"name": "Spätzli gebraten mit Butter",
+"kcal": 199.0,
+"protein": 7.3,
+"carbs": 26.2,
+"fat": 6.9
+},
+{
+"name": "Spätzli, gekocht, abgetropft, hausgemacht",
+"kcal": 146.0,
+"protein": 6.7,
+"carbs": 24.2,
+"fat": 2.3
+},
+{
+"name": "St. Galler Bürli (halbweiss)",
+"kcal": 231.0,
+"protein": 9.1,
+"carbs": 44.6,
+"fat": 1.0
+},
+{
+"name": "St. Galler Schüblig",
+"kcal": 237.0,
+"protein": 12.6,
+"carbs": 0.2,
+"fat": 20.7
+},
+{
+"name": "St. Paulin",
+"kcal": 325.0,
+"protein": 21.8,
+"carbs": 0.0,
+"fat": 26.4
+},
+{
+"name": "Stachelbeere, roh",
+"kcal": 39.0,
+"protein": 0.8,
+"carbs": 7.1,
+"fat": 0.2
+},
+{
+"name": "Stangensellerie, gedämpft (ohne Zugabe von Salz)",
+"kcal": 19.0,
+"protein": 0.6,
+"carbs": 2.4,
+"fat": 0.2
+},
+{
+"name": "Stangensellerie, roh",
+"kcal": 18.0,
+"protein": 0.6,
+"carbs": 2.4,
+"fat": 0.2
+},
+{
+"name": "Steinpilz, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 46.0,
+"protein": 6.1,
+"carbs": 0.6,
+"fat": 0.5
+},
+{
+"name": "Steinpilz, roh",
+"kcal": 39.0,
+"protein": 5.4,
+"carbs": 0.5,
+"fat": 0.4
+},
+{
+"name": "Strudelteig, ungebacken",
+"kcal": 234.0,
+"protein": 7.6,
+"carbs": 44.3,
+"fat": 2.5
+},
+{
+"name": "Surimi",
+"kcal": 125.0,
+"protein": 8.3,
+"carbs": 11.8,
+"fat": 4.9
+},
+{
+"name": "Suze (20 vol%)",
+"kcal": 169.0,
+"protein": 0.0,
+"carbs": 15.4,
+"fat": 0.0
+},
+{
+"name": "Süsskartoffel, gedämpft (ohne Zugabe von Salz)",
+"kcal": 81.0,
+"protein": 1.6,
+"carbs": 17.1,
+"fat": 0.1
+},
+{
+"name": "Süsskartoffel, im Ofen gebacken (ohne Zubage von Fett und Salz)",
+"kcal": 100.0,
+"protein": 1.9,
+"carbs": 21.1,
+"fat": 0.1
+},
+{
+"name": "Süsskartoffel, roh",
+"kcal": 81.0,
+"protein": 1.6,
+"carbs": 17.1,
+"fat": 0.1
+},
+{
+"name": "Taboulé, zubereitet (mit Bulgur)",
+"kcal": 110.0,
+"protein": 2.3,
+"carbs": 11.5,
+"fat": 5.5
+},
+{
+"name": "Taboulé, zubereitet (mit Couscous)",
+"kcal": 128.0,
+"protein": 3.0,
+"carbs": 14.3,
+"fat": 6.1
+},
+{
+"name": "Tartarsauce mit Rapsöl-Mayonnaise, hausgemacht",
+"kcal": 384.0,
+"protein": 3.7,
+"carbs": 1.8,
+"fat": 40.1
+},
+{
+"name": "Tarte au citron",
+"kcal": 257.0,
+"protein": 6.3,
+"carbs": 31.1,
+"fat": 11.8
+},
+{
+"name": "Tee, ungezuckert",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Teigwaren mit Ei, gekocht im Salzwasser (unjodiert)",
+"kcal": 132.0,
+"protein": 5.0,
+"carbs": 25.0,
+"fat": 1.1,
+"synonyms": "Eierteigwaren"
+},
+{
+"name": "Teigwaren mit Ei, trocken",
+"kcal": 365.0,
+"protein": 13.3,
+"carbs": 69.9,
+"fat": 2.8,
+"synonyms": "Eierteigwaren"
+},
+{
+"name": "Teigwaren ohne Ei, gekocht im Salzwasser (unjodiert)",
+"kcal": 158.0,
+"protein": 5.9,
+"carbs": 31.2,
+"fat": 0.6
+},
+{
+"name": "Teigwaren ohne Ei, trocken",
+"kcal": 353.0,
+"protein": 12.6,
+"carbs": 70.5,
+"fat": 1.2
+},
+{
+"name": "Teigwaren ohne Ei, Vollkorn, gekocht im Salzwasser (unjodiert)",
+"kcal": 152.0,
+"protein": 5.9,
+"carbs": 26.8,
+"fat": 1.2
+},
+{
+"name": "Teigwaren ohne Ei, Vollkorn, trocken",
+"kcal": 338.0,
+"protein": 12.6,
+"carbs": 60.6,
+"fat": 2.5
+},
+{
+"name": "Teigwaren, frisch, gefüllt mit Fleisch, gekocht (ohne Zugabe von Fett und Salz)",
+"kcal": 174.0,
+"protein": 6.9,
+"carbs": 25.1,
+"fat": 4.7
+},
+{
+"name": "Teigwaren, frisch, gefüllt mit Spinat und Ricotta, gekocht (ohne Zugabe von Fett und Salz)",
+"kcal": 177.0,
+"protein": 7.5,
+"carbs": 24.5,
+"fat": 4.9
+},
+{
+"name": "Teigwaren, frisch, gefüllt mit Spinat und Ricotta, roh",
+"kcal": 212.0,
+"protein": 8.7,
+"carbs": 30.0,
+"fat": 5.7
+},
+{
+"name": "Teigwarenauflauf mit Schinken, zubereitet",
+"kcal": 163.0,
+"protein": 10.2,
+"carbs": 14.4,
+"fat": 6.9
+},
+{
+"name": "Teigwarensalat mit französischer Sauce",
+"kcal": 126.0,
+"protein": 5.6,
+"carbs": 12.6,
+"fat": 5.6
+},
+{
+"name": "Teigwarensalat mit italienischer Sauce",
+"kcal": 130.0,
+"protein": 5.5,
+"carbs": 12.6,
+"fat": 6.0
+},
+{
+"name": "Teilentrahmte Milch, pasteurisiert",
+"kcal": 56.0,
+"protein": 3.1,
+"carbs": 4.7,
+"fat": 2.8
+},
+{
+"name": "Teilentrahmte Milch, UHT",
+"kcal": 57.0,
+"protein": 3.3,
+"carbs": 4.6,
+"fat": 2.8
+},
+{
+"name": "Tempeh, nature",
+"kcal": 157.0,
+"protein": 17.6,
+"carbs": 7.9,
+"fat": 4.7
+},
+{
+"name": "Terrine de Campagne",
+"kcal": 298.0,
+"protein": 13.6,
+"carbs": 0.9,
+"fat": 26.5,
+"synonyms": "Pâté de campagne"
+},
+{
+"name": "Tessinerbrot",
+"kcal": 323.0,
+"protein": 10.3,
+"carbs": 57.1,
+"fat": 5.2
+},
+{
+"name": "Thon im Wasser, abgetropft",
+"kcal": 109.0,
+"protein": 24.9,
+"carbs": 0.0,
+"fat": 1.0
+},
+{
+"name": "Thon im Öl, abgetropft",
+"kcal": 199.0,
+"protein": 27.3,
+"carbs": 0.9,
+"fat": 9.6
+},
+{
+"name": "Thonsalat an Essig-Öl-Sauce (aus Thon im Wasser)",
+"kcal": 108.0,
+"protein": 8.8,
+"carbs": 6.8,
+"fat": 4.8
+},
+{
+"name": "Thunfisch, roh",
+"kcal": 114.0,
+"protein": 25.8,
+"carbs": 0.0,
+"fat": 1.3
+},
+{
+"name": "Thymian, roh",
+"kcal": 52.0,
+"protein": 1.5,
+"carbs": 7.3,
+"fat": 1.2
+},
+{
+"name": "Tilsiter, pasteurisiert, vollfett",
+"kcal": 351.0,
+"protein": 24.1,
+"carbs": 0.0,
+"fat": 28.0
+},
+{
+"name": "Tilsiter, Rohmilch, vollfett",
+"kcal": 376.0,
+"protein": 25.6,
+"carbs": 0.0,
+"fat": 30.2
+},
+{
+"name": "Tiramisu",
+"kcal": 240.0,
+"protein": 4.3,
+"carbs": 30.4,
+"fat": 9.8
+},
+{
+"name": "Tirolercake",
+"kcal": 514.0,
+"protein": 8.9,
+"carbs": 40.1,
+"fat": 34.6
+},
+{
+"name": "Toastbrot mit Butter",
+"kcal": 316.0,
+"protein": 8.9,
+"carbs": 45.7,
+"fat": 10.4
+},
+{
+"name": "Toastbrot mit Pflanzenölen",
+"kcal": 267.0,
+"protein": 8.7,
+"carbs": 49.2,
+"fat": 3.3
+},
+{
+"name": "Toastbrot, Vollkorn",
+"kcal": 271.0,
+"protein": 9.3,
+"carbs": 43.7,
+"fat": 4.9
+},
+{
+"name": "Toastbrot,dunkel oder Mehrkorn",
+"kcal": 272.0,
+"protein": 9.1,
+"carbs": 45.6,
+"fat": 4.7
+},
+{
+"name": "Tofu, fest, nature (Durchschnitt)",
+"kcal": 148.0,
+"protein": 14.7,
+"carbs": 2.9,
+"fat": 8.5
+},
+{
+"name": "Tofu, fest, nature (Durchschnitt), gebraten (ohne Zugabe von Fett und Salz)",
+"kcal": 168.0,
+"protein": 18.0,
+"carbs": 3.6,
+"fat": 8.9
+},
+{
+"name": "Tofu, fest, nature (hergestellt mit Calciumsalz)",
+"kcal": 148.0,
+"protein": 14.7,
+"carbs": 2.9,
+"fat": 8.5
+},
+{
+"name": "Tofu, fest, nature (hergestellt mit Nigari)",
+"kcal": 148.0,
+"protein": 14.7,
+"carbs": 2.9,
+"fat": 8.5
+},
+{
+"name": "Tofu, geräuchert (Durchschnitt)",
+"kcal": 164.0,
+"protein": 16.4,
+"carbs": 2.9,
+"fat": 9.5
+},
+{
+"name": "Tofu, geräuchert (Durchschnitt), gebraten (ohne Zugabe von Fett und Salz)",
+"kcal": 163.0,
+"protein": 17.5,
+"carbs": 3.2,
+"fat": 8.8
+},
+{
+"name": "Tofu, geräuchert (hergestellt mit Calciumsalz)",
+"kcal": 164.0,
+"protein": 16.4,
+"carbs": 2.9,
+"fat": 9.5
+},
+{
+"name": "Tofu, geräuchert (hergestellt mit Nigari)",
+"kcal": 164.0,
+"protein": 16.4,
+"carbs": 2.9,
+"fat": 9.5
+},
+{
+"name": "Tofu, seidig (weich), nature",
+"kcal": 53.0,
+"protein": 5.0,
+"carbs": 1.5,
+"fat": 2.9,
+"synonyms": "Seidentofu, nature"
+},
+{
+"name": "Tomate, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 26.0,
+"protein": 1.1,
+"carbs": 4.0,
+"fat": 0.3
+},
+{
+"name": "Tomate, geschält (Konserve)",
+"kcal": 22.0,
+"protein": 1.1,
+"carbs": 3.8,
+"fat": 0.1,
+"synonyms": "Pelati"
+},
+{
+"name": "Tomate, getrocknet",
+"kcal": 282.0,
+"protein": 14.1,
+"carbs": 43.5,
+"fat": 3.0
+},
+{
+"name": "Tomate, getrocknet, in Öl eingelegt, abgetropft",
+"kcal": 187.0,
+"protein": 4.3,
+"carbs": 13.4,
+"fat": 11.7
+},
+{
+"name": "Tomate, roh",
+"kcal": 21.0,
+"protein": 0.9,
+"carbs": 3.3,
+"fat": 0.3
+},
+{
+"name": "Tomatenkuchen, gebacken (mit Blätterteig)",
+"kcal": 171.0,
+"protein": 3.9,
+"carbs": 11.0,
+"fat": 12.2,
+"synonyms": "Tomatenwähe"
+},
+{
+"name": "Tomatenkuchen, gebacken (mit Kuchenteig)",
+"kcal": 175.0,
+"protein": 4.3,
+"carbs": 13.6,
+"fat": 11.2,
+"synonyms": "Tomatenwähe"
+},
+{
+"name": "Tomatenpüree",
+"kcal": 77.0,
+"protein": 4.5,
+"carbs": 12.9,
+"fat": 0.2,
+"synonyms": "Tomatenmark"
+},
+{
+"name": "Tomatenrisotto, hausgemacht",
+"kcal": 123.0,
+"protein": 3.7,
+"carbs": 19.9,
+"fat": 3.0
+},
+{
+"name": "Tomatensaft",
+"kcal": 15.0,
+"protein": 0.7,
+"carbs": 2.7,
+"fat": 0.1
+},
+{
+"name": "Tomatensauce",
+"kcal": 69.0,
+"protein": 1.8,
+"carbs": 9.7,
+"fat": 2.1
+},
+{
+"name": "Tomatensuppe",
+"kcal": 39.0,
+"protein": 0.7,
+"carbs": 6.3,
+"fat": 1.0
+},
+{
+"name": "Tomme",
+"kcal": 284.0,
+"protein": 20.3,
+"carbs": 0.0,
+"fat": 22.5
+},
+{
+"name": "Topinambur, gekocht (ohne Zugabe von Salz)",
+"kcal": 52.0,
+"protein": 2.3,
+"carbs": 3.8,
+"fat": 0.4
+},
+{
+"name": "Topinambur, roh",
+"kcal": 54.0,
+"protein": 2.4,
+"carbs": 4.0,
+"fat": 0.4
+},
+{
+"name": "Traube, weiss, roh",
+"kcal": 69.0,
+"protein": 0.7,
+"carbs": 15.2,
+"fat": 0.3,
+"synonyms": "Weintraube"
+},
+{
+"name": "Traubenkernöl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Traubensaft",
+"kcal": 67.0,
+"protein": 0.3,
+"carbs": 16.3,
+"fat": 0.1
+},
+{
+"name": "Traubenzucker",
+"kcal": 399.0,
+"protein": 0.0,
+"carbs": 99.8,
+"fat": 0.0,
+"synonyms": "Dextrose;Glukose"
+},
+{
+"name": "Trinkwasser (Mittelwert Schweiz)",
+"kcal": 0.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 0.0
+},
+{
+"name": "Trockenfleisch",
+"kcal": 190.0,
+"protein": 39.3,
+"carbs": 0.4,
+"fat": 3.5,
+"synonyms": "Bündnerfleisch;Hobelfleisch"
+},
+{
+"name": "Truthahn, Brust, Schnitzel oder Geschnetzeltes, gebraten (ohne Zusatz von Fett und Salz)",
+"kcal": 141.0,
+"protein": 31.8,
+"carbs": 0.0,
+"fat": 1.5
+},
+{
+"name": "Truthahn, Brust, Schnitzel oder Geschnetzeltes, roh",
+"kcal": 109.0,
+"protein": 24.0,
+"carbs": 0.0,
+"fat": 1.5
+},
+{
+"name": "Tzatziki",
+"kcal": 138.0,
+"protein": 6.1,
+"carbs": 3.8,
+"fat": 10.9
+},
+{
+"name": "Tête de Moine",
+"kcal": 417.0,
+"protein": 24.2,
+"carbs": 0.0,
+"fat": 35.5
+},
+{
+"name": "Vacherin Mont d'Or",
+"kcal": 279.0,
+"protein": 17.2,
+"carbs": 0.0,
+"fat": 23.2
+},
+{
+"name": "Vanillecrème, hausgemacht, gekocht",
+"kcal": 109.0,
+"protein": 4.3,
+"carbs": 12.7,
+"fat": 4.6
+},
+{
+"name": "Vinaigrette (mit Rapsöl)",
+"kcal": 232.0,
+"protein": 4.2,
+"carbs": 1.8,
+"fat": 22.9
+},
+{
+"name": "Vitello tonnato mit Garnitur",
+"kcal": 172.0,
+"protein": 17.9,
+"carbs": 0.9,
+"fat": 10.6
+},
+{
+"name": "Vitello tonnato ohne Garnitur",
+"kcal": 197.0,
+"protein": 21.3,
+"carbs": 0.7,
+"fat": 12.1
+},
+{
+"name": "Vollkornreiswaffel",
+"kcal": 390.0,
+"protein": 7.7,
+"carbs": 81.5,
+"fat": 2.8
+},
+{
+"name": "Vollkornreiswaffel mit Honig oder Früchten",
+"kcal": 379.0,
+"protein": 6.6,
+"carbs": 81.0,
+"fat": 2.4
+},
+{
+"name": "Vollkornreiswaffel mit süssem Überzug",
+"kcal": 500.0,
+"protein": 6.1,
+"carbs": 63.6,
+"fat": 23.9
+},
+{
+"name": "Vollmilch, pasteurisiert",
+"kcal": 68.0,
+"protein": 3.2,
+"carbs": 4.7,
+"fat": 4.0
+},
+{
+"name": "Vollmilch, standardisiert, 3.5% Fett, UHT",
+"kcal": 65.0,
+"protein": 3.2,
+"carbs": 5.0,
+"fat": 3.5
+},
+{
+"name": "Vollmilch, UHT",
+"kcal": 68.0,
+"protein": 3.2,
+"carbs": 4.6,
+"fat": 4.1
+},
+{
+"name": "Vollmilchpulver",
+"kcal": 480.0,
+"protein": 24.7,
+"carbs": 35.1,
+"fat": 26.2
+},
+{
+"name": "Vollrahm, pasteurisiert",
+"kcal": 334.0,
+"protein": 2.0,
+"carbs": 3.1,
+"fat": 34.8,
+"synonyms": "Rahm"
+},
+{
+"name": "Vollrahm, UHT",
+"kcal": 335.0,
+"protein": 2.0,
+"carbs": 3.1,
+"fat": 34.9,
+"synonyms": "Rahm"
+},
+{
+"name": "Vorderschinken",
+"kcal": 106.0,
+"protein": 18.6,
+"carbs": 0.4,
+"fat": 3.3
+},
+{
+"name": "Vorzugsbutter",
+"kcal": 746.0,
+"protein": 0.7,
+"carbs": 0.7,
+"fat": 82.3,
+"synonyms": "Butter"
+},
+{
+"name": "Waffel, frisch",
+"kcal": 301.0,
+"protein": 8.0,
+"carbs": 36.1,
+"fat": 13.4
+},
+{
+"name": "Walliser Roggenbrot",
+"kcal": 218.0,
+"protein": 7.6,
+"carbs": 38.8,
+"fat": 1.0
+},
+{
+"name": "Wasabi Paste",
+"kcal": 308.0,
+"protein": 2.9,
+"carbs": 49.6,
+"fat": 10.6
+},
+{
+"name": "Wassereis",
+"kcal": 88.0,
+"protein": 0.0,
+"carbs": 22.0,
+"fat": 0.0,
+"synonyms": "Wasserglacé"
+},
+{
+"name": "Wassermelone, roh",
+"kcal": 39.0,
+"protein": 0.7,
+"carbs": 8.3,
+"fat": 0.2
+},
+{
+"name": "Weichkaramellen, Bonbons",
+"kcal": 448.0,
+"protein": 2.1,
+"carbs": 71.1,
+"fat": 17.2
+},
+{
+"name": "Weichkäse (Durchschnitt ohne fettreduzierte Varianten)",
+"kcal": 327.0,
+"protein": 19.4,
+"carbs": 0.0,
+"fat": 27.7
+},
+{
+"name": "Weichkäse aus Ziegenmilch",
+"kcal": 283.0,
+"protein": 18.4,
+"carbs": 0.0,
+"fat": 23.3
+},
+{
+"name": "Weichkäse, Doppelrahm",
+"kcal": 376.0,
+"protein": 9.7,
+"carbs": 0.0,
+"fat": 37.5
+},
+{
+"name": "Weichkäse, Rahm",
+"kcal": 347.0,
+"protein": 17.4,
+"carbs": 0.0,
+"fat": 30.9
+},
+{
+"name": "Weichkäse, vollfett",
+"kcal": 296.0,
+"protein": 20.6,
+"carbs": 0.0,
+"fat": 23.7
+},
+{
+"name": "Wein rot, 12 vol%",
+"kcal": 69.0,
+"protein": 0.2,
+"carbs": 0.3,
+"fat": 0.0,
+"synonyms": "Rotwein"
+},
+{
+"name": "Wein rot, 13.5 vol%",
+"kcal": 76.0,
+"protein": 0.0,
+"carbs": 0.2,
+"fat": 0.0,
+"synonyms": "Rotwein"
+},
+{
+"name": "Wein rot, 9 vol%",
+"kcal": 54.0,
+"protein": 0.2,
+"carbs": 0.2,
+"fat": 0.0,
+"synonyms": "Rotwein"
+},
+{
+"name": "Wein weiss, 11 vol%",
+"kcal": 70.0,
+"protein": 0.1,
+"carbs": 2.0,
+"fat": 0.0,
+"synonyms": "Weisswein"
+},
+{
+"name": "Wein weiss, 12.5 vol%",
+"kcal": 71.0,
+"protein": 0.2,
+"carbs": 0.1,
+"fat": 0.0,
+"synonyms": "Weisswein"
+},
+{
+"name": "Wein weiss, gespritzt, sauer",
+"kcal": 36.0,
+"protein": 0.1,
+"carbs": 0.1,
+"fat": 0.0
+},
+{
+"name": "Wein weiss, gespritzt, süss",
+"kcal": 55.0,
+"protein": 0.1,
+"carbs": 4.8,
+"fat": 0.0
+},
+{
+"name": "Weissbrot",
+"kcal": 242.0,
+"protein": 8.5,
+"carbs": 48.9,
+"fat": 0.8
+},
+{
+"name": "Weisskohl, gedämpft (ohne Zugabe von Salz)",
+"kcal": 35.0,
+"protein": 1.3,
+"carbs": 4.4,
+"fat": 0.6
+},
+{
+"name": "Weisskohl, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 37.0,
+"protein": 1.4,
+"carbs": 4.6,
+"fat": 0.6
+},
+{
+"name": "Weisskohl, roh",
+"kcal": 36.0,
+"protein": 1.4,
+"carbs": 4.6,
+"fat": 0.6,
+"synonyms": "Weisskabis"
+},
+{
+"name": "Weisswurst",
+"kcal": 220.0,
+"protein": 11.8,
+"carbs": 0.6,
+"fat": 18.9
+},
+{
+"name": "Weizen (Weichweizen), ganzes Korn",
+"kcal": 327.0,
+"protein": 11.4,
+"carbs": 59.6,
+"fat": 1.8
+},
+{
+"name": "Weizenflocken, Vollkorn",
+"kcal": 335.0,
+"protein": 13.5,
+"carbs": 59.6,
+"fat": 1.8
+},
+{
+"name": "Weizenkeime",
+"kcal": 375.0,
+"protein": 29.2,
+"carbs": 35.1,
+"fat": 9.5
+},
+{
+"name": "Weizenkeimöl",
+"kcal": 900.0,
+"protein": 0.0,
+"carbs": 0.0,
+"fat": 100.0
+},
+{
+"name": "Weizenkleie",
+"kcal": 271.0,
+"protein": 15.2,
+"carbs": 17.7,
+"fat": 5.5,
+"synonyms": "Speisekleie"
+},
+{
+"name": "Weizenmehl (Backmehl), Typ 550",
+"kcal": 344.0,
+"protein": 12.0,
+"carbs": 69.5,
+"fat": 1.3
+},
+{
+"name": "Weizenmehl, halbweiss, Typ 720",
+"kcal": 340.0,
+"protein": 13.0,
+"carbs": 66.2,
+"fat": 1.5
+},
+{
+"name": "Weizenmehl, Ruch, Typ 1100",
+"kcal": 339.0,
+"protein": 13.5,
+"carbs": 64.6,
+"fat": 1.7
+},
+{
+"name": "Weizenmehl, Vollkorn, Typ 1700",
+"kcal": 338.0,
+"protein": 13.5,
+"carbs": 61.0,
+"fat": 2.0
+},
+{
+"name": "Weizenmehl, weiss, Typ 400",
+"kcal": 346.0,
+"protein": 11.5,
+"carbs": 71.0,
+"fat": 1.1
+},
+{
+"name": "Weizenotto, gekocht",
+"kcal": 163.0,
+"protein": 5.0,
+"carbs": 26.1,
+"fat": 3.0
+},
+{
+"name": "Weizenstärke",
+"kcal": 348.0,
+"protein": 0.4,
+"carbs": 85.8,
+"fat": 0.1
+},
+{
+"name": "Weizenvollkornbrot",
+"kcal": 213.0,
+"protein": 8.6,
+"carbs": 38.3,
+"fat": 1.3,
+"synonyms": "Grahambrot"
+},
+{
+"name": "Wermut, 15 vol%",
+"kcal": 139.0,
+"protein": 0.1,
+"carbs": 13.5,
+"fat": 0.0,
+"synonyms": "Vermouth;Wermuth;Wermutwein"
+},
+{
+"name": "Wienerli",
+"kcal": 242.0,
+"protein": 13.9,
+"carbs": 0.6,
+"fat": 20.4
+},
+{
+"name": "Wienerli, gekocht",
+"kcal": 220.0,
+"protein": 13.0,
+"carbs": 0.6,
+"fat": 18.4
+},
+{
+"name": "Wildfleisch (Durchschnitt), gekocht (ohne Zusatz von Fett und Salz)",
+"kcal": 147.0,
+"protein": 27.8,
+"carbs": 0.0,
+"fat": 3.9
+},
+{
+"name": "Wildfleisch (Durchschnitt), roh",
+"kcal": 114.0,
+"protein": 21.1,
+"carbs": 0.0,
+"fat": 3.2
+},
+{
+"name": "Wildfleischterrine",
+"kcal": 242.0,
+"protein": 16.4,
+"carbs": 1.6,
+"fat": 18.6
+},
+{
+"name": "Wildschwein (Durchschnitt), roh",
+"kcal": 108.0,
+"protein": 19.5,
+"carbs": 0.0,
+"fat": 3.3
+},
+{
+"name": "Wirz, gedämpft (ohne Zugabe von Salz)",
+"kcal": 26.0,
+"protein": 1.9,
+"carbs": 2.9,
+"fat": 0.1,
+"synonyms": "Wirsingkohl"
+},
+{
+"name": "Wirz, roh",
+"kcal": 27.0,
+"protein": 2.0,
+"carbs": 3.0,
+"fat": 0.1,
+"synonyms": "Wirsingkohl"
+},
+{
+"name": "Worcester Sauce",
+"kcal": 124.0,
+"protein": 1.4,
+"carbs": 29.4,
+"fat": 0.1
+},
+{
+"name": "Wurst, vegan, aus Seitan oder Weizeneiweiss",
+"kcal": 250.0,
+"protein": 29.1,
+"carbs": 7.5,
+"fat": 10.5
+},
+{
+"name": "Wurst, vegan, aus Tofu oder Sojaeiweiss",
+"kcal": 229.0,
+"protein": 13.4,
+"carbs": 5.7,
+"fat": 16.3
+},
+{
+"name": "Wurst-Käse-Salat, zubereitet",
+"kcal": 262.0,
+"protein": 13.8,
+"carbs": 0.7,
+"fat": 22.6
+},
+{
+"name": "Wurstsalat, zubereitet",
+"kcal": 224.0,
+"protein": 7.1,
+"carbs": 1.3,
+"fat": 21.1
+},
+{
+"name": "Wurzel- und Knollengemüse (Durchschnitt), gedämpft (ohne Zugabe von Salz)",
+"kcal": 42.0,
+"protein": 0.9,
+"carbs": 7.3,
+"fat": 0.4
+},
+{
+"name": "Wurzel- und Knollengemüse (Durchschnitt), gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 36.0,
+"protein": 0.8,
+"carbs": 6.3,
+"fat": 0.3
+},
+{
+"name": "Wurzel- und Knollengemüse (Durchschnitt), gekocht (ohne Zugabe von Fett und Salz)",
+"kcal": 38.0,
+"protein": 0.8,
+"carbs": 6.5,
+"fat": 0.3
+},
+{
+"name": "Wurzel- und Knollengemüse (Durchschnitt), roh",
+"kcal": 42.0,
+"protein": 0.9,
+"carbs": 7.2,
+"fat": 0.4
+},
+{
+"name": "Zampone",
+"kcal": 361.0,
+"protein": 19.1,
+"carbs": 0.0,
+"fat": 31.6,
+"synonyms": "Gefüllter Schweinsfuss"
+},
+{
+"name": "Ziege (Durchschnitt), roh",
+"kcal": 149.0,
+"protein": 19.5,
+"carbs": 0.0,
+"fat": 7.9
+},
+{
+"name": "Ziegenfrischkäse, zum Streichen",
+"kcal": 162.0,
+"protein": 10.6,
+"carbs": 2.4,
+"fat": 12.2
+},
+{
+"name": "Ziegenmilch",
+"kcal": 57.0,
+"protein": 2.8,
+"carbs": 4.2,
+"fat": 3.2
+},
+{
+"name": "Ziger weiss",
+"kcal": 122.0,
+"protein": 10.9,
+"carbs": 3.3,
+"fat": 7.2
+},
+{
+"name": "Zimt",
+"kcal": 317.0,
+"protein": 3.9,
+"carbs": 56.0,
+"fat": 3.2
+},
+{
+"name": "Zimtstern",
+"kcal": 505.0,
+"protein": 14.2,
+"carbs": 50.9,
+"fat": 25.9
+},
+{
+"name": "Zitronat",
+"kcal": 289.0,
+"protein": 0.4,
+"carbs": 70.0,
+"fat": 0.4
+},
+{
+"name": "Zitrone, roh",
+"kcal": 24.0,
+"protein": 0.8,
+"carbs": 2.9,
+"fat": 0.6
+},
+{
+"name": "Zitronensaft",
+"kcal": 28.0,
+"protein": 0.4,
+"carbs": 2.5,
+"fat": 0.2
+},
+{
+"name": "Zitrusfrüchte (Durchschnitt), roh",
+"kcal": 40.0,
+"protein": 0.8,
+"carbs": 7.5,
+"fat": 0.3
+},
+{
+"name": "Zucchetti, gedämpft (ohne Zugabe von Salz)",
+"kcal": 18.0,
+"protein": 1.3,
+"carbs": 1.9,
+"fat": 0.3
+},
+{
+"name": "Zucchetti, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 20.0,
+"protein": 1.5,
+"carbs": 2.2,
+"fat": 0.3,
+"synonyms": "Zucchini"
+},
+{
+"name": "Zucchetti, roh",
+"kcal": 17.0,
+"protein": 1.2,
+"carbs": 1.8,
+"fat": 0.3,
+"synonyms": "Zucchini"
+},
+{
+"name": "Zucchetti-Piccata, zubereitet",
+"kcal": 122.0,
+"protein": 5.2,
+"carbs": 6.5,
+"fat": 8.1
+},
+{
+"name": "Zucchettischeiben, paniert, zubereitet",
+"kcal": 125.0,
+"protein": 4.5,
+"carbs": 13.3,
+"fat": 5.6
+},
+{
+"name": "Zucker, braun",
+"kcal": 390.0,
+"protein": 0.0,
+"carbs": 97.6,
+"fat": 0.0
+},
+{
+"name": "Zucker, weiss",
+"kcal": 400.0,
+"protein": 0.0,
+"carbs": 100.0,
+"fat": 0.0,
+"synonyms": "Kristallzucker;Saccharose"
+},
+{
+"name": "Zuckerhutsalat, roh",
+"kcal": 16.0,
+"protein": 1.2,
+"carbs": 1.5,
+"fat": 0.2
+},
+{
+"name": "Zuckermais (Konserve)",
+"kcal": 105.0,
+"protein": 3.0,
+"carbs": 18.2,
+"fat": 1.7
+},
+{
+"name": "Zuckermais (Konserve), aufgewärmt (ohne Zugabe von Salz)",
+"kcal": 107.0,
+"protein": 3.1,
+"carbs": 18.6,
+"fat": 1.7
+},
+{
+"name": "Zuckermelone (Honigmelone), roh",
+"kcal": 62.0,
+"protein": 1.1,
+"carbs": 14.8,
+"fat": 0.1,
+"synonyms": "Honigmelone"
+},
+{
+"name": "Zuger Kirschtorte",
+"kcal": 335.0,
+"protein": 4.8,
+"carbs": 34.6,
+"fat": 18.7
+},
+{
+"name": "Zunge (Durchschnitt aus Kalb und Rind), roh",
+"kcal": 191.0,
+"protein": 16.6,
+"carbs": 2.8,
+"fat": 12.6
+},
+{
+"name": "Zwetschge, gedünstet, abgetropft (ohne Zugabe von Zucker)",
+"kcal": 43.0,
+"protein": 0.7,
+"carbs": 8.7,
+"fat": 0.1
+},
+{
+"name": "Zwetschge, roh",
+"kcal": 43.0,
+"protein": 0.6,
+"carbs": 8.8,
+"fat": 0.1
+},
+{
+"name": "Zwetschgenkuchen, hausgemacht, gebacken (mit Blätterteig)",
+"kcal": 153.0,
+"protein": 2.9,
+"carbs": 17.7,
+"fat": 7.4,
+"synonyms": "Zwetschgenwähe"
+},
+{
+"name": "Zwetschgenkuchen, hausgemacht, gebacken (mit Kuchenteig)",
+"kcal": 156.0,
+"protein": 3.2,
+"carbs": 18.4,
+"fat": 7.2,
+"synonyms": "Zwetschgenwähe"
+},
+{
+"name": "Zwieback",
+"kcal": 421.0,
+"protein": 11.6,
+"carbs": 74.6,
+"fat": 7.8
+},
+{
+"name": "Zwieback, Vollkorn",
+"kcal": 412.0,
+"protein": 17.5,
+"carbs": 61.2,
+"fat": 9.1
+},
+{
+"name": "Zwiebel, gedünstet (ohne Zugabe von Fett und Salz)",
+"kcal": 43.0,
+"protein": 1.2,
+"carbs": 7.0,
+"fat": 0.7
+},
+{
+"name": "Zwiebel, geröstet (ohne Zugabe von Fett und Salz)",
+"kcal": 92.0,
+"protein": 2.6,
+"carbs": 14.9,
+"fat": 1.5
+},
+{
+"name": "Zwiebel, roh",
+"kcal": 39.0,
+"protein": 1.1,
+"carbs": 6.3,
+"fat": 0.6
+},
+{
+"name": "Zwiebelkuchen, gebacken (mit Blätterteig)",
+"kcal": 186.0,
+"protein": 4.8,
+"carbs": 13.9,
+"fat": 12.0,
+"synonyms": "Zwiebelwähe"
+},
+{
+"name": "Zwiebelkuchen, gebacken (mit Kuchenteig)",
+"kcal": 189.0,
+"protein": 5.2,
+"carbs": 16.1,
+"fat": 11.2,
+"synonyms": "Zwiebelwähe"
+},
+{
+"name": "Älplermagronen, zubereitet",
+"kcal": 180.0,
+"protein": 6.0,
+"carbs": 17.8,
+"fat": 9.0
+}
 ]

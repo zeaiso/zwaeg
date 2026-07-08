@@ -17,7 +17,7 @@ Znueni/
   Features/   One folder per screen area (Diary, Scanner, Calculators,
               Battles, Progress, Profile, Onboarding)
   Models/     SwiftData models and shared enums
-  Resources/  swiss_foods.json (bundled offline food list)
+  Resources/  swiss_foods.json (official BLV food database, bundled)
 ```
 
 ## Data model (SwiftData)
@@ -35,7 +35,7 @@ Enums (`Sex`, `ActivityLevel`, `Goal`, `MealType`, `BattleMetric`) are stored as
 - **XcodeGen** generates the Xcode project from `project.yml`. Generated files (`Znueni.xcodeproj`, `Info.plist`, `Znueni.entitlements`) are gitignored.
 - **CalorieMath is UI-free** so the battle score engine reuses the same formulas.
 - **Battles are backend-less**: participants meet via a 6-character join code. `ChallengeSyncService` has two implementations: `LocalChallengeService` (deterministic demo opponents) and `CloudKitChallengeService` (public database records, one per score per day). The flag `AppConfig.cloudKitEnabled` selects between them; enabling CloudKit also requires the iCloud entitlement and a paid Apple Developer account.
-- **Food data**: barcode lookups hit the Swiss Open Food Facts instance and prefer German product names. Generic foods come from a curated 107-item JSON bundled with the app. A full import of the Swiss food composition database can replace the JSON later.
+- **Food data**: barcode lookups hit the Swiss Open Food Facts instance and prefer German product names. Generic foods come from the official Swiss Food Composition Database V7.0 (BLV, naehrwertdaten.ch), converted from the published Excel export to a bundled JSON (1220 foods, values per 100 g, synonyms searchable). The BLV terms allow use in nutrition apps with attribution, which the in-app help screen provides.
 - **Theme tokens** in `Theme.swift` carry the whole design. The app is pinned to light mode because the design language is light.
 
 ## Design language

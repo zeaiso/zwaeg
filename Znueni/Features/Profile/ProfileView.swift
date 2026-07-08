@@ -326,11 +326,20 @@ struct AboutView: View {
             Text("Version 0.1 · Dein Schweizer Kalorien-Tracker")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
-            Text("Nährwertdaten: Open Food Facts und kuratierte Schweizer Lebensmittelliste. Alle persönlichen Daten bleiben auf deinem Gerät.")
+            Text("Nährwertdaten: Schweizer Nährwertdatenbank V7.0, Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV, sowie Open Food Facts. Alle persönlichen Daten bleiben auf deinem Gerät.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 30)
+            if let blv = URL(string: "https://naehrwertdaten.ch"),
+               let off = URL(string: "https://ch.openfoodfacts.org") {
+                HStack(spacing: 16) {
+                    Link("naehrwertdaten.ch", destination: blv)
+                    Link("openfoodfacts.org", destination: off)
+                }
+                .font(.caption.weight(.semibold))
+                .tint(Color.appAccent)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Theme.background)

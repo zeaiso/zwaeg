@@ -7,6 +7,7 @@ All notable changes to Znüni are documented here.
 First feature-complete build.
 
 ### Added
+- Official Swiss Food Composition Database V7.0 (BLV) bundled for offline search, 1220 foods with synonyms
 - Onboarding with one question per screen and typed number inputs
 - Diary with daily calorie budget, macros, week strip, meal logging and offline Swiss food search
 - Barcode scanner (VisionKit) with Open Food Facts lookup and manual entry fallback
