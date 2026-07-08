@@ -65,7 +65,7 @@ struct CalculatorsView: View {
                     .font(.fredoka(27, .semibold))
                     .foregroundStyle(Theme.ink)
                 Text("Deine Gesundheits-Tools")
-                    .font(.subheadline)
+                    .font(.fredoka(15))
                     .foregroundStyle(.secondary)
             }
             Spacer()
@@ -81,22 +81,22 @@ struct CalculatorsView: View {
             Card {
                 HStack(spacing: 14) {
                     Image(systemName: symbol)
-                        .font(.title3.weight(.semibold))
+                        .font(.fredoka(19, .semibold))
                         .foregroundStyle(.white)
                         .frame(width: 50, height: 50)
                         .background(LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing),
                                     in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                     VStack(alignment: .leading, spacing: 3) {
                         Text(title)
-                            .font(.headline)
+                            .font(.fredoka(17, .semibold))
                             .foregroundStyle(Theme.ink)
                         Text(subtitle)
-                            .font(.footnote)
+                            .font(.fredoka(13))
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
                     Image(systemName: "chevron.right")
-                        .font(.footnote.weight(.semibold))
+                        .font(.fredoka(13, .semibold))
                         .foregroundStyle(.tertiary)
                 }
             }

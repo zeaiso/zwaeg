@@ -42,7 +42,7 @@ struct ProfileView: View {
                 AboutView()
             } label: {
                 Image(systemName: "sun.max")
-                    .font(.body.weight(.semibold))
+                    .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                     .frame(width: 40, height: 40)
                     .background(Theme.card, in: Circle())
@@ -72,7 +72,7 @@ struct ProfileView: View {
                     .font(.fredoka(19, .semibold))
                     .foregroundStyle(.white)
                 Text("Ziel · \(profile.goal.label) · \(profile.dailyCalorieTarget) kcal/Tag")
-                    .font(.caption)
+                    .font(.fredoka(12))
                     .foregroundStyle(.white.opacity(0.9))
             }
             Spacer()
@@ -80,7 +80,7 @@ struct ProfileView: View {
                 PersonalDetailsView(profile: profile)
             } label: {
                 Text("Edit")
-                    .font(.subheadline.weight(.bold))
+                    .font(.fredoka(15, .semibold))
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
                     .background(.white.opacity(0.25), in: Capsule())
@@ -133,12 +133,12 @@ struct ProfileView: View {
                     .contentTransition(.numericText())
                 if let unit {
                     Text(unit)
-                        .font(.caption.weight(.bold))
+                        .font(.fredoka(12, .semibold))
                         .foregroundStyle(Theme.ink.opacity(0.7))
                 }
             }
             Text(label)
-                .font(.caption)
+                .font(.fredoka(12))
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity)
@@ -152,7 +152,7 @@ struct ProfileView: View {
     private var accountList: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("KONTO")
-                .font(.caption.weight(.bold))
+                .font(.fredoka(12, .semibold))
                 .foregroundStyle(.secondary)
                 .padding(.leading, 6)
             accountRow("Persönliche Daten", symbol: "person.fill", color: Color.appAccent) {
@@ -182,16 +182,16 @@ struct ProfileView: View {
         } label: {
             HStack(spacing: 12) {
                 Image(systemName: symbol)
-                    .font(.footnote.weight(.bold))
+                    .font(.fredoka(13, .semibold))
                     .foregroundStyle(color)
                     .frame(width: 36, height: 36)
                     .background(color.opacity(0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
                 Text(title)
-                    .font(.subheadline.weight(.semibold))
+                    .font(.fredoka(15, .semibold))
                     .foregroundStyle(Theme.ink)
                 Spacer()
                 Image(systemName: "chevron.right")
-                    .font(.caption.weight(.semibold))
+                    .font(.fredoka(12, .semibold))
                     .foregroundStyle(.tertiary)
             }
             .padding(14)
@@ -235,7 +235,7 @@ struct PersonalDetailsView: View {
                 if showWeightSaved {
                     Label("Gespeichert!", systemImage: "checkmark.circle.fill")
                         .foregroundStyle(Color.appAccent)
-                        .font(.footnote)
+                        .font(.fredoka(13))
                 }
             }
         }
@@ -303,7 +303,7 @@ struct RemindersPlaceholderView: View {
             Text("Erinnerungen")
                 .font(.fredoka(19, .semibold))
             Text("Push-Erinnerungen für Mahlzeiten und Wasser kommen in einem späteren Update.")
-                .font(.footnote)
+                .font(.fredoka(13))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 30)
@@ -324,10 +324,10 @@ struct AboutView: View {
             Text("Znüni")
                 .font(.fredoka(22, .semibold))
             Text("Version 0.1 · Dein Schweizer Kalorien-Tracker")
-                .font(.footnote)
+                .font(.fredoka(13))
                 .foregroundStyle(.secondary)
             Text("Nährwertdaten: Schweizer Nährwertdatenbank V7.0, Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV, sowie Open Food Facts. Alle persönlichen Daten bleiben auf deinem Gerät.")
-                .font(.caption)
+                .font(.fredoka(12))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 30)
@@ -337,7 +337,7 @@ struct AboutView: View {
                     Link("naehrwertdaten.ch", destination: blv)
                     Link("openfoodfacts.org", destination: off)
                 }
-                .font(.caption.weight(.semibold))
+                .font(.fredoka(12, .semibold))
                 .tint(Color.appAccent)
             }
         }

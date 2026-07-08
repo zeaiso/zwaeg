@@ -7,6 +7,7 @@ struct ZnueniApp: App {
         WindowGroup {
             RootView()
                 .preferredColorScheme(.light)
+                .environment(\.font, .fredoka(16))
         }
         .modelContainer(for: [UserProfile.self, FoodEntry.self, WeightEntry.self, Challenge.self, WaterDay.self])
     }

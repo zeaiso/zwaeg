@@ -37,10 +37,10 @@ struct CalorieBurnView: View {
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
             Text("kcal verbrannt")
-                .font(.subheadline.weight(.semibold))
+                .font(.fredoka(15, .semibold))
                 .foregroundStyle(.white.opacity(0.9))
             Text("\(activity.name) · \(Int(minutes)) Min · \(String(format: "%.1f", weightKg)) kg")
-                .font(.caption)
+                .font(.fredoka(12))
                 .foregroundStyle(.white.opacity(0.85))
         }
         .frame(maxWidth: .infinity)
@@ -66,7 +66,7 @@ struct CalorieBurnView: View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
                 Text("Aktivität")
-                    .font(.headline)
+                    .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                 LazyVGrid(columns: columns, spacing: 10) {
                     ForEach(CalorieMath.activities) { item in
@@ -77,7 +77,7 @@ struct CalorieBurnView: View {
                                 Image(systemName: item.symbol)
                                     .font(.title3)
                                 Text(item.name)
-                                    .font(.caption2.weight(.semibold))
+                                    .font(.fredoka(11, .semibold))
                                     .multilineTextAlignment(.center)
                                     .lineLimit(2, reservesSpace: true)
                             }

@@ -46,7 +46,7 @@ struct AddFoodView: View {
                     sectionLabel("ERGEBNISSE")
                     if searchResults.isEmpty {
                         Text("Nichts gefunden. Scanne den Barcode oder trage es als eigenes Lebensmittel ein.")
-                            .font(.footnote)
+                            .font(.fredoka(13))
                             .foregroundStyle(.secondary)
                     }
                     ForEach(searchResults) { product in
@@ -73,7 +73,7 @@ struct AddFoodView: View {
                 dismiss()
             } label: {
                 Image(systemName: "chevron.left")
-                    .font(.subheadline.weight(.bold))
+                    .font(.fredoka(15, .semibold))
                     .foregroundStyle(Theme.ink)
                     .frame(width: 38, height: 38)
                     .background(Theme.card, in: Circle())
@@ -107,7 +107,7 @@ struct AddFoodView: View {
                         withAnimation(.snappy) { meal = type }
                     } label: {
                         Text(type.label)
-                            .font(.subheadline.weight(.semibold))
+                            .font(.fredoka(15, .semibold))
                             .padding(.horizontal, 16)
                             .padding(.vertical, 9)
                             .background(meal == type ? Theme.ink : Theme.card, in: Capsule())
@@ -128,20 +128,20 @@ struct AddFoodView: View {
         } label: {
             HStack(spacing: 12) {
                 Image(systemName: "barcode.viewfinder")
-                    .font(.title3.weight(.semibold))
+                    .font(.fredoka(19, .semibold))
                     .foregroundStyle(.white)
                     .frame(width: 44, height: 44)
                     .background(.white.opacity(0.25), in: RoundedRectangle(cornerRadius: 13, style: .continuous))
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Scanne dein Essen")
-                        .font(.headline)
+                        .font(.fredoka(17, .semibold))
                     Text("Barcode scannen, in Sekunden geloggt")
-                        .font(.caption)
+                        .font(.fredoka(12))
                         .opacity(0.9)
                 }
                 Spacer()
                 Image(systemName: "chevron.right")
-                    .font(.subheadline.weight(.bold))
+                    .font(.fredoka(15, .semibold))
             }
             .foregroundStyle(.white)
             .padding(14)
@@ -168,11 +168,11 @@ struct AddFoodView: View {
                         .frame(width: 44, height: 44)
                     VStack(alignment: .leading, spacing: 2) {
                         Text(entry.name)
-                            .font(.subheadline.weight(.semibold))
+                            .font(.fredoka(15, .semibold))
                             .foregroundStyle(Theme.ink)
                             .lineLimit(1)
                         Text("\(entry.calories) kcal")
-                            .font(.caption)
+                            .font(.fredoka(12))
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
@@ -180,7 +180,7 @@ struct AddFoodView: View {
                         withAnimation(.snappy) { context.delete(entry) }
                     } label: {
                         Image(systemName: "minus")
-                            .font(.subheadline.weight(.bold))
+                            .font(.fredoka(15, .semibold))
                             .foregroundStyle(.secondary)
                             .frame(width: 32, height: 32)
                             .background(Theme.field, in: Circle())
@@ -198,7 +198,7 @@ struct AddFoodView: View {
 
     private func sectionLabel(_ text: String) -> some View {
         Text(text)
-            .font(.caption.weight(.bold))
+            .font(.fredoka(12, .semibold))
             .foregroundStyle(.secondary)
             .padding(.leading, 4)
     }
@@ -229,11 +229,11 @@ struct AddFoodView: View {
                         .frame(width: 44, height: 44)
                     VStack(alignment: .leading, spacing: 2) {
                         Text(name)
-                            .font(.subheadline.weight(.semibold))
+                            .font(.fredoka(15, .semibold))
                             .foregroundStyle(Theme.ink)
                             .lineLimit(1)
                         Text(subtitle)
-                            .font(.caption)
+                            .font(.fredoka(12))
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
@@ -242,7 +242,7 @@ struct AddFoodView: View {
             .buttonStyle(.plain)
             Button(action: action) {
                 Image(systemName: added ? "checkmark" : "plus")
-                    .font(.subheadline.weight(.bold))
+                    .font(.fredoka(15, .semibold))
                     .foregroundStyle(added ? Theme.onAccent : Color.appAccent)
                     .frame(width: 32, height: 32)
                     .background(added ? AnyShapeStyle(Theme.accent) : AnyShapeStyle(Theme.accentSoft),
@@ -289,7 +289,7 @@ struct AddFoodView: View {
                             addManual()
                         } label: {
                             Text("Hinzufügen")
-                                .font(.subheadline.weight(.bold))
+                                .font(.fredoka(15, .semibold))
                                 .padding(.horizontal, 16)
                                 .padding(.vertical, 12)
                                 .background(Theme.accent, in: Capsule())
@@ -309,7 +309,7 @@ struct AddFoodView: View {
                 withAnimation(.snappy) { showManual = true }
             } label: {
                 Text("Nicht scannbar? Eigenes Lebensmittel eintragen")
-                    .font(.footnote.weight(.medium))
+                    .font(.fredoka(13, .medium))
                     .foregroundStyle(Color.appAccent)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 10)

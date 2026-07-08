@@ -49,7 +49,7 @@ struct IdealWeightView: View {
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
             Text("Dein Idealgewicht-Bereich")
-                .font(.subheadline.weight(.semibold))
+                .font(.fredoka(15, .semibold))
                 .foregroundStyle(.white.opacity(0.9))
         }
         .frame(maxWidth: .infinity)
@@ -65,16 +65,16 @@ struct IdealWeightView: View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
                 Text("Nach Formel")
-                    .font(.headline)
+                    .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                 ForEach(CalorieMath.idealWeights(sex: sex, heightCm: heightCm)) { result in
                     HStack {
                         Text(result.formula)
-                            .font(.subheadline)
+                            .font(.fredoka(15))
                             .foregroundStyle(.secondary)
                         Spacer()
                         Text("\(String(format: "%.1f", result.weightKg)) kg")
-                            .font(.subheadline.weight(.bold))
+                            .font(.fredoka(15, .semibold))
                             .foregroundStyle(Theme.ink)
                             .contentTransition(.numericText())
                     }

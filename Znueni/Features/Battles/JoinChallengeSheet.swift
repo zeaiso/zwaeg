@@ -26,12 +26,12 @@ struct JoinChallengeSheet: View {
                             Image(systemName: "icloud.slash")
                                 .foregroundStyle(.secondary)
                         }
-                        .font(.footnote)
+                        .font(.fredoka(13))
                     }
                 }
                 if let errorMessage {
                     Text(errorMessage)
-                        .font(.footnote)
+                        .font(.fredoka(13))
                         .foregroundStyle(.red)
                 }
             }

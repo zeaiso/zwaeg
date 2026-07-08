@@ -83,7 +83,7 @@ struct ScannerScreen: View {
                     TabRouter.shared.selection = 0
                 } label: {
                     Image(systemName: "chevron.left")
-                        .font(.subheadline.weight(.bold))
+                        .font(.fredoka(15, .semibold))
                         .foregroundStyle(.white)
                         .frame(width: 38, height: 38)
                         .background(.white.opacity(0.14), in: Circle())
@@ -126,7 +126,7 @@ struct ScannerScreen: View {
                     .frame(width: 8, height: 8)
             }
             Text(chipText)
-                .font(.footnote.weight(.semibold))
+                .font(.fredoka(13, .semibold))
                 .foregroundStyle(.white)
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
@@ -155,7 +155,7 @@ struct ScannerScreen: View {
             Text("Label")
                 .foregroundStyle(.white.opacity(0.45))
         }
-        .font(.subheadline.weight(.semibold))
+        .font(.fredoka(15, .semibold))
     }
 
     // MARK: - Controls
@@ -194,7 +194,7 @@ struct ScannerScreen: View {
     private func controlButton(symbol: String, active: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: symbol)
-                .font(.body.weight(.semibold))
+                .font(.fredoka(17, .semibold))
                 .foregroundStyle(active ? bracketColor : .white)
                 .frame(width: 46, height: 46)
                 .background(.white.opacity(0.14), in: Circle())
@@ -217,7 +217,7 @@ struct ScannerScreen: View {
                 lookup(manualBarcode)
             } label: {
                 Text("Suchen")
-                    .font(.subheadline.weight(.bold))
+                    .font(.fredoka(15, .semibold))
                     .padding(.horizontal, 14)
                     .padding(.vertical, 8)
                     .background(Theme.accent, in: Capsule())

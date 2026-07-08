@@ -93,7 +93,7 @@ struct OnboardingView: View {
                             Image(systemName: s.symbol)
                                 .font(.system(size: 40))
                             Text(s.label)
-                                .font(.headline)
+                                .font(.fredoka(17, .semibold))
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 28)
@@ -147,8 +147,8 @@ struct OnboardingView: View {
                 } label: {
                     HStack {
                         VStack(alignment: .leading, spacing: 2) {
-                            Text(level.label).font(.headline)
-                            Text(level.detail).font(.footnote).foregroundStyle(.secondary)
+                            Text(level.label).font(.fredoka(17, .semibold))
+                            Text(level.detail).font(.fredoka(13)).foregroundStyle(.secondary)
                         }
                         Spacer()
                         if activity == level {
@@ -178,7 +178,7 @@ struct OnboardingView: View {
                         Image(systemName: g.symbol)
                             .font(.title2)
                             .foregroundStyle(goal == g ? Color.appAccent : .secondary)
-                        Text(g.label).font(.headline)
+                        Text(g.label).font(.fredoka(17, .semibold))
                         Spacer()
                         if goal == g {
                             Image(systemName: "checkmark.circle.fill")
@@ -246,7 +246,7 @@ struct OnboardingView: View {
                 }
             } label: {
                 Text(step == .result ? "Los geht's!" : "Weiter")
-                    .font(.headline)
+                    .font(.fredoka(17, .semibold))
                     .padding(.horizontal, 28)
                     .padding(.vertical, 14)
                     .background(Theme.accent)

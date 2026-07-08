@@ -32,7 +32,7 @@ struct CreateChallengeSheet: View {
                                     Text(option.label)
                                         .foregroundStyle(.primary)
                                     Text(option.detail)
-                                        .font(.caption)
+                                        .font(.fredoka(12))
                                         .foregroundStyle(.secondary)
                                 }
                                 Spacer()

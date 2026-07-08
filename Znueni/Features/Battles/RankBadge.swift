@@ -11,7 +11,7 @@ struct RankBadge: View {
                 .foregroundStyle(medalColor)
         } else {
             Text("\(rank).")
-                .font(.headline)
+                .font(.fredoka(17, .semibold))
                 .foregroundStyle(.secondary)
         }
     }

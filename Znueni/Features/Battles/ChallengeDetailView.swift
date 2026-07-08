@@ -40,11 +40,11 @@ struct ChallengeDetailView: View {
                     .background(Color.appAccent.gradient, in: RoundedRectangle(cornerRadius: 14))
                 VStack(alignment: .leading, spacing: 3) {
                     Text(challenge.metric.label)
-                        .font(.headline)
+                        .font(.fredoka(17, .semibold))
                     Text(challenge.isActive
                          ? "Noch \(challenge.daysLeft) Tag\(challenge.daysLeft == 1 ? "" : "e")"
                          : "Beendet")
-                        .font(.footnote)
+                        .font(.fredoka(13))
                         .foregroundStyle(.secondary)
                 }
                 Spacer()
@@ -52,7 +52,7 @@ struct ChallengeDetailView: View {
                     Text(challenge.code)
                         .font(.system(.subheadline, design: .monospaced).weight(.bold))
                     Text("Code")
-                        .font(.caption2)
+                        .font(.fredoka(11))
                         .foregroundStyle(.secondary)
                 }
             }
@@ -63,7 +63,7 @@ struct ChallengeDetailView: View {
         Card {
             VStack(alignment: .leading, spacing: 14) {
                 Text("Rangliste")
-                    .font(.headline)
+                    .font(.fredoka(17, .semibold))
                 ForEach(Array(challenge.ranking.enumerated()), id: \.element.id) { index, participant in
                     leaderboardRow(rank: index + 1, participant: participant)
                 }
@@ -80,7 +80,7 @@ struct ChallengeDetailView: View {
                     .fontWeight(participant.isMe ? .bold : .regular)
                 if participant.isMe {
                     Text("Du")
-                        .font(.caption2.weight(.bold))
+                        .font(.fredoka(11, .semibold))
                         .padding(.horizontal, 6)
                         .padding(.vertical, 2)
                         .background(Color.appAccent.opacity(0.15), in: Capsule())
@@ -114,15 +114,15 @@ struct ChallengeDetailView: View {
         return Card {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Heute")
-                    .font(.headline)
+                    .font(.fredoka(17, .semibold))
                 ForEach(challenge.ranking) { participant in
                     HStack {
                         Text(participant.name)
-                            .font(.subheadline)
+                            .font(.fredoka(15))
                             .foregroundStyle(participant.isMe ? .primary : .secondary)
                         Spacer()
                         Text(formatted(participant.scores[todayKey] ?? 0))
-                            .font(.subheadline.weight(.medium))
+                            .font(.fredoka(15, .medium))
                     }
                 }
             }

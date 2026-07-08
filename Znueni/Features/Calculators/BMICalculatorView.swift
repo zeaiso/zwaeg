@@ -46,7 +46,7 @@ struct BMICalculatorView: View {
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
             Text(category.label)
-                .font(.subheadline.weight(.bold))
+                .font(.fredoka(15, .semibold))
                 .padding(.horizontal, 14)
                 .padding(.vertical, 6)
                 .background(.white.opacity(0.25), in: Capsule())
@@ -65,11 +65,11 @@ struct BMICalculatorView: View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
                 Text("Einordnung")
-                    .font(.headline)
+                    .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                 BMIScaleView(bmi: bmi)
                 Text("Normalgewicht für deine Grösse: \(String(format: "%.0f", healthyRange.lowerBound)) bis \(String(format: "%.0f", healthyRange.upperBound)) kg")
-                    .font(.footnote)
+                    .font(.fredoka(13))
                     .foregroundStyle(.secondary)
             }
         }
@@ -87,7 +87,7 @@ struct BMICalculatorView: View {
                         .font(.title3)
                         .foregroundStyle(Color(red: 0.13, green: 0.66, blue: 0.42))
                     Text("Alles im grünen Bereich. Weiter so!")
-                        .font(.subheadline.weight(.medium))
+                        .font(.fredoka(15, .medium))
                         .foregroundStyle(Theme.ink)
                 }
             }
@@ -113,26 +113,26 @@ struct BMICalculatorView: View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
                 Label("Unterstützung & Infos", systemImage: "heart.fill")
-                    .font(.headline)
+                    .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                 Text(intro)
-                    .font(.footnote)
+                    .font(.fredoka(13))
                     .foregroundStyle(.secondary)
                 ForEach(links, id: \.1) { name, urlString in
                     if let url = URL(string: urlString) {
                         Link(destination: url) {
                             HStack(spacing: 10) {
                                 Image(systemName: "link")
-                                    .font(.caption.weight(.bold))
+                                    .font(.fredoka(12, .semibold))
                                     .foregroundStyle(Color.appAccent)
                                     .frame(width: 30, height: 30)
                                     .background(Theme.accentSoft, in: RoundedRectangle(cornerRadius: 10))
                                 Text(name)
-                                    .font(.subheadline.weight(.medium))
+                                    .font(.fredoka(15, .medium))
                                     .foregroundStyle(Theme.ink)
                                 Spacer()
                                 Image(systemName: "arrow.up.right")
-                                    .font(.caption.weight(.semibold))
+                                    .font(.fredoka(12, .semibold))
                                     .foregroundStyle(.tertiary)
                             }
                         }
@@ -182,7 +182,7 @@ struct BMIScaleView: View {
                 Text("30")
                 Text("40").frame(maxWidth: .infinity, alignment: .trailing)
             }
-            .font(.caption2)
+            .font(.fredoka(11))
             .foregroundStyle(.tertiary)
         }
     }

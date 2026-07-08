@@ -30,7 +30,7 @@ struct DetailHeader: View {
                 dismiss()
             } label: {
                 Image(systemName: "chevron.left")
-                    .font(.subheadline.weight(.bold))
+                    .font(.fredoka(15, .semibold))
                     .foregroundStyle(Theme.ink)
                     .frame(width: 38, height: 38)
                     .background(Theme.card, in: Circle())
@@ -43,7 +43,7 @@ struct DetailHeader: View {
                     .foregroundStyle(Theme.ink)
                 if let subtitle {
                     Text(subtitle)
-                        .font(.footnote)
+                        .font(.fredoka(13))
                         .foregroundStyle(.secondary)
                 }
             }
@@ -73,7 +73,7 @@ struct ValueField: View {
     var body: some View {
         HStack {
             Text(title)
-                .font(.subheadline)
+                .font(.fredoka(15))
                 .foregroundStyle(.secondary)
             Spacer()
             TextField("", value: clampedValue,
@@ -89,7 +89,7 @@ struct ValueField: View {
                 .overlay(RoundedRectangle(cornerRadius: 12)
                     .stroke(isFocused ? Color.appAccent : .clear, lineWidth: 1.5))
             Text(unit)
-                .font(.subheadline)
+                .font(.fredoka(15))
                 .foregroundStyle(.secondary)
                 .frame(minWidth: 34, alignment: .leading)
         }

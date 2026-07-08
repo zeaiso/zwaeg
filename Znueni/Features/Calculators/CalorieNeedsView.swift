@@ -57,7 +57,7 @@ struct CalorieNeedsView: View {
                 Divider()
                 HStack {
                     Text("Aktivität")
-                        .font(.subheadline)
+                        .font(.fredoka(15))
                         .foregroundStyle(.secondary)
                     Spacer()
                     Picker("Aktivität", selection: $activity) {
@@ -92,7 +92,7 @@ struct CalorieNeedsView: View {
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
             Text("\(label) · kcal/Tag")
-                .font(.caption.weight(.semibold))
+                .font(.fredoka(12, .semibold))
                 .foregroundStyle(.white.opacity(0.85))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -105,20 +105,20 @@ struct CalorieNeedsView: View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
                 Text("Deine Empfehlung")
-                    .font(.headline)
+                    .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                 HStack(spacing: 12) {
                     Image(systemName: goal.symbol)
-                        .font(.body.weight(.bold))
+                        .font(.fredoka(17, .semibold))
                         .foregroundStyle(Color.appAccent)
                         .frame(width: 40, height: 40)
                         .background(Theme.accentSoft, in: RoundedRectangle(cornerRadius: 13))
                     VStack(alignment: .leading, spacing: 2) {
                         Text(goal.label)
-                            .font(.subheadline.weight(.semibold))
+                            .font(.fredoka(15, .semibold))
                             .foregroundStyle(Theme.ink)
                         Text("Dein Ziel")
-                            .font(.caption)
+                            .font(.fredoka(12))
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
@@ -128,7 +128,7 @@ struct CalorieNeedsView: View {
                         .contentTransition(.numericText())
                 }
                 Text("Änderbar unter Profil, Ziele & Vorgaben.")
-                    .font(.caption2)
+                    .font(.fredoka(11))
                     .foregroundStyle(.secondary)
             }
         }

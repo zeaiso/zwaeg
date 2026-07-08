@@ -62,7 +62,7 @@ struct ProgressScreen: View {
                 dismiss()
             } label: {
                 Image(systemName: "chevron.left")
-                    .font(.subheadline.weight(.bold))
+                    .font(.fredoka(15, .semibold))
                     .foregroundStyle(Theme.ink)
                     .frame(width: 38, height: 38)
                     .background(Theme.card, in: Circle())
@@ -74,7 +74,7 @@ struct ProgressScreen: View {
                     .font(.fredoka(22, .semibold))
                     .foregroundStyle(Theme.ink)
                 Text("Diese Woche")
-                    .font(.footnote)
+                    .font(.fredoka(13))
                     .foregroundStyle(.secondary)
             }
             Spacer()
@@ -133,7 +133,7 @@ struct ProgressScreen: View {
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
             Text(label)
-                .font(.caption.weight(.semibold))
+                .font(.fredoka(12, .semibold))
                 .foregroundStyle(.white.opacity(0.85))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -154,11 +154,11 @@ struct ProgressScreen: View {
             VStack(alignment: .leading, spacing: 14) {
                 HStack {
                     Text("Kalorien")
-                        .font(.headline)
+                        .font(.fredoka(17, .semibold))
                         .foregroundStyle(Theme.ink)
                     Spacer()
                     Text("Ziel \(profile.dailyCalorieTarget)")
-                        .font(.caption.weight(.semibold))
+                        .font(.fredoka(12, .semibold))
                         .foregroundStyle(.secondary)
                 }
 
@@ -172,7 +172,7 @@ struct ProgressScreen: View {
                                     Spacer(minLength: 0)
                                     if isToday && item.kcal > 0 {
                                         Text("\(Int((Double(item.kcal) / Double(target) * 100).rounded()))%")
-                                            .font(.system(size: 10, weight: .bold))
+                                            .font(.fredoka(10, .semibold))
                                             .foregroundStyle(.white)
                                             .padding(.horizontal, 8)
                                             .padding(.vertical, 4)
@@ -190,7 +190,7 @@ struct ProgressScreen: View {
                                 }
                             }
                             Text(item.day.formatted(.dateTime.weekday(.narrow)))
-                                .font(.caption.weight(.bold))
+                                .font(.fredoka(12, .semibold))
                                 .foregroundStyle(isToday ? Color.appAccent : .secondary)
                         }
                     }
@@ -215,7 +215,7 @@ struct ProgressScreen: View {
             VStack(alignment: .leading, spacing: 14) {
                 HStack {
                     Text("Gewichtsverlauf")
-                        .font(.headline)
+                        .font(.fredoka(17, .semibold))
                         .foregroundStyle(Theme.ink)
                     Spacer()
                     Menu {
@@ -226,14 +226,14 @@ struct ProgressScreen: View {
                         }
                     } label: {
                         Text(range.label)
-                            .font(.caption.weight(.bold))
+                            .font(.fredoka(12, .semibold))
                             .foregroundStyle(Color.appAccent)
                     }
                 }
 
                 if filteredWeights.count < 2 {
                     Text("Trage regelmässig dein Gewicht im Profil ein, um den Verlauf zu sehen.")
-                        .font(.footnote)
+                        .font(.fredoka(13))
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, minHeight: 80)
                 } else {

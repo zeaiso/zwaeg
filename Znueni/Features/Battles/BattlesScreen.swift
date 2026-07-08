@@ -27,7 +27,7 @@ struct BattlesScreen: View {
                     }
                     if !finished.isEmpty {
                         Text("Beendet")
-                            .font(.subheadline.weight(.semibold))
+                            .font(.fredoka(15, .semibold))
                             .foregroundStyle(.secondary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         ForEach(finished) { challenge in
@@ -84,9 +84,9 @@ struct BattlesScreen: View {
                     .font(.system(size: 44))
                     .foregroundStyle(.yellow)
                 Text("Noch keine Battles")
-                    .font(.headline)
+                    .font(.fredoka(17, .semibold))
                 Text("Fordere Freunde heraus: Wer macht mehr Schritte, verbrennt mehr Kalorien oder spart am meisten ein?")
-                    .font(.footnote)
+                    .font(.fredoka(13))
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                 Button {
@@ -119,12 +119,12 @@ struct BattlesScreen: View {
                                     in: RoundedRectangle(cornerRadius: 14))
                     VStack(alignment: .leading, spacing: 3) {
                         Text(challenge.name)
-                            .font(.headline)
+                            .font(.fredoka(17, .semibold))
                             .foregroundStyle(.primary)
                         Text(challenge.isActive
                              ? "\(challenge.metric.label) · noch \(challenge.daysLeft) Tag\(challenge.daysLeft == 1 ? "" : "e")"
                              : "\(challenge.metric.label) · beendet")
-                            .font(.footnote)
+                            .font(.fredoka(13))
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
@@ -132,12 +132,12 @@ struct BattlesScreen: View {
                         VStack(spacing: 2) {
                             RankBadge(rank: rank)
                             Text("Platz \(rank)")
-                                .font(.caption2)
+                                .font(.fredoka(11))
                                 .foregroundStyle(.secondary)
                         }
                     }
                     Image(systemName: "chevron.right")
-                        .font(.footnote.weight(.semibold))
+                        .font(.fredoka(13, .semibold))
                         .foregroundStyle(.tertiary)
                 }
             }

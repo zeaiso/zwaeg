@@ -66,7 +66,7 @@ struct DiaryView: View {
     private var greeting: String {
         switch Calendar.current.component(.hour, from: .now) {
         case 5..<11: return "Guten Morgen"
-        case 11..<18: return "Hallo"
+        case 11..<18: return "Guten Tag"
         default: return "Guten Abend"
         }
     }
@@ -76,9 +76,9 @@ struct DiaryView: View {
             MascotAvatar(size: 46)
             VStack(alignment: .leading, spacing: 1) {
                 Text(greeting)
-                    .font(.footnote)
+                    .font(.fredoka(13))
                     .foregroundStyle(.secondary)
-                Text(profile.name.isEmpty ? "Willkommen!" : "Hallo \(profile.name)")
+                Text(profile.name.isEmpty ? "Hallo!" : "Hallo \(profile.name)")
                     .font(.fredoka(19, .semibold))
                     .foregroundStyle(Theme.ink)
             }
@@ -87,7 +87,7 @@ struct DiaryView: View {
                 RemindersPlaceholderView()
             } label: {
                 Image(systemName: "bell")
-                    .font(.body.weight(.semibold))
+                    .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                     .frame(width: 42, height: 42)
                     .background(Theme.card, in: Circle())
@@ -127,16 +127,16 @@ struct DiaryView: View {
         VStack(spacing: 14) {
             HStack(spacing: 10) {
                 Image(systemName: "chart.pie.fill")
-                    .font(.footnote.weight(.bold))
+                    .font(.fredoka(13, .semibold))
                     .foregroundStyle(Color.appAccent)
                     .frame(width: 34, height: 34)
                     .background(Theme.card, in: RoundedRectangle(cornerRadius: 11, style: .continuous))
                 Text("Tagesbilanz")
-                    .font(.headline)
+                    .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                 Spacer()
                 Text("Tag \(max(1, streak))")
-                    .font(.caption.weight(.bold))
+                    .font(.fredoka(12, .semibold))
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
                     .background(Theme.ink, in: Capsule())
@@ -145,11 +145,11 @@ struct DiaryView: View {
 
             HStack {
                 Text("Fortschritt")
-                    .font(.caption)
+                    .font(.fredoka(12))
                     .foregroundStyle(.secondary)
                 Spacer()
                 Text("\(consumed) / \(profile.dailyCalorieTarget) kcal")
-                    .font(.caption.weight(.bold))
+                    .font(.fredoka(12, .semibold))
                     .foregroundStyle(Theme.ink)
                     .contentTransition(.numericText())
             }
@@ -183,7 +183,7 @@ struct DiaryView: View {
         Card {
             VStack(alignment: .leading, spacing: 10) {
                 Image(systemName: "figure.walk")
-                    .font(.body.weight(.bold))
+                    .font(.fredoka(17, .semibold))
                     .foregroundStyle(.white)
                     .frame(width: 40, height: 40)
                     .background(Color(red: 0.48, green: 0.42, blue: 0.93).gradient,
@@ -194,7 +194,7 @@ struct DiaryView: View {
                         .foregroundStyle(Theme.ink)
                         .contentTransition(.numericText())
                     Text("Schritte heute")
-                        .font(.caption)
+                        .font(.fredoka(12))
                         .foregroundStyle(.secondary)
                 } else if HealthKitService.isAvailable {
                     Button {
@@ -204,7 +204,7 @@ struct DiaryView: View {
                         }
                     } label: {
                         Text("Verbinden")
-                            .font(.caption.weight(.bold))
+                            .font(.fredoka(12, .semibold))
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
                             .background(Theme.accentSoft, in: Capsule())
@@ -212,13 +212,13 @@ struct DiaryView: View {
                     }
                     .buttonStyle(.plain)
                     Text("Schritte aus Health")
-                        .font(.caption)
+                        .font(.fredoka(12))
                         .foregroundStyle(.secondary)
                 } else {
                     Text("–")
                         .font(.fredoka(22, .semibold))
                     Text("Schritte")
-                        .font(.caption)
+                        .font(.fredoka(12))
                         .foregroundStyle(.secondary)
                 }
             }
@@ -235,7 +235,7 @@ struct DiaryView: View {
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Image(systemName: "drop.fill")
-                        .font(.body.weight(.bold))
+                        .font(.fredoka(17, .semibold))
                         .foregroundStyle(.white)
                         .frame(width: 40, height: 40)
                         .background(Color(red: 0.24, green: 0.64, blue: 1.0).gradient,
@@ -245,7 +245,7 @@ struct DiaryView: View {
                         addWater(-1)
                     } label: {
                         Image(systemName: "minus")
-                            .font(.caption.weight(.bold))
+                            .font(.fredoka(12, .semibold))
                             .frame(width: 26, height: 26)
                             .background(Theme.field, in: Circle())
                             .foregroundStyle(Theme.ink)
@@ -256,7 +256,7 @@ struct DiaryView: View {
                         addWater(1)
                     } label: {
                         Image(systemName: "plus")
-                            .font(.caption.weight(.bold))
+                            .font(.fredoka(12, .semibold))
                             .frame(width: 26, height: 26)
                             .background(Theme.accent, in: Circle())
                             .foregroundStyle(Theme.onAccent)
@@ -269,11 +269,11 @@ struct DiaryView: View {
                         .foregroundStyle(Theme.ink)
                         .contentTransition(.numericText())
                     Text("Glas")
-                        .font(.footnote)
+                        .font(.fredoka(13))
                         .foregroundStyle(.secondary)
                 }
                 Text("Wasser trinken")
-                    .font(.caption)
+                    .font(.fredoka(12))
                     .foregroundStyle(.secondary)
             }
         }
@@ -308,7 +308,7 @@ struct DiaryView: View {
                 } label: {
                     VStack(spacing: 8) {
                         Text(day.formatted(.dateTime.weekday(.abbreviated)))
-                            .font(.caption.weight(isSelected ? .bold : .medium))
+                            .font(.fredoka(12, isSelected ? .semibold : .medium))
                             .foregroundStyle(isSelected ? Color.appAccent : .secondary)
                         Text(day.formatted(.dateTime.day()))
                             .font(.fredoka(15, .semibold))
@@ -359,23 +359,23 @@ struct DiaryView: View {
             Card {
                 HStack(spacing: 12) {
                     Image(systemName: meal.symbol)
-                        .font(.body.weight(.semibold))
+                        .font(.fredoka(17, .semibold))
                         .foregroundStyle(.white)
                         .frame(width: 46, height: 46)
                         .background(mealGradient(meal),
                                     in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                     VStack(alignment: .leading, spacing: 2) {
                         Text(meal.label)
-                            .font(.headline)
+                            .font(.fredoka(17, .semibold))
                             .foregroundStyle(Theme.ink)
                         Text("\(kcal) / \(mealBudget(meal)) kcal")
-                            .font(.caption)
+                            .font(.fredoka(12))
                             .foregroundStyle(.secondary)
                             .contentTransition(.numericText())
                     }
                     Spacer()
                     Text("Add")
-                        .font(.subheadline.weight(.bold))
+                        .font(.fredoka(15, .semibold))
                         .padding(.horizontal, 18)
                         .padding(.vertical, 9)
                         .background(Theme.accentSoft, in: Capsule())

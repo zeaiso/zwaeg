@@ -66,7 +66,7 @@ struct ProductPortionSheet: View {
                 .font(.fredoka(27, .semibold))
                 .foregroundStyle(Theme.ink)
             Text(subtitle)
-                .font(.subheadline)
+                .font(.fredoka(15))
                 .foregroundStyle(.secondary)
         }
     }
@@ -86,14 +86,14 @@ struct ProductPortionSheet: View {
     private var servingsRow: some View {
         HStack {
             Text("Portionen")
-                .font(.headline)
+                .font(.fredoka(17, .semibold))
                 .foregroundStyle(Theme.ink)
             Spacer()
             Button {
                 withAnimation(.snappy) { servings = max(0.5, servings - 0.5) }
             } label: {
                 Image(systemName: "minus")
-                    .font(.subheadline.weight(.bold))
+                    .font(.fredoka(15, .semibold))
                     .foregroundStyle(Theme.ink)
                     .frame(width: 34, height: 34)
                     .background(Theme.accentSoft, in: Circle())
@@ -108,7 +108,7 @@ struct ProductPortionSheet: View {
                 withAnimation(.snappy) { servings = min(10, servings + 0.5) }
             } label: {
                 Image(systemName: "plus")
-                    .font(.subheadline.weight(.bold))
+                    .font(.fredoka(15, .semibold))
                     .foregroundStyle(Theme.onAccent)
                     .frame(width: 34, height: 34)
                     .background(Theme.ink, in: Circle())
@@ -134,11 +134,11 @@ struct ProductPortionSheet: View {
                 .font(.fredoka(50, .semibold))
                 .foregroundStyle(.white)
             Text("Kalorien pro Portion")
-                .font(.subheadline.weight(.semibold))
+                .font(.fredoka(15, .semibold))
                 .foregroundStyle(.white.opacity(0.9))
             if servings != 1 {
                 Text("\(servingsLabel) Portionen · \(product.kcal(for: totalGrams)) kcal gesamt")
-                    .font(.caption)
+                    .font(.fredoka(12))
                     .foregroundStyle(.white.opacity(0.85))
                     .padding(.top, 2)
             }
@@ -174,7 +174,7 @@ struct ProductPortionSheet: View {
                 .foregroundStyle(Theme.ink)
                 .contentTransition(.numericText())
             Text(label)
-                .font(.caption2)
+                .font(.fredoka(11))
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
@@ -198,7 +198,7 @@ struct ProductPortionSheet: View {
                     withAnimation(.snappy) { meal = type }
                 } label: {
                     Text(type.label)
-                        .font(.caption.weight(.semibold))
+                        .font(.fredoka(12, .semibold))
                         .lineLimit(1)
                         .minimumScaleFactor(0.75)
                         .padding(.horizontal, 12)
@@ -219,7 +219,7 @@ struct ProductPortionSheet: View {
             save()
         } label: {
             Text(meal.addLabel)
-                .font(.headline)
+                .font(.fredoka(17, .semibold))
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
                 .background(
