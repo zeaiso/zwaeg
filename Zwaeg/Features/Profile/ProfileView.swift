@@ -6,6 +6,7 @@ struct ProfileView: View {
     @Query private var foodEntries: [FoodEntry]
 
     @State private var showProgress = false
+    @State private var showBuddyEdit = false
 
     var body: some View {
         NavigationStack {
@@ -24,9 +25,15 @@ struct ProfileView: View {
             .navigationDestination(isPresented: $showProgress) {
                 ProgressScreen(profile: profile)
             }
+            .navigationDestination(isPresented: $showBuddyEdit) {
+                BuddyEditView(profile: profile)
+            }
             .onAppear {
                 if CommandLine.arguments.contains("-open-progress") {
                     showProgress = true
+                }
+                if CommandLine.arguments.contains("-open-buddy") {
+                    showBuddyEdit = true
                 }
             }
         }
@@ -57,9 +64,14 @@ struct ProfileView: View {
 
     private var identityCard: some View {
         HStack(spacing: 14) {
-            BuddyView(buddy: profile.buddy, size: 44)
-                .frame(width: 58, height: 58)
-                .background(.white, in: RoundedRectangle(cornerRadius: 17, style: .continuous))
+            NavigationLink {
+                BuddyEditView(profile: profile)
+            } label: {
+                BuddyView(buddy: profile.buddy, size: 44)
+                    .frame(width: 58, height: 58)
+                    .background(.white, in: RoundedRectangle(cornerRadius: 17, style: .continuous))
+            }
+            .buttonStyle(.plain)
             VStack(alignment: .leading, spacing: 3) {
                 Text(profile.name.isEmpty ? "Dein Profil" : profile.name)
                     .font(.fredoka(19, .semibold))
@@ -148,6 +160,9 @@ struct ProfileView: View {
                 .font(.fredoka(12, .semibold))
                 .foregroundStyle(.secondary)
                 .padding(.leading, 6)
+            accountRow("Mein Buddy", symbol: "face.smiling.inverse", color: Color(red: 1.0, green: 0.51, blue: 0.6)) {
+                BuddyEditView(profile: profile)
+            }
             accountRow("Persönliche Daten", symbol: "person.fill", color: Color.appAccent) {
                 PersonalDetailsView(profile: profile)
             }
