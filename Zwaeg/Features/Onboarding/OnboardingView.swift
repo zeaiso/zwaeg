@@ -203,15 +203,16 @@ struct OnboardingView: View {
     }
 
     private var buddyStep: some View {
-        VStack(spacing: 24) {
-            stepTitle("Wähle deinen Buddy")
-                .frame(maxWidth: .infinity, alignment: .leading)
-            Text("Dein Begleiter für Battles und mehr.")
-                .font(.fredoka(15))
-                .foregroundStyle(.secondary)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            BuddyPickerView(buddy: $buddy)
-            Spacer(minLength: 0)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 20) {
+                stepTitle("Wähle deinen Buddy")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Text("Dein Begleiter für Battles und mehr.")
+                    .font(.fredoka(15))
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                BuddyPickerView(buddy: $buddy)
+            }
         }
     }
 

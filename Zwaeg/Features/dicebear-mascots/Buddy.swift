@@ -1,36 +1,37 @@
 import SwiftUI
 
-/// A user's personal mascot: body color, eyes, mouth and accessory.
-/// Deterministic seeding gives battle opponents stable faces.
-struct Buddy: Codable, Equatable {
+/// A user's personal mascot, backed by the bundled DiceBear thumbs set
+/// (CC0) tuned to the Zwäg palette: 6 colors x 3 faces.
+/// Deterministic seeding gives battle opponents stable buddies.
+struct Buddy: Codable, Equatable, Hashable {
     var color: Int
-    var eyes: Int
-    var mouth: Int
-    var accessory: Int
+    var face: Int
 
     static let colorCount = 6
-    static let eyeCount = 3
-    static let mouthCount = 3
-    static let accessoryCount = 4
+    static let faceCount = 3
 
-    /// Body colors with their lighter belly shades.
-    static let palette: [(body: Color, belly: Color)] = [
-        (Color(red: 1.0, green: 0.42, blue: 0.29), Color(red: 1.0, green: 0.65, blue: 0.52)),
-        (Color(red: 0.62, green: 0.82, blue: 0.26), Color(red: 0.78, green: 0.91, blue: 0.52)),
-        (Color(red: 0.28, green: 0.66, blue: 1.0), Color(red: 0.55, green: 0.79, blue: 1.0)),
-        (Color(red: 0.55, green: 0.49, blue: 0.95), Color(red: 0.71, green: 0.66, blue: 0.98)),
-        (Color(red: 1.0, green: 0.77, blue: 0.25), Color(red: 1.0, green: 0.87, blue: 0.55)),
-        (Color(red: 1.0, green: 0.51, blue: 0.6), Color(red: 1.0, green: 0.7, blue: 0.75)),
+    static let colorNames = ["coral", "lime", "blue", "purple", "yellow", "pink"]
+
+    /// Body colors, used for picker dots and glow shadows.
+    static let palette: [Color] = [
+        Color(red: 1.0, green: 0.33, blue: 0.19),
+        Color(red: 0.61, green: 0.8, blue: 0.25),
+        Color(red: 0.28, green: 0.66, blue: 1.0),
+        Color(red: 0.55, green: 0.49, blue: 0.95),
+        Color(red: 1.0, green: 0.77, blue: 0.25),
+        Color(red: 1.0, green: 0.51, blue: 0.6),
     ]
 
-    var bodyColor: Color { Self.palette[color % Self.colorCount].body }
-    var bellyColor: Color { Self.palette[color % Self.colorCount].belly }
+    var assetName: String {
+        "buddy-\(Self.colorNames[color % Self.colorCount])-\(face % Self.faceCount + 1)"
+    }
+
+    var bodyColor: Color {
+        Self.palette[color % Self.colorCount]
+    }
 
     static func random() -> Buddy {
-        Buddy(color: Int.random(in: 0..<colorCount),
-              eyes: Int.random(in: 0..<eyeCount),
-              mouth: Int.random(in: 0..<mouthCount),
-              accessory: Int.random(in: 0..<accessoryCount))
+        Buddy(color: Int.random(in: 0..<colorCount), face: Int.random(in: 0..<faceCount))
     }
 
     /// Stable buddy for a seed string (bot names, participant ids).
@@ -40,12 +41,31 @@ struct Buddy: Codable, Equatable {
             hash = hash &* 33 &+ UInt64(byte)
         }
         return Buddy(color: Int(hash % UInt64(colorCount)),
-                     eyes: Int((hash / 7) % UInt64(eyeCount)),
-                     mouth: Int((hash / 31) % UInt64(mouthCount)),
-                     accessory: Int((hash / 101) % UInt64(accessoryCount)))
+                     face: Int((hash / 7) % UInt64(faceCount)))
     }
 
     // MARK: - Persistence (JSON in UserProfile.buddyRaw)
+
+    init(color: Int, face: Int) {
+        self.color = color
+        self.face = face
+    }
+
+    /// Tolerates the earlier placeholder format that stored eyes/mouth/accessory.
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        color = (try container.decodeIfPresent(Int.self, forKey: .color)) ?? 0
+        if let face = try container.decodeIfPresent(Int.self, forKey: .face) {
+            self.face = face
+        } else {
+            let legacy = try? decoder.container(keyedBy: LegacyKeys.self)
+            face = ((try? legacy?.decodeIfPresent(Int.self, forKey: .eyes)) ?? 0) ?? 0
+        }
+    }
+
+    private enum LegacyKeys: String, CodingKey {
+        case eyes
+    }
 
     var encoded: String {
         guard let data = try? JSONEncoder().encode(self) else { return "" }
