@@ -55,16 +55,9 @@ struct ProfileView: View {
 
     // MARK: - Identity (coral gradient card)
 
-    private var initials: String {
-        let parts = profile.name.split(separator: " ").prefix(2).compactMap(\.first)
-        return parts.isEmpty ? "Z" : String(parts).uppercased()
-    }
-
     private var identityCard: some View {
         HStack(spacing: 14) {
-            Text(initials)
-                .font(.fredoka(19, .semibold))
-                .foregroundStyle(Color.appAccent)
+            BuddyView(buddy: profile.buddy, size: 44)
                 .frame(width: 58, height: 58)
                 .background(.white, in: RoundedRectangle(cornerRadius: 17, style: .continuous))
             VStack(alignment: .leading, spacing: 3) {

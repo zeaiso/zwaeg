@@ -73,7 +73,7 @@ struct DiaryView: View {
 
     private var header: some View {
         HStack(spacing: 12) {
-            MascotAvatar(size: 46)
+            BuddyView(buddy: profile.buddy, size: 46)
             VStack(alignment: .leading, spacing: 1) {
                 Text(greeting)
                     .font(.fredoka(13))

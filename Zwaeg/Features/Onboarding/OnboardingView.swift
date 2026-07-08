@@ -5,10 +5,14 @@ struct OnboardingView: View {
     @Environment(\.modelContext) private var context
 
     private enum Step: Int, CaseIterable {
-        case welcome, name, sex, age, height, weight, activity, goal, result
+        case welcome, name, sex, age, height, weight, activity, goal, buddy, result
     }
 
-    @State private var step: Step = CommandLine.arguments.contains("-onboarding-body") ? .age : .welcome
+    @State private var step: Step = {
+        if CommandLine.arguments.contains("-onboarding-buddy") { return .buddy }
+        if CommandLine.arguments.contains("-onboarding-body") { return .age }
+        return .welcome
+    }()
     @State private var name = ""
     @State private var sex: Sex = .male
     @State private var age = 30.0
@@ -16,6 +20,7 @@ struct OnboardingView: View {
     @State private var weightKg = 75.0
     @State private var activity: ActivityLevel = .moderate
     @State private var goal: Goal = .lose
+    @State private var buddy: Buddy = .random()
 
     private var target: Int {
         CalorieMath.dailyTarget(sex: sex, weightKg: weightKg, heightCm: heightCm,
@@ -41,6 +46,7 @@ struct OnboardingView: View {
                 case .weight: weightStep
                 case .activity: activityStep
                 case .goal: goalStep
+                case .buddy: buddyStep
                 case .result: resultStep
                 }
             }
@@ -196,6 +202,19 @@ struct OnboardingView: View {
         }
     }
 
+    private var buddyStep: some View {
+        VStack(spacing: 24) {
+            stepTitle("Wähle deinen Buddy")
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Text("Dein Begleiter für Battles und mehr.")
+                .font(.fredoka(15))
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            BuddyPickerView(buddy: $buddy)
+            Spacer(minLength: 0)
+        }
+    }
+
     private var resultStep: some View {
         VStack(spacing: 24) {
             Text(name.isEmpty ? "Dein Tagesziel" : "\(name), dein Tagesziel")
@@ -261,6 +280,7 @@ struct OnboardingView: View {
         let profile = UserProfile(name: name.trimmingCharacters(in: .whitespaces),
                                   sex: sex, age: Int(age), heightCm: heightCm,
                                   weightKg: weightKg, activity: activity, goal: goal)
+        profile.buddy = buddy
         context.insert(profile)
         context.insert(WeightEntry(weightKg: weightKg))
     }

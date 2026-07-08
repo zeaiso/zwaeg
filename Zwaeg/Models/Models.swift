@@ -138,6 +138,7 @@ final class UserProfile {
     var goalRaw: String
     var dailyCalorieTarget: Int
     var createdAt: Date
+    var buddyRaw: String = ""
 
     init(name: String, sex: Sex, age: Int, heightCm: Double, weightKg: Double,
          activity: ActivityLevel, goal: Goal) {
@@ -171,6 +172,11 @@ final class UserProfile {
 
     var bmi: Double {
         CalorieMath.bmi(weightKg: weightKg, heightCm: heightCm)
+    }
+
+    var buddy: Buddy {
+        get { Buddy.decode(buddyRaw) ?? Buddy.seeded(name.isEmpty ? "zwaeg" : name) }
+        set { buddyRaw = newValue.encoded }
     }
 
     func recalculateTarget() {

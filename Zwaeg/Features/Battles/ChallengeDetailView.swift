@@ -76,6 +76,7 @@ struct ChallengeDetailView: View {
             HStack {
                 RankBadge(rank: rank)
                     .frame(width: 30, alignment: .leading)
+                BuddyView(buddy: participant.isMe ? profile.buddy : Buddy.seeded(participant.id), size: 30)
                 Text(participant.name)
                     .fontWeight(participant.isMe ? .bold : .regular)
                 if participant.isMe {
