@@ -39,7 +39,7 @@ struct DetailHeader: View {
             .buttonStyle(.plain)
             VStack(alignment: .leading, spacing: 1) {
                 Text(title)
-                    .font(.system(.title2, design: .rounded).bold())
+                    .font(.fredoka(22, .semibold))
                     .foregroundStyle(Theme.ink)
                 if let subtitle {
                     Text(subtitle)
@@ -81,7 +81,7 @@ struct ValueField: View {
                 .keyboardType(fractionDigits == 0 ? .numberPad : .decimalPad)
                 .focused($isFocused)
                 .multilineTextAlignment(.center)
-                .font(.system(.title3, design: .rounded).weight(.semibold))
+                .font(.fredoka(19, .semibold))
                 .frame(width: 84)
                 .padding(.vertical, 8)
                 .background(Theme.field,
@@ -131,7 +131,7 @@ struct BigValueField: View {
                 .keyboardType(fractionDigits == 0 ? .numberPad : .decimalPad)
                 .focused($isFocused)
                 .multilineTextAlignment(.center)
-                .font(.system(size: 56, weight: .bold, design: .rounded))
+                .font(.fredoka(54, .semibold))
                 .frame(width: 190)
                 .padding(.vertical, 10)
                 .background(Theme.card,
@@ -177,7 +177,7 @@ struct ResultNumber: View {
     var body: some View {
         HStack(alignment: .firstTextBaseline, spacing: 6) {
             Text(value)
-                .font(.system(size: 44, weight: .bold, design: .rounded))
+                .font(.fredoka(42, .semibold))
                 .foregroundStyle(color)
                 .contentTransition(.numericText())
             Text(unit)

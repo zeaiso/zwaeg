@@ -73,17 +73,13 @@ struct DiaryView: View {
 
     private var header: some View {
         HStack(spacing: 12) {
-            Text(initials)
-                .font(.headline)
-                .foregroundStyle(Theme.onAccent)
-                .frame(width: 46, height: 46)
-                .background(Theme.accent.gradient, in: Circle())
+            MascotAvatar(size: 46)
             VStack(alignment: .leading, spacing: 1) {
                 Text(greeting)
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                 Text(profile.name.isEmpty ? "Willkommen!" : "Hallo \(profile.name)")
-                    .font(.system(.title3, design: .rounded).bold())
+                    .font(.fredoka(19, .semibold))
                     .foregroundStyle(Theme.ink)
             }
             Spacer()
@@ -100,11 +96,6 @@ struct DiaryView: View {
             .buttonStyle(.plain)
         }
         .padding(.top, 8)
-    }
-
-    private var initials: String {
-        let parts = profile.name.split(separator: " ").prefix(2).compactMap(\.first)
-        return parts.isEmpty ? "Z" : String(parts).uppercased()
     }
 
     /// Consecutive days with at least one logged food, ending today or yesterday.
@@ -199,7 +190,7 @@ struct DiaryView: View {
                                 in: RoundedRectangle(cornerRadius: 13, style: .continuous))
                 if health.isConnected {
                     Text("\(activity.steps)")
-                        .font(.system(.title2, design: .rounded).bold())
+                        .font(.fredoka(22, .semibold))
                         .foregroundStyle(Theme.ink)
                         .contentTransition(.numericText())
                     Text("Schritte heute")
@@ -225,7 +216,7 @@ struct DiaryView: View {
                         .foregroundStyle(.secondary)
                 } else {
                     Text("–")
-                        .font(.system(.title2, design: .rounded).bold())
+                        .font(.fredoka(22, .semibold))
                     Text("Schritte")
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -274,7 +265,7 @@ struct DiaryView: View {
                 }
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text("\(glasses)")
-                        .font(.system(.title2, design: .rounded).bold())
+                        .font(.fredoka(22, .semibold))
                         .foregroundStyle(Theme.ink)
                         .contentTransition(.numericText())
                     Text("Glas")
@@ -320,7 +311,7 @@ struct DiaryView: View {
                             .font(.caption.weight(isSelected ? .bold : .medium))
                             .foregroundStyle(isSelected ? Color.appAccent : .secondary)
                         Text(day.formatted(.dateTime.day()))
-                            .font(.system(.subheadline, design: .rounded).weight(.bold))
+                            .font(.fredoka(15, .semibold))
                             .foregroundStyle(isSelected ? Theme.onAccent : Theme.ink)
                             .frame(width: 36, height: 36)
                             .background(isSelected ? AnyShapeStyle(Theme.accent.gradient) : AnyShapeStyle(.clear),

@@ -62,7 +62,7 @@ struct CalculatorsView: View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
                 Text("Rechner")
-                    .font(.system(.title, design: .rounded).bold())
+                    .font(.fredoka(27, .semibold))
                     .foregroundStyle(Theme.ink)
                 Text("Deine Gesundheits-Tools")
                     .font(.subheadline)

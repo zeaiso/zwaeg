@@ -27,6 +27,10 @@ targets:
         ITSAppUsesNonExemptEncryption: false
         NSHealthShareUsageDescription: Znüni liest Schritte und Aktivenergie, um deinen Tagesverbrauch anzuzeigen.
         NSHealthUpdateUsageDescription: Znüni speichert dein geloggtes Gewicht in Apple Health.
+        UIAppFonts:
+          - Fredoka-Regular.ttf
+          - Fredoka-Medium.ttf
+          - Fredoka-SemiBold.ttf
     entitlements:
       path: Znueni/Znueni.entitlements
       properties:

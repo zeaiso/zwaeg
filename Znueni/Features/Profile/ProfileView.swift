@@ -35,7 +35,7 @@ struct ProfileView: View {
     private var header: some View {
         HStack {
             Text("Profil")
-                .font(.system(.title, design: .rounded).bold())
+                .font(.fredoka(27, .semibold))
                 .foregroundStyle(Theme.ink)
             Spacer()
             NavigationLink {
@@ -63,13 +63,13 @@ struct ProfileView: View {
     private var identityCard: some View {
         HStack(spacing: 14) {
             Text(initials)
-                .font(.system(.title3, design: .rounded).bold())
+                .font(.fredoka(19, .semibold))
                 .foregroundStyle(Color.appAccent)
                 .frame(width: 58, height: 58)
                 .background(.white, in: RoundedRectangle(cornerRadius: 17, style: .continuous))
             VStack(alignment: .leading, spacing: 3) {
                 Text(profile.name.isEmpty ? "Dein Profil" : profile.name)
-                    .font(.system(.title3, design: .rounded).bold())
+                    .font(.fredoka(19, .semibold))
                     .foregroundStyle(.white)
                 Text("Ziel · \(profile.goal.label) · \(profile.dailyCalorieTarget) kcal/Tag")
                     .font(.caption)
@@ -128,7 +128,7 @@ struct ProfileView: View {
         VStack(spacing: 4) {
             HStack(alignment: .firstTextBaseline, spacing: 1) {
                 Text(value)
-                    .font(.system(.title2, design: .rounded).bold())
+                    .font(.fredoka(22, .semibold))
                     .foregroundStyle(Theme.ink)
                     .contentTransition(.numericText())
                 if let unit {
@@ -301,7 +301,7 @@ struct RemindersPlaceholderView: View {
                 .font(.system(size: 44))
                 .foregroundStyle(Color.appAccent)
             Text("Erinnerungen")
-                .font(.system(.title3, design: .rounded).bold())
+                .font(.fredoka(19, .semibold))
             Text("Push-Erinnerungen für Mahlzeiten und Wasser kommen in einem späteren Update.")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
@@ -322,7 +322,7 @@ struct AboutView: View {
                 .font(.system(size: 54))
                 .foregroundStyle(Color.appAccent)
             Text("Znüni")
-                .font(.system(.title2, design: .rounded).bold())
+                .font(.fredoka(22, .semibold))
             Text("Version 0.1 · Dein Schweizer Kalorien-Tracker")
                 .font(.footnote)
                 .foregroundStyle(.secondary)

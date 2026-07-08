@@ -71,7 +71,7 @@ struct ProgressScreen: View {
             .buttonStyle(.plain)
             VStack(alignment: .leading, spacing: 1) {
                 Text("Meine Aktivität")
-                    .font(.system(.title2, design: .rounded).bold())
+                    .font(.fredoka(22, .semibold))
                     .foregroundStyle(Theme.ink)
                 Text("Diese Woche")
                     .font(.footnote)
@@ -129,7 +129,7 @@ struct ProgressScreen: View {
     private func statTile(value: String, label: String, background: AnyShapeStyle) -> some View {
         VStack(alignment: .leading, spacing: 3) {
             Text(value)
-                .font(.system(.title, design: .rounded).bold())
+                .font(.fredoka(27, .semibold))
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
             Text(label)

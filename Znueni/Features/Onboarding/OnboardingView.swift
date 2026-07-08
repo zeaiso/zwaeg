@@ -60,7 +60,7 @@ struct OnboardingView: View {
                 .font(.system(size: 90))
                 .foregroundStyle(Color.appAccent)
             Text("Willkommen!")
-                .font(.system(.largeTitle, design: .rounded).bold())
+                .font(.fredoka(32, .semibold))
             Text("Dein persönlicher Kalorien-Tracker.\nIn einer Minute eingerichtet.")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
@@ -199,7 +199,7 @@ struct OnboardingView: View {
     private var resultStep: some View {
         VStack(spacing: 24) {
             Text(name.isEmpty ? "Dein Tagesziel" : "\(name), dein Tagesziel")
-                .font(.system(.title2, design: .rounded).bold())
+                .font(.fredoka(22, .semibold))
             ResultNumber(value: "\(target)", unit: "kcal")
             Card {
                 VStack(spacing: 12) {
@@ -224,7 +224,7 @@ struct OnboardingView: View {
     }
 
     private func stepTitle(_ text: String) -> some View {
-        Text(text).font(.system(.title, design: .rounded).bold())
+        Text(text).font(.fredoka(27, .semibold))
     }
 
     // MARK: - Navigation controls

@@ -88,7 +88,7 @@ struct CalorieNeedsView: View {
     private func resultTile(value: String, label: String, background: AnyShapeStyle) -> some View {
         VStack(alignment: .leading, spacing: 3) {
             Text(value)
-                .font(.system(.title, design: .rounded).bold())
+                .font(.fredoka(27, .semibold))
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
             Text("\(label) · kcal/Tag")
@@ -123,7 +123,7 @@ struct CalorieNeedsView: View {
                     }
                     Spacer()
                     Text("\(CalorieMath.dailyTarget(sex: sex, weightKg: weightKg, heightCm: heightCm, age: Int(age), activity: activity, goal: goal)) kcal")
-                        .font(.system(.title3, design: .rounded).bold())
+                        .font(.fredoka(19, .semibold))
                         .foregroundStyle(Color.appAccent)
                         .contentTransition(.numericText())
                 }

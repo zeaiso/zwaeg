@@ -45,7 +45,7 @@ struct IdealWeightView: View {
     private var resultCard: some View {
         VStack(spacing: 6) {
             Text("\(String(format: "%.0f", range.lowerBound)) bis \(String(format: "%.0f", range.upperBound)) kg")
-                .font(.system(size: 40, weight: .bold, design: .rounded))
+                .font(.fredoka(38, .semibold))
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
             Text("Dein Idealgewicht-Bereich")

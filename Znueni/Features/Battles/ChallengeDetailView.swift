@@ -88,7 +88,7 @@ struct ChallengeDetailView: View {
                 }
                 Spacer()
                 Text(formatted(participant.total))
-                    .font(.system(.subheadline, design: .rounded).weight(.semibold))
+                    .font(.fredoka(15, .semibold))
                     .contentTransition(.numericText())
             }
             GeometryReader { geo in

@@ -42,7 +42,7 @@ struct BMICalculatorView: View {
     private var resultCard: some View {
         VStack(spacing: 8) {
             Text(String(format: "%.1f", bmi))
-                .font(.system(size: 54, weight: .bold, design: .rounded))
+                .font(.fredoka(52, .semibold))
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
             Text(category.label)

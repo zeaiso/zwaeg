@@ -81,7 +81,7 @@ struct AddFoodView: View {
             }
             .buttonStyle(.plain)
             Text("Essen hinzufügen")
-                .font(.system(.title2, design: .rounded).bold())
+                .font(.fredoka(22, .semibold))
                 .foregroundStyle(Theme.ink)
             Spacer()
         }

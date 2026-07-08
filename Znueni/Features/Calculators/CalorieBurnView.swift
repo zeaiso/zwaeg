@@ -33,7 +33,7 @@ struct CalorieBurnView: View {
     private var resultCard: some View {
         VStack(spacing: 6) {
             Text("\(Int(burned.rounded()))")
-                .font(.system(size: 54, weight: .bold, design: .rounded))
+                .font(.fredoka(52, .semibold))
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
             Text("kcal verbrannt")

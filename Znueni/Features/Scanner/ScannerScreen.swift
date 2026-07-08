@@ -76,7 +76,7 @@ struct ScannerScreen: View {
     private var header: some View {
         ZStack {
             Text("Scanner")
-                .font(.system(.headline, design: .rounded).bold())
+                .font(.fredoka(17, .semibold))
                 .foregroundStyle(.white)
             HStack {
                 Button {

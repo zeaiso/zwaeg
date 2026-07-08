@@ -20,3 +20,56 @@ extension Color {
     /// Slightly deepened coral, readable as a tint on light surfaces.
     static let appAccent = Color(red: 0.898, green: 0.29, blue: 0.165)
 }
+
+extension Font {
+    /// Fredoka, the app's display face (headings, numbers, buttons).
+    static func fredoka(_ size: CGFloat, _ weight: Font.Weight = .regular) -> Font {
+        let name: String
+        switch weight {
+        case .semibold, .bold, .heavy, .black:
+            name = "Fredoka-SemiBold"
+        case .medium:
+            name = "Fredoka-Medium"
+        default:
+            name = "Fredoka-Regular"
+        }
+        return .custom(name, size: size)
+    }
+}
+
+/// The Znüni mascot: a friendly face on a coral gradient circle.
+struct MascotAvatar: View {
+    var size: CGFloat = 46
+
+    var body: some View {
+        ZStack {
+            Circle()
+                .fill(LinearGradient(colors: [Color(red: 1.0, green: 0.55, blue: 0.35), Theme.accent],
+                                     startPoint: .topLeading, endPoint: .bottomTrailing))
+            HStack(spacing: size * 0.10) {
+                eye
+                eye
+            }
+            .offset(y: -size * 0.10)
+            UnevenRoundedRectangle(topLeadingRadius: size * 0.05,
+                                   bottomLeadingRadius: size * 0.17,
+                                   bottomTrailingRadius: size * 0.17,
+                                   topTrailingRadius: size * 0.05)
+                .fill(Color(red: 0.24, green: 0.12, blue: 0.08))
+                .frame(width: size * 0.34, height: size * 0.15)
+                .offset(y: size * 0.18)
+        }
+        .frame(width: size, height: size)
+    }
+
+    private var eye: some View {
+        ZStack {
+            Circle()
+                .fill(.white)
+                .frame(width: size * 0.24, height: size * 0.24)
+            Circle()
+                .fill(Color(red: 0.24, green: 0.12, blue: 0.08))
+                .frame(width: size * 0.13, height: size * 0.13)
+        }
+    }
+}

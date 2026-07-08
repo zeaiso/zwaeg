@@ -63,7 +63,7 @@ struct ProductPortionSheet: View {
                 .frame(maxWidth: .infinity)
                 .padding(.bottom, 6)
             Text(product.name)
-                .font(.system(.title, design: .rounded).bold())
+                .font(.fredoka(27, .semibold))
                 .foregroundStyle(Theme.ink)
             Text(subtitle)
                 .font(.subheadline)
@@ -100,7 +100,7 @@ struct ProductPortionSheet: View {
             }
             .buttonStyle(.plain)
             Text(servingsLabel)
-                .font(.system(.title3, design: .rounded).bold())
+                .font(.fredoka(19, .semibold))
                 .foregroundStyle(Theme.ink)
                 .frame(minWidth: 44)
                 .contentTransition(.numericText())
@@ -131,7 +131,7 @@ struct ProductPortionSheet: View {
     private var calorieCard: some View {
         VStack(spacing: 4) {
             Text("\(product.kcal(for: servingGrams))")
-                .font(.system(size: 52, weight: .bold, design: .rounded))
+                .font(.fredoka(50, .semibold))
                 .foregroundStyle(.white)
             Text("Kalorien pro Portion")
                 .font(.subheadline.weight(.semibold))
@@ -170,7 +170,7 @@ struct ProductPortionSheet: View {
                 .frame(width: 34, height: 34)
                 .background(color.opacity(0.14), in: RoundedRectangle(cornerRadius: 11, style: .continuous))
             Text("\(formatGrams(grams))g")
-                .font(.system(.body, design: .rounded).bold())
+                .font(.fredoka(17, .semibold))
                 .foregroundStyle(Theme.ink)
                 .contentTransition(.numericText())
             Text(label)
