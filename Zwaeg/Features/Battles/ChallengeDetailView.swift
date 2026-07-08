@@ -23,7 +23,7 @@ struct ChallengeDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                ShareLink(item: "Fordere mich heraus bei Znüni! Challenge \"\(challenge.name)\" (\(challenge.metric.label)), Code: \(challenge.code)") {
+                ShareLink(item: "Fordere mich heraus bei Zwäg! Challenge \"\(challenge.name)\" (\(challenge.metric.label)), Code: \(challenge.code)") {
                     Image(systemName: "square.and.arrow.up")
                 }
             }

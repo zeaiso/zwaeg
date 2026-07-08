@@ -37,7 +37,7 @@ extension Font {
     }
 }
 
-/// The Znüni mascot: a friendly face on a coral gradient circle.
+/// The Zwäg mascot: a friendly face on a coral gradient circle.
 struct MascotAvatar: View {
     var size: CGFloat = 46
 

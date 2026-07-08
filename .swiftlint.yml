@@ -1,6 +1,6 @@
-# SwiftLint configuration for Znüni
+# SwiftLint configuration for Zwäg
 included:
-  - Znueni
+  - Zwaeg
 
 disabled_rules:
   - line_length            # SwiftUI view builders get long

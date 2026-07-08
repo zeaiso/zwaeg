@@ -1,11 +1,11 @@
 # Architecture
 
-Znüni is a native SwiftUI app, iOS 17+, built local first. There is no backend: personal data lives in SwiftData on the device, and the only network calls are barcode lookups against Open Food Facts.
+Zwäg is a native SwiftUI app, iOS 17+, built local first. There is no backend: personal data lives in SwiftData on the device, and the only network calls are barcode lookups against Open Food Facts.
 
 ## Module layout
 
 ```
-Znueni/
+Zwaeg/
   App/        Entry point, root navigation, custom tab bar, debug launch args
   Core/       UI-free logic and shared UI primitives
     CalorieMath.swift      BMI, ideal weight, BMR/TDEE, MET calculations
@@ -32,7 +32,7 @@ Enums (`Sex`, `ActivityLevel`, `Goal`, `MealType`, `BattleMetric`) are stored as
 
 ## Key decisions
 
-- **XcodeGen** generates the Xcode project from `project.yml`. Generated files (`Znueni.xcodeproj`, `Info.plist`, `Znueni.entitlements`) are gitignored.
+- **XcodeGen** generates the Xcode project from `project.yml`. Generated files (`Zwaeg.xcodeproj`, `Info.plist`, `Zwaeg.entitlements`) are gitignored.
 - **CalorieMath is UI-free** so the battle score engine reuses the same formulas.
 - **Battles are backend-less**: participants meet via a 6-character join code. `ChallengeSyncService` has two implementations: `LocalChallengeService` (deterministic demo opponents) and `CloudKitChallengeService` (public database records, one per score per day). The flag `AppConfig.cloudKitEnabled` selects between them; enabling CloudKit also requires the iCloud entitlement and a paid Apple Developer account.
 - **Food data**: barcode lookups hit the Swiss Open Food Facts instance and prefer German product names. Generic foods come from the official Swiss Food Composition Database V7.0 (BLV, naehrwertdaten.ch), converted from the published Excel export to a bundled JSON (1220 foods, values per 100 g, synonyms searchable). The BLV terms allow use in nutrition apps with attribution, which the in-app help screen provides.

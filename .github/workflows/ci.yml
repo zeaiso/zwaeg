@@ -24,9 +24,9 @@ jobs:
       - name: Build
         run: |
           set -o pipefail
-          xcodebuild -project Znueni.xcodeproj -scheme Znueni \
+          xcodebuild -project Zwaeg.xcodeproj -scheme Zwaeg \
             -destination 'generic/platform=iOS Simulator' \
             CODE_SIGNING_ALLOWED=NO build | tail -50
 
       - name: Validate Swiss food list
-        run: python3 -c "import json; d=json.load(open('Znueni/Resources/swiss_foods.json')); assert len(d) > 100; print(len(d), 'foods ok')"
+        run: python3 -c "import json; d=json.load(open('Zwaeg/Resources/swiss_foods.json')); assert len(d) > 100; print(len(d), 'foods ok')"

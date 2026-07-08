@@ -1,4 +1,4 @@
-name: Znueni
+name: Zwaeg
 options:
   bundleIdPrefix: ch.emanuell
   deploymentTarget:
@@ -11,30 +11,30 @@ settings:
     CURRENT_PROJECT_VERSION: "1"
     MARKETING_VERSION: "0.1.0"
 targets:
-  Znueni:
+  Zwaeg:
     type: application
     platform: iOS
     sources:
-      - Znueni
+      - Zwaeg
     info:
-      path: Znueni/Info.plist
+      path: Zwaeg/Info.plist
       properties:
-        CFBundleDisplayName: Znüni
+        CFBundleDisplayName: Zwäg
         UILaunchScreen: {}
-        NSCameraUsageDescription: Znüni benötigt die Kamera zum Scannen von Barcodes.
+        NSCameraUsageDescription: Zwäg benötigt die Kamera zum Scannen von Barcodes.
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         ITSAppUsesNonExemptEncryption: false
-        NSHealthShareUsageDescription: Znüni liest Schritte und Aktivenergie, um deinen Tagesverbrauch anzuzeigen.
-        NSHealthUpdateUsageDescription: Znüni speichert dein geloggtes Gewicht in Apple Health.
+        NSHealthShareUsageDescription: Zwäg liest Schritte und Aktivenergie, um deinen Tagesverbrauch anzuzeigen.
+        NSHealthUpdateUsageDescription: Zwäg speichert dein geloggtes Gewicht in Apple Health.
         UIAppFonts:
           - Fredoka-Regular.ttf
           - Fredoka-Medium.ttf
           - Fredoka-SemiBold.ttf
     entitlements:
-      path: Znueni/Znueni.entitlements
+      path: Zwaeg/Zwaeg.entitlements
       properties:
         com.apple.developer.healthkit: true
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.znueni
+        PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.zwaeg

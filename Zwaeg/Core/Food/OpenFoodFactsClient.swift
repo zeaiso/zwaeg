@@ -26,7 +26,7 @@ enum OpenFoodFactsClient {
         }
 
         var request = URLRequest(url: url)
-        request.setValue("Znueni iOS/0.1 (personal use)", forHTTPHeaderField: "User-Agent")
+        request.setValue("Zwaeg iOS/0.1 (personal use)", forHTTPHeaderField: "User-Agent")
 
         let data: Data
         do {

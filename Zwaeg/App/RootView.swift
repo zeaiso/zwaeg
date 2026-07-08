@@ -81,7 +81,7 @@ struct MainTabView: View {
                 Color.clear.frame(height: 66)
             }
 
-            ZnueniTabBar(router: router)
+            ZwaegTabBar(router: router)
         }
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .tint(.appAccent)
@@ -89,7 +89,7 @@ struct MainTabView: View {
 }
 
 /// Floating pill tab bar, icon only: active tab in a coral circle, dark scan button.
-struct ZnueniTabBar: View {
+struct ZwaegTabBar: View {
     @Bindable var router: TabRouter
 
     var body: some View {

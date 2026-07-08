@@ -49,7 +49,7 @@ struct ScannerScreen: View {
             scanLinePulse = true
             if CommandLine.arguments.contains("-demo-product") {
                 scannedProduct = FoodProduct(
-                    id: "demo", name: "Avocado-Toast", brand: "Znüni",
+                    id: "demo", name: "Avocado-Toast", brand: "Zwäg",
                     kcalPer100g: 320, proteinPer100g: 9, carbsPer100g: 32, fatPer100g: 18,
                     barcode: nil, source: .swissDatabase)
             }

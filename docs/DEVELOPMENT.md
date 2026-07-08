@@ -5,11 +5,11 @@
 ```sh
 brew install xcodegen
 xcodegen generate
-xcodebuild -project Znueni.xcodeproj -scheme Znueni \
+xcodebuild -project Zwaeg.xcodeproj -scheme Zwaeg \
   -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
 ```
 
-Or open `Znueni.xcodeproj` in Xcode and hit Run. Regenerate the project with `xcodegen generate` whenever files are added or removed or `project.yml` changes.
+Or open `Zwaeg.xcodeproj` in Xcode and hit Run. Regenerate the project with `xcodegen generate` whenever files are added or removed or `project.yml` changes.
 
 ## Debug launch arguments
 
@@ -27,7 +27,7 @@ Useful for driving the app from the CLI or Xcode scheme arguments:
 Example:
 
 ```sh
-xcrun simctl launch "iPhone 17 Pro" ch.emanuell.znueni -seed-profile -tab 2 -demo-product
+xcrun simctl launch "iPhone 17 Pro" ch.emanuell.zwaeg -seed-profile -tab 2 -demo-product
 ```
 
 ## Simulator notes
