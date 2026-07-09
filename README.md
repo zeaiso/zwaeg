@@ -50,7 +50,7 @@ The `.xcodeproj`, `Info.plist` and entitlements are generated from `project.yml`
 
 - Nutrition data: [Swiss Food Composition Database](https://naehrwertdaten.ch) (BLV) and [Open Food Facts](https://ch.openfoodfacts.org)
 - Recipe photos: [Pexels](https://www.pexels.com) (Pexels License) and [Wikimedia Commons](https://commons.wikimedia.org) (CC BY, CC BY-SA, CC0 or public domain), fetched with `scripts/fetch_recipe_images.py`; every image with author and license in [docs/IMAGE-CREDITS.md](docs/IMAGE-CREDITS.md) and shown in the app on the recipe page
-- Avatars: generated with [DiceBear](https://dicebear.com), styles Thumbs (CC0) and Avataaars by [Pablo Stanley](https://avataaars.com) (free for personal and commercial use)
+- Avatars: generated with [DiceBear](https://dicebear.com). Styles: Avataaars and Bottts by [Pablo Stanley](https://avataaars.com) (free for personal and commercial use), Notionists by Zoish (CC0), Adventurer and Lorelei by Lisa Wischofsky (CC BY 4.0 / CC0), Big Smile by Ashley Seo (CC BY 4.0), Open Peeps by Pablo Stanley (CC0), Personas by Draftbit (CC BY 4.0), Pixel Art and Thumbs by DiceBear (CC0), Fun Emoji by Davis Uche (CC BY 4.0), Micah by Micah Lanier (CC BY 4.0)
 - Font: [Fredoka](https://fonts.google.com/specimen/Fredoka) (SIL Open Font License)
 
 ## License

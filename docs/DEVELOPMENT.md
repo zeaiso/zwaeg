@@ -36,7 +36,7 @@ Useful for driving the app from the CLI or Xcode scheme arguments:
 | `-open-progress` | Opens the progress screen (combine with `-tab 4`) |
 | `-open-battle` | Opens the first active battle (combine with `-tab 1`) |
 | `-open-buddy` | Opens the buddy editor (combine with `-tab 4`) |
-| `-open-monster-studio` | Opens the monster studio (combine with `-tab 4 -open-buddy`) |
+| `-studio-style <id>` | Preselects a DiceBear style in the studio, e.g. `notionists` (combine with `-open-studio`) |
 | `-open-challenges` | Opens the challenges page |
 | `-open-language` | Opens the language picker (combine with `-tab 4`) |
 | `-open-look` | Opens the look picker (combine with `-tab 4`) |
