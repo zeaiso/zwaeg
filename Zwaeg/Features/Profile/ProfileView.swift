@@ -311,23 +311,14 @@ struct GoalsView: View {
 struct RemindersView: View {
     @AppStorage("waterRemindersOn") private var waterOn = false
     @AppStorage("mealRemindersOn") private var mealsOn = false
+    @State private var times = ReminderStore.load()
     @State private var permissionDenied = false
 
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                reminderCard(
-                    title: "Wasser trinken",
-                    subtitle: "4x täglich um 10, 13, 16 und 19 Uhr",
-                    symbol: "drop.fill",
-                    color: Color(red: 0.24, green: 0.64, blue: 1.0),
-                    isOn: $waterOn)
-                reminderCard(
-                    title: "Mahlzeiten loggen",
-                    subtitle: "Frühstück 8:00, Mittag 12:30, Abend 19:00",
-                    symbol: "fork.knife",
-                    color: Color.appAccent,
-                    isOn: $mealsOn)
+                waterCard
+                mealsCard
                 if permissionDenied {
                     Label("Benachrichtigungen sind deaktiviert. Erlaube sie in den iOS-Einstellungen für Zwäg.",
                           systemImage: "bell.slash")
@@ -340,55 +331,153 @@ struct RemindersView: View {
         .background(Theme.background)
         .navigationTitle("Erinnerungen")
         .navigationBarTitleDisplayMode(.inline)
-        .onChange(of: waterOn) {
-            apply(water: waterOn, meals: mealsOn)
-        }
-        .onChange(of: mealsOn) {
-            apply(water: waterOn, meals: mealsOn)
-        }
+        .onChange(of: waterOn) { applyChanges() }
+        .onChange(of: mealsOn) { applyChanges() }
+        .onChange(of: times) { applyChanges() }
     }
 
-    private func reminderCard(title: String, subtitle: String, symbol: String,
-                              color: Color, isOn: Binding<Bool>) -> some View {
+    // MARK: - Water
+
+    private var waterCard: some View {
         Card {
-            HStack(spacing: 12) {
-                Image(systemName: symbol)
-                    .font(.fredoka(14, .semibold))
-                    .foregroundStyle(.white)
-                    .frame(width: 40, height: 40)
-                    .background(color.gradient, in: RoundedRectangle(cornerRadius: 13, style: .continuous))
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(title)
-                        .font(.fredoka(16, .semibold))
-                        .foregroundStyle(Theme.ink)
-                    Text(subtitle)
-                        .font(.fredoka(12))
-                        .foregroundStyle(.secondary)
+            VStack(spacing: 12) {
+                toggleRow(title: "Wasser trinken",
+                          subtitle: "\(times.water.count)x täglich",
+                          symbol: "drop.fill",
+                          color: Color(red: 0.24, green: 0.64, blue: 1.0),
+                          isOn: $waterOn)
+                if waterOn {
+                    Divider()
+                    ForEach(times.water.indices, id: \.self) { index in
+                        HStack {
+                            DatePicker("", selection: minuteBinding(
+                                get: { times.water[index] },
+                                set: { times.water[index] = $0 }),
+                                displayedComponents: .hourAndMinute)
+                                .labelsHidden()
+                            Spacer()
+                            Button {
+                                withAnimation(.snappy) {
+                                    _ = times.water.remove(at: index)
+                                }
+                            } label: {
+                                Image(systemName: "xmark")
+                                    .font(.system(size: 11, weight: .bold))
+                                    .foregroundStyle(.secondary)
+                                    .frame(width: 26, height: 26)
+                                    .background(Theme.field, in: Circle())
+                            }
+                            .buttonStyle(.plain)
+                            .disabled(times.water.count == 1)
+                        }
+                    }
+                    if times.water.count < 8 {
+                        Button {
+                            withAnimation(.snappy) {
+                                times.water.append(14 * 60)
+                            }
+                        } label: {
+                            Label("Zeit hinzufügen", systemImage: "plus")
+                                .font(.fredoka(14, .semibold))
+                                .foregroundStyle(Color.appAccent)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
-                Spacer()
-                Toggle("", isOn: isOn)
-                    .labelsHidden()
-                    .tint(Color.appAccent)
             }
         }
     }
 
-    private func apply(water: Bool, meals: Bool) {
+    // MARK: - Meals
+
+    private var mealsCard: some View {
+        Card {
+            VStack(spacing: 12) {
+                toggleRow(title: "Mahlzeiten loggen",
+                          subtitle: "Frühstück, Mittag- und Abendessen",
+                          symbol: "fork.knife",
+                          color: Color.appAccent,
+                          isOn: $mealsOn)
+                if mealsOn {
+                    Divider()
+                    mealTimeRow("Frühstück", get: { times.breakfast }, set: { times.breakfast = $0 })
+                    mealTimeRow("Mittagessen", get: { times.lunch }, set: { times.lunch = $0 })
+                    mealTimeRow("Abendessen", get: { times.dinner }, set: { times.dinner = $0 })
+                }
+            }
+        }
+    }
+
+    private func mealTimeRow(_ title: String, get: @escaping () -> Int,
+                             set: @escaping (Int) -> Void) -> some View {
+        HStack {
+            Text(title)
+                .font(.fredoka(14))
+                .foregroundStyle(.secondary)
+            Spacer()
+            DatePicker("", selection: minuteBinding(get: get, set: set),
+                       displayedComponents: .hourAndMinute)
+                .labelsHidden()
+        }
+    }
+
+    // MARK: - Shared pieces
+
+    private func toggleRow(title: String, subtitle: String, symbol: String,
+                           color: Color, isOn: Binding<Bool>) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: symbol)
+                .font(.fredoka(14, .semibold))
+                .foregroundStyle(.white)
+                .frame(width: 40, height: 40)
+                .background(color.gradient, in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.fredoka(16, .semibold))
+                    .foregroundStyle(Theme.ink)
+                Text(subtitle)
+                    .font(.fredoka(12))
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            Toggle("", isOn: isOn)
+                .labelsHidden()
+                .tint(Color.appAccent)
+        }
+    }
+
+    /// Bridges minutes-since-midnight storage to DatePicker dates.
+    private func minuteBinding(get: @escaping () -> Int,
+                               set: @escaping (Int) -> Void) -> Binding<Date> {
+        Binding(
+            get: {
+                let minutes = get()
+                return Calendar.current.date(bySettingHour: minutes / 60,
+                                             minute: minutes % 60,
+                                             second: 0, of: .now) ?? .now
+            },
+            set: { date in
+                let components = Calendar.current.dateComponents([.hour, .minute], from: date)
+                set((components.hour ?? 0) * 60 + (components.minute ?? 0))
+            })
+    }
+
+    private func applyChanges() {
+        ReminderStore.save(times)
         Task {
-            if water || meals {
+            if waterOn || mealsOn {
                 let granted = await NotificationService.requestPermission()
                 if !granted {
                     permissionDenied = true
                     waterOn = false
                     mealsOn = false
-                    NotificationService.updateWaterReminders(enabled: false)
-                    NotificationService.updateMealReminders(enabled: false)
+                    await NotificationService.reschedule(waterOn: false, mealsOn: false, times: times)
                     return
                 }
             }
             permissionDenied = false
-            NotificationService.updateWaterReminders(enabled: water)
-            NotificationService.updateMealReminders(enabled: meals)
+            await NotificationService.reschedule(waterOn: waterOn, mealsOn: mealsOn, times: times)
         }
     }
 }

@@ -1,11 +1,34 @@
+import Foundation
 import UserNotifications
+
+/// User-configurable reminder times, stored as minutes since midnight.
+struct ReminderTimes: Codable, Equatable {
+    var water: [Int] = [10 * 60, 13 * 60, 16 * 60, 19 * 60]
+    var breakfast: Int = 8 * 60
+    var lunch: Int = 12 * 60 + 30
+    var dinner: Int = 19 * 60
+}
+
+enum ReminderStore {
+    private static let key = "reminderTimes"
+
+    static func load() -> ReminderTimes {
+        guard let data = UserDefaults.standard.data(forKey: key),
+              let times = try? JSONDecoder().decode(ReminderTimes.self, from: data) else {
+            return ReminderTimes()
+        }
+        return times
+    }
+
+    static func save(_ times: ReminderTimes) {
+        guard let data = try? JSONEncoder().encode(times) else { return }
+        UserDefaults.standard.set(data, forKey: key)
+    }
+}
 
 /// Local notification scheduling for water and meal reminders.
 /// Local notifications need no Apple Developer membership or server.
 enum NotificationService {
-    private static let waterIDs = ["water-10", "water-13", "water-16", "water-19"]
-    private static let mealIDs = ["meal-breakfast", "meal-lunch", "meal-dinner"]
-
     static func requestPermission() async -> Bool {
         let center = UNUserNotificationCenter.current()
         let settings = await center.notificationSettings()
@@ -15,42 +38,41 @@ enum NotificationService {
         return (try? await center.requestAuthorization(options: [.alert, .sound])) ?? false
     }
 
-    static func updateWaterReminders(enabled: Bool) {
+    /// Replaces all scheduled reminders with the given configuration.
+    static func reschedule(waterOn: Bool, mealsOn: Bool, times: ReminderTimes) async {
         let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: waterIDs)
-        guard enabled else { return }
-        for (index, hour) in [10, 13, 16, 19].enumerated() {
-            var components = DateComponents()
-            components.hour = hour
-            components.minute = 0
-            let content = UNMutableNotificationContent()
-            content.title = "Wasser trinken"
-            content.body = "Zeit für ein Glas! Dein Ziel: 2 Liter am Tag."
-            content.sound = .default
-            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
-            center.add(UNNotificationRequest(identifier: waterIDs[index], content: content, trigger: trigger))
+        let pending = await center.pendingNotificationRequests()
+        let ours = pending.map(\.identifier).filter { $0.hasPrefix("water-") || $0.hasPrefix("meal-") }
+        center.removePendingNotificationRequests(withIdentifiers: ours)
+
+        if waterOn {
+            for (index, minutes) in times.water.sorted().enumerated() {
+                schedule(id: "water-\(index)",
+                         title: "Wasser trinken",
+                         body: "Zeit für ein Glas! Dein Ziel: 2 Liter am Tag.",
+                         minutes: minutes)
+            }
+        }
+        if mealsOn {
+            schedule(id: "meal-breakfast", title: "Frühstück loggen",
+                     body: "Kurz eintragen, was du gegessen hast.", minutes: times.breakfast)
+            schedule(id: "meal-lunch", title: "Mittagessen loggen",
+                     body: "Kurz eintragen, was du gegessen hast.", minutes: times.lunch)
+            schedule(id: "meal-dinner", title: "Abendessen loggen",
+                     body: "Kurz eintragen, was du gegessen hast.", minutes: times.dinner)
         }
     }
 
-    static func updateMealReminders(enabled: Bool) {
-        let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: mealIDs)
-        guard enabled else { return }
-        let meals: [(String, String, Int, Int)] = [
-            ("meal-breakfast", "Frühstück loggen", 8, 0),
-            ("meal-lunch", "Mittagessen loggen", 12, 30),
-            ("meal-dinner", "Abendessen loggen", 19, 0),
-        ]
-        for (id, title, hour, minute) in meals {
-            var components = DateComponents()
-            components.hour = hour
-            components.minute = minute
-            let content = UNMutableNotificationContent()
-            content.title = title
-            content.body = "Kurz eintragen, was du gegessen hast. Dein Buddy zählt auf dich!"
-            content.sound = .default
-            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
-            center.add(UNNotificationRequest(identifier: id, content: content, trigger: trigger))
-        }
+    private static func schedule(id: String, title: String, body: String, minutes: Int) {
+        var components = DateComponents()
+        components.hour = minutes / 60
+        components.minute = minutes % 60
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = .default
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+        UNUserNotificationCenter.current().add(
+            UNNotificationRequest(identifier: id, content: content, trigger: trigger))
     }
 }
