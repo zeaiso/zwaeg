@@ -49,7 +49,7 @@ The `.xcodeproj`, `Info.plist` and entitlements are generated from `project.yml`
 ## Credits
 
 - Nutrition data: [Swiss Food Composition Database](https://naehrwertdaten.ch) (BLV) and [Open Food Facts](https://ch.openfoodfacts.org)
-- Recipe photos: [Wikimedia Commons](https://commons.wikimedia.org), openly licensed (CC BY, CC BY-SA, CC0 or public domain), fetched with `scripts/fetch_recipe_images.py`; every image with author and license in [docs/IMAGE-CREDITS.md](docs/IMAGE-CREDITS.md) and shown in the app on the recipe page
+- Recipe photos: [Pexels](https://www.pexels.com) (Pexels License) and [Wikimedia Commons](https://commons.wikimedia.org) (CC BY, CC BY-SA, CC0 or public domain), fetched with `scripts/fetch_recipe_images.py`; every image with author and license in [docs/IMAGE-CREDITS.md](docs/IMAGE-CREDITS.md) and shown in the app on the recipe page
 - Avatars: generated with [DiceBear](https://dicebear.com), styles Thumbs (CC0) and Avataaars by [Pablo Stanley](https://avataaars.com) (free for personal and commercial use)
 - Font: [Fredoka](https://fonts.google.com/specimen/Fredoka) (SIL Open Font License)
 
