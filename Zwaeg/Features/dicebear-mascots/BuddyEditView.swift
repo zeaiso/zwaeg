@@ -9,7 +9,8 @@ struct BuddyEditView: View {
             VStack(spacing: 20) {
                 BuddyPickerView(buddy: Binding(
                     get: { profile.buddy },
-                    set: { profile.buddy = $0 }))
+                    set: { profile.buddy = $0 }),
+                    sex: profile.sex)
                 Text("Dein Buddy begleitet dich im Tagebuch, im Profil und in Battles.")
                     .font(.fredoka(13))
                     .foregroundStyle(.secondary)

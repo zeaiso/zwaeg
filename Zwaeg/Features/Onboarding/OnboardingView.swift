@@ -20,7 +20,7 @@ struct OnboardingView: View {
     @State private var weightKg = 75.0
     @State private var activity: ActivityLevel = .moderate
     @State private var goal: Goal = .lose
-    @State private var buddy: Buddy = .random()
+    @State private var buddy = Buddy(kind: "", index: 0)
 
     private var target: Int {
         CalorieMath.dailyTarget(sex: sex, weightKg: weightKg, heightCm: heightCm,
@@ -211,7 +211,12 @@ struct OnboardingView: View {
                     .font(.fredoka(15))
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                BuddyPickerView(buddy: $buddy)
+                BuddyPickerView(buddy: $buddy, sex: sex)
+            }
+        }
+        .onAppear {
+            if buddy.kind.isEmpty || (buddy.kind != "blob" && buddy.kind != (sex == .male ? "m" : "f")) {
+                buddy = .random(for: sex)
             }
         }
     }

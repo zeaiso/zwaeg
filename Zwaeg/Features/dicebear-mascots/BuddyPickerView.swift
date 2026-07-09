@@ -1,34 +1,61 @@
 import SwiftUI
 
-/// Gallery of all buddies; tap to choose yours.
+/// Random-first buddy picker: big preview, a dice to reroll, and a
+/// pool switch between the funky avatars (gender matched) and the blobs.
 struct BuddyPickerView: View {
     @Binding var buddy: Buddy
-
-    private let columns = [GridItem(.adaptive(minimum: 84), spacing: 14)]
-
-    static let allBuddies: [Buddy] = (0..<Buddy.colorCount).flatMap { color in
-        (0..<Buddy.faceCount).map { Buddy(color: color, face: $0) }
-    }
+    var sex: Sex
 
     var body: some View {
-        VStack(spacing: 24) {
-            BuddyView(buddy: buddy, size: 132)
-                .shadow(color: buddy.bodyColor.opacity(0.4), radius: 16, y: 8)
+        VStack(spacing: 26) {
+            BuddyView(buddy: buddy, size: 168)
+                .shadow(color: buddy.bodyColor.opacity(0.4), radius: 18, y: 9)
                 .animation(.snappy, value: buddy)
 
-            LazyVGrid(columns: columns, spacing: 14) {
-                ForEach(Self.allBuddies, id: \.self) { candidate in
-                    Button {
-                        withAnimation(.snappy) { buddy = candidate }
-                    } label: {
-                        BuddyView(buddy: candidate, size: 84)
-                            .overlay(RoundedRectangle(cornerRadius: 84 * 0.3, style: .continuous)
-                                .stroke(buddy == candidate ? Theme.ink : .clear, lineWidth: 3))
-                            .scaleEffect(buddy == candidate ? 1.06 : 1)
-                    }
-                    .buttonStyle(.plain)
+            HStack(spacing: 10) {
+                poolChip("Funky", isActive: buddy.kind != "blob") {
+                    buddy = .random(for: sex)
+                }
+                poolChip("Blob", isActive: buddy.kind == "blob") {
+                    buddy = .randomBlob()
                 }
             }
+
+            Button {
+                withAnimation(.snappy) {
+                    buddy = buddy.kind == "blob" ? .randomBlob() : .random(for: sex)
+                }
+            } label: {
+                HStack(spacing: 10) {
+                    Image(systemName: "dice.fill")
+                        .font(.fredoka(16, .semibold))
+                    Text("Neu würfeln")
+                        .font(.fredoka(17, .semibold))
+                }
+                .padding(.horizontal, 26)
+                .padding(.vertical, 14)
+                .background(
+                    LinearGradient(colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                                   startPoint: .topLeading, endPoint: .bottomTrailing),
+                    in: Capsule())
+                .foregroundStyle(Theme.onAccent)
+                .shadow(color: Theme.accent.opacity(0.35), radius: 10, y: 4)
+            }
+            .buttonStyle(.plain)
         }
+    }
+
+    private func poolChip(_ label: String, isActive: Bool, action: @escaping () -> Void) -> some View {
+        Button {
+            withAnimation(.snappy) { action() }
+        } label: {
+            Text(label)
+                .font(.fredoka(14, .semibold))
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(isActive ? Theme.ink : Theme.card, in: Capsule())
+                .foregroundStyle(isActive ? Theme.onAccent : .secondary)
+        }
+        .buttonStyle(.plain)
     }
 }

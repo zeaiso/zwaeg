@@ -334,7 +334,7 @@ struct AboutView: View {
             Text("Version 0.1 · Zwäg heisst: fit und wohl. Dein Schweizer Kalorien-Tracker.")
                 .font(.fredoka(13))
                 .foregroundStyle(.secondary)
-            Text("Nährwertdaten: Schweizer Nährwertdatenbank V7.0, Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV, sowie Open Food Facts. Alle persönlichen Daten bleiben auf deinem Gerät.")
+            Text("Nährwertdaten: Schweizer Nährwertdatenbank V7.0, Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV, sowie Open Food Facts. Avatare: Avataaars von Pablo Stanley via DiceBear. Alle persönlichen Daten bleiben auf deinem Gerät.")
                 .font(.fredoka(12))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)

@@ -1,18 +1,22 @@
 import SwiftUI
 
-/// A user's personal mascot, backed by the bundled DiceBear thumbs set
-/// (CC0) tuned to the Zwäg palette: 6 colors x 3 faces.
-/// Deterministic seeding gives battle opponents stable buddies.
+/// A user's personal mascot. Three pools: the Zwäg blob set (18, asset
+/// catalog) and 250 funky avatar characters per gender (bundled PNGs,
+/// DiceBear avataaars, free for commercial use).
+/// Deterministic seeding gives battle opponents stable faces.
 struct Buddy: Codable, Equatable, Hashable {
-    var color: Int
-    var face: Int
+    /// "blob", "m" or "f".
+    var kind: String
+    var index: Int
 
-    static let colorCount = 6
-    static let faceCount = 3
+    static let blobColorCount = 6
+    static let blobFaceCount = 3
+    static let blobCount = 18
+    static let avatarCount = 250
 
     static let colorNames = ["coral", "lime", "blue", "purple", "yellow", "pink"]
 
-    /// Body colors, used for picker dots and glow shadows.
+    /// Palette used for picker accents and glow shadows.
     static let palette: [Color] = [
         Color(red: 1.0, green: 0.33, blue: 0.19),
         Color(red: 0.61, green: 0.8, blue: 0.25),
@@ -23,48 +27,76 @@ struct Buddy: Codable, Equatable, Hashable {
     ]
 
     var assetName: String {
-        "buddy-\(Self.colorNames[color % Self.colorCount])-\(face % Self.faceCount + 1)"
+        switch kind {
+        case "m", "f":
+            return "\(kind)-\(index % Self.avatarCount)"
+        default:
+            let color = (index / Self.blobFaceCount) % Self.blobColorCount
+            let face = index % Self.blobFaceCount
+            return "buddy-\(Self.colorNames[color])-\(face + 1)"
+        }
     }
 
     var bodyColor: Color {
-        Self.palette[color % Self.colorCount]
+        Self.palette[index % Self.palette.count]
     }
 
-    static func random() -> Buddy {
-        Buddy(color: Int.random(in: 0..<colorCount), face: Int.random(in: 0..<faceCount))
+    static func random(for sex: Sex) -> Buddy {
+        Buddy(kind: sex == .male ? "m" : "f", index: Int.random(in: 0..<avatarCount))
+    }
+
+    static func randomBlob() -> Buddy {
+        Buddy(kind: "blob", index: Int.random(in: 0..<blobCount))
     }
 
     /// Stable buddy for a seed string (bot names, participant ids).
+    /// Mixes all three pools so battle bots feel varied.
     static func seeded(_ text: String) -> Buddy {
         var hash: UInt64 = 5381
         for byte in text.utf8 {
             hash = hash &* 33 &+ UInt64(byte)
         }
-        return Buddy(color: Int(hash % UInt64(colorCount)),
-                     face: Int((hash / 7) % UInt64(faceCount)))
+        switch hash % 3 {
+        case 0: return Buddy(kind: "blob", index: Int((hash / 7) % UInt64(blobCount)))
+        case 1: return Buddy(kind: "m", index: Int((hash / 7) % UInt64(avatarCount)))
+        default: return Buddy(kind: "f", index: Int((hash / 7) % UInt64(avatarCount)))
+        }
     }
 
     // MARK: - Persistence (JSON in UserProfile.buddyRaw)
 
-    init(color: Int, face: Int) {
-        self.color = color
-        self.face = face
+    init(kind: String, index: Int) {
+        self.kind = kind
+        self.index = index
     }
 
-    /// Tolerates the earlier placeholder format that stored eyes/mouth/accessory.
+    /// Tolerates the earlier formats: {color, face} and {color, eyes, ...}.
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        color = (try container.decodeIfPresent(Int.self, forKey: .color)) ?? 0
-        if let face = try container.decodeIfPresent(Int.self, forKey: .face) {
-            self.face = face
-        } else {
-            let legacy = try? decoder.container(keyedBy: LegacyKeys.self)
-            face = ((try? legacy?.decodeIfPresent(Int.self, forKey: .eyes)) ?? 0) ?? 0
+        if let kind = try container.decodeIfPresent(String.self, forKey: .kind),
+           let index = try container.decodeIfPresent(Int.self, forKey: .index) {
+            self.kind = kind
+            self.index = index
+            return
         }
+        kind = "blob"
+        var color = 0
+        var face = 0
+        if let legacy = try? decoder.container(keyedBy: LegacyKeys.self) {
+            if let value = try? legacy.decodeIfPresent(Int.self, forKey: .color) {
+                color = value
+            }
+            if let value = try? legacy.decodeIfPresent(Int.self, forKey: .face) {
+                face = value
+            } else if let value = try? legacy.decodeIfPresent(Int.self, forKey: .eyes) {
+                face = value
+            }
+        }
+        index = (color % Self.blobColorCount) * Self.blobFaceCount + (face % Self.blobFaceCount)
     }
 
     private enum LegacyKeys: String, CodingKey {
-        case eyes
+        case color, face, eyes
     }
 
     var encoded: String {

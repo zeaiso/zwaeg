@@ -1,15 +1,24 @@
 import SwiftUI
 
-/// Renders a buddy from the bundled vector set as a rounded chip.
+/// Renders a buddy as a rounded chip. Blobs live in the asset catalog,
+/// the avatar pools are loose bundled PNGs, so load via UIImage which
+/// searches both (and caches).
 struct BuddyView: View {
     let buddy: Buddy
     var size: CGFloat = 46
 
     var body: some View {
-        Image(buddy.assetName)
-            .resizable()
-            .scaledToFit()
-            .frame(width: size, height: size)
-            .clipShape(RoundedRectangle(cornerRadius: size * 0.3, style: .continuous))
+        Group {
+            if let image = UIImage(named: buddy.assetName) {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+            } else {
+                RoundedRectangle(cornerRadius: size * 0.3, style: .continuous)
+                    .fill(Theme.field)
+            }
+        }
+        .frame(width: size, height: size)
+        .clipShape(RoundedRectangle(cornerRadius: size * 0.3, style: .continuous))
     }
 }
