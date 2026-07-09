@@ -5,11 +5,13 @@ import SwiftUI
 /// DiceBear avataaars, free for commercial use).
 /// Deterministic seeding gives battle opponents stable faces.
 struct Buddy: Codable, Equatable, Hashable {
-    /// "blob", "m", "f" or "custom".
+    /// "blob", "m", "f", "custom" or "monster".
     var kind: String
     var index: Int
-    /// Wardrobe traits and cached image file, only for kind "custom".
+    /// Wardrobe traits and cached image file for kind "custom".
     var traits: AvatarTraits?
+    /// Monster traits for kind "monster"; shares the cached file field.
+    var monster: MonsterTraits?
     var file: String?
 
     static let blobColorCount = 6
@@ -31,7 +33,7 @@ struct Buddy: Codable, Equatable, Hashable {
 
     var assetName: String {
         switch kind {
-        case "custom":
+        case "custom", "monster":
             return ""
         case "m", "f":
             return "\(kind)-\(index % Self.avatarCount)"
@@ -61,9 +63,16 @@ struct Buddy: Codable, Equatable, Hashable {
         return buddy
     }
 
-    /// Absolute path of the cached custom image, if any.
+    static func monster(traits: MonsterTraits, file: String) -> Buddy {
+        var buddy = Buddy(kind: "monster", index: 0)
+        buddy.monster = traits
+        buddy.file = file
+        return buddy
+    }
+
+    /// Absolute path of the cached custom or monster image, if any.
     var customImagePath: String? {
-        guard kind == "custom", let file else { return nil }
+        guard kind == "custom" || kind == "monster", let file else { return nil }
         let folder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
         return folder?.appendingPathComponent(file).path
     }
@@ -97,6 +106,7 @@ struct Buddy: Codable, Equatable, Hashable {
             self.kind = kind
             self.index = index
             traits = try container.decodeIfPresent(AvatarTraits.self, forKey: .traits)
+            monster = try container.decodeIfPresent(MonsterTraits.self, forKey: .monster)
             file = try container.decodeIfPresent(String.self, forKey: .file)
             return
         }

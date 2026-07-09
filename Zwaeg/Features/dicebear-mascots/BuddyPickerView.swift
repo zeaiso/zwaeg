@@ -7,10 +7,15 @@ struct BuddyPickerView: View {
     var sex: Sex
 
     @State private var showStudio = false
+    @State private var showMonsterStudio = false
     @State private var saved: [Buddy] = BuddyCloset.load()
 
     private var debugOpensStudio: Bool {
         CommandLine.arguments.contains("-open-studio")
+    }
+
+    private var debugOpensMonsterStudio: Bool {
+        CommandLine.arguments.contains("-open-monster-studio")
     }
 
     private let closetColumns = [GridItem(.adaptive(minimum: 68), spacing: 12)]
@@ -29,9 +34,22 @@ struct BuddyPickerView: View {
                     showStudio = true
                 }
             }
+            if debugOpensMonsterStudio {
+                Task {
+                    try? await Task.sleep(for: .milliseconds(600))
+                    showMonsterStudio = true
+                }
+            }
         }
         .sheet(isPresented: $showStudio) {
             BuddyStudioView(sex: sex, initialTraits: buddy.traits) { custom in
+                buddy = custom
+                BuddyCloset.add(custom)
+                saved = BuddyCloset.load()
+            }
+        }
+        .sheet(isPresented: $showMonsterStudio) {
+            MonsterStudioView(initialTraits: buddy.monster) { custom in
                 buddy = custom
                 BuddyCloset.add(custom)
                 saved = BuddyCloset.load()
@@ -118,6 +136,13 @@ struct BuddyPickerView: View {
                        background: AnyShapeStyle(Theme.ink),
                        foreground: Theme.onInk) {
                 showStudio = true
+            }
+            actionCard(symbol: "theatermasks.fill", title: "Monster",
+                       subtitle: "Selbst gestalten".loc,
+                       background: AnyShapeStyle(LinearGradient(
+                          colors: [Color(hex: "9583f5"), Color(hex: "62c1da")],
+                          startPoint: .topLeading, endPoint: .bottomTrailing))) {
+                showMonsterStudio = true
             }
         }
     }
