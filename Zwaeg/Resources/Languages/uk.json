@@ -280,5 +280,12 @@
   "Wähle den Look der App.": "Обери вигляд застосунку.",
   "Hell und farbig": "Світлий і барвистий",
   "Dunkel und gemütlich": "Темний і затишний",
-  "Schlicht in Graustufen": "Простий у сірих тонах"
+  "Schlicht in Graustufen": "Простий у сірих тонах",
+  "Kalender": "Календар",
+  "Details": "Деталі",
+  "Nährwerte": "Харчова цінність",
+  "Makroverteilung": "Розподіл макросів",
+  "Bilanz": "Баланс",
+  "Wasser": "Вода",
+  "Das entspricht etwa %@ kg Körperfett.": "Це приблизно %@ кг жиру в тілі."
 }

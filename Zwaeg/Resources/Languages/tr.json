@@ -280,5 +280,12 @@
   "Wähle den Look der App.": "Uygulamanın görünümünü seç.",
   "Hell und farbig": "Açık ve renkli",
   "Dunkel und gemütlich": "Koyu ve rahat",
-  "Schlicht in Graustufen": "Sade gri tonlarda"
+  "Schlicht in Graustufen": "Sade gri tonlarda",
+  "Kalender": "Takvim",
+  "Details": "Ayrıntılar",
+  "Nährwerte": "Besin değerleri",
+  "Makroverteilung": "Makro dağılımı",
+  "Bilanz": "Denge",
+  "Wasser": "Su",
+  "Das entspricht etwa %@ kg Körperfett.": "Bu yaklaşık %@ kg vücut yağına denk gelir."
 }

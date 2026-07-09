@@ -14,6 +14,8 @@ struct DiaryView: View {
     @State private var selectedDay = Calendar.current.startOfDay(for: .now)
     @State private var openMeal: MealType?
     @State private var openFasting = false
+    @State private var showCalendar = false
+    @State private var showDetails = false
     @State private var activity = HealthKitService.DayActivity()
     @State private var weightSaveTask: Task<Void, Never>?
     @State private var confettiTrigger = 0
@@ -62,8 +64,21 @@ struct DiaryView: View {
             .navigationDestination(isPresented: $openFasting) {
                 FastingView(profile: profile)
             }
+            .sheet(isPresented: $showCalendar) {
+                CalendarSheet(selectedDay: $selectedDay)
+            }
+            .navigationDestination(isPresented: $showDetails) {
+                DayDetailView(day: selectedDay, profile: profile)
+            }
             .task(id: selectedDay) {
                 await refreshActivity()
+                syncLiveActivity()
+            }
+            .onChange(of: allEntries.count) {
+                syncLiveActivity()
+            }
+            .onChange(of: fastingSessions.filter(\.isActive).count) {
+                syncLiveActivity()
             }
             .onAppear {
                 if let flagIndex = CommandLine.arguments.firstIndex(of: "-add-food") {
@@ -78,6 +93,18 @@ struct DiaryView: View {
                     Task {
                         try? await Task.sleep(for: .milliseconds(500))
                         openFasting = true
+                    }
+                }
+                if CommandLine.arguments.contains("-open-calendar") {
+                    Task {
+                        try? await Task.sleep(for: .milliseconds(500))
+                        showCalendar = true
+                    }
+                }
+                if CommandLine.arguments.contains("-open-details") {
+                    Task {
+                        try? await Task.sleep(for: .milliseconds(500))
+                        showDetails = true
                     }
                 }
             }
@@ -137,6 +164,17 @@ struct DiaryView: View {
             .frame(height: 42)
             .background(Theme.card, in: Capsule())
             .shadow(color: Theme.shadow.opacity(0.05), radius: 6, y: 2)
+            Button {
+                showCalendar = true
+            } label: {
+                Image(systemName: "calendar")
+                    .font(.fredoka(17, .semibold))
+                    .foregroundStyle(Theme.ink)
+                    .frame(width: 42, height: 42)
+                    .background(Theme.card, in: Circle())
+                    .shadow(color: Theme.shadow.opacity(0.05), radius: 6, y: 2)
+            }
+            .buttonStyle(.plain)
             NavigationLink {
                 RemindersView()
             } label: {
@@ -213,9 +251,18 @@ struct DiaryView: View {
                     .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                 Spacer()
-                Text("Ziel %@ kcal".loc(profile.dailyCalorieTarget.formatted()))
-                    .font(.fredoka(12, .semibold))
-                    .foregroundStyle(.secondary)
+                Button {
+                    showDetails = true
+                } label: {
+                    HStack(spacing: 3) {
+                        Text("Details".loc)
+                            .font(.fredoka(13, .semibold))
+                        Image(systemName: "chevron.right")
+                            .font(.fredoka(11, .semibold))
+                    }
+                    .foregroundStyle(Color.appAccent)
+                }
+                .buttonStyle(.plain)
             }
 
             HStack {
@@ -473,6 +520,7 @@ struct DiaryView: View {
                 context.insert(WaterDay(day: selectedDay, glasses: glasses))
             }
         }
+        syncLiveActivity()
     }
 
     // MARK: - Week strip (transparent, selected day in coral square)
@@ -493,7 +541,7 @@ struct DiaryView: View {
                     withAnimation(.snappy) { selectedDay = day }
                 } label: {
                     VStack(spacing: 8) {
-                        Text(day.formatted(.dateTime.weekday(.abbreviated)))
+                        Text(day.formatted(.dateTime.weekday(.abbreviated).locale(Lingo.shared.language.locale)))
                             .font(.fredoka(12, isSelected ? .semibold : .medium))
                             .foregroundStyle(isSelected ? Color.appAccent : .secondary)
                         Text(day.formatted(.dateTime.day()))
@@ -811,5 +859,51 @@ struct DiaryView: View {
     private func refreshActivity() async {
         guard health.isConnected else { return }
         activity = await health.activity(for: selectedDay)
+    }
+
+    /// Mirrors today's numbers onto the lock screen / Dynamic Island.
+    private func syncLiveActivity() {
+        let today = Calendar.current.startOfDay(for: .now)
+        let todayEntries = allEntries.filter { $0.day == today }
+        DayActivityController.sync(
+            consumed: todayEntries.reduce(0) { $0 + $1.calories },
+            target: profile.dailyCalorieTarget,
+            burned: selectedDay == today ? activity.activeKcal : 0,
+            glasses: waterDays.first { $0.day == today }?.glasses ?? 0,
+            waterGoal: profile.waterGoalGlasses,
+            fastingEnd: fastingSessions.first { $0.isActive }?.goalEnd)
+    }
+}
+
+/// Month calendar to jump to any diary day; picking a date closes the sheet.
+private struct CalendarSheet: View {
+    @Binding var selectedDay: Date
+
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        VStack(spacing: 6) {
+            Capsule()
+                .fill(Theme.field)
+                .frame(width: 44, height: 5)
+                .padding(.top, 10)
+            Text("Kalender".loc)
+                .font(.fredoka(19, .semibold))
+                .foregroundStyle(Theme.ink)
+                .padding(.top, 4)
+            DatePicker("", selection: Binding(
+                get: { selectedDay },
+                set: { newValue in
+                    selectedDay = Calendar.current.startOfDay(for: newValue)
+                    dismiss()
+                }), displayedComponents: .date)
+                .datePickerStyle(.graphical)
+                .tint(Color.appAccent)
+                .padding(.horizontal, 12)
+            Spacer(minLength: 0)
+        }
+        .background(Theme.background)
+        .presentationDetents([.medium, .large])
+        .presentationDragIndicator(.hidden)
     }
 }

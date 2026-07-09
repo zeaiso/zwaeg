@@ -280,5 +280,12 @@
   "Wähle den Look der App.": "Choose the look of the app.",
   "Hell und farbig": "Light and colorful",
   "Dunkel und gemütlich": "Dark and cozy",
-  "Schlicht in Graustufen": "Minimal in grayscale"
+  "Schlicht in Graustufen": "Minimal in grayscale",
+  "Kalender": "Calendar",
+  "Details": "Details",
+  "Nährwerte": "Nutrition facts",
+  "Makroverteilung": "Macro distribution",
+  "Bilanz": "Balance",
+  "Wasser": "Water",
+  "Das entspricht etwa %@ kg Körperfett.": "That is roughly %@ kg of body fat."
 }

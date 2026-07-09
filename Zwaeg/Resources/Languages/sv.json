@@ -280,5 +280,12 @@
   "Wähle den Look der App.": "Välj appens utseende.",
   "Hell und farbig": "Ljust och färgglatt",
   "Dunkel und gemütlich": "Mörkt och mysigt",
-  "Schlicht in Graustufen": "Enkelt i gråskala"
+  "Schlicht in Graustufen": "Enkelt i gråskala",
+  "Kalender": "Kalender",
+  "Details": "Detaljer",
+  "Nährwerte": "Näringsvärden",
+  "Makroverteilung": "Makrofördelning",
+  "Bilanz": "Balans",
+  "Wasser": "Vatten",
+  "Das entspricht etwa %@ kg Körperfett.": "Det motsvarar ungefär %@ kg kroppsfett."
 }

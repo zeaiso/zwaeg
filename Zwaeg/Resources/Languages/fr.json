@@ -280,5 +280,12 @@
   "Wähle den Look der App.": "Choisis le look de l'app.",
   "Hell und farbig": "Clair et coloré",
   "Dunkel und gemütlich": "Sombre et cosy",
-  "Schlicht in Graustufen": "Sobre en niveaux de gris"
+  "Schlicht in Graustufen": "Sobre en niveaux de gris",
+  "Kalender": "Calendrier",
+  "Details": "Détails",
+  "Nährwerte": "Valeurs nutritives",
+  "Makroverteilung": "Répartition des macros",
+  "Bilanz": "Bilan",
+  "Wasser": "Eau",
+  "Das entspricht etwa %@ kg Körperfett.": "Cela correspond à environ %@ kg de graisse corporelle."
 }
