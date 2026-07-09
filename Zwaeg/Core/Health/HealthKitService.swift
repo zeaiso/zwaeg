@@ -46,6 +46,16 @@ final class HealthKitService {
         return await DayActivity(steps: Int(steps.rounded()), activeKcal: Int(energy.rounded()))
     }
 
+    /// Step counts for the seven days ending at `day`, oldest first.
+    func weekSteps(endingAt day: Date) async -> [Int] {
+        var result: [Int] = []
+        for offset in (0..<7).reversed() {
+            guard let date = Calendar.current.date(byAdding: .day, value: -offset, to: day) else { continue }
+            result.append(Int(await sum(of: stepType, unit: .count(), day: date).rounded()))
+        }
+        return result
+    }
+
     func saveWeight(_ weightKg: Double, date: Date = .now) async {
         guard isConnected else { return }
         let quantity = HKQuantity(unit: .gramUnit(with: .kilo), doubleValue: weightKg)

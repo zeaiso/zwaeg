@@ -49,6 +49,10 @@ struct RootView: View {
                     context.insert(FoodEntry(day: yesterday, meal: .breakfast, name: "Kaffee mit Milch",
                                              calories: 40, proteinG: 2, carbsG: 3, fatG: 2))
                 }
+                if let twoDaysAgo = Calendar.current.date(byAdding: .day, value: -2, to: .now) {
+                    context.insert(FoodEntry(day: twoDaysAgo, meal: .lunch, name: "Rösti mit Spiegelei",
+                                             calories: 540, proteinG: 18, carbsG: 52, fatG: 26))
+                }
                 context.insert(FoodEntry(day: .now, meal: .breakfast, name: "Birchermüesli",
                                          calories: 320, proteinG: 12, carbsG: 45, fatG: 9))
                 context.insert(FoodEntry(day: .now, meal: .breakfast, name: "Kaffee mit Milch",

@@ -11,12 +11,22 @@ struct DiaryView: View {
     @Query(sort: \FastingSession.start, order: .reverse) private var fastingSessions: [FastingSession]
     @Query(sort: \WeightEntry.date) private var weights: [WeightEntry]
 
+    /// One route enum so the stack has exactly one navigationDestination;
+    /// several stacked destination modifiers broke touch delivery on iOS 17.
+    private enum Route: Hashable, Identifiable {
+        case meal(MealType)
+        case fasting
+        case details
+        case reminders
+
+        var id: Self { self }
+    }
+
     @State private var selectedDay = Calendar.current.startOfDay(for: .now)
-    @State private var openMeal: MealType?
-    @State private var openFasting = false
+    @State private var route: Route?
     @State private var showCalendar = false
-    @State private var showDetails = false
     @State private var activity = HealthKitService.DayActivity()
+    @State private var weekSteps: [Int] = []
     @State private var weightSaveTask: Task<Void, Never>?
     @State private var confettiTrigger = 0
     @State private var buddyBounced = false
@@ -36,6 +46,9 @@ struct DiaryView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     header
+                    if Self.milestones.contains(streak) {
+                        milestoneCard
+                    }
                     summaryCard
                     HStack(spacing: 16) {
                         stepsCard
@@ -56,19 +69,23 @@ struct DiaryView: View {
             .background(Theme.background)
             .overlay {
                 ConfettiBurst(trigger: confettiTrigger)
+                    .allowsHitTesting(false)
             }
             .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(item: $openMeal) { meal in
-                AddFoodView(day: selectedDay, meal: meal)
-            }
-            .navigationDestination(isPresented: $openFasting) {
-                FastingView(profile: profile)
+            .navigationDestination(item: $route) { route in
+                switch route {
+                case .meal(let meal):
+                    AddFoodView(day: selectedDay, meal: meal)
+                case .fasting:
+                    FastingView(profile: profile)
+                case .details:
+                    DayDetailView(day: selectedDay, profile: profile)
+                case .reminders:
+                    RemindersView()
+                }
             }
             .sheet(isPresented: $showCalendar) {
                 CalendarSheet(selectedDay: $selectedDay)
-            }
-            .navigationDestination(isPresented: $showDetails) {
-                DayDetailView(day: selectedDay, profile: profile)
             }
             .task(id: selectedDay) {
                 await refreshActivity()
@@ -86,13 +103,13 @@ struct DiaryView: View {
                         ? CommandLine.arguments[flagIndex + 1] : ""
                     Task {
                         try? await Task.sleep(for: .milliseconds(500))
-                        openMeal = MealType(rawValue: next) ?? .breakfast
+                        route = .meal(MealType(rawValue: next) ?? .breakfast)
                     }
                 }
                 if CommandLine.arguments.contains("-open-fasting") {
                     Task {
                         try? await Task.sleep(for: .milliseconds(500))
-                        openFasting = true
+                        route = .fasting
                     }
                 }
                 if CommandLine.arguments.contains("-open-calendar") {
@@ -104,9 +121,10 @@ struct DiaryView: View {
                 if CommandLine.arguments.contains("-open-details") {
                     Task {
                         try? await Task.sleep(for: .milliseconds(500))
-                        showDetails = true
+                        route = .details
                     }
                 }
+                celebrateStreakIfNeeded()
             }
         }
     }
@@ -175,8 +193,8 @@ struct DiaryView: View {
                     .shadow(color: Theme.shadow.opacity(0.05), radius: 6, y: 2)
             }
             .buttonStyle(.plain)
-            NavigationLink {
-                RemindersView()
+            Button {
+                route = .reminders
             } label: {
                 Image(systemName: "bell")
                     .font(.fredoka(17, .semibold))
@@ -188,6 +206,49 @@ struct DiaryView: View {
             .buttonStyle(.plain)
         }
         .padding(.top, 8)
+    }
+
+    // MARK: - Streak milestones
+
+    private static let milestones = [3, 7, 14, 30, 50, 100, 200, 365]
+
+    @AppStorage("celebratedStreak") private var celebratedStreak = 0
+
+    private var milestoneCard: some View {
+        HStack(spacing: 12) {
+            Image(systemName: "flame.fill")
+                .font(.fredoka(21, .semibold))
+                .foregroundStyle(.white)
+                .frame(width: 46, height: 46)
+                .background(.white.opacity(0.22), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            VStack(alignment: .leading, spacing: 2) {
+                Text("%d Tage am Stück!".loc(streak))
+                    .font(.fredoka(17, .semibold))
+                    .foregroundStyle(.white)
+                Text("Streak")
+                    .font(.fredoka(12))
+                    .foregroundStyle(.white.opacity(0.85))
+            }
+            Spacer()
+            BuddyPoseView(buddy: profile.buddy, size: 44, pose: .party)
+        }
+        .padding(16)
+        .background(
+            LinearGradient(colors: [Color(red: 1.0, green: 0.55, blue: 0.25), Theme.accent],
+                           startPoint: .topLeading, endPoint: .bottomTrailing),
+            in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .shadow(color: Theme.accent.opacity(0.35), radius: 12, y: 5)
+    }
+
+    /// Fires confetti once per newly reached milestone.
+    private func celebrateStreakIfNeeded() {
+        guard let reached = Self.milestones.last(where: { streak >= $0 }),
+              reached > celebratedStreak else { return }
+        celebratedStreak = reached
+        Task {
+            try? await Task.sleep(for: .milliseconds(700))
+            confettiTrigger += 1
+        }
     }
 
     /// Motion pose of the header buddy for the selected day.
@@ -259,7 +320,7 @@ struct DiaryView: View {
                     .foregroundStyle(Theme.ink)
                 Spacer()
                 Button {
-                    showDetails = true
+                    route = .details
                 } label: {
                     HStack(spacing: 3) {
                         Text("Details".loc)
@@ -396,6 +457,7 @@ struct DiaryView: View {
                     Text("Schritte heute".loc)
                         .font(.fredoka(12))
                         .foregroundStyle(.secondary)
+                    stepsChart
                 } else if HealthKitService.isAvailable {
                     Button {
                         Task {
@@ -422,6 +484,25 @@ struct DiaryView: View {
                         .foregroundStyle(.secondary)
                 }
             }
+        }
+    }
+
+    /// Mini week chart like the Health app, today highlighted.
+    @ViewBuilder
+    private var stepsChart: some View {
+        if weekSteps.count == 7 {
+            let top = max(1, weekSteps.max() ?? 1)
+            HStack(alignment: .bottom, spacing: 4) {
+                ForEach(Array(weekSteps.enumerated()), id: \.offset) { index, value in
+                    RoundedRectangle(cornerRadius: 2, style: .continuous)
+                        .fill(index == 6 ? Color(red: 0.48, green: 0.42, blue: 0.93)
+                                         : Color(red: 0.48, green: 0.42, blue: 0.93).opacity(0.30))
+                        .frame(height: max(4, 26 * CGFloat(value) / CGFloat(top)))
+                        .frame(maxWidth: .infinity, alignment: .bottom)
+                }
+            }
+            .frame(height: 26, alignment: .bottom)
+            .padding(.top, 2)
         }
     }
 
@@ -596,7 +677,7 @@ struct DiaryView: View {
         let kcal = entries.reduce(0) { $0 + $1.calories }
         let mealProgress = min(1, Double(kcal) / Double(max(1, mealBudget(meal))))
         return Button {
-            openMeal = meal
+            route = .meal(meal)
         } label: {
             Card {
                 HStack(spacing: 12) {
@@ -652,7 +733,7 @@ struct DiaryView: View {
 
     private var fastingCard: some View {
         Button {
-            openFasting = true
+            route = .fasting
         } label: {
             Card {
                 HStack(spacing: 12) {
@@ -866,6 +947,7 @@ struct DiaryView: View {
     private func refreshActivity() async {
         guard health.isConnected else { return }
         activity = await health.activity(for: selectedDay)
+        weekSteps = await health.weekSteps(endingAt: selectedDay)
     }
 
     /// Mirrors today's numbers onto the lock screen / Dynamic Island.
