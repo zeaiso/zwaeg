@@ -1,59 +1,87 @@
 [
  {
   "id": "aelplermagronen",
-  "title": "Älplermagronen (5261155534).jpg",
-  "artist": "Katrin Gilger",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:%C3%84lplermagronen_(5261155534).jpg"
+  "title": "Close-up of a homemade baked macaroni and cheese in a white dish. Perfect comfort food for lunch or dinner.",
+  "artist": "Ronmar Lacamiento",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-photography-of-baked-mac-806357/"
  },
  {
   "id": "apfelmus",
-  "title": "Applesauce.jpg",
-  "artist": "David Benbennick",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Applesauce.jpg"
+  "title": "Close-up of homemade applesauce in a clear glass bowl on a tiled surface.",
+  "artist": "Rachel Loughman",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/yellow-baby-food-in-ceramic-bowl-5440958/"
  },
  {
   "id": "avocado-toast",
-  "title": "Avocado toast with sesame seeds.jpg",
-  "artist": "Jami430",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Avocado_toast_with_sesame_seeds.jpg"
+  "title": "Savor this delicious avocado toast topped with soft-boiled eggs and garnished with pomegranate seeds.",
+  "artist": "Jane  T D.",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/slice-of-eggs-on-cakes-793785/"
+ },
+ {
+  "id": "baked-oats",
+  "title": "A delicious and healthy granola bowl topped with fresh blueberries, perfect for a nutritious breakfast.",
+  "artist": "JÉSHOOTS",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/blueberry-bowl-breakfast-cereal-216951/"
  },
  {
   "id": "bananen-pancakes",
-  "title": "Banana Pancakes Pk021.jpg",
-  "artist": "PallaviKhale",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Banana_Pancakes_Pk021.jpg"
+  "title": "Delicious pancakes topped with banana slices and served with jam on a bright morning.",
+  "artist": "Polina Tankilevitch",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/pancakes-and-banana-slices-4725658/"
+ },
+ {
+  "id": "bauernomelette",
+  "title": "Savor this mouth-watering omelette topped with crispy bacon and fresh spinach leaves on a ceramic plate.",
+  "artist": "Anastasia Lashkevich",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/food-plate-vegetables-brunch-11071944/"
  },
  {
   "id": "beef-burger",
-  "title": "NCI Visuals Food Hamburger.jpg",
-  "artist": "Len Rizzi (photographer)",
-  "license": "Public domain",
-  "source": "https://commons.wikimedia.org/wiki/File:NCI_Visuals_Food_Hamburger.jpg"
+  "title": "Close-up of a delicious burger with lettuce, tomato, and sesame seed bun on black background.",
+  "artist": "Thomas Mertens",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-american-burger-15007048/"
+ },
+ {
+  "id": "beeren-nicecream",
+  "title": "A high-angle shot of berry vanilla ice cream garnished with blueberries and raspberries on a wooden board.",
+  "artist": "Mateusz Feliksik",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/ice-cream-with-berries-in-a-glass-on-a-wooden-board-8023862/"
+ },
+ {
+  "id": "beeren-smoothie",
+  "title": "Vibrant array of fruit smoothies with fresh raspberries, strawberries, and blueberries.",
+  "artist": "Polina Tankilevitch",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/three-bottles-of-smoothie-beside-berries-4443507/"
  },
  {
   "id": "bibimbap",
-  "title": "Bibimbap 7.jpg",
-  "artist": "Chloe Lim",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Bibimbap_7.jpg"
+  "title": "Close-up of Korean Bibimbap with egg, rice, and fresh vegetables presented in a bowl.",
+  "artist": "Luis Becerra  Fotógrafo",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/cooked-food-on-black-ceramic-bowl-5773967/"
  },
  {
   "id": "birchermuesli",
-  "title": "Muesli.jpg",
-  "artist": "Original description was: I, VirtualSteve took this photograph on February 19, 2006.",
-  "license": "CC BY-SA 2.5",
-  "source": "https://commons.wikimedia.org/wiki/File:Muesli.jpg"
+  "title": "Delicious muesli topped with fresh strawberries, grapes, and assorted nuts in a red bowl.",
+  "artist": "JÉSHOOTS",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/breakfast-food-fruits-healthy-3698/"
  },
  {
   "id": "birchermuesli-riegel",
-  "title": "Homemade granola bars (9276339927).jpg",
-  "artist": "jencu",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Homemade_granola_bars_(9276339927).jpg"
+  "title": "Top view of homemade granola bars with seeds and chocolate chips.",
+  "artist": "Ella Olsson",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/top-view-photo-of-granola-bars-3026806/"
  },
  {
   "id": "birnen-crumble",
@@ -63,81 +91,109 @@
   "source": "https://commons.wikimedia.org/wiki/File:Vegan_apple_crumble_(8293111737).jpg"
  },
  {
+  "id": "birnen-rucola",
+  "title": "A delectable pear salad paired with red wine and bread for an elegant dining experience.",
+  "artist": "Agustin Muñiz",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/salad-meal-on-plate-16946668/"
+ },
+ {
   "id": "blumenkohl-curry",
-  "title": "Aloo gobi.jpg",
-  "artist": "unknown",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Aloo_gobi.jpg"
+  "title": "A close-up of traditional Indian chana masala garnished with fresh herbs, showcasing its rich and appetizing flavors.",
+  "artist": "Muhammad  Khawar Nazir",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-of-chana-masala-9287035/"
  },
  {
   "id": "blumenkohlsuppe",
-  "title": "Cauliflower soup at a sittning.jpg",
-  "artist": "JIP",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Cauliflower_soup_at_a_sittning.jpg"
+  "title": "A close-up of hands holding a bowl of creamy cauliflower soup garnished with parsley.",
+  "artist": "Lionel Ntasano",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/hands-holding-creamy-cauliflower-soup-in-black-bowl-37099928/"
  },
  {
   "id": "bratapfel",
-  "title": "Food in Catalonia 05.jpg",
-  "artist": "Kritzolina",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Food_in_Catalonia_05.jpg"
+  "title": "Crop anonymous female cook showing baking pan with appetizing baked apples filled with nuts and dried cranberries at home",
+  "artist": "Tim Douglas",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/faceless-woman-with-delicious-baked-apples-in-house-6210973/"
  },
  {
   "id": "broennti-creme",
-  "title": "Crème caramel 2.jpg",
-  "artist": "Amanda  Coutinho",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Cr%C3%A8me_caramel_2.jpg"
+  "title": "Creamy flan dessert topped with caramel sauce and a prune on a white plate.",
+  "artist": "Caio Niceas",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-flan-with-caramel-and-prune-topping-36616786/"
+ },
+ {
+  "id": "brokkoli-apfel-salat",
+  "title": "Delicious fresh vegetable salad in a black bowl on a wooden table.",
+  "artist": "Rahul Sapra",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/vegetable-salad-on-black-ceramic-bowl-11485287/"
  },
  {
   "id": "brokkolisuppe",
-  "title": "Broccoli Soup.JPG",
-  "artist": "ParentingPatch",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Broccoli_Soup.JPG"
+  "title": "Delicious and creamy green broccoli soup topped with seeds for a healthy meal.",
+  "artist": "Polina Tankilevitch",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-photo-of-green-smoothie-on-bowl-3872252/"
  },
  {
   "id": "bruschetta",
-  "title": "Bruschetta at The Bar at MacArthur Place - Sarah Stierch.jpg",
-  "artist": "Missvain",
-  "license": "CC BY 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Bruschetta_at_The_Bar_at_MacArthur_Place_-_Sarah_Stierch.jpg"
+  "title": "Close-up of fresh bruschetta topped with tomatoes and herbs, ideal for meal ideas.",
+  "artist": "jamie patterson",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/sliced-tomatoes-on-bread-2532006/"
  },
  {
   "id": "buddha-bowl",
-  "title": "BuddhaBowlLot.jpg",
-  "artist": "PizzaMan",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:BuddhaBowlLot.jpg"
+  "title": "Top view of a colorful vegan buddha bowl featuring avocado, chickpeas, sweet potato, spinach, lemon, and quinoa.",
+  "artist": "Rasul Yarichev",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/a-bowl-with-a-healthy-salad-17597408/"
+ },
+ {
+  "id": "buendner-gemuesesuppe",
+  "title": "Appetizing broccoli soup with veggies in white bowl, perfect for health food concepts.",
+  "artist": "RDNE Stock project",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/cooked-food-in-the-bowl-6646157/"
+ },
+ {
+  "id": "bulgursalat-granatapfel",
+  "title": "Delicious tabbouleh salad featuring fresh tomatoes, mint, and bulgur wheat served on a plate.",
+  "artist": "Daniel Dan",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/food-love-tea-meat-7624858/"
  },
  {
   "id": "burrito-bowl",
-  "title": "Steak burrito bowl at La Casa Restaurant in Sonoma, California - Sarah Stierch 03.jpg",
-  "artist": "Missvain",
-  "license": "CC BY 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Steak_burrito_bowl_at_La_Casa_Restaurant_in_Sonoma,_California_-_Sarah_Stierch_03.jpg"
+  "title": "Colorful Mexican burrito bowl featuring guacamole, black beans, and shredded cheese.",
+  "artist": "Nourishment  DECODED",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/meal-in-bowl-10696501/"
  },
  {
   "id": "butter-chicken",
-  "title": "Chicken makhani.jpg",
-  "artist": "stu_spivack",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Chicken_makhani.jpg"
+  "title": "A savory bowl of butter chicken garnished with fresh herbs and citrus slices.",
+  "artist": "Alberta Studios",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/meat-stout-with-lemon-9738981/"
  },
  {
   "id": "caesar-light",
-  "title": "Caesar-salad.jpg",
-  "artist": "Telluride",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Caesar-salad.jpg"
+  "title": "Delicious Caesar salad with grilled chicken, croutons, lettuce, and a creamy dressing.",
+  "artist": "Shameel mukkath",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/vegetable-salad-with-chicken-strips-5639372/"
  },
  {
   "id": "caprese",
-  "title": "Caprese salad (3124173496).jpg",
-  "artist": "Geoff Peters from Vancouver, BC, Canada",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Caprese_salad_(3124173496).jpg"
+  "title": "Appetizing Caprese salad with mozzarella, tomatoes, and basil on a wooden board.",
+  "artist": "Shameel mukkath",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/sliced-tomatoes-and-mozzarella-cheese-on-wooden-board-5639959/"
  },
  {
   "id": "caprese-spiessli",
@@ -154,123 +210,207 @@
   "source": "https://commons.wikimedia.org/wiki/File:Capuns.JPG"
  },
  {
+  "id": "chaeschuechli",
+  "title": "Three freshly baked mini quiches on a cutting board with garnish and colorful ingredients.",
+  "artist": "Christian Gazzabini",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-mini-quiches-on-rustic-wooden-board-31882545/"
+ },
+ {
+  "id": "chia-pudding",
+  "title": "Delicious chia pudding parfaits topped with vibrant, fresh fruits and yogurt.",
+  "artist": "ROMAN ODINTSOV",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/fresh-creamy-desserts-5150558/"
+ },
+ {
   "id": "chili-con-carne",
-  "title": "Chili con carne cuisson.jpg",
-  "artist": "Aerith",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Chili_con_carne_cuisson.jpg"
+  "title": "A bowl of hearty Mexican chili topped with avocado, served with tortilla on a wooden table.",
+  "artist": "Magda Ehlers",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/hearty-mexican-chili-with-tortilla-and-avocado-32667184/"
  },
  {
   "id": "couscous-salat",
-  "title": "Couscous and lentil salad (3658113458).jpg",
-  "artist": "Karen and Brad Emerson",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Couscous_and_lentil_salad_(3658113458).jpg"
+  "title": "Delicious couscous salad with olives, chickpeas, and cherry tomatoes on a modern plate.",
+  "artist": "Abdulrhman Alkady",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-photo-of-a-food-on-plate-6947606/"
+ },
+ {
+  "id": "edamame",
+  "title": "Aerial view of fresh edamame sprinkled with salt in a bowl, placed on a stylish wooden table in a modern setting.",
+  "artist": "khezez  | خزاز",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/bowl-of-fresh-edamame-with-salt-on-wooden-table-29935499/"
  },
  {
   "id": "energy-balls",
-  "title": "Raw-energy-balls (49658797242).jpg",
-  "artist": "Meg H",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Raw-energy-balls_(49658797242).jpg"
+  "title": "A delicious and healthy bowl of energy balls made with nuts and dates, perfect for a nutritious snack.",
+  "artist": "Nic Wood",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/vegan-tiger-nut-bites-28354485/"
  },
  {
   "id": "erbsen-risotto",
-  "title": "Pea Risotto with Lemon and Basil (4355548435).jpg",
-  "artist": "Katrin Gilger",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Pea_Risotto_with_Lemon_and_Basil_(4355548435).jpg"
+  "title": "Close-up of a tasty pea risotto served with ripe lemons, highlighting the rich Italian flavors.",
+  "artist": "Alesia  Kozik",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-shot-of-risotto-6129137/"
  },
  {
   "id": "erbsensuppe",
-  "title": "Spring pea soup with crème fraîche and bread.jpg",
-  "artist": "Sara Goldsmith",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Spring_pea_soup_with_cr%C3%A8me_fra%C3%AEche_and_bread.jpg"
+  "title": "A vibrant green pea soup garnished with parsley on a stylish plate, perfect for gourmet presentations.",
+  "artist": "Danijela Pantic Conic",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/elegant-green-pea-soup-in-blue-decorative-bowl-37173396/"
  },
  {
   "id": "erdbeer-frozen-joghurt",
-  "title": "Strawberry Frozen Yogurt (2552806737).jpg",
-  "artist": "thebittenword.com",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Strawberry_Frozen_Yogurt_(2552806737).jpg"
+  "title": "Two cups of frozen yogurt topped with fresh fruits and colorful sprinkles, a perfect sweet treat.",
+  "artist": "Kristina Paukshtite",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/cup-of-ice-creams-1591242/"
  },
  {
   "id": "fajita-pfanne",
-  "title": "Chicken fajitas - La Hacienda - Sarah Stierch.jpg",
-  "artist": "Missvain",
-  "license": "CC BY 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Chicken_fajitas_-_La_Hacienda_-_Sarah_Stierch.jpg"
+  "title": "Succulent grilled chicken with vibrant peppers on a sizzling plate, perfect for a tasty meal.",
+  "artist": "Kevin Kay Agno",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/grilled-chicken-fajita-with-colorful-peppers-33332968/"
  },
  {
   "id": "falafel-bowl",
-  "title": "Mixed Plate (3186676853).jpg",
-  "artist": "Charles Haynes from Hobart, Australia",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Mixed_Plate_(3186676853).jpg"
+  "title": "Top view of two vibrant Mediterranean bowls featuring fresh vegetables and falafel.",
+  "artist": "Loren Castillo",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/traditional-food-in-plates-on-marble-table-9213873/"
+ },
+ {
+  "id": "felchenfilet",
+  "title": "Close-up of gourmet fish dish with creamy sauce, potatoes, and red garnish.",
+  "artist": "Collab Media",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/roast-fish-with-potatoes-15059689/"
  },
  {
   "id": "fenchel-orangen-salat",
-  "title": "Shaved Fennel Salad (6635670959).jpg",
-  "artist": "Ralph Daily from Birmingham, United States",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Shaved_Fennel_Salad_(6635670959).jpg"
+  "title": "A delicious apple and fennel salad garnished with almonds and cranberries on a ceramic plate.",
+  "artist": "eat kubba",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/salad-in-a-plate-with-fork-6836096/"
+ },
+ {
+  "id": "fischknusperli",
+  "title": "A delicious plate of crispy chicken bites served with sauce, crispy bread, and fresh lettuce.",
+  "artist": "Roger Cziwerny",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/brown-fried-dish-on-white-bowl-792024/"
  },
  {
   "id": "forelle",
-  "title": "Le Bouchon (Belley), truite aux amandes.jpg",
-  "artist": "Benoît Prieur",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Le_Bouchon_(Belley),_truite_aux_amandes.jpg"
+  "title": "Grilled fish served with lemon slices, fries, and a side salad on a decorative plate.",
+  "artist": "Magda Ehlers",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-grilled-fish-with-side-salad-and-fries-31948451/"
  },
  {
   "id": "fotzelschnitten",
-  "title": "French toast 001.jpg",
-  "artist": "Ocdp",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:French_toast_001.jpg"
+  "title": "French toast served with berries and syrup on a white plate, perfect for breakfast or brunch.",
+  "artist": "Vitaly Gorbachev",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/cake-with-fruits-12091684/"
+ },
+ {
+  "id": "fruechte-spiessli",
+  "title": "Vibrant fruit skewers including grapes, melons, and berries, perfect for a summer event.",
+  "artist": "Alex Kad",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-shot-of-sliced-fruits-with-skewers-11745657/"
+ },
+ {
+  "id": "fruechtequark",
+  "title": "Top view of a delicious granola and fruit bowl with yogurt, perfect for a healthy breakfast.",
+  "artist": "Amar  Preciado",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/a-bowl-of-fruit-and-granola-with-a-spoon-28097277/"
  },
  {
   "id": "fruechtesalat",
-  "title": "Fruit salad in tezpur university.jpg",
-  "artist": "Akashdoley13",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Fruit_salad_in_tezpur_university.jpg"
+  "title": "A colorful and healthy fruit salad with kiwi, pineapple, and strawberries.",
+  "artist": "Dextar Vision",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/fruit-salad-in-a-bowl-15832882/"
+ },
+ {
+  "id": "fruehstuecks-bowl",
+  "title": "Delicious and nutritious meal featuring salmon, sweet potato, and eggs, perfect for a healthy diet.",
+  "artist": "Iwan Wasyl",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/flatlay-of-a-nutritious-meal-on-plate-5713425/"
  },
  {
   "id": "gazpacho",
-  "title": "Gazpacho Cazuela Barro.jpg",
-  "artist": "Bocadorada",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Gazpacho_Cazuela_Barro.jpg"
+  "title": "Stylish tomato gazpacho served in a floral tea cup with basil garnish.",
+  "artist": "Larbigno  •",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/elegant-tomato-gazpacho-in-floral-tea-cup-38475445/"
  },
  {
   "id": "gebratener-reis",
-  "title": "Fried rice in home.jpg",
-  "artist": "Peachyeung316",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Fried_rice_in_home.jpg"
+  "title": "Appetizing Nasi Goreng served with satay, fried egg, and vegetables on a black plate.",
+  "artist": "Nazmul Alam Badhon",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-photo-of-a-nasi-goreng-dish-8570300/"
  },
  {
   "id": "gefuellte-eier",
-  "title": "Deviled Eggs on Plate.jpg",
-  "artist": "HeatherMarieKosur",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Deviled_Eggs_on_Plate.jpg"
+  "title": "Delicious homemade sliced boiled eggs served with herbs and vegetables on a rustic wooden table.",
+  "artist": "Jana Ohajdova",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/slices-of-hard-boiled-egg-on-plate-10074027/"
  },
  {
   "id": "gefuellte-peperoni",
-  "title": "Speca te mbushura ( Stuffes peppers).jpg",
-  "artist": "Tahir Qalliu",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Speca_te_mbushura_(_Stuffes_peppers).jpg"
+  "title": "Savor a gourmet stuffed red bell pepper on creamy sauce, perfect for any meal.",
+  "artist": "Nadin Sh",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/baked-bell-pepper-15747862/"
+ },
+ {
+  "id": "gemuese-couscous",
+  "title": "Close-up of a traditional Moroccan vegetable couscous served on an ornate plate.",
+  "artist": "Zak Chapman",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/cooked-dish-1618929/"
  },
  {
   "id": "gemuese-curry",
-  "title": "Mixed vegetable curry 1.jpg",
-  "artist": "Dolon Prova",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Mixed_vegetable_curry_1.jpg"
+  "title": "A delicious bowl of vegetable curry topped with fresh cilantro, perfect for a healthy meal.",
+  "artist": "Jer Chung",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/bowl-of-cooked-vegetables-2116093/"
+ },
+ {
+  "id": "gemuese-muffins",
+  "title": "Top view of freshly baked herb muffins served with tea on a checkered cloth setting.",
+  "artist": "İdil Ceren Çelikler",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/fresh-herb-muffins-with-tea-on-checkered-cloth-34516543/"
+ },
+ {
+  "id": "gemuese-omelette",
+  "title": "Delicious omelette accompanied by a fresh salad on a white plate, perfect for a healthy meal.",
+  "artist": "Serdar Göksu",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/omelette-with-vegetable-salad-26161037/"
+ },
+ {
+  "id": "gemuesewaehe",
+  "title": "Appetizing close-up of a cheese and vegetable quiche, perfect for brunch or dinner.",
+  "artist": "Polina Tankilevitch",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-of-baked-quiche-dish-5419294/"
  },
  {
   "id": "gerstensuppe",
@@ -287,53 +427,67 @@
   "source": "https://commons.wikimedia.org/wiki/File:Z%C3%BCrcher_Geschnetzeltes_at_Zur_rote_Buech.jpg"
  },
  {
+  "id": "ghackets-hoernli",
+  "title": "Close-up of a homemade baked macaroni and cheese in a white dish. Perfect comfort food for lunch or dinner.",
+  "artist": "Ronmar Lacamiento",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-photography-of-baked-mac-806357/"
+ },
+ {
   "id": "gnocchi-tomaten-spinat",
-  "title": "Gnocchi alla sorrentina.jpg",
-  "artist": "Davide Zambelli",
-  "license": "CC BY 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Gnocchi_alla_sorrentina.jpg"
+  "title": "From above of delicious Italian dish of gnocchi with red and yellow fried tomatoes with green herbs and seasoning on white plate placed on table",
+  "artist": "Maria  Bortolotto",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/tasty-gnocchi-with-tomatoes-and-herbs-on-plate-6240973/"
  },
  {
   "id": "griechischer-salat",
-  "title": "Greek Salad Choriatiki.jpg",
-  "artist": "https://www.flickr.com/photos/zone41/",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Greek_Salad_Choriatiki.jpg"
+  "title": "A vibrant bowl of fresh Greek salad featuring crisp lettuce, black olives, cheese, and diced vegetables.",
+  "artist": "TUBARONES PHOTOGRAPHY",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/veggie-dish-on-white-ceramic-bowl-3026013/"
+ },
+ {
+  "id": "griessbrei",
+  "title": "Top view of apple porridge with millet, perfect for breakfast inspiration.",
+  "artist": "Piotr Arnoldes",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/porridge-in-bowls-decorated-with-sliced-apples-on-blue-table-7111466/"
  },
  {
   "id": "griesskoepfli",
-  "title": "Griessbrei.jpg",
-  "artist": "Alice Wiegand",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Griessbrei.jpg"
+  "title": "Indulge in creamy flan topped with raspberries, paired with citrus and caramel sauce for a delightful dessert treat.",
+  "artist": "Pixabay",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/creme-caramel-dish-302468/"
  },
  {
   "id": "gruener-smoothie",
-  "title": "Green smoothie (8222465502).jpg",
-  "artist": "Lablascovegmenu from London",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Green_smoothie_(8222465502).jpg"
+  "title": "Close-up of a green smoothie and fresh strawberries on a white saucer.",
+  "artist": "Suzy Hazelwood",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/red-strawberries-on-plate-1194369/"
  },
  {
   "id": "gschwellti",
-  "title": "Pellkartoffeln 1.jpg",
-  "artist": "IgorCalzone1",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Pellkartoffeln_1.jpg"
+  "title": "From above of crop anonymous person with cutleries eating delicious fried cutlet and hot boiled potatoes with parsley garnished with nutritious Russian salad",
+  "artist": "www.kaboompics.com",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/crop-person-eating-cutlet-and-potatoes-with-russian-salad-4210812/"
  },
  {
   "id": "guacamole",
-  "title": "Guacamole IMGP1271.jpg",
-  "artist": "Nikodem Nijaki",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Guacamole_IMGP1271.jpg"
+  "title": "Close-up of homemade guacamole being served with tortilla chips and fresh lime.",
+  "artist": "RDNE Stock project",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/a-person-a-corn-chip-5737254/"
  },
  {
   "id": "gyros-bowl",
-  "title": "Pita giros.JPG",
-  "artist": "Antonio Fajardo i López",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Pita_giros.JPG"
+  "title": "Two fresh gyros with tomato and herbs, perfect Greek street food for a sunny day.",
+  "artist": "Bruna Santos",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-greek-gyros-on-sunny-day-29906167/"
  },
  {
   "id": "hackbraten",
@@ -344,73 +498,115 @@
  },
  {
   "id": "haehnchenschenkel-ofen",
-  "title": "Halal Roast Chicken Leg + Roasted Sweet Potato - Foodilic 2024-03-25.jpg",
-  "artist": "Andy Li",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Halal_Roast_Chicken_Leg_%2B_Roasted_Sweet_Potato_-_Foodilic_2024-03-25.jpg"
+  "title": "Delicious baked chicken drumsticks perfectly cooked in a pan.",
+  "artist": "素材王国 Footage Kingdom",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/chicken-in-black-plate-13823350/"
  },
  {
   "id": "hafer-guetzli",
-  "title": "Oatmeal cookies on a plate.jpg",
-  "artist": "Evan Prodromou",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Oatmeal_cookies_on_a_plate.jpg"
+  "title": "Delicious oatmeal raisin cookies stacked on a wooden board, perfect for dessert lovers.",
+  "artist": "Skyler Ewing",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/brown-cookies-on-brown-wooden-chopping-board-10688029/"
+ },
+ {
+  "id": "haferwaffeln",
+  "title": "Tasty Belgian waffles drizzled with honey on a black plate, perfect for breakfast.",
+  "artist": "Karen Laårk Boshoff",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/wooden-honey-dripper-on-waffles-7786846/"
  },
  {
   "id": "heidelbeer-muffins",
-  "title": "Blueberry muffins, whole and partial.jpg",
-  "artist": "SKopp",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Blueberry_muffins,_whole_and_partial.jpg"
+  "title": "Top view of homemade blueberry muffins cooling on a wire rack with fresh blueberries in a bowl.",
+  "artist": "eat kubba",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/muffins-on-a-tray-7935283/"
+ },
+ {
+  "id": "hirsebrei",
+  "title": "Delicious homemade breakfast bowl with pears and buckwheat in Czechia.",
+  "artist": "Igor Kocka",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/bowl-of-healthy-food-for-breakfast-10810365/"
  },
  {
   "id": "huehnersuppe",
-  "title": "Chicken Noodle Soup.jpg",
-  "artist": "Hoyabird8",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Chicken_Noodle_Soup.jpg"
+  "title": "Capture of a flavorful chicken noodle soup with garnishes in a rustic setting.",
+  "artist": "Jana Ohajdova",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/a-close-up-shot-of-noodles-in-a-bowl-10172749/"
+ },
+ {
+  "id": "huettenkaese-brot",
+  "title": "Deliciously prepared avocado and egg sandwiches garnished with radish on a white plate.",
+  "artist": "Pixabay",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/bread-with-guacamole-parsley-leaves-onions-and-eggs-on-platter-236813/"
+ },
+ {
+  "id": "huettenkaese-wrap",
+  "title": "Healthy wraps filled with vegetables served with fresh salad on a white plate.",
+  "artist": "Kritsana (Kid) Takhai",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/fresh-vegetable-wraps-with-salad-on-a-plate-30392949/"
  },
  {
   "id": "hummus-sticks",
-  "title": "Hummus from The Nile.jpg",
-  "artist": "Paul Goyette",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Hummus_from_The_Nile.jpg"
+  "title": "A vibrant vegetable platter with hummus and bread, ideal for healthy eating.",
+  "artist": "Novkov Visuals",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/colorful-vegetable-platter-with-dips-34227782/"
+ },
+ {
+  "id": "joghurt-beeren-bites",
+  "title": "Close-up of frozen berries on a creamy yogurt bar, showcasing vibrant colors.",
+  "artist": "Meryemce",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/frozen-berries-on-creamy-yogurt-bar-close-up-32055276/"
  },
  {
   "id": "joghurt-granola",
-  "title": "Yogurt, fruit, granola bowl (34999358091).jpg",
-  "artist": "T.Tseng",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Yogurt,_fruit,_granola_bowl_(34999358091).jpg"
+  "title": "Indulge in a delicious muesli bowl topped with fresh fruits and honey, photographed in Dubai.",
+  "artist": "Denys Gromov",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/dessert-in-a-bowl-6769490/"
+ },
+ {
+  "id": "joghurt-nuesse",
+  "title": "Healthy breakfast bowl with figs, nuts, and turmeric on a blue table with ginger and honey.",
+  "artist": "Piotr Arnoldes",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/white-ceramic-bowl-with-sliced-figs-and-peanuts-7111398/"
  },
  {
   "id": "joghurt-panna-cotta",
-  "title": "Panna Cotta with caramel sauce.jpg",
-  "artist": "Toben",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Panna_Cotta_with_caramel_sauce.jpg"
+  "title": "Elegant glass dessert with blueberries, mint, and red berry topping on dark plate.",
+  "artist": "Nadin Sh",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/small-dessert-with-mint-and-blueberries-20535800/"
  },
  {
   "id": "kaesekuchen-light",
-  "title": "2023 Sernik z rodzynkami.jpg",
-  "artist": "Jacek Halicki",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:2023_Sernik_z_rodzynkami.jpg"
+  "title": "A delicious slice of strawberry-topped cheesecake served on a ceramic plate.",
+  "artist": "Seher Engel",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/cheesecake-with-strawberries-15030594/"
  },
  {
   "id": "kartoffel-lauch",
-  "title": "Potato Leek Soup (4258747258).jpg",
-  "artist": "Vegan Feast Catering",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Potato_Leek_Soup_(4258747258).jpg"
+  "title": "Hand adding garnish to creamy soup bowls, perfect for lunch or dinner.",
+  "artist": "Karolina Grabowska www.kaboompics.com",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/leek-and-potato-soup-hand-5793/"
  },
  {
   "id": "kartoffelgratin",
-  "title": "Potato gratin (7620845914).jpg",
-  "artist": "pelican from Tokyo, Japan",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Potato_gratin_(7620845914).jpg"
+  "title": "Delicious golden baked cheese and potato casserole in a decorative baking dish.",
+  "artist": "Meliha Ljaljic",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/golden-baked-cheese-and-potato-casserole-33042510/"
  },
  {
   "id": "kichererbsensalat",
@@ -420,53 +616,67 @@
   "source": "https://commons.wikimedia.org/wiki/File:Autumn_Chickpea_Salad_(3986173540).jpg"
  },
  {
+  "id": "kichererbsensuppe",
+  "title": "Delicious chickpea soup served in a white bowl on a decorative placemat.",
+  "artist": "Brad Hines",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/chickpea-soup-with-vegetables-in-white-bowl-33597401/"
+ },
+ {
   "id": "knoblauch-crevetten",
-  "title": "Las gambas al ajillo, típica tapa española.jpg",
-  "artist": "Juan Emilio Prades Bel",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Las_gambas_al_ajillo,_t%C3%ADpica_tapa_espa%C3%B1ola.jpg"
+  "title": "Close-up of flavorful shrimp garnished with garlic, lemon, and dill.",
+  "artist": "Vilnis Husko",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/shrimp-dish-with-sliced-lemon-and-dill-garnish-8633745/"
  },
  {
   "id": "kohlrouladen",
-  "title": "02022 Hungarian stuffed cabbage rolls in pickled cabbage leaves with veal and deer meat.jpg",
-  "artist": "Silar",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:02022_Hungarian_stuffed_cabbage_rolls_in_pickled_cabbage_leaves_with_veal_and_deer_meat.jpg"
+  "title": "A scrumptious serving of cabbage rolls with tomato and yogurt sauces on a black plate.",
+  "artist": "Nadin Sh",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/spring-rolls-with-two-different-sauces-on-a-black-plate-18632203/"
+ },
+ {
+  "id": "kraeuterpoulet",
+  "title": "A vibrant Thai meal featuring rice, fresh greens, and flavorful chicken set on a blue background.",
+  "artist": "Markus Winkler",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/meal-on-plate-24334859/"
  },
  {
   "id": "kuerbissuppe",
-  "title": "Autumn Soup (Unsplash) cropped.jpg",
-  "artist": "Cala cala_maffia",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Autumn_Soup_(Unsplash)_cropped.jpg"
+  "title": "Bowl of pumpkin soup surrounded by autumn leaves and decorative pumpkins.",
+  "artist": "Loren Castillo",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/a-bowl-of-soup-and-spoon-surrounded-by-pumpkins-and-leaves-9124024/"
  },
  {
   "id": "lachs-ofengemuese",
-  "title": "02021 0652 (1) Kuskus with baked salmon and vegetable.jpg",
-  "artist": "Silar",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:02021_0652_(1)_Kuskus_with_baked_salmon_and_vegetable.jpg"
+  "title": "Close-up of a gourmet salmon dish served with roasted vegetables, perfect for food photography.",
+  "artist": "Vidal Balielo Jr.",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/ready-to-eat-salmon-on-a-plate-14515086/"
  },
  {
   "id": "lachs-quinoa",
-  "title": "Grilled salmon and asparagus on rice - Boston, Massachusetts.jpg",
-  "artist": "Daderot",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Grilled_salmon_and_asparagus_on_rice_-_Boston,_Massachusetts.jpg"
+  "title": "Savor this gourmet salmon served with quinoa, spinach, and a rich sauce on a white plate.",
+  "artist": "Denys Gromov",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/cooked-fish-with-green-vegetable-on-white-ceramic-plate-4663250/"
  },
  {
   "id": "lasagne-gemuese",
-  "title": "Meaty Lasagna 8of8 (8736299782).jpg",
-  "artist": "Breville USA",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Meaty_Lasagna_8of8_(8736299782).jpg"
+  "title": "Delicious gourmet vegetable lasagna topped with cheese and served with toasted bread.",
+  "artist": "ajit shahu",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-dish-with-pita-bread-on-wooden-background-28321262/"
  },
  {
   "id": "linsen-dal",
-  "title": "Paruppu sadham with desi ghee, brinjal poriyal and vendakai poriyal.jpg",
-  "artist": "Shafana jasmine",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Paruppu_sadham_with_desi_ghee,_brinjal_poriyal_and_vendakai_poriyal.jpg"
+  "title": "Delicious Indian lentil curry garnished with dried chilies and cilantro in an ornate bowl.",
+  "artist": "Anil  Sharma",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/traditional-indian-lentil-curry-with-chilies-33430562/"
  },
  {
   "id": "linsensalat",
@@ -477,17 +687,31 @@
  },
  {
   "id": "linsensuppe",
-  "title": "Bowl of lentil soup with green and red lentils.jpg",
-  "artist": "Whoisjohngalt",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Bowl_of_lentil_soup_with_green_and_red_lentils.jpg"
+  "title": "Delicious homemade lentil soup in a terra cotta bowl, perfect for a comforting meal.",
+  "artist": "Snappr",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/warm-and-hearty-lentil-soup-in-terra-cotta-bowl-29850843/"
+ },
+ {
+  "id": "mango-smoothie-bowl",
+  "title": "Delicious breakfast bowl with fruits and nuts, perfect for a healthy start.",
+  "artist": "Los Muertos Crew",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-shot-of-a-breakfast-bowl-8230028/"
  },
  {
   "id": "marronisuppe",
-  "title": "Cream of squash soup with chestnuts (6249001371).jpg",
-  "artist": "Luca Nebuloni from Milan, Italy",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Cream_of_squash_soup_with_chestnuts_(6249001371).jpg"
+  "title": "Close-up of a rich mushroom soup topped with creamy swirl and olive oil, perfect for gourmet cuisine enthusiasts.",
+  "artist": "ROMAN ODINTSOV",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-photo-of-creamy-soup-in-a-ceramic-bowl-4870486/"
+ },
+ {
+  "id": "milchreis",
+  "title": "Creamy rice pudding topped with cherries and surrounded by fresh berries in a cozy setting.",
+  "artist": "Gundula Vogel",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-rice-pudding-with-berries-and-sauce-33088381/"
  },
  {
   "id": "minestrone",
@@ -498,10 +722,10 @@
  },
  {
   "id": "misosuppe",
-  "title": "Miso Soup 001.jpg",
-  "artist": "Ocdp",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Miso_Soup_001.jpg"
+  "title": "Top view of traditional miso soup with green onions and tofu in a black bowl on a dark background.",
+  "artist": "Rafael Nicida",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-miso-soup-in-a-black-bowl-31256392/"
  },
  {
   "id": "nizza-salat",
@@ -511,32 +735,60 @@
   "source": "https://commons.wikimedia.org/wiki/File:Salade_nicoise.jpg"
  },
  {
+  "id": "nuesslisalat",
+  "title": "Delicious mixed salad with soft boiled eggs, tomatoes, and greens. Perfect for a fresh lunch.",
+  "artist": "Nadin Sh",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/salad-with-egg-cut-in-half-17012847/"
+ },
+ {
+  "id": "nussmuesli",
+  "title": "A vibrant red bowl of muesli with fresh fruits and nuts, perfect for a healthy breakfast.",
+  "artist": "JÉSHOOTS",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/breakfast-cereals-food-fruits-3672/"
+ },
+ {
   "id": "oepfelchuechli",
-  "title": "Apfelküchle, 2015 (01).jpg",
-  "artist": "Golf Resort Achental (Golf Resort Achental Team)",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Apfelk%C3%BCchle,_2015_(01).jpg"
+  "title": "Delicious deep-fried fritters served with a tangy dip on a plate.",
+  "artist": "Su La Pyae",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/plate-of-fritters-and-a-bowl-of-dip-20220705/"
+ },
+ {
+  "id": "ofengemuese-halloumi",
+  "title": "Delicious grilled halloumi with fresh salad and pomegranate seeds plated beautifully.",
+  "artist": "Rasul Yarichev",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/meal-with-salad-on-tray-17615597/"
+ },
+ {
+  "id": "omelette-wrap",
+  "title": "Closeup delicious fresh egg roll with ripe tomatoes red onion and herbs cut on wooden table",
+  "artist": "Klaus Nielsen",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/appetizing-vegetable-egg-roll-slice-on-wooden-board-6294367/"
  },
  {
   "id": "overnight-oats",
-  "title": "Protein overnight oats.jpg",
-  "artist": "Nervy8924",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Protein_overnight_oats.jpg"
+  "title": "A vibrant bowl of mixed berries, walnuts, and oats for a nutritious start.",
+  "artist": "Rafael Minguet Delgado",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/healthy-breakfast-bowl-with-mixed-berries-and-walnuts-29596455/"
  },
  {
   "id": "pad-thai",
-  "title": "Phat Thai kung Chang Khien street stall.jpg",
-  "artist": "Takeaway",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Phat_Thai_kung_Chang_Khien_street_stall.jpg"
+  "title": "Close-up of shrimp pad thai with lime and peanuts on a white plate, perfect for food lovers.",
+  "artist": "UNDO KIM",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-shrimp-pad-thai-on-white-plate-34723307/"
  },
  {
   "id": "panzanella",
-  "title": "Panzanella 1 (1).jpg",
-  "artist": "LupoCapra at Italian Wikipedia",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Panzanella_1_(1).jpg"
+  "title": "Delicious Panzanella salad served on a brown platter with fresh vegetables and herbs.",
+  "artist": "furkanfdemir",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/person-holding-a-platter-with-vegetable-salad-7239436/"
  },
  {
   "id": "papet-vaudois",
@@ -546,6 +798,13 @@
   "source": "https://commons.wikimedia.org/wiki/File:Papet_vaudois2.jpg"
  },
  {
+  "id": "peanut-toast",
+  "title": "Flat lay of a nutritious breakfast featuring banana toast, chia seeds, and nuts on a marble surface.",
+  "artist": "AI25.Studio  Studio",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/bread-with-peanut-butter-and-sliced-banana-6823299/"
+ },
+ {
   "id": "penne-broccoli",
   "title": "BroccoliPasta.jpg",
   "artist": "AnticoMu90",
@@ -553,11 +812,18 @@
   "source": "https://commons.wikimedia.org/wiki/File:BroccoliPasta.jpg"
  },
  {
+  "id": "peperonisuppe",
+  "title": "Top view of a hot spicy soup garnished with cheese, surrounded by peppers and spices on a red mat.",
+  "artist": "Marcelo Verfe",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/photo-of-a-bowl-of-soup-16336074/"
+ },
+ {
   "id": "pesto-bohnen-pasta",
-  "title": "Pasta al pesto fatto in casa.jpg",
-  "artist": "Marco Del Torchio 95",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Pasta_al_pesto_fatto_in_casa.jpg"
+  "title": "Close-up of delicious pesto pasta, beautifully plated with parmesan shavings.",
+  "artist": "Daniele Sgura",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-pesto-pasta-on-a-plate-4162492/"
  },
  {
   "id": "pilz-stroganoff",
@@ -568,10 +834,10 @@
  },
  {
   "id": "pilzsuppe",
-  "title": "Cream Mushroom soup 2.jpg",
-  "artist": "Redeemer|Vodesnet",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Cream_Mushroom_soup_2.jpg"
+  "title": "A delicious bowl of creamy mushroom soup served with fresh bread and garlic toast on a wooden surface.",
+  "artist": "Shameel mukkath",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/white-and-black-ceramic-bowl-beside-a-bread-5175536/"
  },
  {
   "id": "pizokel",
@@ -582,108 +848,171 @@
  },
  {
   "id": "poke-bowl-lachs",
-  "title": "Salmon Poke Bowl (S) with Spicy mayo sauce - Kitokito.jpg",
-  "artist": "Andy Li",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Salmon_Poke_Bowl_(S)_with_Spicy_mayo_sauce_-_Kitokito.jpg"
+  "title": "Close-up of a vibrant poke bowl with fresh veggies, salmon, and seaweed on a neutral background.",
+  "artist": "Nadin Sh",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/a-salad-in-a-bowl-12814860/"
+ },
+ {
+  "id": "poke-bowl-thon",
+  "title": "Colorful poke bowl featuring tuna, avocado, mango, and cucumbers with sesame garnish.",
+  "artist": "Valeria Boltneva",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-healthy-vegetable-meal-15913456/"
  },
  {
   "id": "polenta-pilzragout",
-  "title": "Polenta aux cèpes.jpg",
-  "artist": "Arnaud 25",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Polenta_aux_c%C3%A8pes.jpg"
+  "title": "Delicious gourmet dish featuring mushrooms, sauteed greens, polenta, and cherry tomatoes served on a vintage plate.",
+  "artist": "Agustin Muñiz",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-gourmet-meal-20205483/"
  },
  {
   "id": "popcorn",
-  "title": "Bowl of Popcorn (Unsplash).jpg",
-  "artist": "Alex Munsell alexmunsell",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Bowl_of_Popcorn_(Unsplash).jpg"
+  "title": "Close-up of freshly popped popcorn in a white bowl, perfect for a movie night snack.",
+  "artist": "Keegan Evans",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/white-popcorns-on-round-white-ceramic-bowl-57043/"
  },
  {
   "id": "porridge",
-  "title": "Oatmeal porridge with müsli at night.jpg",
-  "artist": "JIP",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Oatmeal_porridge_with_m%C3%BCsli_at_night.jpg"
+  "title": "Delicious homemade breakfast bowl with pears and buckwheat in Czechia.",
+  "artist": "Igor Kocka",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/bowl-of-healthy-food-for-breakfast-10810365/"
+ },
+ {
+  "id": "poulet-curry",
+  "title": "Delicious curry served on rice with fresh herbs, perfect for dinner.",
+  "artist": "Loren Castillo",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/rice-and-chicken-dish-9218608/"
  },
  {
   "id": "poulet-sandwich",
-  "title": "Chicken sandwich.jpg",
-  "artist": "Tmannya",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Chicken_sandwich.jpg"
+  "title": "A delicious chicken sandwich with fresh greens and crispy bread served on a wooden board.",
+  "artist": "Anthony Rahayel",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-of-gourmet-chicken-sandwich-on-wooden-plate-30350298/"
  },
  {
   "id": "poulet-tacos",
-  "title": "001 Tacos de carnitas, carne asada y al pastor.jpg",
-  "artist": "Larry Miller",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:001_Tacos_de_carnitas,_carne_asada_y_al_pastor.jpg"
+  "title": "Three tacos topped with guacamole, cilantro, and onions on a wooden board.",
+  "artist": "DΛVΞ GΛRCIΛ",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-tacos-with-fresh-guacamole-and-cilantro-36498698/"
  },
  {
   "id": "poulet-wok",
-  "title": "Stir fried chicken with satay sauce - Stir Fry by CK 2025-04-06.jpg",
-  "artist": "Andy Li",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Stir_fried_chicken_with_satay_sauce_-_Stir_Fry_by_CK_2025-04-06.jpg"
+  "title": "Delicious Asian stir fry noodles with vibrant vegetables in a decorative bowl on a rustic surface.",
+  "artist": "Jonathan Borba",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/colorful-asian-stir-fry-with-vegetables-and-noodles-29145757/"
+ },
+ {
+  "id": "protein-shake",
+  "title": "Tall glass of banana smoothie with a banana slice garnish against a neutral textured background.",
+  "artist": "Denys Gromov",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/cocktail-in-a-long-glass-18142614/"
+ },
+ {
+  "id": "quark-dip",
+  "title": "Top view of a fresh vegetable and hummus platter with carrots, celery, cherry tomatoes, and crackers.",
+  "artist": "AI25.Studio  Studio",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/food-on-a-plate-5852251/"
  },
  {
   "id": "quark-pancakes",
-  "title": "Syrniki6.jpg",
-  "artist": "Tatyana Morozyuk, color processing by Off-shell",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Syrniki6.jpg"
+  "title": "A mouth-watering close-up of syrniki with fresh raspberries and almonds on a textured fabric.",
+  "artist": "Nataliya Vaitkevich",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/russian-pancakes-garnished-with-raspberries-and-almonds-4692161/"
  },
  {
   "id": "quesadilla",
-  "title": "At Long Island 2023 267.jpg",
-  "artist": "Photograph by Mike Peel (www.mikepeel.net).",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:At_Long_Island_2023_267.jpg"
+  "title": "Mouthwatering cheese quesadillas served with fresh salsa and creamy dip on a white plate.",
+  "artist": "Tiwi Riders",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-cheese-quesadillas-with-salsa-and-dip-28443135/"
+ },
+ {
+  "id": "quinoa-gemuese-bowl",
+  "title": "Vibrant quinoa salad with avocado, cherry tomatoes, and creamy dressing on a stylish plate.",
+  "artist": "Shameel mukkath",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/healthy-salad-with-dressing-5639361/"
+ },
+ {
+  "id": "quinoa-salat",
+  "title": "A vibrant, nutritious salad bowl featuring fresh vegetables and quinoa for a healthy meal.",
+  "artist": "Polina Tankilevitch",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-photo-of-vegetables-3872365/"
  },
  {
   "id": "ramen",
-  "title": "Ramen Bowl 2.jpg",
-  "artist": "Shisma",
-  "license": "CC BY 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Ramen_Bowl_2.jpg"
+  "title": "Savor the rich flavors of a freshly prepared ramen bowl with eggs and vegetables.",
+  "artist": "Nadin Sh",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/a-person-eating-ramen-19582729/"
  },
  {
   "id": "randensalat",
-  "title": "Beetroot Salad (3862315693).jpg",
-  "artist": "Suzette - www.suzette.nu from Arnhem, Netherlands",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Beetroot_Salad_(3862315693).jpg"
+  "title": "Close-up of a vibrant salad featuring goat cheese, roasted beets, arugula, and onion rings.",
+  "artist": "Sebastian Coman Photography",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/sliced-beetroot-on-a-plate-topped-with-green-leaf-3649535/"
+ },
+ {
+  "id": "randensuppe",
+  "title": "Delicious overhead view of traditional borsch soup with garnish and rye bread slices.",
+  "artist": "Polina Tankilevitch",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/red-soup-in-white-ceramic-bowl-8599738/"
  },
  {
   "id": "ratatouille",
-  "title": "Ratatouille 001.jpg",
-  "artist": "Arnaud 25",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Ratatouille_001.jpg"
+  "title": "Close-up of a vibrant, fresh ratatouille with tomatoes, eggplants, and spices.",
+  "artist": "Edita Brus",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/colorful-vegan-ratatouille-dish-close-up-36040965/"
+ },
+ {
+  "id": "reiswaffeln-avocado",
+  "title": "Close-up of avocado and fried egg on a rice cake, perfect for a healthy breakfast.",
+  "artist": "Jenna Hamra",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/fried-egg-and-lettuce-on-rice-wafer-6123026/"
+ },
+ {
+  "id": "rettich-karotten-salat",
+  "title": "A vibrant mixed salad with fresh vegetables and cheese on a wooden table.",
+  "artist": "Atakan Tok",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/colorful-fresh-salad-with-vegetables-and-cheese-28647052/"
  },
  {
   "id": "rindsgulasch",
-  "title": "Hungarian goulash soup.jpg",
-  "artist": "Hu Totya",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Hungarian_goulash_soup.jpg"
+  "title": "Traditional chicken paprikash with spaetzle, tomatoes, and pickles, served on a woven placemat.",
+  "artist": "Istvan Szabo",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/a-close-up-shot-of-a-chicken-paprikash-dish-10338435/"
  },
  {
   "id": "rizcasimir",
-  "title": "Riz Casimir (4247740294).jpg",
-  "artist": "kochtopf",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Riz_Casimir_(4247740294).jpg"
+  "title": "From above of appetizing curry consisting of stewed vegetables and meat served with rice garnished with green leaves on ceramic plate",
+  "artist": "Cats Coming",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/plate-of-traditional-indian-dish-curry-with-rice-4611425/"
  },
  {
   "id": "roestete-kichererbsen",
-  "title": "Leblebi.jpg",
-  "artist": "Physicistjedi",
-  "license": "Public domain",
-  "source": "https://commons.wikimedia.org/wiki/File:Leblebi.jpg"
+  "title": "A direct view of roasted chickpeas showcasing their texture and vibrant color, perfect for culinary content.",
+  "artist": "Engin Akyurt",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/photo-of-roasted-chickpeas-10111848/"
  },
  {
   "id": "roesti",
@@ -693,46 +1022,109 @@
   "source": "https://commons.wikimedia.org/wiki/File:R%C3%B6sti_auf_blauem_Teller.jpg"
  },
  {
+  "id": "ruebli-muffins",
+  "title": "Rows of carrot cupcakes with cream cheese icing, perfect for dessert lovers.",
+  "artist": "Tom Fisk",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/carrot-cupcakes-in-rows-8482912/"
+ },
+ {
   "id": "rueblisalat",
-  "title": "Nest of Carrot Salad, by LadyofProcrastination.jpg",
-  "artist": "Melinda",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Nest_of_Carrot_Salad,_by_LadyofProcrastination.jpg"
+  "title": "Top view of fresh poke bowl near green apple and nuts on surface",
+  "artist": "Kei Scampa",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-poke-bowl-near-apple-on-stripes-surface-4877248/"
  },
  {
   "id": "rueblisuppe",
-  "title": "Soup of the day (carrot and potato) - Vios 2024-01-09.jpg",
-  "artist": "Andy Li",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Soup_of_the_day_(carrot_and_potato)_-_Vios_2024-01-09.jpg"
+  "title": "Warm carrot soup in a black bowl, garnished with parsley on a textured mat.",
+  "artist": "Natalie Goodwin",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/rustic-carrot-soup-with-fresh-herbs-33972458/"
+ },
+ {
+  "id": "ruehrei-toast",
+  "title": "Healthy breakfast featuring scrambled eggs, avocado, and greens on toast on a blue plate.",
+  "artist": "Anthony Rahayel",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/scrambled-eggs-and-avocado-on-toast-with-greens-32134464/"
  },
  {
   "id": "safranrisotto",
-  "title": "Risotto alla Milanese.JPG",
-  "artist": "Number55",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Risotto_alla_Milanese.JPG"
+  "title": "Indulge in a gourmet risotto with parmesan crisps and red wine, perfect for fine dining.",
+  "artist": "Joao Sócola",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/cooked-food-on-red-ceramic-plate-6763277/"
  },
  {
   "id": "schawarma-pita",
-  "title": "Shawarma-sandwich-01.jpg",
-  "artist": "Vera Yu and David Li",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Shawarma-sandwich-01.jpg"
+  "title": "Close-up of a freshly grilled shawarma wrap halved to reveal its appetizing ingredients.",
+  "artist": "RDNE Stock project",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-photo-of-sliced-shawarma-5779364/"
+ },
+ {
+  "id": "schoggi-avocado-creme",
+  "title": "Luscious chocolate mousse topped with fresh pomegranate seeds, perfect for dessert lovers.",
+  "artist": "Ella Olsson",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-photo-of-chocolate-mousse-3026810/"
+ },
+ {
+  "id": "schoggi-datteln",
+  "title": "A flat lay of luxurious Arabic chocolate sweets with nuts, perfect for festive occasions.",
+  "artist": "Mohaned tamzini",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/assorted-arabic-chocolate-sweets-with-nuts-32692730/"
+ },
+ {
+  "id": "schoggi-nicecream",
+  "title": "Close-up of a banana dessert with chocolate drizzle, whipped cream, and wafer sticks.",
+  "artist": "Pixabay",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/brown-cake-on-white-ceramic-plate-47062/"
+ },
+ {
+  "id": "schoggi-porridge",
+  "title": "A delicious breakfast bowl with bananas, chia seeds, peanuts, raisins, and peanut butter.",
+  "artist": "Vegan Liftz",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/sliced-bananas-in-white-ceramic-bowl-6050721/"
+ },
+ {
+  "id": "schoggi-quarkmousse",
+  "title": "Enjoy delicious raspberry topped desserts in glass cups, perfect for sweet cravings.",
+  "artist": "Vladimir Srajber",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/red-raspberry-on-cream-3810779/"
+ },
+ {
+  "id": "selleriesalat",
+  "title": "Delicious Waldorf salad featuring grapes, apples, and walnuts in a sleek black bowl.",
+  "artist": "Andy Kuzma",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/top-view-photo-of-salad-on-the-bowl-3045332/"
  },
  {
   "id": "shakshuka",
-  "title": "Shakshuka1.jpg",
-  "artist": "Joe Mahoney",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Shakshuka1.jpg"
+  "title": "Overhead shot of shakshuka with basil, eggs, and bread on a tiled surface.",
+  "artist": "Polina Tankilevitch",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/a-shakshuka-with-eggs-6419606/"
+ },
+ {
+  "id": "skyr-bowl",
+  "title": "Close-up of fresh blueberries and strawberries on yogurt with granola.",
+  "artist": "Foodie Factor",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/acai-bowl-with-mixed-berries-566564/"
  },
  {
   "id": "souvlaki",
-  "title": "Greek chicken souvlaki merida.jpg",
-  "artist": "Leeturtle",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Greek_chicken_souvlaki_merida.jpg"
+  "title": "Close-up view of grilled meat skewers on a wooden board, perfect for BBQ-themed visuals.",
+  "artist": "Alexandr Kozlenko",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/barbecued-meat-11112699/"
  },
  {
   "id": "spaetzli-rahmgemuese",
@@ -743,73 +1135,122 @@
  },
  {
   "id": "spaghetti-tomate",
-  "title": "Spaghetti pomodoro, Venice.jpg",
-  "artist": "Gerda Arendt",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Spaghetti_pomodoro,_Venice.jpg"
+  "title": "A top-down view of a plate of spaghetti with rich tomato sauce and fresh basil garnish.",
+  "artist": "Willians Huerta",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-spaghetti-with-tomato-sauce-and-basil-36430172/"
+ },
+ {
+  "id": "spinat-erdbeer-salat",
+  "title": "Top view of a fresh spinach salad with berries, walnuts, and cheese on a white plate.",
+  "artist": "Alberta Studios",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/fruit-and-vegetable-salad-on-white-plate-9659939/"
+ },
+ {
+  "id": "spinat-kartoffel-suppe",
+  "title": "Delicious spinach soup garnished with sesame seeds and greens, served in a rustic wooden bowl.",
+  "artist": "Rahul Sonawane",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/green-cream-soup-in-a-bowl-20004982/"
  },
  {
   "id": "studentenfutter",
-  "title": "Studentenfutter 01.JPG",
-  "artist": "Thogru",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Studentenfutter_01.JPG"
+  "title": "Top view of a variety of nuts and dried fruits in a jar against a blue background.",
+  "artist": "Towfiqu barbhuiya",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/dried-fruit-and-nuts-in-jar-11350074/"
  },
  {
   "id": "suesskartoffel-ofen",
-  "title": "Baked Sweet Potato on Salad.jpg",
-  "artist": "FitTasteTic",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Baked_Sweet_Potato_on_Salad.jpg"
+  "title": "Tantalizing stuffed sweet potato with green beans and mushrooms served on a modern black plate.",
+  "artist": "Loren Castillo",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/traditional-food-in-plate-on-table-9219076/"
+ },
+ {
+  "id": "suesskartoffel-pommes",
+  "title": "A bowl of crispy sweet potato fries served on an artistic table setting, perfect for food lovers.",
+  "artist": "Anthony Rahayel",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-sweet-potato-fries-on-artistic-table-33755328/"
  },
  {
   "id": "taboule",
-  "title": "Flickr - cyclonebill - Tabbouleh.jpg",
-  "artist": "cyclonebill",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Flickr_-_cyclonebill_-_Tabbouleh.jpg"
+  "title": "Delicious tabbouleh salad in a ceramic bowl topped with fresh pomegranate seeds and mint leaves.",
+  "artist": "Shameel mukkath",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/salad-with-pomegranate-seeds-5191811/"
  },
  {
   "id": "teriyaki-lachs",
-  "title": "TERIYAKI SALMON SALAD - Jonny's 2025-05-27.jpg",
-  "artist": "Andy Li",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:TERIYAKI_SALMON_SALAD_-_Jonny%27s_2025-05-27.jpg"
+  "title": "A beautifully presented grilled eel fillet over rice, garnished with sauce and green onions.",
+  "artist": "Cohesion Singapore",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/meat-with-rice-16569756/"
  },
  {
   "id": "thai-kokossuppe",
-  "title": "Tom kha gai2.jpg",
-  "artist": "lydiajoy1",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Tom_kha_gai2.jpg"
+  "title": "Thai curry with rice, lime, and chili on a turquoise plate, perfect for food lovers.",
+  "artist": "Роман Нагаевский",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/bowl-of-soup-on-plate-19992964/"
+ },
+ {
+  "id": "thon-spaghetti",
+  "title": "Close-up of a delicious spaghetti dish in tomato sauce with mushrooms and herbs, served in Tokyo.",
+  "artist": "Gu Ko",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-spaghetti-in-tomato-sauce-close-up-31637791/"
+ },
+ {
+  "id": "thunfischsalat",
+  "title": "Delicious protein-packed bowl featuring tuna, boiled eggs, green beans, and hummus.",
+  "artist": "Alesia  Kozik",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/tuna-and-green-beans-with-egg-salad-in-ceramic-bowl-6544260/"
  },
  {
   "id": "tofu-scramble",
-  "title": "Tofu Scramble in New Orleans.jpg",
-  "artist": "Bart Everson",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Tofu_Scramble_in_New_Orleans.jpg"
+  "title": "A vibrant vegan breakfast with tofu, mushrooms, and tomatoes. Perfect for a healthy start.",
+  "artist": "Nic Wood",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/vegan-scrambled-tofu-28354326/"
+ },
+ {
+  "id": "tofu-teriyaki",
+  "title": "Top view of a bowl with stir-fried vegetables and sesame seeds, perfect for healthy eating visuals.",
+  "artist": "Armando Ascorve",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/bowl-of-seafood-23716005/"
+ },
+ {
+  "id": "tomaten-mozzarella-pasta-salat",
+  "title": "Tasty Italian pasta with tomatoes, mozzarella, and basil presented on a white plate.",
+  "artist": "Novkov Visuals",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/delicious-italian-pasta-caprese-on-white-plate-34636452/"
  },
  {
   "id": "tomatensuppe",
-  "title": "Empty tomato soup dish and wine glass.jpg",
-  "artist": "Kotivalo",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Empty_tomato_soup_dish_and_wine_glass.jpg"
+  "title": "Delicious homemade tomato soup served with basil leaves and rustic bread.",
+  "artist": "Foodie Factor",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/brown-soup-in-white-ceramic-bowl-539451/"
  },
  {
   "id": "tortilla-espanola",
-  "title": "Tortilla Española.jpg",
-  "artist": "Juan Emilio Prades Bel",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Tortilla_Espa%C3%B1ola.jpg"
+  "title": "Close-up of traditional Spanish tortilla slices on a wooden board, garnished with basil.",
+  "artist": "Maxi Gagliano",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/overhead-shot-of-a-slice-of-spanish-omelet-4765652/"
  },
  {
   "id": "vegi-burger",
-  "title": "Fancy Veggie Burger and Fries - Joe's Burger House 2024-07-07.jpg",
-  "artist": "Andy Li",
-  "license": "CC0",
-  "source": "https://commons.wikimedia.org/wiki/File:Fancy_Veggie_Burger_and_Fries_-_Joe%27s_Burger_House_2024-07-07.jpg"
+  "title": "Close-up of a gourmet veggie burger with cheese, lettuce, and fries on the side, perfect for food lovers.",
+  "artist": "Shameel mukkath",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/close-up-photograph-of-a-burger-with-cheese-5639459/"
  },
  {
   "id": "vermicelles",
@@ -819,25 +1260,32 @@
   "source": "https://commons.wikimedia.org/wiki/File:VermicellesDessert.jpg"
  },
  {
+  "id": "vogelheu",
+  "title": "Tasty breakfast plate featuring French toast with almonds, fresh fruits, and honey.",
+  "artist": "Markus Winkler",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/food-and-fruit-on-plate-19835564/"
+ },
+ {
   "id": "wassermelone-feta",
-  "title": "Watermelon Vegan Feta Salad (10695235746).jpg",
-  "artist": "Stephanie from Austin TX",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Watermelon_Vegan_Feta_Salad_(10695235746).jpg"
+  "title": "Close-up image of a vibrant watermelon and feta salad garnished with mint leaves.",
+  "artist": "Valeria Boltneva",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/salad-on-plate-16966990/"
  },
  {
   "id": "weisskabissalat",
-  "title": "Bowl'o'Coleslaw modified.jpg",
-  "artist": "unknown",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Bowl%27o%27Coleslaw_modified.jpg"
+  "title": "Delicious creamy coleslaw made with red cabbage in a white bowl, perfect for healthy, vegetarian meals.",
+  "artist": "Engin Akyurt",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/vegetable-salad-on-white-ceramic-bowl-7362673/"
  },
  {
   "id": "wraps-poulet",
-  "title": "Smoked chicken and avocado wrap.jpg",
-  "artist": "Takeaway",
-  "license": "CC BY-SA 3.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Smoked_chicken_and_avocado_wrap.jpg"
+  "title": "Close-up of chicken wraps with lettuce, cucumber, carrots, and mayo on wooden surface.",
+  "artist": "Karen Laårk Boshoff",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/shawarma-with-lettuce-and-cucumber-9980749/"
  },
  {
   "id": "wurst-kaese-salat",
@@ -847,10 +1295,31 @@
   "source": "https://commons.wikimedia.org/wiki/File:Wurstsalat-1.jpg"
  },
  {
+  "id": "zander-fenchel",
+  "title": "Delicious cod filet with fennel, green peas, and zucchini puree on a stylish plate.",
+  "artist": "Sylwester Ficek",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/food-restaurant-fish-cooking-11044248/"
+ },
+ {
+  "id": "zimt-ofen-zwetschgen",
+  "title": "Top view of appetizing smoothie bowl topped with fresh sliced bananas and plums and decorated with coconut flakes",
+  "artist": "Piotr Arnoldes",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/tasty-smoothie-bowl-with-fresh-fruits-and-coconut-flakes-6771602/"
+ },
+ {
   "id": "zoodles-bolognese",
-  "title": "Zucchini noodles (spiral slicer).jpg",
-  "artist": "Tony Webster from San Francisco, California",
-  "license": "CC BY 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File:Zucchini_noodles_(spiral_slicer).jpg"
+  "title": "Zucchini noodles topped with rich tomato sauce and fresh herbs, ready to eat.",
+  "artist": "Jenna Hamra",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/gourmet-meal-on-a-plate-6123074/"
+ },
+ {
+  "id": "zucchettisuppe",
+  "title": "A cozy rustic lunch featuring vegetable soup with crusty bread and creamy spread.",
+  "artist": "Paul Seling",
+  "license": "Pexels License",
+  "source": "https://www.pexels.com/photo/rustic-lunch-with-vegetable-soup-and-bread-35695377/"
  }
 ]
