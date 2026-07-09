@@ -15,11 +15,11 @@ struct CreateChallengeSheet: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Name") {
-                    TextField("z.B. Wochenbattle", text: $name)
+                Section("Name".loc) {
+                    TextField("z.B. Wochenbattle".loc, text: $name)
                 }
 
-                Section("Disziplin") {
+                Section("Disziplin".loc) {
                     ForEach(BattleMetric.allCases) { option in
                         Button {
                             metric = option
@@ -45,29 +45,29 @@ struct CreateChallengeSheet: View {
                     }
                 }
 
-                Section("Dauer") {
-                    Picker("Dauer", selection: $durationDays) {
-                        Text("3 Tage").tag(3)
-                        Text("7 Tage").tag(7)
-                        Text("14 Tage").tag(14)
+                Section("Dauer".loc) {
+                    Picker("Dauer".loc, selection: $durationDays) {
+                        Text("3 Tage".loc).tag(3)
+                        Text("7 Tage".loc).tag(7)
+                        Text("14 Tage".loc).tag(14)
                     }
                     .pickerStyle(.segmented)
                 }
 
                 Section {
-                    Stepper("Demo-Gegner: \(botCount)", value: $botCount, in: 1...3)
+                    Stepper("Demo-Gegner: %d".loc(botCount), value: $botCount, in: 1...3)
                 } footer: {
-                    Text("Solange iCloud noch nicht aktiviert ist, trittst du gegen Demo-Gegner an. Echte Battles mit Freunden folgen mit dem Apple Developer Konto.")
+                    Text("Solange iCloud noch nicht aktiviert ist, trittst du gegen Demo-Gegner an. Echte Battles mit Freunden folgen mit dem Apple Developer Konto.".loc)
                 }
             }
-            .navigationTitle("Neue Challenge")
+            .navigationTitle("Neue Challenge".loc)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Abbrechen") { dismiss() }
+                    Button("Abbrechen".loc) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Starten") { create() }
+                    Button("Starten".loc) { create() }
                         .fontWeight(.semibold)
                 }
             }
@@ -81,7 +81,7 @@ struct CreateChallengeSheet: View {
 
         var participants = [ParticipantScore(
             id: PlayerIdentity.myID,
-            name: profile.name.isEmpty ? "Du" : profile.name,
+            name: profile.name.isEmpty ? "Du".loc : profile.name,
             isMe: true,
             scores: [:])]
         for bot in BattleScoreEngine.botNames.prefix(botCount) {
@@ -90,7 +90,7 @@ struct CreateChallengeSheet: View {
 
         let challenge = Challenge(
             code: BattleScoreEngine.makeCode(),
-            name: trimmedName.isEmpty ? "\(metric.label)-Battle" : trimmedName,
+            name: trimmedName.isEmpty ? "%@-Battle".loc(metric.label) : trimmedName,
             metric: metric,
             startDay: start,
             endDay: end,

@@ -76,8 +76,8 @@ struct ProductPortionSheet: View {
         if let brand = product.brand, !brand.isEmpty {
             parts.append(brand)
         }
-        parts.append(product.source == .openFoodFacts ? "Open Food Facts" : "Schweizer Lebensmittel")
-        parts.append("1 Portion = \(Int(servingGrams.rounded())) g")
+        parts.append(product.source == .openFoodFacts ? "Open Food Facts" : "Schweizer Lebensmittel".loc)
+        parts.append("1 Portion = %d g".loc(Int(servingGrams.rounded())))
         return parts.joined(separator: " · ")
     }
 
@@ -85,7 +85,7 @@ struct ProductPortionSheet: View {
 
     private var servingsRow: some View {
         HStack {
-            Text("Portionen")
+            Text("Portionen".loc)
                 .font(.fredoka(17, .semibold))
                 .foregroundStyle(Theme.ink)
             Spacer()
@@ -133,11 +133,11 @@ struct ProductPortionSheet: View {
             Text("\(product.kcal(for: servingGrams))")
                 .font(.fredoka(50, .semibold))
                 .foregroundStyle(.white)
-            Text("Kalorien pro Portion")
+            Text("Kalorien pro Portion".loc)
                 .font(.fredoka(15, .semibold))
                 .foregroundStyle(.white.opacity(0.9))
             if servings != 1 {
-                Text("\(servingsLabel) Portionen · \(product.kcal(for: totalGrams)) kcal gesamt")
+                Text("%@ Portionen · %d kcal gesamt".loc(servingsLabel, product.kcal(for: totalGrams)))
                     .font(.fredoka(12))
                     .foregroundStyle(.white.opacity(0.85))
                     .padding(.top, 2)
@@ -156,9 +156,9 @@ struct ProductPortionSheet: View {
 
     private var macroTiles: some View {
         HStack(spacing: 12) {
-            macroTile(product.protein(for: totalGrams), "Protein", Theme.accent)
-            macroTile(product.carbs(for: totalGrams), "Kohlenhydrate", Color(red: 1.0, green: 0.72, blue: 0.25))
-            macroTile(product.fat(for: totalGrams), "Fett", Color(red: 0.52, green: 0.48, blue: 0.95))
+            macroTile(product.protein(for: totalGrams), "Protein".loc, Theme.accent)
+            macroTile(product.carbs(for: totalGrams), "Kohlenhydrate".loc, Color(red: 1.0, green: 0.72, blue: 0.25))
+            macroTile(product.fat(for: totalGrams), "Fett".loc, Color(red: 0.52, green: 0.48, blue: 0.95))
         }
     }
 

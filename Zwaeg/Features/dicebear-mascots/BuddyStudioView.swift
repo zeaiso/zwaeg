@@ -26,19 +26,19 @@ struct BuddyStudioView: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 22) {
                     preview
-                    thumbSection("Frisur", options: AvatarTraits.tops, prefix: "wardrobe-top",
+                    thumbSection("Frisur".loc, options: AvatarTraits.tops, prefix: "wardrobe-top",
                                  selected: traits.top) { traits.top = $0 }
-                    colorSection("Haarfarbe", options: AvatarTraits.hairColors,
+                    colorSection("Haarfarbe".loc, options: AvatarTraits.hairColors,
                                  selected: traits.hairColor) { traits.hairColor = $0 }
-                    colorSection("Hautfarbe", options: AvatarTraits.skinColors,
+                    colorSection("Hautfarbe".loc, options: AvatarTraits.skinColors,
                                  selected: traits.skinColor) { traits.skinColor = $0 }
-                    thumbSection("Outfit", options: AvatarTraits.clothesList, prefix: "wardrobe-clothes",
+                    thumbSection("Outfit".loc, options: AvatarTraits.clothesList, prefix: "wardrobe-clothes",
                                  selected: traits.clothes) { traits.clothes = $0 }
-                    colorSection("Outfit-Farbe", options: AvatarTraits.clothesColors,
+                    colorSection("Outfit-Farbe".loc, options: AvatarTraits.clothesColors,
                                  selected: traits.clothesColor) { traits.clothesColor = $0 }
-                    optionalThumbSection("Brille", options: AvatarTraits.accessories, prefix: "wardrobe-acc",
+                    optionalThumbSection("Brille".loc, options: AvatarTraits.accessories, prefix: "wardrobe-acc",
                                          selected: traits.accessory) { traits.accessory = $0 }
-                    optionalThumbSection("Bart", options: AvatarTraits.facialHairs, prefix: "wardrobe-beard",
+                    optionalThumbSection("Bart".loc, options: AvatarTraits.facialHairs, prefix: "wardrobe-beard",
                                          selected: traits.facialHair) { traits.facialHair = $0 }
                     if let errorMessage {
                         Label(errorMessage, systemImage: "wifi.slash")
@@ -87,7 +87,7 @@ struct BuddyStudioView: View {
                 VStack(spacing: 6) {
                     Image(systemName: "wifi.slash")
                         .foregroundStyle(.secondary)
-                    Text("Vorschau braucht Internet")
+                    Text("Vorschau braucht Internet".loc)
                         .font(.fredoka(12))
                         .foregroundStyle(.secondary)
                 }
@@ -207,7 +207,7 @@ struct BuddyStudioView: View {
                 if isSaving {
                     ProgressView().tint(Theme.onAccent)
                 }
-                Text(isSaving ? "Wird gespeichert..." : "Speichern")
+                Text(isSaving ? "Wird gespeichert...".loc : "Speichern".loc)
                     .font(.fredoka(17, .semibold))
             }
             .frame(maxWidth: .infinity)
@@ -244,7 +244,7 @@ struct BuddyStudioView: View {
                 onSave(Buddy.custom(traits: traits, file: filename))
                 dismiss()
             } catch {
-                errorMessage = "Zum Speichern brauchst du kurz Internet. Bitte nochmals versuchen."
+                errorMessage = "Zum Speichern brauchst du kurz Internet. Bitte nochmals versuchen.".loc
             }
         }
     }

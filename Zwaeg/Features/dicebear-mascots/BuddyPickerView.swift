@@ -106,15 +106,15 @@ struct BuddyPickerView: View {
 
     private var actionRow: some View {
         HStack(spacing: 12) {
-            actionCard(symbol: "dice.fill", title: "Würfeln",
-                       subtitle: "Zufälliger Look",
+            actionCard(symbol: "dice.fill", title: "Würfeln".loc,
+                       subtitle: "Zufälliger Look".loc,
                        background: AnyShapeStyle(LinearGradient(
                           colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
                           startPoint: .topLeading, endPoint: .bottomTrailing))) {
                 buddy = buddy.kind == "blob" ? .randomBlob() : .random(for: sex)
             }
             actionCard(symbol: "tshirt.fill", title: "Studio",
-                       subtitle: "Selbst gestalten",
+                       subtitle: "Selbst gestalten".loc,
                        background: AnyShapeStyle(Theme.ink)) {
                 showStudio = true
             }
@@ -151,7 +151,7 @@ struct BuddyPickerView: View {
         if !saved.isEmpty {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
-                    Text("Gespeicherte Looks")
+                    Text("Gespeicherte Looks".loc)
                         .font(.fredoka(15, .semibold))
                         .foregroundStyle(Theme.ink)
                     Spacer()

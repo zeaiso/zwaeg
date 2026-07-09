@@ -137,22 +137,22 @@ struct ScannerScreen: View {
     }
 
     private var chipText: String {
-        if isLoading { return "Suche Produkt..." }
+        if isLoading { return "Suche Produkt...".loc }
         if let statusMessage { return statusMessage }
-        if BarcodeScannerView.isSupported { return "Richte die Kamera auf einen Barcode" }
-        return "Kamera nur auf dem iPhone. Barcode manuell eingeben."
+        if BarcodeScannerView.isSupported { return "Richte die Kamera auf einen Barcode".loc }
+        return "Kamera nur auf dem iPhone. Barcode manuell eingeben.".loc
     }
 
     // MARK: - Mode tabs
 
     private var modeTabs: some View {
         HStack(spacing: 26) {
-            Text("Foto")
+            Text("Foto".loc)
                 .foregroundStyle(.white.opacity(0.45))
             Text("Barcode")
                 .foregroundStyle(bracketColor)
                 .fontWeight(.bold)
-            Text("Label")
+            Text("Label".loc)
                 .foregroundStyle(.white.opacity(0.45))
         }
         .font(.fredoka(15, .semibold))
@@ -209,14 +209,14 @@ struct ScannerScreen: View {
             Image(systemName: "barcode")
                 .foregroundStyle(.white.opacity(0.6))
             TextField("", text: $manualBarcode,
-                      prompt: Text("Barcode eingeben (z.B. 7610036010305)")
+                      prompt: Text("Barcode eingeben (z.B. 7610036010305)".loc)
                           .foregroundStyle(.white.opacity(0.45)))
                 .keyboardType(.numberPad)
                 .foregroundStyle(.white)
             Button {
                 lookup(manualBarcode)
             } label: {
-                Text("Suchen")
+                Text("Suchen".loc)
                     .font(.fredoka(15, .semibold))
                     .padding(.horizontal, 14)
                     .padding(.vertical, 8)
@@ -263,7 +263,7 @@ struct ScannerScreen: View {
                     scannedProduct = product
                     manualBarcode = ""
                 } else {
-                    statusMessage = "Produkt nicht gefunden. Trage es im Tagebuch manuell ein."
+                    statusMessage = "Produkt nicht gefunden. Trage es im Tagebuch manuell ein.".loc
                     isBusy = false
                 }
             } catch {

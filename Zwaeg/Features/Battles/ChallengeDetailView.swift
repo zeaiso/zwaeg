@@ -23,7 +23,7 @@ struct ChallengeDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                ShareLink(item: "Fordere mich heraus bei Zwäg! Challenge \"\(challenge.name)\" (\(challenge.metric.label)), Code: \(challenge.code)") {
+                ShareLink(item: "Fordere mich heraus bei Zwäg! Challenge \"%@\" (%@), Code: %@".loc(challenge.name, challenge.metric.label, challenge.code)) {
                     Image(systemName: "square.and.arrow.up")
                 }
             }
@@ -42,8 +42,8 @@ struct ChallengeDetailView: View {
                     Text(challenge.metric.label)
                         .font(.fredoka(17, .semibold))
                     Text(challenge.isActive
-                         ? "Noch \(challenge.daysLeft) Tag\(challenge.daysLeft == 1 ? "" : "e")"
-                         : "Beendet")
+                         ? (challenge.daysLeft == 1 ? "Noch %d Tag" : "Noch %d Tage").loc(challenge.daysLeft)
+                         : "Beendet".loc)
                         .font(.fredoka(13))
                         .foregroundStyle(.secondary)
                 }
@@ -62,7 +62,7 @@ struct ChallengeDetailView: View {
     private var leaderboardCard: some View {
         Card {
             VStack(alignment: .leading, spacing: 14) {
-                Text("Rangliste")
+                Text("Rangliste".loc)
                     .font(.fredoka(17, .semibold))
                 ForEach(Array(challenge.ranking.enumerated()), id: \.element.id) { index, participant in
                     leaderboardRow(rank: index + 1, participant: participant)
@@ -80,7 +80,7 @@ struct ChallengeDetailView: View {
                 Text(participant.name)
                     .fontWeight(participant.isMe ? .bold : .regular)
                 if participant.isMe {
-                    Text("Du")
+                    Text("Du".loc)
                         .font(.fredoka(11, .semibold))
                         .padding(.horizontal, 6)
                         .padding(.vertical, 2)
@@ -114,7 +114,7 @@ struct ChallengeDetailView: View {
         let todayKey = BattleDay.key(for: .now)
         return Card {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Heute")
+                Text("Heute".loc)
                     .font(.fredoka(17, .semibold))
                 ForEach(challenge.ranking) { participant in
                     HStack {

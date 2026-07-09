@@ -10,17 +10,17 @@ enum BattleMetric: String, Codable, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .steps: return "Schritte"
-        case .activeKcal: return "Aktivkalorien"
-        case .deficit: return "Kaloriendefizit"
+        case .steps: return "Schritte".loc
+        case .activeKcal: return "Aktivkalorien".loc
+        case .deficit: return "Kaloriendefizit".loc
         }
     }
 
     var detail: String {
         switch self {
-        case .steps: return "Wer geht am meisten?"
-        case .activeKcal: return "Wer verbrennt am meisten?"
-        case .deficit: return "Wer spart am meisten Kalorien ein?"
+        case .steps: return "Wer geht am meisten?".loc
+        case .activeKcal: return "Wer verbrennt am meisten?".loc
+        case .deficit: return "Wer spart am meisten Kalorien ein?".loc
         }
     }
 
@@ -34,7 +34,7 @@ enum BattleMetric: String, Codable, CaseIterable, Identifiable {
 
     var unit: String {
         switch self {
-        case .steps: return "Schritte"
+        case .steps: return "Schritte".loc
         case .activeKcal, .deficit: return "kcal"
         }
     }

@@ -11,7 +11,7 @@ struct BuddyEditView: View {
                     get: { profile.buddy },
                     set: { profile.buddy = $0 }),
                     sex: profile.sex)
-                Text("Dein Buddy begleitet dich im Tagebuch, im Profil und in Battles.")
+                Text("Dein Buddy begleitet dich im Tagebuch, im Profil und in Battles.".loc)
                     .font(.fredoka(13))
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -20,7 +20,7 @@ struct BuddyEditView: View {
             .padding(20)
         }
         .background(Theme.background)
-        .navigationTitle("Mein Buddy")
+        .navigationTitle("Mein Buddy".loc)
         .navigationBarTitleDisplayMode(.inline)
     }
 }

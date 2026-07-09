@@ -26,7 +26,7 @@ struct BattlesScreen: View {
                         challengeCard(challenge)
                     }
                     if !finished.isEmpty {
-                        Text("Beendet")
+                        Text("Beendet".loc)
                             .font(.fredoka(15, .semibold))
                             .foregroundStyle(.secondary)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -44,14 +44,14 @@ struct BattlesScreen: View {
                     Button {
                         showJoin = true
                     } label: {
-                        Label("Beitreten", systemImage: "person.badge.plus")
+                        Label("Beitreten".loc, systemImage: "person.badge.plus")
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showCreate = true
                     } label: {
-                        Label("Neue Challenge", systemImage: "plus.circle.fill")
+                        Label("Neue Challenge".loc, systemImage: "plus.circle.fill")
                     }
                 }
             }
@@ -83,16 +83,16 @@ struct BattlesScreen: View {
                 Image(systemName: "trophy.fill")
                     .font(.system(size: 44))
                     .foregroundStyle(.yellow)
-                Text("Noch keine Battles")
+                Text("Noch keine Battles".loc)
                     .font(.fredoka(17, .semibold))
-                Text("Fordere Freunde heraus: Wer macht mehr Schritte, verbrennt mehr Kalorien oder spart am meisten ein?")
+                Text("Fordere Freunde heraus: Wer macht mehr Schritte, verbrennt mehr Kalorien oder spart am meisten ein?".loc)
                     .font(.fredoka(13))
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                 Button {
                     showCreate = true
                 } label: {
-                    Text("Challenge starten")
+                    Text("Challenge starten".loc)
                         .fontWeight(.semibold)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
@@ -122,8 +122,9 @@ struct BattlesScreen: View {
                             .font(.fredoka(17, .semibold))
                             .foregroundStyle(.primary)
                         Text(challenge.isActive
-                             ? "\(challenge.metric.label) · noch \(challenge.daysLeft) Tag\(challenge.daysLeft == 1 ? "" : "e")"
-                             : "\(challenge.metric.label) · beendet")
+                             ? (challenge.daysLeft == 1 ? "%@ · noch %d Tag" : "%@ · noch %d Tage")
+                                 .loc(challenge.metric.label, challenge.daysLeft)
+                             : "%@ · beendet".loc(challenge.metric.label))
                             .font(.fredoka(13))
                             .foregroundStyle(.secondary)
                     }
@@ -131,7 +132,7 @@ struct BattlesScreen: View {
                     if let rank = challenge.myRank {
                         VStack(spacing: 2) {
                             RankBadge(rank: rank)
-                            Text("Platz \(rank)")
+                            Text("Platz %d".loc(rank))
                                 .font(.fredoka(11))
                                 .foregroundStyle(.secondary)
                         }
