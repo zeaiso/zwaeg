@@ -1,7 +1,7 @@
 import SwiftUI
 
-/// Random-first buddy picker: big preview, a dice to reroll, and a
-/// pool switch between the funky avatars (gender matched) and the blobs.
+/// Buddy picker: hero preview, pool switch, dice and studio actions,
+/// and the closet of saved looks with visible delete badges.
 struct BuddyPickerView: View {
     @Binding var buddy: Buddy
     var sex: Sex
@@ -13,136 +13,185 @@ struct BuddyPickerView: View {
         CommandLine.arguments.contains("-open-studio")
     }
 
+    private let closetColumns = [GridItem(.adaptive(minimum: 68), spacing: 12)]
+
     var body: some View {
-        VStack(spacing: 26) {
-            ZStack(alignment: .topTrailing) {
-                BuddyView(buddy: buddy, size: 168)
-                    .shadow(color: buddy.bodyColor.opacity(0.4), radius: 18, y: 9)
-                    .animation(.snappy, value: buddy)
-                Button {
-                    withAnimation(.snappy) {
-                        BuddyCloset.add(buddy)
-                        saved = BuddyCloset.load()
-                    }
-                } label: {
-                    Image(systemName: saved.contains(buddy) ? "bookmark.fill" : "bookmark")
-                        .font(.fredoka(14, .semibold))
-                        .foregroundStyle(saved.contains(buddy) ? Color.appAccent : Theme.ink)
-                        .frame(width: 36, height: 36)
-                        .background(Theme.card, in: Circle())
-                        .shadow(color: Theme.ink.opacity(0.08), radius: 5, y: 2)
-                }
-                .buttonStyle(.plain)
-                .offset(x: 14, y: -8)
-            }
-                .onAppear {
-                    if debugOpensStudio {
-                        Task {
-                            try? await Task.sleep(for: .milliseconds(600))
-                            showStudio = true
-                        }
-                    }
-                }
-
-            HStack(spacing: 10) {
-                poolChip("Funky", isActive: buddy.kind != "blob") {
-                    buddy = .random(for: sex)
-                }
-                poolChip("Blob", isActive: buddy.kind == "blob") {
-                    buddy = .randomBlob()
+        VStack(spacing: 22) {
+            hero
+            poolSwitch
+            actionRow
+            closet
+        }
+        .onAppear {
+            if debugOpensStudio {
+                Task {
+                    try? await Task.sleep(for: .milliseconds(600))
+                    showStudio = true
                 }
             }
-
-            Button {
-                withAnimation(.snappy) {
-                    buddy = buddy.kind == "blob" ? .randomBlob() : .random(for: sex)
-                }
-            } label: {
-                HStack(spacing: 10) {
-                    Image(systemName: "dice.fill")
-                        .font(.fredoka(16, .semibold))
-                    Text("Neu würfeln")
-                        .font(.fredoka(17, .semibold))
-                }
-                .padding(.horizontal, 26)
-                .padding(.vertical, 14)
-                .background(
-                    LinearGradient(colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
-                                   startPoint: .topLeading, endPoint: .bottomTrailing),
-                    in: Capsule())
-                .foregroundStyle(Theme.onAccent)
-                .shadow(color: Theme.accent.opacity(0.35), radius: 10, y: 4)
-            }
-            .buttonStyle(.plain)
-
-            Button {
-                showStudio = true
-            } label: {
-                HStack(spacing: 8) {
-                    Image(systemName: "tshirt.fill")
-                        .font(.fredoka(14, .semibold))
-                    Text("Selbst gestalten")
-                        .font(.fredoka(15, .semibold))
-                }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 11)
-                .background(Theme.card, in: Capsule())
-                .foregroundStyle(Theme.ink)
-                .shadow(color: Theme.ink.opacity(0.05), radius: 6, y: 2)
-            }
-            .buttonStyle(.plain)
-            .sheet(isPresented: $showStudio) {
-                BuddyStudioView(sex: sex, initialTraits: buddy.traits) { custom in
-                    buddy = custom
-                    BuddyCloset.add(custom)
-                    saved = BuddyCloset.load()
-                }
-            }
-
-            if !saved.isEmpty {
-                VStack(alignment: .leading, spacing: 10) {
-                    Text("GESPEICHERT")
-                        .font(.fredoka(12, .semibold))
-                        .foregroundStyle(.secondary)
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 10) {
-                            ForEach(saved, id: \.self) { look in
-                                Button {
-                                    withAnimation(.snappy) { buddy = look }
-                                } label: {
-                                    BuddyView(buddy: look, size: 64)
-                                        .overlay(RoundedRectangle(cornerRadius: 64 * 0.3, style: .continuous)
-                                            .stroke(buddy == look ? Theme.ink : .clear, lineWidth: 2.5))
-                                }
-                                .buttonStyle(.plain)
-                                .contextMenu {
-                                    Button(role: .destructive) {
-                                        BuddyCloset.remove(look, keepingFileOf: buddy)
-                                        saved = BuddyCloset.load()
-                                    } label: {
-                                        Label("Löschen", systemImage: "trash")
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .sheet(isPresented: $showStudio) {
+            BuddyStudioView(sex: sex, initialTraits: buddy.traits) { custom in
+                buddy = custom
+                BuddyCloset.add(custom)
+                saved = BuddyCloset.load()
             }
         }
     }
 
-    private func poolChip(_ label: String, isActive: Bool, action: @escaping () -> Void) -> some View {
+    // MARK: - Hero
+
+    private var hero: some View {
+        ZStack(alignment: .topTrailing) {
+            ZStack {
+                Circle()
+                    .fill(buddy.bodyColor.opacity(0.18))
+                    .frame(width: 216, height: 216)
+                Circle()
+                    .fill(Theme.card)
+                    .frame(width: 192, height: 192)
+                BuddyView(buddy: buddy, size: 164)
+                    .shadow(color: buddy.bodyColor.opacity(0.35), radius: 16, y: 8)
+            }
+            .animation(.snappy, value: buddy)
+
+            Button {
+                withAnimation(.snappy) {
+                    BuddyCloset.add(buddy)
+                    saved = BuddyCloset.load()
+                }
+            } label: {
+                Image(systemName: saved.contains(buddy) ? "bookmark.fill" : "bookmark")
+                    .font(.fredoka(15, .semibold))
+                    .foregroundStyle(saved.contains(buddy) ? Color.appAccent : Theme.ink)
+                    .frame(width: 40, height: 40)
+                    .background(Theme.card, in: Circle())
+                    .shadow(color: Theme.ink.opacity(0.08), radius: 6, y: 2)
+            }
+            .buttonStyle(.plain)
+        }
+    }
+
+    // MARK: - Pool switch
+
+    private var poolSwitch: some View {
+        HStack(spacing: 4) {
+            poolSegment("Funky", isActive: buddy.kind != "blob") {
+                buddy = .random(for: sex)
+            }
+            poolSegment("Blob", isActive: buddy.kind == "blob") {
+                buddy = .randomBlob()
+            }
+        }
+        .padding(4)
+        .background(Theme.card, in: Capsule())
+        .shadow(color: Theme.ink.opacity(0.05), radius: 6, y: 2)
+    }
+
+    private func poolSegment(_ label: String, isActive: Bool, action: @escaping () -> Void) -> some View {
         Button {
             withAnimation(.snappy) { action() }
         } label: {
             Text(label)
                 .font(.fredoka(14, .semibold))
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 22)
                 .padding(.vertical, 8)
-                .background(isActive ? Theme.ink : Theme.card, in: Capsule())
+                .background(isActive ? AnyShapeStyle(Theme.ink) : AnyShapeStyle(.clear), in: Capsule())
                 .foregroundStyle(isActive ? Theme.onAccent : .secondary)
         }
         .buttonStyle(.plain)
+    }
+
+    // MARK: - Actions
+
+    private var actionRow: some View {
+        HStack(spacing: 12) {
+            actionCard(symbol: "dice.fill", title: "Würfeln",
+                       subtitle: "Zufälliger Look",
+                       background: AnyShapeStyle(LinearGradient(
+                          colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                          startPoint: .topLeading, endPoint: .bottomTrailing))) {
+                buddy = buddy.kind == "blob" ? .randomBlob() : .random(for: sex)
+            }
+            actionCard(symbol: "tshirt.fill", title: "Studio",
+                       subtitle: "Selbst gestalten",
+                       background: AnyShapeStyle(Theme.ink)) {
+                showStudio = true
+            }
+        }
+    }
+
+    private func actionCard(symbol: String, title: String, subtitle: String,
+                            background: AnyShapeStyle, action: @escaping () -> Void) -> some View {
+        Button {
+            withAnimation(.snappy) { action() }
+        } label: {
+            VStack(alignment: .leading, spacing: 6) {
+                Image(systemName: symbol)
+                    .font(.fredoka(18, .semibold))
+                Text(title)
+                    .font(.fredoka(17, .semibold))
+                Text(subtitle)
+                    .font(.fredoka(12))
+                    .opacity(0.85)
+            }
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(16)
+            .background(background, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+            .shadow(color: Theme.ink.opacity(0.12), radius: 10, y: 4)
+        }
+        .buttonStyle(.plain)
+    }
+
+    // MARK: - Closet
+
+    @ViewBuilder
+    private var closet: some View {
+        if !saved.isEmpty {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Text("Gespeicherte Looks")
+                        .font(.fredoka(15, .semibold))
+                        .foregroundStyle(Theme.ink)
+                    Spacer()
+                    Text("\(saved.count)/\(BuddyCloset.capacity)")
+                        .font(.fredoka(12))
+                        .foregroundStyle(.secondary)
+                }
+                LazyVGrid(columns: closetColumns, spacing: 14) {
+                    ForEach(saved, id: \.self) { look in
+                        ZStack(alignment: .topTrailing) {
+                            Button {
+                                withAnimation(.snappy) { buddy = look }
+                            } label: {
+                                BuddyView(buddy: look, size: 68)
+                                    .overlay(RoundedRectangle(cornerRadius: 68 * 0.3, style: .continuous)
+                                        .stroke(buddy == look ? Theme.ink : .clear, lineWidth: 2.5))
+                            }
+                            .buttonStyle(.plain)
+
+                            Button {
+                                withAnimation(.snappy) {
+                                    BuddyCloset.remove(look, keepingFileOf: buddy)
+                                    saved = BuddyCloset.load()
+                                }
+                            } label: {
+                                Image(systemName: "xmark")
+                                    .font(.system(size: 9, weight: .bold))
+                                    .foregroundStyle(.white)
+                                    .frame(width: 19, height: 19)
+                                    .background(Theme.ink.opacity(0.85), in: Circle())
+                            }
+                            .buttonStyle(.plain)
+                            .offset(x: 7, y: -7)
+                        }
+                    }
+                }
+            }
+            .padding(16)
+            .background(Theme.card, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+            .shadow(color: Theme.ink.opacity(0.05), radius: 8, y: 3)
+        }
     }
 }
