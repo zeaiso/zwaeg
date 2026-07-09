@@ -53,10 +53,31 @@ final class Themer {
         didSet { UserDefaults.standard.set(look.rawValue, forKey: Self.storageKey) }
     }
 
+    /// User-chosen accent color; nil means the look's default coral.
+    var accent: Color? {
+        didSet {
+            if let hex = accent?.hexString {
+                UserDefaults.standard.set(hex, forKey: Self.accentKey)
+            } else {
+                UserDefaults.standard.removeObject(forKey: Self.accentKey)
+            }
+        }
+    }
+
     private static let storageKey = "appLook"
+    private static let accentKey = "appAccentHex"
 
     private init() {
-        // Debug: -look munch|midnight|mono forces a look for simulator screenshots.
+        // Debug: -look munch|midnight|mono and -accent RRGGBB for screenshots.
+        var initialAccent: Color?
+        if let flagIndex = CommandLine.arguments.firstIndex(of: "-accent"),
+           CommandLine.arguments.indices.contains(flagIndex + 1) {
+            initialAccent = Color(hex: CommandLine.arguments[flagIndex + 1])
+        } else if let hex = UserDefaults.standard.string(forKey: Self.accentKey) {
+            initialAccent = Color(hex: hex)
+        }
+        accent = initialAccent
+
         if let flagIndex = CommandLine.arguments.firstIndex(of: "-look"),
            CommandLine.arguments.indices.contains(flagIndex + 1),
            let forced = AppLook(rawValue: CommandLine.arguments[flagIndex + 1]) {
@@ -89,16 +110,26 @@ enum Theme {
                           : Color(red: 0.918, green: 0.878, blue: 0.851)
     }
 
-    /// Coral primary accent; pair with white text.
+    /// Primary accent: the user's chosen color, defaulting to Munch coral.
     static var accent: Color {
-        look == .midnight ? Color(red: 1.0, green: 0.38, blue: 0.25)
-                          : Color(red: 1.0, green: 0.325, blue: 0.188)
+        if let custom = Themer.shared.accent { return custom }
+        return look == .midnight ? Color(red: 1.0, green: 0.38, blue: 0.25)
+                                 : Color(red: 1.0, green: 0.325, blue: 0.188)
     }
 
-    /// Soft peach for icon chips and selected states.
+    /// Lighter partner of the accent for gradients.
+    static var accentLight: Color {
+        if let custom = Themer.shared.accent { return custom.opacity(0.72) }
+        return Color(red: 1.0, green: 0.51, blue: 0.33)
+    }
+
+    /// Soft tint for icon chips, selected states and the summary card.
     static var accentSoft: Color {
-        look == .midnight ? Color(red: 0.26, green: 0.16, blue: 0.125)
-                          : Color(red: 1.0, green: 0.929, blue: 0.902)
+        if let custom = Themer.shared.accent {
+            return custom.opacity(look == .midnight ? 0.20 : 0.14)
+        }
+        return look == .midnight ? Color(red: 0.26, green: 0.16, blue: 0.125)
+                                 : Color(red: 1.0, green: 0.929, blue: 0.902)
     }
 
     static var yellow: Color {
@@ -114,6 +145,12 @@ enum Theme {
 
     /// Text and icons sitting on the coral accent.
     static let onAccent = Color.white
+
+    /// Text and icons sitting on an ink-filled control; inverts on Midnight
+    /// where ink itself is light.
+    static var onInk: Color {
+        look == .midnight ? Color(red: 0.10, green: 0.088, blue: 0.078) : .white
+    }
 
     /// Shadows stay dark in every look (a light ink would glow on Midnight).
     static let shadow = Color.black
@@ -144,10 +181,20 @@ enum Theme {
 }
 
 extension Color {
-    /// Slightly deepened coral, readable as a tint on light surfaces.
+    /// Tint color for text and small controls; the custom accent when set.
     static var appAccent: Color {
-        Themer.shared.look == .midnight ? Color(red: 1.0, green: 0.47, blue: 0.35)
-                                        : Color(red: 0.898, green: 0.29, blue: 0.165)
+        if let custom = Themer.shared.accent { return custom }
+        return Themer.shared.look == .midnight ? Color(red: 1.0, green: 0.47, blue: 0.35)
+                                               : Color(red: 0.898, green: 0.29, blue: 0.165)
+    }
+
+    /// Hex string for persisting the custom accent (Color(hex:) lives in AvatarTraits).
+    var hexString: String? {
+        guard let components = UIColor(self).cgColor.components, components.count >= 3 else { return nil }
+        let r = Int((components[0] * 255).rounded())
+        let g = Int((components[1] * 255).rounded())
+        let b = Int((components[2] * 255).rounded())
+        return String(format: "%02X%02X%02X", r, g, b)
     }
 }
 

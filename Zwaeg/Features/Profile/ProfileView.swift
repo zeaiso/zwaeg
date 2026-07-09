@@ -109,7 +109,7 @@ struct ProfileView: View {
         }
         .padding(16)
         .background(
-            LinearGradient(colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+            LinearGradient(colors: [Theme.accentLight, Theme.accent],
                            startPoint: .topLeading, endPoint: .bottomTrailing),
             in: RoundedRectangle(cornerRadius: 26, style: .continuous))
         .shadow(color: Theme.accent.opacity(0.35), radius: 12, y: 5)
@@ -313,12 +313,77 @@ struct LookView: View {
                 ForEach(AppLook.allCases) { look in
                     lookRow(look)
                 }
+                sectionLabel("Akzentfarbe".loc)
+                    .padding(.top, 10)
+                accentCard
             }
             .padding(16)
         }
         .background(Theme.background)
         .navigationTitle("Aussehen".loc)
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private static let presets: [Color?] = [
+        nil,
+        Color(red: 0.20, green: 0.48, blue: 0.97),
+        Color(red: 0.36, green: 0.33, blue: 0.90),
+        Color(red: 0.13, green: 0.66, blue: 0.42),
+        Color(red: 0.90, green: 0.22, blue: 0.48),
+        Color(red: 0.16, green: 0.62, blue: 0.62),
+        Color(red: 0.93, green: 0.61, blue: 0.10),
+    ]
+
+    private var accentCard: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            HStack(spacing: 10) {
+                ForEach(Array(Self.presets.enumerated()), id: \.offset) { _, preset in
+                    presetDot(preset)
+                }
+            }
+            ColorPicker(selection: Binding(
+                get: { themer.accent ?? AppLook.munch.previewAccent },
+                set: { themer.accent = $0 }), supportsOpacity: false) {
+                Text("Akzentfarbe".loc)
+                    .font(.fredoka(14, .medium))
+                    .foregroundStyle(Theme.ink)
+            }
+        }
+        .padding(14)
+        .background(Theme.card, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
+    }
+
+    private func presetDot(_ preset: Color?) -> some View {
+        let isSelected = preset == nil
+            ? themer.accent == nil
+            : preset?.hexString == themer.accent?.hexString
+        return Button {
+            withAnimation(.snappy) {
+                themer.accent = preset
+            }
+        } label: {
+            Circle()
+                .fill(preset ?? AppLook.munch.previewAccent)
+                .frame(width: 32, height: 32)
+                .overlay {
+                    if isSelected {
+                        Image(systemName: "checkmark")
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundStyle(.white)
+                    }
+                }
+                .overlay(Circle().stroke(Theme.field, lineWidth: isSelected ? 0 : 1))
+        }
+        .buttonStyle(.plain)
+        .frame(maxWidth: .infinity)
+    }
+
+    private func sectionLabel(_ text: String) -> some View {
+        Text(text.uppercased())
+            .font(.fredoka(12, .semibold))
+            .foregroundStyle(.secondary)
+            .padding(.leading, 6)
     }
 
     /// The home screen icon follows the look (Munch is the primary icon).
