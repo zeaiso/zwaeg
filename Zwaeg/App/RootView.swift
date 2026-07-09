@@ -27,6 +27,11 @@ struct RootView: View {
             }
         }
         .onAppear {
+            if LaunchArgs.seedProfile && BuddyCloset.load().isEmpty {
+                BuddyCloset.add(Buddy(kind: "m", index: 7))
+                BuddyCloset.add(Buddy(kind: "f", index: 42))
+                BuddyCloset.add(Buddy(kind: "blob", index: 4))
+            }
             if profiles.isEmpty && LaunchArgs.seedProfile {
                 context.insert(UserProfile(name: "Test", sex: .male, age: 30, heightCm: 178,
                                            weightKg: 78, activity: .moderate, goal: .lose))

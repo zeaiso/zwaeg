@@ -7,6 +7,7 @@ struct BuddyPickerView: View {
     var sex: Sex
 
     @State private var showStudio = false
+    @State private var saved: [Buddy] = BuddyCloset.load()
 
     private var debugOpensStudio: Bool {
         CommandLine.arguments.contains("-open-studio")
@@ -14,9 +15,26 @@ struct BuddyPickerView: View {
 
     var body: some View {
         VStack(spacing: 26) {
-            BuddyView(buddy: buddy, size: 168)
-                .shadow(color: buddy.bodyColor.opacity(0.4), radius: 18, y: 9)
-                .animation(.snappy, value: buddy)
+            ZStack(alignment: .topTrailing) {
+                BuddyView(buddy: buddy, size: 168)
+                    .shadow(color: buddy.bodyColor.opacity(0.4), radius: 18, y: 9)
+                    .animation(.snappy, value: buddy)
+                Button {
+                    withAnimation(.snappy) {
+                        BuddyCloset.add(buddy)
+                        saved = BuddyCloset.load()
+                    }
+                } label: {
+                    Image(systemName: saved.contains(buddy) ? "bookmark.fill" : "bookmark")
+                        .font(.fredoka(14, .semibold))
+                        .foregroundStyle(saved.contains(buddy) ? Color.appAccent : Theme.ink)
+                        .frame(width: 36, height: 36)
+                        .background(Theme.card, in: Circle())
+                        .shadow(color: Theme.ink.opacity(0.08), radius: 5, y: 2)
+                }
+                .buttonStyle(.plain)
+                .offset(x: 14, y: -8)
+            }
                 .onAppear {
                     if debugOpensStudio {
                         Task {
@@ -76,7 +94,40 @@ struct BuddyPickerView: View {
             .sheet(isPresented: $showStudio) {
                 BuddyStudioView(sex: sex, initialTraits: buddy.traits) { custom in
                     buddy = custom
+                    BuddyCloset.add(custom)
+                    saved = BuddyCloset.load()
                 }
+            }
+
+            if !saved.isEmpty {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("GESPEICHERT")
+                        .font(.fredoka(12, .semibold))
+                        .foregroundStyle(.secondary)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            ForEach(saved, id: \.self) { look in
+                                Button {
+                                    withAnimation(.snappy) { buddy = look }
+                                } label: {
+                                    BuddyView(buddy: look, size: 64)
+                                        .overlay(RoundedRectangle(cornerRadius: 64 * 0.3, style: .continuous)
+                                            .stroke(buddy == look ? Theme.ink : .clear, lineWidth: 2.5))
+                                }
+                                .buttonStyle(.plain)
+                                .contextMenu {
+                                    Button(role: .destructive) {
+                                        BuddyCloset.remove(look, keepingFileOf: buddy)
+                                        saved = BuddyCloset.load()
+                                    } label: {
+                                        Label("Löschen", systemImage: "trash")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
     }
