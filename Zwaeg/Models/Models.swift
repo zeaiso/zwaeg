@@ -152,33 +152,146 @@ enum Mood: String, Codable, CaseIterable, Identifiable {
     }
 }
 
+enum FastingLevel: CaseIterable, Identifiable {
+    case beginner, intermediate, advanced
+
+    var id: Self { self }
+
+    var label: String {
+        switch self {
+        case .beginner: return "Einsteiger".loc
+        case .intermediate: return "Fortgeschritten".loc
+        case .advanced: return "Profi".loc
+        }
+    }
+}
+
 enum FastingPlan: String, Codable, CaseIterable, Identifiable {
-    case sixteenEight, fourteenTen, twelveTwelve
+    case twelveTwelve, fourteenTen, fifteenNine, sixteenEight
+    case eighteenSix, nineteenFive
+    case twentyFour, twentyTwoTwo, twentyThreeOne
 
     var id: String { rawValue }
 
     var fastingHours: Int {
         switch self {
-        case .sixteenEight: return 16
-        case .fourteenTen: return 14
         case .twelveTwelve: return 12
+        case .fourteenTen: return 14
+        case .fifteenNine: return 15
+        case .sixteenEight: return 16
+        case .eighteenSix: return 18
+        case .nineteenFive: return 19
+        case .twentyFour: return 20
+        case .twentyTwoTwo: return 22
+        case .twentyThreeOne: return 23
         }
     }
 
     var label: String {
-        switch self {
-        case .sixteenEight: return "16:8"
-        case .fourteenTen: return "14:10"
-        case .twelveTwelve: return "12:12"
-        }
+        "\(fastingHours):\(24 - fastingHours)"
     }
 
     var detail: String {
+        "%d Std. fasten, %d Std. essen".loc(fastingHours, 24 - fastingHours)
+    }
+
+    var level: FastingLevel {
         switch self {
-        case .sixteenEight: return "16 Std. fasten, 8 Std. essen".loc
-        case .fourteenTen: return "14 Std. fasten, 10 Std. essen".loc
-        case .twelveTwelve: return "12 Std. fasten, 12 Std. essen".loc
+        case .twelveTwelve, .fourteenTen, .fifteenNine, .sixteenEight: return .beginner
+        case .eighteenSix, .nineteenFive: return .intermediate
+        case .twentyFour, .twentyTwoTwo, .twentyThreeOne: return .advanced
         }
+    }
+
+    var emoji: String {
+        switch self {
+        case .twelveTwelve: return "🐣"
+        case .fourteenTen: return "🐰"
+        case .fifteenNine: return "🐨"
+        case .sixteenEight: return "🦊"
+        case .eighteenSix: return "🦉"
+        case .nineteenFive: return "🐮"
+        case .twentyFour: return "🐺"
+        case .twentyTwoTwo: return "🐼"
+        case .twentyThreeOne: return "🐸"
+        }
+    }
+
+    /// SF Symbol stand-in for runtimes without the emoji font.
+    var symbol: String {
+        switch level {
+        case .beginner: return "leaf.fill"
+        case .intermediate: return "flame.fill"
+        case .advanced: return "bolt.fill"
+        }
+    }
+}
+
+/// What the body is doing after a given number of fasted hours.
+enum FastingStage: Int, CaseIterable, Identifiable {
+    case bloodSugarUp, bloodSugarDown, settling, fatBurn, autophagy
+
+    var id: Int { rawValue }
+
+    var startHour: Int {
+        switch self {
+        case .bloodSugarUp: return 0
+        case .bloodSugarDown: return 3
+        case .settling: return 8
+        case .fatBurn: return 12
+        case .autophagy: return 16
+        }
+    }
+
+    var name: String {
+        switch self {
+        case .bloodSugarUp: return "Blutzucker steigt".loc
+        case .bloodSugarDown: return "Blutzucker sinkt".loc
+        case .settling: return "Blutzucker stabil".loc
+        case .fatBurn: return "Fettverbrennung".loc
+        case .autophagy: return "Autophagie".loc
+        }
+    }
+
+    var info: String {
+        switch self {
+        case .bloodSugarUp: return "Der Körper verdaut die letzte Mahlzeit, der Blutzucker steigt an.".loc
+        case .bloodSugarDown: return "Der Blutzucker sinkt, der Körper nutzt die Zuckerspeicher.".loc
+        case .settling: return "Die Speicher sind fast leer, der Körper stellt auf Fett um.".loc
+        case .fatBurn: return "Der Körper gewinnt seine Energie jetzt vor allem aus Fett.".loc
+        case .autophagy: return "Die Zellen räumen auf und recyceln alte Bestandteile.".loc
+        }
+    }
+
+    var emoji: String {
+        switch self {
+        case .bloodSugarUp: return "🍬"
+        case .bloodSugarDown: return "📉"
+        case .settling: return "⚖️"
+        case .fatBurn: return "🔥"
+        case .autophagy: return "✨"
+        }
+    }
+
+    var symbol: String {
+        switch self {
+        case .bloodSugarUp: return "chart.line.uptrend.xyaxis"
+        case .bloodSugarDown: return "chart.line.downtrend.xyaxis"
+        case .settling: return "equal.circle.fill"
+        case .fatBurn: return "flame.fill"
+        case .autophagy: return "sparkles"
+        }
+    }
+
+    var rangeLabel: String {
+        if let next = FastingStage(rawValue: rawValue + 1) {
+            return "%d-%d Std.".loc(startHour, next.startHour)
+        }
+        return "ab %d Std.".loc(startHour)
+    }
+
+    static func current(elapsedHours: Double) -> FastingStage {
+        allCases.last { Double($0.startHour) <= elapsedHours } ?? .bloodSugarUp
     }
 }
 
