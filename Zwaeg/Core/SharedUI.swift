@@ -21,22 +21,25 @@ struct Card<Content: View>: View {
 struct DetailHeader: View {
     let title: String
     var subtitle: String?
+    var showsBack = true
 
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         HStack(spacing: 12) {
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "chevron.backward")
-                    .font(.fredoka(15, .semibold))
-                    .foregroundStyle(Theme.ink)
-                    .frame(width: 38, height: 38)
-                    .background(Theme.card, in: Circle())
-                    .shadow(color: Theme.shadow.opacity(0.05), radius: 5, y: 2)
+            if showsBack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .font(.fredoka(15, .semibold))
+                        .foregroundStyle(Theme.ink)
+                        .frame(width: 38, height: 38)
+                        .background(Theme.card, in: Circle())
+                        .shadow(color: Theme.shadow.opacity(0.05), radius: 5, y: 2)
+                }
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
             VStack(alignment: .leading, spacing: 1) {
                 Text(title)
                     .font(.fredoka(22, .semibold))

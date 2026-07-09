@@ -24,7 +24,7 @@ struct FastingView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                DetailHeader(title: "Fasten".loc, subtitle: plan.detail)
+                DetailHeader(title: "Fasten".loc, subtitle: plan.detail, showsBack: false)
                 planPicker
                 timerCard
                 if !history.isEmpty {

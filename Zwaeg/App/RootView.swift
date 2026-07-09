@@ -7,6 +7,7 @@ enum LaunchArgs {
     static var seedProfile: Bool { CommandLine.arguments.contains("-seed-profile") }
 
     static var initialTab: Int {
+        if CommandLine.arguments.contains("-open-fasting") { return 6 }
         guard let flagIndex = CommandLine.arguments.firstIndex(of: "-tab"),
               CommandLine.arguments.indices.contains(flagIndex + 1),
               let tab = Int(CommandLine.arguments[flagIndex + 1]) else { return 0 }
@@ -102,6 +103,7 @@ struct MainTabView: View {
                 case 3: CalculatorsView(profile: profile)
                 case 4: ProfileView(profile: profile)
                 case 5: RecipesScreen(profile: profile)
+                case 6: NavigationStack { FastingView(profile: profile) }
                 default: DiaryView(profile: profile)
                 }
             }
@@ -129,8 +131,9 @@ struct ZwaegTabBar: View {
         HStack(spacing: 0) {
             tabButton(0, symbol: "house.fill")
             tabButton(5, symbol: "book.fill")
-            tabButton(1, symbol: "flame.fill")
+            tabButton(6, symbol: "timer")
             scanButton
+            tabButton(1, symbol: "flame.fill")
             tabButton(3, symbol: "chart.bar.fill")
             tabButton(4, symbol: "person.fill")
         }
