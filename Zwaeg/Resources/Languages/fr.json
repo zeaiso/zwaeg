@@ -314,5 +314,9 @@
   "Alle %d Rezepte": "Toutes les %d recettes",
   "Keine Rezepte gefunden": "Aucune recette trouvée",
   "Fettarm": "Pauvre en graisses",
-  "Kalorienarm": "Peu calorique"
+  "Kalorienarm": "Peu calorique",
+  "Einkaufsliste": "Liste de courses",
+  "Liste": "Liste",
+  "Leeren": "Vider",
+  "Noch nichts auf der Liste": "Rien sur la liste"
 }

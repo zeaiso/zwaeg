@@ -314,5 +314,9 @@
   "Alle %d Rezepte": "அனைத்து %d குறிப்புகள்",
   "Keine Rezepte gefunden": "குறிப்புகள் கிடைக்கவில்லை",
   "Fettarm": "குறைந்த கொழுப்பு",
-  "Kalorienarm": "குறைந்த கலோரி"
+  "Kalorienarm": "குறைந்த கலோரி",
+  "Einkaufsliste": "கடை பட்டியல்",
+  "Liste": "பட்டியல்",
+  "Leeren": "அழி",
+  "Noch nichts auf der Liste": "பட்டியலில் இன்னும் எதுவும் இல்லை"
 }

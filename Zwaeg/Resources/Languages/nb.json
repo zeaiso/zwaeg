@@ -314,5 +314,9 @@
   "Alle %d Rezepte": "Alle %d oppskrifter",
   "Keine Rezepte gefunden": "Ingen oppskrifter funnet",
   "Fettarm": "Fettfattig",
-  "Kalorienarm": "Kalorifattig"
+  "Kalorienarm": "Kalorifattig",
+  "Einkaufsliste": "Handleliste",
+  "Liste": "Liste",
+  "Leeren": "Tøm",
+  "Noch nichts auf der Liste": "Ingenting på listen ennå"
 }

@@ -314,5 +314,9 @@
   "Alle %d Rezepte": "Wszystkie %d przepisów",
   "Keine Rezepte gefunden": "Nie znaleziono przepisów",
   "Fettarm": "Mało tłuszczu",
-  "Kalorienarm": "Niskokaloryczne"
+  "Kalorienarm": "Niskokaloryczne",
+  "Einkaufsliste": "Lista zakupów",
+  "Liste": "Lista",
+  "Leeren": "Wyczyść",
+  "Noch nichts auf der Liste": "Lista jest jeszcze pusta"
 }

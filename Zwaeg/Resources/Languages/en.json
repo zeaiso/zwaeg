@@ -314,5 +314,9 @@
   "Alle %d Rezepte": "All %d recipes",
   "Keine Rezepte gefunden": "No recipes found",
   "Fettarm": "Low fat",
-  "Kalorienarm": "Low calorie"
+  "Kalorienarm": "Low calorie",
+  "Einkaufsliste": "Shopping list",
+  "Liste": "List",
+  "Leeren": "Clear",
+  "Noch nichts auf der Liste": "Nothing on the list yet"
 }

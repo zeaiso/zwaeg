@@ -314,5 +314,9 @@
   "Alle %d Rezepte": "كل الوصفات (%d)",
   "Keine Rezepte gefunden": "لم يتم العثور على وصفات",
   "Fettarm": "قليل الدهون",
-  "Kalorienarm": "قليل السعرات"
+  "Kalorienarm": "قليل السعرات",
+  "Einkaufsliste": "قائمة التسوق",
+  "Liste": "القائمة",
+  "Leeren": "تفريغ",
+  "Noch nichts auf der Liste": "لا شيء في القائمة بعد"
 }

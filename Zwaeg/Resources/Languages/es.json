@@ -314,5 +314,9 @@
   "Alle %d Rezepte": "Todas las %d recetas",
   "Keine Rezepte gefunden": "No se encontraron recetas",
   "Fettarm": "Bajo en grasa",
-  "Kalorienarm": "Bajo en calorías"
+  "Kalorienarm": "Bajo en calorías",
+  "Einkaufsliste": "Lista de la compra",
+  "Liste": "Lista",
+  "Leeren": "Vaciar",
+  "Noch nichts auf der Liste": "Nada en la lista todavía"
 }

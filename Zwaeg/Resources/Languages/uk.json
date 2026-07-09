@@ -314,5 +314,9 @@
   "Alle %d Rezepte": "Усі %d рецептів",
   "Keine Rezepte gefunden": "Рецептів не знайдено",
   "Fettarm": "Мало жиру",
-  "Kalorienarm": "Мало калорій"
+  "Kalorienarm": "Мало калорій",
+  "Einkaufsliste": "Список покупок",
+  "Liste": "Список",
+  "Leeren": "Очистити",
+  "Noch nichts auf der Liste": "У списку ще нічого немає"
 }

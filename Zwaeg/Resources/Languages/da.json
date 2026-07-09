@@ -314,5 +314,9 @@
   "Alle %d Rezepte": "Alle %d opskrifter",
   "Keine Rezepte gefunden": "Ingen opskrifter fundet",
   "Fettarm": "Fedtfattig",
-  "Kalorienarm": "Kaloriefattig"
+  "Kalorienarm": "Kaloriefattig",
+  "Einkaufsliste": "Indkøbsliste",
+  "Liste": "Liste",
+  "Leeren": "Ryd",
+  "Noch nichts auf der Liste": "Intet på listen endnu"
 }
