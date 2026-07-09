@@ -54,7 +54,6 @@ struct DiaryView: View {
                         stepsCard
                         weightCard
                     }
-                    weekStrip
                     ForEach(MealType.allCases) { meal in
                         mealCard(meal)
                     }
@@ -609,42 +608,6 @@ struct DiaryView: View {
             }
         }
         syncLiveActivity()
-    }
-
-    // MARK: - Week strip (transparent, selected day in coral square)
-
-    private var lastSevenDays: [Date] {
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: .now)
-        return (0..<7).reversed().compactMap {
-            calendar.date(byAdding: .day, value: -$0, to: today)
-        }
-    }
-
-    private var weekStrip: some View {
-        HStack(spacing: 0) {
-            ForEach(lastSevenDays, id: \.self) { day in
-                let isSelected = day == selectedDay
-                Button {
-                    withAnimation(.snappy) { selectedDay = day }
-                } label: {
-                    VStack(spacing: 8) {
-                        Text(day.formatted(.dateTime.weekday(.abbreviated).locale(Lingo.shared.language.locale)))
-                            .font(.fredoka(12, isSelected ? .semibold : .medium))
-                            .foregroundStyle(isSelected ? Color.appAccent : .secondary)
-                        Text(day.formatted(.dateTime.day()))
-                            .font(.fredoka(15, .semibold))
-                            .foregroundStyle(isSelected ? Theme.onAccent : Theme.ink)
-                            .frame(width: 36, height: 36)
-                            .background(isSelected ? AnyShapeStyle(Theme.accent.gradient) : AnyShapeStyle(.clear),
-                                        in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                    }
-                    .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.plain)
-            }
-        }
-        .padding(.vertical, 4)
     }
 
     // MARK: - Meals
