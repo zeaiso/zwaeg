@@ -20,3 +20,6 @@ Zwaeg/Zwaeg.entitlements
 # SwiftPM
 .build/
 .swiftpm/
+
+# Personal planning notes, not part of the public repo
+docs/ROADMAP.md
