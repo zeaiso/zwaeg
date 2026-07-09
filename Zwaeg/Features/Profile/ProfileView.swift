@@ -5,10 +5,15 @@ struct ProfileView: View {
     @Bindable var profile: UserProfile
     @Query private var foodEntries: [FoodEntry]
 
-    @State private var showProgress = false
-    @State private var showBuddyEdit = false
-    @State private var showLanguage = false
-    @State private var showLook = false
+    /// One destination for the debug-arg navigation; stacked
+    /// navigationDestination modifiers broke touch delivery on iOS 17.
+    private enum Route: Hashable, Identifiable {
+        case progress, buddy, language, look
+
+        var id: Self { self }
+    }
+
+    @State private var route: Route?
 
     var body: some View {
         NavigationStack {
@@ -24,30 +29,30 @@ struct ProfileView: View {
             }
             .background(Theme.background)
             .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(isPresented: $showProgress) {
-                ProgressScreen(profile: profile)
-            }
-            .navigationDestination(isPresented: $showBuddyEdit) {
-                BuddyEditView(profile: profile)
-            }
-            .navigationDestination(isPresented: $showLanguage) {
-                LanguageView()
-            }
-            .navigationDestination(isPresented: $showLook) {
-                LookView()
+            .navigationDestination(item: $route) { route in
+                switch route {
+                case .progress:
+                    ProgressScreen(profile: profile)
+                case .buddy:
+                    BuddyEditView(profile: profile)
+                case .language:
+                    LanguageView()
+                case .look:
+                    LookView()
+                }
             }
             .onAppear {
                 if CommandLine.arguments.contains("-open-progress") {
-                    showProgress = true
+                    route = .progress
                 }
                 if CommandLine.arguments.contains("-open-buddy") {
-                    showBuddyEdit = true
+                    route = .buddy
                 }
                 if CommandLine.arguments.contains("-open-language") {
-                    showLanguage = true
+                    route = .language
                 }
                 if CommandLine.arguments.contains("-open-look") {
-                    showLook = true
+                    route = .look
                 }
             }
         }

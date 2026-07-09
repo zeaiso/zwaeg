@@ -132,11 +132,6 @@ enum Theme {
                                  : Color(red: 1.0, green: 0.929, blue: 0.902)
     }
 
-    static var yellow: Color {
-        look == .midnight ? Color(red: 0.28, green: 0.24, blue: 0.14)
-                          : Color(red: 1.0, green: 0.945, blue: 0.839)
-    }
-
     /// Warm near-black for text; warm cream on Midnight.
     static var ink: Color {
         look == .midnight ? Color(red: 0.96, green: 0.94, blue: 0.925)

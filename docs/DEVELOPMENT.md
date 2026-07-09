@@ -17,12 +17,25 @@ Useful for driving the app from the CLI or Xcode scheme arguments:
 
 | Argument | Effect |
 |---|---|
-| `-seed-profile` | Creates a test profile with weight history and a demo battle when no profile exists |
+| `-seed-profile` | Creates a test profile with weight history, three days of meals, water and a demo battle when no profile exists |
 | `-tab <0-4>` | Opens a specific tab (0 diary, 1 battles, 2 scanner, 3 calculators, 4 profile) |
+| `-lang <code>` | Forces an app language (`de`, `gsw`, `fr`, `it`, `rm`, `en`, `ar`, `ti`, ...) |
+| `-look <name>` | Forces a look (`munch`, `midnight`, `mono`) |
+| `-accent <RRGGBB>` | Forces an accent color for this launch without persisting it |
 | `-onboarding-body` | Jumps onboarding straight to the age question |
-| `-open-progress` | Auto-navigates to the progress screen (combine with `-tab 4`) |
+| `-onboarding-buddy` | Jumps onboarding straight to the buddy picker |
+| `-add-food <meal>` | Opens the add-food page (`breakfast`, `lunch`, `dinner`, `snack`) |
+| `-open-calc <name>` | Opens a calculator (`bmi`, `ideal`, `needs`, `burn`, combine with `-tab 3`) |
+| `-open-fasting` | Opens the fasting screen |
+| `-open-calendar` | Opens the calendar sheet |
+| `-open-details` | Opens the day details page |
+| `-open-progress` | Opens the progress screen (combine with `-tab 4`) |
 | `-open-battle` | Opens the first active battle (combine with `-tab 1`) |
+| `-open-buddy` | Opens the buddy editor (combine with `-tab 4`) |
+| `-open-language` | Opens the language picker (combine with `-tab 4`) |
+| `-open-look` | Opens the look picker (combine with `-tab 4`) |
 | `-demo-product` | Opens the meal detail sheet with a sample product (combine with `-tab 2`) |
+| `-scroll-bottom` | Opens the diary scrolled to the bottom |
 
 Example:
 
