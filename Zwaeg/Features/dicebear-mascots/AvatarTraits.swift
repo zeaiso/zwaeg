@@ -4,6 +4,7 @@ import SwiftUI
 /// DiceBear avataaars options. Thumbnails for the option racks are
 /// bundled; the combined preview renders via the DiceBear API.
 struct AvatarTraits: Codable, Equatable, Hashable {
+    /// Empty string means bald (topProbability 0).
     var top: String
     var hairColor: String
     var skinColor: String
@@ -11,6 +12,9 @@ struct AvatarTraits: Codable, Equatable, Hashable {
     var clothesColor: String
     var accessory: String?
     var facialHair: String?
+    var eyes: String?
+    var mouth: String?
+    var clothesGraphic: String?
 
     static let tops = [
         "bigHair", "bob", "bun", "curly", "curvy", "dreads", "dreads01", "dreads02",
@@ -34,6 +38,30 @@ struct AvatarTraits: Codable, Equatable, Hashable {
     static let facialHairs = [
         "beardLight", "beardMajestic", "beardMedium", "moustacheFancy", "moustacheMagnum",
     ]
+
+    /// Eye and mouth variants shown as emoji chips (no bundled thumbs).
+    static let eyesList: [(id: String, emoji: String)] = [
+        ("default", "🙂"), ("happy", "😊"), ("closed", "😌"), ("wink", "😉"),
+        ("hearts", "😍"), ("squint", "😆"), ("surprised", "😲"), ("side", "😏"),
+        ("winkWacky", "🤪"), ("eyeRoll", "🙄"), ("cry", "😢"), ("xDizzy", "😵"),
+    ]
+
+    static let mouthList: [(id: String, emoji: String)] = [
+        ("smile", "😄"), ("default", "🙂"), ("twinkle", "✨"), ("tongue", "😛"),
+        ("eating", "😋"), ("serious", "😑"), ("grimace", "😬"), ("disbelief", "😳"),
+        ("sad", "😞"), ("screamGeek", "😱"), ("concerned", "😟"),
+    ]
+
+    static let clothesGraphics: [(id: String, emoji: String)] = [
+        ("pizza", "🍕"), ("skull", "💀"), ("diamond", "💎"), ("bear", "🐻"),
+        ("deer", "🦌"), ("bat", "🦇"), ("resist", "✊"), ("hola", "👋"), ("cumbia", "💃"),
+    ]
+
+    /// Hair colors gated behind challenge points.
+    static let neonHairColors = ["b6e3f4", "bf55b5", "62c1da", "b4da5f"]
+
+    /// Accessories gated behind challenge points.
+    static let specialAccessories = ["eyepatch", "kurt"]
 
     static let hairColors = [
         "2c1b18", "4a312c", "724133", "a55728", "b58143", "d6b370", "f59797",
@@ -67,15 +95,22 @@ struct AvatarTraits: Codable, Equatable, Hashable {
             URLQueryItem(name: "seed", value: "zwaeg"),
             URLQueryItem(name: "size", value: "256"),
             URLQueryItem(name: "backgroundColor", value: "F3ECE7"),
-            URLQueryItem(name: "topVariant", value: top),
             URLQueryItem(name: "hairColor", value: hairColor),
             URLQueryItem(name: "skinColor", value: skinColor),
             URLQueryItem(name: "clothesVariant", value: clothes),
             URLQueryItem(name: "clothesColor", value: clothesColor),
-            URLQueryItem(name: "eyesVariant", value: "default"),
-            URLQueryItem(name: "mouthVariant", value: "smile"),
+            URLQueryItem(name: "eyesVariant", value: eyes ?? "default"),
+            URLQueryItem(name: "mouthVariant", value: mouth ?? "smile"),
             URLQueryItem(name: "eyebrowsVariant", value: "default"),
         ]
+        if top.isEmpty {
+            items.append(URLQueryItem(name: "topProbability", value: "0"))
+        } else {
+            items.append(URLQueryItem(name: "topVariant", value: top))
+        }
+        if clothes == "graphicShirt", let clothesGraphic {
+            items.append(URLQueryItem(name: "clothesGraphic", value: clothesGraphic))
+        }
         if let accessory {
             items.append(URLQueryItem(name: "accessoriesVariant", value: accessory))
             items.append(URLQueryItem(name: "accessoriesProbability", value: "100"))
