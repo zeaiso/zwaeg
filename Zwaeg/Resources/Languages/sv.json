@@ -318,5 +318,7 @@
   "Einkaufsliste": "Inköpslista",
   "Liste": "Lista",
   "Leeren": "Rensa",
-  "Noch nichts auf der Liste": "Inget på listan ännu"
+  "Noch nichts auf der Liste": "Inget på listan ännu",
+  "Für %d Portion": "För %d portion",
+  "Für %d Portionen": "För %d portioner"
 }

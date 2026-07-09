@@ -318,5 +318,7 @@
   "Einkaufsliste": "கடை பட்டியல்",
   "Liste": "பட்டியல்",
   "Leeren": "அழி",
-  "Noch nichts auf der Liste": "பட்டியலில் இன்னும் எதுவும் இல்லை"
+  "Noch nichts auf der Liste": "பட்டியலில் இன்னும் எதுவும் இல்லை",
+  "Für %d Portion": "%d பரிமாறலுக்கு",
+  "Für %d Portionen": "%d பரிமாறல்களுக்கு"
 }

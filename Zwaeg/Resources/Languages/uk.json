@@ -318,5 +318,7 @@
   "Einkaufsliste": "Список покупок",
   "Liste": "Список",
   "Leeren": "Очистити",
-  "Noch nichts auf der Liste": "У списку ще нічого немає"
+  "Noch nichts auf der Liste": "У списку ще нічого немає",
+  "Für %d Portion": "На %d порцію",
+  "Für %d Portionen": "На %d порцій"
 }

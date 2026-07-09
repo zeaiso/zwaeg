@@ -318,5 +318,7 @@
   "Einkaufsliste": "Alışveriş listesi",
   "Liste": "Liste",
   "Leeren": "Temizle",
-  "Noch nichts auf der Liste": "Listede henüz bir şey yok"
+  "Noch nichts auf der Liste": "Listede henüz bir şey yok",
+  "Für %d Portion": "%d porsiyon için",
+  "Für %d Portionen": "%d porsiyon için"
 }

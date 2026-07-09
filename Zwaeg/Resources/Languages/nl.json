@@ -318,5 +318,7 @@
   "Einkaufsliste": "Boodschappenlijst",
   "Liste": "Lijst",
   "Leeren": "Legen",
-  "Noch nichts auf der Liste": "Nog niets op de lijst"
+  "Noch nichts auf der Liste": "Nog niets op de lijst",
+  "Für %d Portion": "Voor %d portie",
+  "Für %d Portionen": "Voor %d porties"
 }

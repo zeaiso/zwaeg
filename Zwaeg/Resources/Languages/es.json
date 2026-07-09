@@ -318,5 +318,7 @@
   "Einkaufsliste": "Lista de la compra",
   "Liste": "Lista",
   "Leeren": "Vaciar",
-  "Noch nichts auf der Liste": "Nada en la lista todavía"
+  "Noch nichts auf der Liste": "Nada en la lista todavía",
+  "Für %d Portion": "Para %d ración",
+  "Für %d Portionen": "Para %d raciones"
 }

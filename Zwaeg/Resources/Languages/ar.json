@@ -318,5 +318,7 @@
   "Einkaufsliste": "قائمة التسوق",
   "Liste": "القائمة",
   "Leeren": "تفريغ",
-  "Noch nichts auf der Liste": "لا شيء في القائمة بعد"
+  "Noch nichts auf der Liste": "لا شيء في القائمة بعد",
+  "Für %d Portion": "لحصة %d",
+  "Für %d Portionen": "لـ %d حصص"
 }

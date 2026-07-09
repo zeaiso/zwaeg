@@ -318,5 +318,7 @@
   "Einkaufsliste": "Indkøbsliste",
   "Liste": "Liste",
   "Leeren": "Ryd",
-  "Noch nichts auf der Liste": "Intet på listen endnu"
+  "Noch nichts auf der Liste": "Intet på listen endnu",
+  "Für %d Portion": "Til %d portion",
+  "Für %d Portionen": "Til %d portioner"
 }

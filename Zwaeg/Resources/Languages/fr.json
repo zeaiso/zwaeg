@@ -318,5 +318,7 @@
   "Einkaufsliste": "Liste de courses",
   "Liste": "Liste",
   "Leeren": "Vider",
-  "Noch nichts auf der Liste": "Rien sur la liste"
+  "Noch nichts auf der Liste": "Rien sur la liste",
+  "Für %d Portion": "Pour %d portion",
+  "Für %d Portionen": "Pour %d portions"
 }

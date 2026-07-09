@@ -318,5 +318,7 @@
   "Einkaufsliste": "Lista zakupów",
   "Liste": "Lista",
   "Leeren": "Wyczyść",
-  "Noch nichts auf der Liste": "Lista jest jeszcze pusta"
+  "Noch nichts auf der Liste": "Lista jest jeszcze pusta",
+  "Für %d Portion": "Na %d porcję",
+  "Für %d Portionen": "Na %d porcji"
 }

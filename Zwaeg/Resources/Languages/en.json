@@ -318,5 +318,7 @@
   "Einkaufsliste": "Shopping list",
   "Liste": "List",
   "Leeren": "Clear",
-  "Noch nichts auf der Liste": "Nothing on the list yet"
+  "Noch nichts auf der Liste": "Nothing on the list yet",
+  "Für %d Portion": "For %d serving",
+  "Für %d Portionen": "For %d servings"
 }
