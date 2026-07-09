@@ -9,7 +9,11 @@ struct BuddyView: View {
 
     var body: some View {
         Group {
-            if let image = UIImage(named: buddy.assetName) {
+            if let path = buddy.customImagePath, let image = UIImage(contentsOfFile: path) {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+            } else if let image = UIImage(named: buddy.assetName) {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()

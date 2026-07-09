@@ -5,9 +5,12 @@ import SwiftUI
 /// DiceBear avataaars, free for commercial use).
 /// Deterministic seeding gives battle opponents stable faces.
 struct Buddy: Codable, Equatable, Hashable {
-    /// "blob", "m" or "f".
+    /// "blob", "m", "f" or "custom".
     var kind: String
     var index: Int
+    /// Wardrobe traits and cached image file, only for kind "custom".
+    var traits: AvatarTraits?
+    var file: String?
 
     static let blobColorCount = 6
     static let blobFaceCount = 3
@@ -28,6 +31,8 @@ struct Buddy: Codable, Equatable, Hashable {
 
     var assetName: String {
         switch kind {
+        case "custom":
+            return ""
         case "m", "f":
             return "\(kind)-\(index % Self.avatarCount)"
         default:
@@ -47,6 +52,20 @@ struct Buddy: Codable, Equatable, Hashable {
 
     static func randomBlob() -> Buddy {
         Buddy(kind: "blob", index: Int.random(in: 0..<blobCount))
+    }
+
+    static func custom(traits: AvatarTraits, file: String) -> Buddy {
+        var buddy = Buddy(kind: "custom", index: 0)
+        buddy.traits = traits
+        buddy.file = file
+        return buddy
+    }
+
+    /// Absolute path of the cached custom image, if any.
+    var customImagePath: String? {
+        guard kind == "custom", let file else { return nil }
+        let folder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        return folder?.appendingPathComponent(file).path
     }
 
     /// Stable buddy for a seed string (bot names, participant ids).
@@ -77,6 +96,8 @@ struct Buddy: Codable, Equatable, Hashable {
            let index = try container.decodeIfPresent(Int.self, forKey: .index) {
             self.kind = kind
             self.index = index
+            traits = try container.decodeIfPresent(AvatarTraits.self, forKey: .traits)
+            file = try container.decodeIfPresent(String.self, forKey: .file)
             return
         }
         kind = "blob"

@@ -6,11 +6,25 @@ struct BuddyPickerView: View {
     @Binding var buddy: Buddy
     var sex: Sex
 
+    @State private var showStudio = false
+
+    private var debugOpensStudio: Bool {
+        CommandLine.arguments.contains("-open-studio")
+    }
+
     var body: some View {
         VStack(spacing: 26) {
             BuddyView(buddy: buddy, size: 168)
                 .shadow(color: buddy.bodyColor.opacity(0.4), radius: 18, y: 9)
                 .animation(.snappy, value: buddy)
+                .onAppear {
+                    if debugOpensStudio {
+                        Task {
+                            try? await Task.sleep(for: .milliseconds(600))
+                            showStudio = true
+                        }
+                    }
+                }
 
             HStack(spacing: 10) {
                 poolChip("Funky", isActive: buddy.kind != "blob") {
@@ -42,6 +56,28 @@ struct BuddyPickerView: View {
                 .shadow(color: Theme.accent.opacity(0.35), radius: 10, y: 4)
             }
             .buttonStyle(.plain)
+
+            Button {
+                showStudio = true
+            } label: {
+                HStack(spacing: 8) {
+                    Image(systemName: "tshirt.fill")
+                        .font(.fredoka(14, .semibold))
+                    Text("Selbst gestalten")
+                        .font(.fredoka(15, .semibold))
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 11)
+                .background(Theme.card, in: Capsule())
+                .foregroundStyle(Theme.ink)
+                .shadow(color: Theme.ink.opacity(0.05), radius: 6, y: 2)
+            }
+            .buttonStyle(.plain)
+            .sheet(isPresented: $showStudio) {
+                BuddyStudioView(sex: sex, initialTraits: buddy.traits) { custom in
+                    buddy = custom
+                }
+            }
         }
     }
 
