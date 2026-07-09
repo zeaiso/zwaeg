@@ -88,14 +88,44 @@ targets:
     sources:
       - ZwaegWatch
       - Zwaeg/Shared/WatchDaySnapshot.swift
+    dependencies:
+      - target: ZwaegWatchWidgets
     info:
       path: ZwaegWatch/Info.plist
       properties:
         CFBundleDisplayName: Zwäg
         WKApplication: true
         WKCompanionAppBundleIdentifier: ch.emanuell.zwaeg
+    entitlements:
+      path: ZwaegWatch/ZwaegWatch.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.ch.emanuell.zwaeg
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.zwaeg.watchkitapp
+        SKIP_INSTALL: true
+        TARGETED_DEVICE_FAMILY: "4"
+  ZwaegWatchWidgets:
+    type: app-extension
+    platform: watchOS
+    deploymentTarget: "10.0"
+    sources:
+      - ZwaegWatchWidgets
+      - Zwaeg/Shared/WatchDaySnapshot.swift
+    info:
+      path: ZwaegWatchWidgets/Info.plist
+      properties:
+        CFBundleDisplayName: Zwäg
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: ZwaegWatchWidgets/ZwaegWatchWidgets.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.ch.emanuell.zwaeg
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.zwaeg.watchkitapp.widgets
         SKIP_INSTALL: true
         TARGETED_DEVICE_FAMILY: "4"

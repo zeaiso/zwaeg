@@ -16,6 +16,9 @@ Zwaeg/Zwaeg.entitlements
 ZwaegWidgets/Info.plist
 ZwaegWidgets/ZwaegWidgets.entitlements
 ZwaegWatch/Info.plist
+ZwaegWatch/ZwaegWatch.entitlements
+ZwaegWatchWidgets/Info.plist
+ZwaegWatchWidgets/ZwaegWatchWidgets.entitlements
 
 # IDE
 .idea/

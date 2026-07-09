@@ -1,6 +1,7 @@
 import Foundation
 import Observation
 import WatchConnectivity
+import WidgetKit
 
 /// Watch side of the connection: receives the day snapshot from the iPhone
 /// and sends water logged on the wrist back.
@@ -27,6 +28,8 @@ final class WatchLink: NSObject, WCSessionDelegate {
     private func readContext(_ context: [String: Any]) {
         guard let data = context["snapshot"] as? Data,
               let decoded = try? JSONDecoder().decode(WatchDaySnapshot.self, from: data) else { return }
+        WatchSnapshotStore.save(decoded)
+        WidgetCenter.shared.reloadAllTimelines()
         Task { @MainActor in
             snapshot = decoded
         }
