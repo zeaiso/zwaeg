@@ -288,5 +288,7 @@
   "Bilanz": "Balance",
   "Wasser": "Water",
   "Das entspricht etwa %@ kg Körperfett.": "That is roughly %@ kg of body fat.",
-  "%d Tage am Stück!": "%d days in a row!"
+  "%d Tage am Stück!": "%d days in a row!",
+  "Wasser geloggt. Heute insgesamt: %d Gläser.": "Water logged. Total today: %d glasses.",
+  "Du hast noch %@ kcal übrig.": "You have %@ kcal left."
 }

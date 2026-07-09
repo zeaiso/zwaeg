@@ -288,5 +288,7 @@
   "Bilanz": "Bilanci",
   "Wasser": "Uji",
   "Das entspricht etwa %@ kg Körperfett.": "Kjo është afërsisht %@ kg yndyrë trupore.",
-  "%d Tage am Stück!": "%d ditë rresht!"
+  "%d Tage am Stück!": "%d ditë rresht!",
+  "Wasser geloggt. Heute insgesamt: %d Gläser.": "Uji u regjistrua. Gjithsej sot: %d gota.",
+  "Du hast noch %@ kcal übrig.": "Të kanë mbetur %@ kcal."
 }

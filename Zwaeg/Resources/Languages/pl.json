@@ -288,5 +288,7 @@
   "Bilanz": "Bilans",
   "Wasser": "Woda",
   "Das entspricht etwa %@ kg Körperfett.": "To odpowiada około %@ kg tkanki tłuszczowej.",
-  "%d Tage am Stück!": "%d dni z rzędu!"
+  "%d Tage am Stück!": "%d dni z rzędu!",
+  "Wasser geloggt. Heute insgesamt: %d Gläser.": "Woda zapisana. Dziś łącznie: %d szklanek.",
+  "Du hast noch %@ kcal übrig.": "Zostało ci %@ kcal."
 }

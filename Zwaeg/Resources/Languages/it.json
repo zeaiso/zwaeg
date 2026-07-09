@@ -288,5 +288,7 @@
   "Bilanz": "Bilancio",
   "Wasser": "Acqua",
   "Das entspricht etwa %@ kg Körperfett.": "Corrisponde a circa %@ kg di grasso corporeo.",
-  "%d Tage am Stück!": "%d giorni di fila!"
+  "%d Tage am Stück!": "%d giorni di fila!",
+  "Wasser geloggt. Heute insgesamt: %d Gläser.": "Acqua registrata. Totale di oggi: %d bicchieri.",
+  "Du hast noch %@ kcal übrig.": "Ti restano %@ kcal."
 }

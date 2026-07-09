@@ -288,5 +288,7 @@
   "Bilanz": "Denge",
   "Wasser": "Su",
   "Das entspricht etwa %@ kg Körperfett.": "Bu yaklaşık %@ kg vücut yağına denk gelir.",
-  "%d Tage am Stück!": "Üst üste %d gün!"
+  "%d Tage am Stück!": "Üst üste %d gün!",
+  "Wasser geloggt. Heute insgesamt: %d Gläser.": "Su kaydedildi. Bugün toplam: %d bardak.",
+  "Du hast noch %@ kcal übrig.": "%@ kcal hakkın kaldı."
 }

@@ -288,5 +288,7 @@
   "Bilanz": "Balance",
   "Wasser": "Vand",
   "Das entspricht etwa %@ kg Körperfett.": "Det svarer til cirka %@ kg kropsfedt.",
-  "%d Tage am Stück!": "%d dage i træk!"
+  "%d Tage am Stück!": "%d dage i træk!",
+  "Wasser geloggt. Heute insgesamt: %d Gläser.": "Vand logget. I alt i dag: %d glas.",
+  "Du hast noch %@ kcal übrig.": "Du har %@ kcal tilbage."
 }

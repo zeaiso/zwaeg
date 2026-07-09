@@ -288,5 +288,7 @@
   "Bilanz": "சமநிலை",
   "Wasser": "தண்ணீர்",
   "Das entspricht etwa %@ kg Körperfett.": "இது சுமார் %@ கிலோ உடல் கொழுப்புக்கு சமம்.",
-  "%d Tage am Stück!": "தொடர்ந்து %d நாட்கள்!"
+  "%d Tage am Stück!": "தொடர்ந்து %d நாட்கள்!",
+  "Wasser geloggt. Heute insgesamt: %d Gläser.": "தண்ணீர் பதிவானது. இன்று மொத்தம்: %d டம்ளர்.",
+  "Du hast noch %@ kcal übrig.": "உனக்கு இன்னும் %@ kcal உள்ளது."
 }

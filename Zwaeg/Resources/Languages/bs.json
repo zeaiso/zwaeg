@@ -288,5 +288,7 @@
   "Bilanz": "Bilans",
   "Wasser": "Voda",
   "Das entspricht etwa %@ kg Körperfett.": "To je otprilike %@ kg tjelesne masti.",
-  "%d Tage am Stück!": "%d dana zaredom!"
+  "%d Tage am Stück!": "%d dana zaredom!",
+  "Wasser geloggt. Heute insgesamt: %d Gläser.": "Voda zabilježena. Ukupno danas: %d čaša.",
+  "Du hast noch %@ kcal übrig.": "Ostalo ti je %@ kcal."
 }

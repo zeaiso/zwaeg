@@ -288,5 +288,7 @@
   "Bilanz": "Bilan",
   "Wasser": "Eau",
   "Das entspricht etwa %@ kg Körperfett.": "Cela correspond à environ %@ kg de graisse corporelle.",
-  "%d Tage am Stück!": "%d jours d'affilée !"
+  "%d Tage am Stück!": "%d jours d'affilée !",
+  "Wasser geloggt. Heute insgesamt: %d Gläser.": "Eau enregistrée. Total aujourd'hui : %d verres.",
+  "Du hast noch %@ kcal übrig.": "Il te reste %@ kcal."
 }

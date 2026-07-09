@@ -288,5 +288,7 @@
   "Bilanz": "Баланс",
   "Wasser": "Вода",
   "Das entspricht etwa %@ kg Körperfett.": "Це приблизно %@ кг жиру в тілі.",
-  "%d Tage am Stück!": "%d днів поспіль!"
+  "%d Tage am Stück!": "%d днів поспіль!",
+  "Wasser geloggt. Heute insgesamt: %d Gläser.": "Воду записано. Разом сьогодні: %d склянок.",
+  "Du hast noch %@ kcal übrig.": "У тебе залишилось %@ ккал."
 }

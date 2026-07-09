@@ -288,5 +288,7 @@
   "Bilanz": "Balanse",
   "Wasser": "Vann",
   "Das entspricht etwa %@ kg Körperfett.": "Det tilsvarer omtrent %@ kg kroppsfett.",
-  "%d Tage am Stück!": "%d dager på rad!"
+  "%d Tage am Stück!": "%d dager på rad!",
+  "Wasser geloggt. Heute insgesamt: %d Gläser.": "Vann logget. Totalt i dag: %d glass.",
+  "Du hast noch %@ kcal übrig.": "Du har %@ kcal igjen."
 }
