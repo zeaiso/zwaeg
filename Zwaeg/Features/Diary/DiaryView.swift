@@ -676,11 +676,10 @@ struct DiaryView: View {
                         }
                     }
                     Spacer()
-                    Text("Add")
-                        .font(.fredoka(15, .semibold))
-                        .padding(.horizontal, 18)
-                        .padding(.vertical, 9)
-                        .background(Theme.accentSoft, in: Capsule())
+                    Image(systemName: "plus")
+                        .font(.fredoka(16, .semibold))
+                        .frame(width: 38, height: 38)
+                        .background(Theme.accentSoft, in: Circle())
                         .foregroundStyle(Color.appAccent)
                 }
             }

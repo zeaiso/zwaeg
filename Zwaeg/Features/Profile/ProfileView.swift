@@ -98,11 +98,10 @@ struct ProfileView: View {
             NavigationLink {
                 PersonalDetailsView(profile: profile)
             } label: {
-                Text("Edit")
-                    .font(.fredoka(15, .semibold))
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .background(.white.opacity(0.25), in: Capsule())
+                Image(systemName: "pencil")
+                    .font(.fredoka(16, .semibold))
+                    .frame(width: 36, height: 36)
+                    .background(.white.opacity(0.25), in: Circle())
                     .foregroundStyle(.white)
             }
             .buttonStyle(.plain)
