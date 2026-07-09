@@ -15,7 +15,6 @@ struct DiaryView: View {
     /// several stacked destination modifiers broke touch delivery on iOS 17.
     private enum Route: Hashable, Identifiable {
         case meal(MealType)
-        case fasting
         case details
         case reminders
 
@@ -58,7 +57,6 @@ struct DiaryView: View {
                         mealCard(meal)
                     }
                     waterCard
-                    fastingCard
                     moodCard
                 }
                 .padding(.horizontal, 16)
@@ -75,8 +73,6 @@ struct DiaryView: View {
                 switch route {
                 case .meal(let meal):
                     AddFoodView(day: selectedDay, meal: meal)
-                case .fasting:
-                    FastingView(profile: profile)
                 case .details:
                     DayDetailView(day: selectedDay, profile: profile)
                 case .reminders:
@@ -103,12 +99,6 @@ struct DiaryView: View {
                     Task {
                         try? await Task.sleep(for: .milliseconds(500))
                         route = .meal(MealType(rawValue: next) ?? .breakfast)
-                    }
-                }
-                if CommandLine.arguments.contains("-open-fasting") {
-                    Task {
-                        try? await Task.sleep(for: .milliseconds(500))
-                        route = .fasting
                     }
                 }
                 if CommandLine.arguments.contains("-open-calendar") {
@@ -681,59 +671,6 @@ struct DiaryView: View {
                         .frame(width: 38, height: 38)
                         .background(Theme.accentSoft, in: Circle())
                         .foregroundStyle(Color.appAccent)
-                }
-            }
-        }
-        .buttonStyle(.plain)
-    }
-
-    // MARK: - Fasting
-
-    private var activeFast: FastingSession? {
-        fastingSessions.first { $0.isActive }
-    }
-
-    private var fastingCard: some View {
-        Button {
-            route = .fasting
-        } label: {
-            Card {
-                HStack(spacing: 12) {
-                    Image(systemName: "timer")
-                        .font(.fredoka(17, .semibold))
-                        .foregroundStyle(.white)
-                        .frame(width: 46, height: 46)
-                        .background(Color(red: 0.2, green: 0.68, blue: 0.62).gradient,
-                                    in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Fasten".loc)
-                            .font(.fredoka(17, .semibold))
-                            .foregroundStyle(Theme.ink)
-                        if let fast = activeFast {
-                            Text("Läuft bis %@ · %@".loc(
-                                fast.goalEnd.formatted(date: .omitted, time: .shortened),
-                                fast.plan.label))
-                                .font(.fredoka(12))
-                                .foregroundStyle(.secondary)
-                        } else {
-                            Text("Intervallfasten starten".loc)
-                                .font(.fredoka(12))
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                    Spacer()
-                    if activeFast != nil {
-                        Text("Läuft".loc)
-                            .font(.fredoka(15, .semibold))
-                            .padding(.horizontal, 18)
-                            .padding(.vertical, 9)
-                            .background(Theme.accent.gradient, in: Capsule())
-                            .foregroundStyle(Theme.onAccent)
-                    } else {
-                        Image(systemName: "chevron.forward")
-                            .font(.fredoka(14, .semibold))
-                            .foregroundStyle(.secondary)
-                    }
                 }
             }
         }
