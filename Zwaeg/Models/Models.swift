@@ -10,8 +10,8 @@ enum Sex: String, Codable, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .male: return "Männlich"
-        case .female: return "Weiblich"
+        case .male: return "Männlich".loc
+        case .female: return "Weiblich".loc
         }
     }
 
@@ -41,21 +41,21 @@ enum ActivityLevel: String, Codable, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .sedentary: return "Kaum aktiv"
-        case .light: return "Leicht aktiv"
-        case .moderate: return "Mässig aktiv"
-        case .active: return "Sehr aktiv"
-        case .veryActive: return "Extrem aktiv"
+        case .sedentary: return "Kaum aktiv".loc
+        case .light: return "Leicht aktiv".loc
+        case .moderate: return "Mäßig aktiv".loc
+        case .active: return "Sehr aktiv".loc
+        case .veryActive: return "Extrem aktiv".loc
         }
     }
 
     var detail: String {
         switch self {
-        case .sedentary: return "Bürojob, wenig Bewegung"
-        case .light: return "Leichte Bewegung, 1-2× Sport pro Woche"
-        case .moderate: return "Regelmässig aktiv, 3-5× Sport pro Woche"
-        case .active: return "Täglich Sport oder körperliche Arbeit"
-        case .veryActive: return "Harte körperliche Arbeit und intensiver Sport"
+        case .sedentary: return "Bürojob, wenig Bewegung".loc
+        case .light: return "Leichte Bewegung, 1-2× Sport pro Woche".loc
+        case .moderate: return "Regelmäßig aktiv, 3-5× Sport pro Woche".loc
+        case .active: return "Täglich Sport oder körperliche Arbeit".loc
+        case .veryActive: return "Harte körperliche Arbeit und intensiver Sport".loc
         }
     }
 }
@@ -76,9 +76,9 @@ enum Goal: String, Codable, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .lose: return "Abnehmen"
-        case .maintain: return "Gewicht halten"
-        case .gain: return "Zunehmen"
+        case .lose: return "Abnehmen".loc
+        case .maintain: return "Gewicht halten".loc
+        case .gain: return "Zunehmen".loc
         }
     }
 
@@ -98,10 +98,10 @@ enum MealType: String, Codable, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .breakfast: return "Frühstück"
-        case .lunch: return "Mittagessen"
-        case .dinner: return "Abendessen"
-        case .snack: return "Snacks"
+        case .breakfast: return "Frühstück".loc
+        case .lunch: return "Mittagessen".loc
+        case .dinner: return "Abendessen".loc
+        case .snack: return "Snacks".loc
         }
     }
 
@@ -117,10 +117,67 @@ enum MealType: String, Codable, CaseIterable, Identifiable {
     /// Dative form for buttons like "Zum Frühstück hinzufügen".
     var addLabel: String {
         switch self {
-        case .breakfast: return "Zum Frühstück hinzufügen"
-        case .lunch: return "Zum Mittagessen hinzufügen"
-        case .dinner: return "Zum Abendessen hinzufügen"
-        case .snack: return "Zu den Snacks hinzufügen"
+        case .breakfast: return "Zum Frühstück hinzufügen".loc
+        case .lunch: return "Zum Mittagessen hinzufügen".loc
+        case .dinner: return "Zum Abendessen hinzufügen".loc
+        case .snack: return "Zu den Snacks hinzufügen".loc
+        }
+    }
+}
+
+enum Mood: String, Codable, CaseIterable, Identifiable {
+    case great, good, okay, low, bad
+
+    var id: String { rawValue }
+
+    /// Weather metaphor, SF Symbols (color emoji doesn't render in the simulator).
+    var symbol: String {
+        switch self {
+        case .great: return "sun.max.fill"
+        case .good: return "cloud.sun.fill"
+        case .okay: return "cloud.fill"
+        case .low: return "cloud.rain.fill"
+        case .bad: return "cloud.bolt.rain.fill"
+        }
+    }
+
+    var label: String {
+        switch self {
+        case .great: return "Super".loc
+        case .good: return "Gut".loc
+        case .okay: return "Okay".loc
+        case .low: return "Mäßig".loc
+        case .bad: return "Mies".loc
+        }
+    }
+}
+
+enum FastingPlan: String, Codable, CaseIterable, Identifiable {
+    case sixteenEight, fourteenTen, twelveTwelve
+
+    var id: String { rawValue }
+
+    var fastingHours: Int {
+        switch self {
+        case .sixteenEight: return 16
+        case .fourteenTen: return 14
+        case .twelveTwelve: return 12
+        }
+    }
+
+    var label: String {
+        switch self {
+        case .sixteenEight: return "16:8"
+        case .fourteenTen: return "14:10"
+        case .twelveTwelve: return "12:12"
+        }
+    }
+
+    var detail: String {
+        switch self {
+        case .sixteenEight: return "16 Std. fasten, 8 Std. essen".loc
+        case .fourteenTen: return "14 Std. fasten, 10 Std. essen".loc
+        case .twelveTwelve: return "12 Std. fasten, 12 Std. essen".loc
         }
     }
 }
@@ -227,6 +284,49 @@ final class WaterDay {
         self.day = Calendar.current.startOfDay(for: day)
         self.glasses = glasses
     }
+}
+
+@Model
+final class DayNote {
+    @Attribute(.unique) var day: Date
+    /// Empty string means no mood picked yet.
+    var moodRaw: String
+    var text: String
+
+    init(day: Date, mood: Mood? = nil, text: String = "") {
+        self.day = Calendar.current.startOfDay(for: day)
+        self.moodRaw = mood?.rawValue ?? ""
+        self.text = text
+    }
+
+    var mood: Mood? {
+        get { Mood(rawValue: moodRaw) }
+        set { moodRaw = newValue?.rawValue ?? "" }
+    }
+}
+
+@Model
+final class FastingSession {
+    var start: Date
+    var planRaw: String
+    var endedAt: Date?
+
+    init(start: Date = .now, plan: FastingPlan) {
+        self.start = start
+        self.planRaw = plan.rawValue
+        self.endedAt = nil
+    }
+
+    var plan: FastingPlan {
+        get { FastingPlan(rawValue: planRaw) ?? .sixteenEight }
+        set { planRaw = newValue.rawValue }
+    }
+
+    var goalEnd: Date {
+        start.addingTimeInterval(TimeInterval(plan.fastingHours) * 3600)
+    }
+
+    var isActive: Bool { endedAt == nil }
 }
 
 @Model
