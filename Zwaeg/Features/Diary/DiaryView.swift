@@ -124,7 +124,7 @@ struct DiaryView: View {
     private var header: some View {
         HStack(spacing: 12) {
             ZStack(alignment: .bottomTrailing) {
-                BuddyView(buddy: profile.buddy, size: 46)
+                BuddyPoseView(buddy: profile.buddy, size: 46, pose: buddyPose)
                 if let mood = buddyMood {
                     Image(systemName: mood.symbol)
                         .font(.system(size: 9, weight: .bold))
@@ -188,6 +188,13 @@ struct DiaryView: View {
             .buttonStyle(.plain)
         }
         .padding(.top, 8)
+    }
+
+    /// Motion pose of the header buddy for the selected day.
+    private var buddyPose: BuddyPose {
+        if dayEntries.isEmpty { return .sleeping }
+        if remaining >= 0 { return .happy }
+        return .over
     }
 
     /// Badge on the header buddy reacting to the selected day:

@@ -114,7 +114,8 @@ struct FastingView: View {
                 .rotationEffect(.degrees(-90))
                 .animation(.spring(duration: 0.5), value: progress)
             VStack(spacing: 4) {
-                BuddyView(buddy: profile.buddy, size: 52)
+                BuddyPoseView(buddy: profile.buddy, size: 52,
+                              pose: session != nil && remaining <= 0 ? .party : .neutral)
                     .padding(.bottom, 2)
                 if session != nil {
                     if remaining > 0 {
