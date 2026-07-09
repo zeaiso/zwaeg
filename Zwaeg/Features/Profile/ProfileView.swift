@@ -7,6 +7,7 @@ struct ProfileView: View {
 
     @State private var showProgress = false
     @State private var showBuddyEdit = false
+    @State private var showLanguage = false
 
     var body: some View {
         NavigationStack {
@@ -28,6 +29,9 @@ struct ProfileView: View {
             .navigationDestination(isPresented: $showBuddyEdit) {
                 BuddyEditView(profile: profile)
             }
+            .navigationDestination(isPresented: $showLanguage) {
+                LanguageView()
+            }
             .onAppear {
                 if CommandLine.arguments.contains("-open-progress") {
                     showProgress = true
@@ -35,13 +39,16 @@ struct ProfileView: View {
                 if CommandLine.arguments.contains("-open-buddy") {
                     showBuddyEdit = true
                 }
+                if CommandLine.arguments.contains("-open-language") {
+                    showLanguage = true
+                }
             }
         }
     }
 
     private var header: some View {
         HStack {
-            Text("Profil")
+            Text("Profil".loc)
                 .font(.fredoka(27, .semibold))
                 .foregroundStyle(Theme.ink)
             Spacer()
@@ -73,10 +80,10 @@ struct ProfileView: View {
             }
             .buttonStyle(.plain)
             VStack(alignment: .leading, spacing: 3) {
-                Text(profile.name.isEmpty ? "Dein Profil" : profile.name)
+                Text(profile.name.isEmpty ? "Dein Profil".loc : profile.name)
                     .font(.fredoka(19, .semibold))
                     .foregroundStyle(.white)
-                Text("Ziel · \(profile.goal.label) · \(profile.dailyCalorieTarget) kcal/Tag")
+                Text("Ziel · %@ · %d kcal/Tag".loc(profile.goal.label, profile.dailyCalorieTarget))
                     .font(.fredoka(12))
                     .foregroundStyle(.white.opacity(0.9))
             }
@@ -123,9 +130,9 @@ struct ProfileView: View {
 
     private var statTiles: some View {
         HStack(spacing: 12) {
-            statTile("\(streak)", unit: nil, label: "Tage-Streak")
-            statTile("\(foodEntries.count)", unit: nil, label: "Mahlzeiten")
-            statTile(String(format: "%.1f", profile.weightKg), unit: "kg", label: "Aktuell")
+            statTile("\(streak)", unit: nil, label: "Tage-Streak".loc)
+            statTile("\(foodEntries.count)", unit: nil, label: "Mahlzeiten".loc)
+            statTile(String(format: "%.1f", profile.weightKg), unit: "kg", label: "Aktuell".loc)
         }
     }
 
@@ -156,26 +163,29 @@ struct ProfileView: View {
 
     private var accountList: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("KONTO")
+            Text("KONTO".loc)
                 .font(.fredoka(12, .semibold))
                 .foregroundStyle(.secondary)
                 .padding(.leading, 6)
-            accountRow("Mein Buddy", symbol: "face.smiling.inverse", color: Color(red: 1.0, green: 0.51, blue: 0.6)) {
+            accountRow("Mein Buddy".loc, symbol: "face.smiling.inverse", color: Color(red: 1.0, green: 0.51, blue: 0.6)) {
                 BuddyEditView(profile: profile)
             }
-            accountRow("Persönliche Daten", symbol: "person.fill", color: Color.appAccent) {
+            accountRow("Persönliche Daten".loc, symbol: "person.fill", color: Color.appAccent) {
                 PersonalDetailsView(profile: profile)
             }
-            accountRow("Ziele & Vorgaben", symbol: "target", color: Color(red: 0.42, green: 0.36, blue: 0.91)) {
+            accountRow("Ziele & Vorgaben".loc, symbol: "target", color: Color(red: 0.42, green: 0.36, blue: 0.91)) {
                 GoalsView(profile: profile)
             }
-            accountRow("Fortschritt & Trends", symbol: "chart.line.uptrend.xyaxis", color: Color(red: 0.13, green: 0.66, blue: 0.42)) {
+            accountRow("Fortschritt & Trends".loc, symbol: "chart.line.uptrend.xyaxis", color: Color(red: 0.13, green: 0.66, blue: 0.42)) {
                 ProgressScreen(profile: profile)
             }
-            accountRow("Erinnerungen", symbol: "bell.fill", color: Color(red: 0.24, green: 0.68, blue: 1.0)) {
+            accountRow("Erinnerungen".loc, symbol: "bell.fill", color: Color(red: 0.24, green: 0.68, blue: 1.0)) {
                 RemindersView()
             }
-            accountRow("Hilfe & Support", symbol: "questionmark.circle.fill", color: Color(red: 1.0, green: 0.63, blue: 0.14)) {
+            accountRow("Sprache".loc, symbol: "globe", color: Color(red: 0.2, green: 0.68, blue: 0.62)) {
+                LanguageView()
+            }
+            accountRow("Hilfe & Support".loc, symbol: "questionmark.circle.fill", color: Color(red: 1.0, green: 0.63, blue: 0.14)) {
                 AboutView()
             }
         }
@@ -210,6 +220,60 @@ struct ProfileView: View {
     }
 }
 
+// MARK: - Language
+
+struct LanguageView: View {
+    @State private var lingo = Lingo.shared
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Wähle die Sprache der App.".loc)
+                    .font(.fredoka(13))
+                    .foregroundStyle(.secondary)
+                    .padding(.leading, 6)
+                ForEach(AppLanguage.allCases) { language in
+                    languageRow(language)
+                }
+            }
+            .padding(16)
+        }
+        .background(Theme.background)
+        .navigationTitle("Sprache".loc)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private func languageRow(_ language: AppLanguage) -> some View {
+        let isSelected = lingo.language == language
+        return Button {
+            withAnimation(.snappy) {
+                lingo.language = language
+            }
+        } label: {
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(language.label)
+                        .font(.fredoka(16, .semibold))
+                        .foregroundStyle(Theme.ink)
+                    Text(language.detail)
+                        .font(.fredoka(12))
+                        .foregroundStyle(.secondary)
+                }
+                Spacer()
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .font(.fredoka(19, .semibold))
+                    .foregroundStyle(isSelected ? Color.appAccent : Color(.systemGray3))
+            }
+            .padding(14)
+            .background(Theme.card, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .stroke(isSelected ? Color.appAccent : .clear, lineWidth: 1.5))
+            .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+        }
+        .buttonStyle(.plain)
+    }
+}
+
 // MARK: - Subscreens
 
 struct PersonalDetailsView: View {
@@ -221,27 +285,27 @@ struct PersonalDetailsView: View {
 
     var body: some View {
         Form {
-            Section("Über dich") {
-                TextField("Name", text: $profile.name)
-                Picker("Geschlecht", selection: $profile.sex) {
+            Section("Über dich".loc) {
+                TextField("Name".loc, text: $profile.name)
+                Picker("Geschlecht".loc, selection: $profile.sex) {
                     ForEach(Sex.allCases) { s in Text(s.label).tag(s) }
                 }
-                Stepper("Alter: \(profile.age)", value: $profile.age, in: 14...99)
-                Stepper("Grösse: \(Int(profile.heightCm)) cm", value: $profile.heightCm, in: 130...220, step: 1)
+                Stepper("Alter: %d".loc(profile.age), value: $profile.age, in: 14...99)
+                Stepper("Größe: %d cm".loc(Int(profile.heightCm)), value: $profile.heightCm, in: 130...220, step: 1)
             }
 
-            Section("Neues Gewicht eintragen") {
+            Section("Neues Gewicht eintragen".loc) {
                 HStack {
                     TextField(String(format: "%.1f", profile.weightKg), text: $weightText)
                         .keyboardType(.decimalPad)
                     Text("kg").foregroundStyle(.secondary)
-                    Button("Speichern") { saveWeight() }
+                    Button("Speichern".loc) { saveWeight() }
                         .disabled(parsedWeight == nil)
                         .buttonStyle(.borderedProminent)
                         .tint(Color.appAccent)
                 }
                 if showWeightSaved {
-                    Label("Gespeichert!", systemImage: "checkmark.circle.fill")
+                    Label("Gespeichert!".loc, systemImage: "checkmark.circle.fill")
                         .foregroundStyle(Color.appAccent)
                         .font(.fredoka(13))
                 }
@@ -249,7 +313,7 @@ struct PersonalDetailsView: View {
         }
         .scrollContentBackground(.hidden)
         .background(Theme.background)
-        .navigationTitle("Persönliche Daten")
+        .navigationTitle("Persönliche Daten".loc)
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: profile.sexRaw) { profile.recalculateTarget() }
         .onChange(of: profile.age) { profile.recalculateTarget() }
@@ -280,28 +344,28 @@ struct GoalsView: View {
 
     var body: some View {
         Form {
-            Section("Aktivität & Ziel") {
-                Picker("Aktivität", selection: $profile.activity) {
+            Section("Aktivität & Ziel".loc) {
+                Picker("Aktivität".loc, selection: $profile.activity) {
                     ForEach(ActivityLevel.allCases) { level in Text(level.label).tag(level) }
                 }
-                Picker("Ziel", selection: $profile.goal) {
+                Picker("Ziel".loc, selection: $profile.goal) {
                     ForEach(Goal.allCases) { g in Text(g.label).tag(g) }
                 }
             }
             Section {
-                Stepper("Wasserziel: \(profile.waterGoalGlasses) Gläser",
+                Stepper("Wasserziel: %d Gläser".loc(profile.waterGoalGlasses),
                         value: $profile.waterGoalGlasses, in: 4...16)
             } footer: {
-                Text("1 Glas = 2.5 dl. 8 Gläser entsprechen 2 Litern am Tag.")
+                Text("1 Glas = 2.5 dl. 8 Gläser entsprechen 2 Litern am Tag.".loc)
             }
-            Section("Ergebnis") {
-                LabeledContent("Tagesziel", value: "\(profile.dailyCalorieTarget) kcal")
+            Section("Ergebnis".loc) {
+                LabeledContent("Tagesziel".loc, value: "\(profile.dailyCalorieTarget) kcal")
                 LabeledContent("BMI", value: String(format: "%.1f", profile.bmi))
             }
         }
         .scrollContentBackground(.hidden)
         .background(Theme.background)
-        .navigationTitle("Ziele & Vorgaben")
+        .navigationTitle("Ziele & Vorgaben".loc)
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: profile.activityRaw) { profile.recalculateTarget() }
         .onChange(of: profile.goalRaw) { profile.recalculateTarget() }
@@ -320,7 +384,7 @@ struct RemindersView: View {
                 waterCard
                 mealsCard
                 if permissionDenied {
-                    Label("Benachrichtigungen sind deaktiviert. Erlaube sie in den iOS-Einstellungen für Zwäg.",
+                    Label("Benachrichtigungen sind deaktiviert. Erlaube sie in den iOS-Einstellungen für Zwäg.".loc,
                           systemImage: "bell.slash")
                         .font(.fredoka(13))
                         .foregroundStyle(.secondary)
@@ -329,7 +393,7 @@ struct RemindersView: View {
             .padding(16)
         }
         .background(Theme.background)
-        .navigationTitle("Erinnerungen")
+        .navigationTitle("Erinnerungen".loc)
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: waterOn) { applyChanges() }
         .onChange(of: mealsOn) { applyChanges() }
@@ -341,8 +405,8 @@ struct RemindersView: View {
     private var waterCard: some View {
         Card {
             VStack(spacing: 12) {
-                toggleRow(title: "Wasser trinken",
-                          subtitle: "\(times.water.count)x täglich",
+                toggleRow(title: "Wasser trinken".loc,
+                          subtitle: "%dx täglich".loc(times.water.count),
                           symbol: "drop.fill",
                           color: Color(red: 0.24, green: 0.64, blue: 1.0),
                           isOn: $waterOn)
@@ -377,7 +441,7 @@ struct RemindersView: View {
                                 times.water.append(14 * 60)
                             }
                         } label: {
-                            Label("Zeit hinzufügen", systemImage: "plus")
+                            Label("Zeit hinzufügen".loc, systemImage: "plus")
                                 .font(.fredoka(14, .semibold))
                                 .foregroundStyle(Color.appAccent)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -394,16 +458,16 @@ struct RemindersView: View {
     private var mealsCard: some View {
         Card {
             VStack(spacing: 12) {
-                toggleRow(title: "Mahlzeiten loggen",
-                          subtitle: "Frühstück, Mittag- und Abendessen",
+                toggleRow(title: "Mahlzeiten loggen".loc,
+                          subtitle: "Frühstück, Mittag- und Abendessen".loc,
                           symbol: "fork.knife",
                           color: Color.appAccent,
                           isOn: $mealsOn)
                 if mealsOn {
                     Divider()
-                    mealTimeRow("Frühstück", get: { times.breakfast }, set: { times.breakfast = $0 })
-                    mealTimeRow("Mittagessen", get: { times.lunch }, set: { times.lunch = $0 })
-                    mealTimeRow("Abendessen", get: { times.dinner }, set: { times.dinner = $0 })
+                    mealTimeRow("Frühstück".loc, get: { times.breakfast }, set: { times.breakfast = $0 })
+                    mealTimeRow("Mittagessen".loc, get: { times.lunch }, set: { times.lunch = $0 })
+                    mealTimeRow("Abendessen".loc, get: { times.dinner }, set: { times.dinner = $0 })
                 }
             }
         }
@@ -490,7 +554,7 @@ struct AboutView: View {
                 .foregroundStyle(Color.appAccent)
             Text("Zwäg")
                 .font(.fredoka(22, .semibold))
-            Text("Version 0.1 · Zwäg heisst: fit und wohl. Dein Schweizer Kalorien-Tracker.")
+            Text("Version 0.1 · Zwäg heißt: fit und wohl. Dein Schweizer Kalorien-Tracker.".loc)
                 .font(.fredoka(13))
                 .foregroundStyle(.secondary)
             Text("Nährwertdaten: Schweizer Nährwertdatenbank V7.0, Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV, sowie Open Food Facts. Avatare erstellt mit DiceBear (dicebear.com), Stile Thumbs (CC0) und Avataaars von Pablo Stanley. Schrift: Fredoka (SIL Open Font License). Alle persönlichen Daten bleiben auf deinem Gerät.")
@@ -513,7 +577,7 @@ struct AboutView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Theme.background)
-        .navigationTitle("Hilfe & Support")
+        .navigationTitle("Hilfe & Support".loc)
         .navigationBarTitleDisplayMode(.inline)
     }
 }

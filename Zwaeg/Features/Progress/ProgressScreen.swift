@@ -23,10 +23,10 @@ struct ProgressScreen: View {
 
         var label: String {
             switch self {
-            case .week: return "Letzte 7 Tage"
-            case .month: return "Letzter Monat"
-            case .threeMonths: return "Letzte 3 Monate"
-            case .all: return "Alles"
+            case .week: return "Letzte 7 Tage".loc
+            case .month: return "Letzter Monat".loc
+            case .threeMonths: return "Letzte 3 Monate".loc
+            case .all: return "Alles".loc
             }
         }
 
@@ -70,10 +70,10 @@ struct ProgressScreen: View {
             }
             .buttonStyle(.plain)
             VStack(alignment: .leading, spacing: 1) {
-                Text("Meine Aktivität")
+                Text("Meine Aktivität".loc)
                     .font(.fredoka(22, .semibold))
                     .foregroundStyle(Theme.ink)
-                Text("Diese Woche")
+                Text("Diese Woche".loc)
                     .font(.fredoka(13))
                     .foregroundStyle(.secondary)
             }
@@ -116,12 +116,12 @@ struct ProgressScreen: View {
     private var statTiles: some View {
         HStack(spacing: 12) {
             statTile(value: "\(weeklyAverage)",
-                     label: "kcal Ø / Tag",
+                     label: "kcal Ø / Tag".loc,
                      background: AnyShapeStyle(LinearGradient(
                         colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
                         startPoint: .topLeading, endPoint: .bottomTrailing)))
             statTile(value: monthWeightDelta.map { String(format: "%+.1f", $0) } ?? "–",
-                     label: "kg diesen Monat",
+                     label: "kg diesen Monat".loc,
                      background: AnyShapeStyle(Theme.ink))
         }
     }
@@ -153,11 +153,11 @@ struct ProgressScreen: View {
         return Card {
             VStack(alignment: .leading, spacing: 14) {
                 HStack {
-                    Text("Kalorien")
+                    Text("Kalorien".loc)
                         .font(.fredoka(17, .semibold))
                         .foregroundStyle(Theme.ink)
                     Spacer()
-                    Text("Ziel \(profile.dailyCalorieTarget)")
+                    Text("Ziel %@".loc(profile.dailyCalorieTarget.formatted()))
                         .font(.fredoka(12, .semibold))
                         .foregroundStyle(.secondary)
                 }
@@ -214,7 +214,7 @@ struct ProgressScreen: View {
         Card {
             VStack(alignment: .leading, spacing: 14) {
                 HStack {
-                    Text("Gewichtsverlauf")
+                    Text("Gewichtsverlauf".loc)
                         .font(.fredoka(17, .semibold))
                         .foregroundStyle(Theme.ink)
                     Spacer()
@@ -232,7 +232,7 @@ struct ProgressScreen: View {
                 }
 
                 if filteredWeights.count < 2 {
-                    Text("Trage regelmässig dein Gewicht im Profil ein, um den Verlauf zu sehen.")
+                    Text("Trage regelmäßig dein Gewicht im Profil ein, um den Verlauf zu sehen.".loc)
                         .font(.fredoka(13))
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, minHeight: 80)

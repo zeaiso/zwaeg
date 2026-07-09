@@ -97,7 +97,7 @@ struct ValueField: View {
             if isFocused {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
-                    Button("Fertig") { isFocused = false }
+                    Button("Fertig".loc) { isFocused = false }
                         .fontWeight(.semibold)
                 }
             }
@@ -150,7 +150,7 @@ struct BigValueField: View {
             if isFocused {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
-                    Button("Fertig") { isFocused = false }
+                    Button("Fertig".loc) { isFocused = false }
                         .fontWeight(.semibold)
                 }
             }
