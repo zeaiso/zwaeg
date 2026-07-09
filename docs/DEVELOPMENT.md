@@ -28,6 +28,7 @@ Useful for driving the app from the CLI or Xcode scheme arguments:
 | `-open-calc <name>` | Opens a calculator (`bmi`, `ideal`, `needs`, `burn`, combine with `-tab 3`) |
 | `-open-fasting` | Opens the fasting screen |
 | `-open-recipe <id>` | Opens a recipe detail page, first recipe if the id is unknown (combine with `-tab 5`) |
+| `-open-shopping-list` | Opens the shopping list sheet, seeded with one recipe when empty (combine with `-tab 5`) |
 | `-open-calendar` | Opens the calendar sheet |
 | `-open-details` | Opens the day details page |
 | `-open-progress` | Opens the progress screen (combine with `-tab 4`) |
