@@ -41,11 +41,12 @@ struct AddFoodView: View {
                 searchField
                 mealChips
                 scanBanner
+                copyYesterdayBanner
                 loggedSection
                 if query.trimmingCharacters(in: .whitespaces).count >= 2 {
-                    sectionLabel("ERGEBNISSE")
+                    sectionLabel("ERGEBNISSE".loc)
                     if searchResults.isEmpty {
-                        Text("Nichts gefunden. Scanne den Barcode oder trage es als eigenes Lebensmittel ein.")
+                        Text("Nichts gefunden. Scanne den Barcode oder trage es als eigenes Lebensmittel ein.".loc)
                             .font(.fredoka(13))
                             .foregroundStyle(.secondary)
                     }
@@ -80,7 +81,7 @@ struct AddFoodView: View {
                     .shadow(color: Theme.ink.opacity(0.05), radius: 5, y: 2)
             }
             .buttonStyle(.plain)
-            Text("Essen hinzufügen")
+            Text("Essen hinzufügen".loc)
                 .font(.fredoka(22, .semibold))
                 .foregroundStyle(Theme.ink)
             Spacer()
@@ -91,7 +92,7 @@ struct AddFoodView: View {
         HStack(spacing: 10) {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(.secondary)
-            TextField("Lebensmittel suchen...", text: $query)
+            TextField("Lebensmittel suchen...".loc, text: $query)
                 .autocorrectionDisabled()
         }
         .padding(14)
@@ -133,9 +134,9 @@ struct AddFoodView: View {
                     .frame(width: 44, height: 44)
                     .background(.white.opacity(0.25), in: RoundedRectangle(cornerRadius: 13, style: .continuous))
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("Scanne dein Essen")
+                    Text("Scanne dein Essen".loc)
                         .font(.fredoka(17, .semibold))
-                    Text("Barcode scannen, in Sekunden geloggt")
+                    Text("Barcode scannen, in Sekunden geloggt".loc)
                         .font(.fredoka(12))
                         .opacity(0.9)
                 }
@@ -154,13 +155,68 @@ struct AddFoodView: View {
         .buttonStyle(.plain)
     }
 
+    // MARK: - Copy yesterday (one tap repeats the same meal from the day before)
+
+    private var yesterdayEntries: [FoodEntry] {
+        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: day) else { return [] }
+        return allEntries.filter { $0.day == yesterday && $0.meal == meal }
+    }
+
+    @ViewBuilder
+    private var copyYesterdayBanner: some View {
+        if mealEntries.isEmpty, !yesterdayEntries.isEmpty {
+            let kcal = yesterdayEntries.reduce(0) { $0 + $1.calories }
+            Button {
+                copyFromYesterday()
+            } label: {
+                HStack(spacing: 12) {
+                    Image(systemName: "arrow.counterclockwise")
+                        .font(.fredoka(17, .semibold))
+                        .foregroundStyle(Color.appAccent)
+                        .frame(width: 44, height: 44)
+                        .background(Theme.accentSoft, in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Wie gestern".loc)
+                            .font(.fredoka(15, .semibold))
+                            .foregroundStyle(Theme.ink)
+                        Text((yesterdayEntries.count == 1
+                                ? "%d Eintrag · %d kcal übernehmen"
+                                : "%d Einträge · %d kcal übernehmen").loc(yesterdayEntries.count, kcal))
+                            .font(.fredoka(12))
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Image(systemName: "plus")
+                        .font(.fredoka(15, .semibold))
+                        .foregroundStyle(Color.appAccent)
+                        .frame(width: 32, height: 32)
+                        .background(Theme.accentSoft, in: Circle())
+                }
+                .padding(12)
+                .background(Theme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+            }
+            .buttonStyle(.plain)
+        }
+    }
+
+    private func copyFromYesterday() {
+        withAnimation(.snappy) {
+            for entry in yesterdayEntries {
+                context.insert(FoodEntry(day: day, meal: meal, name: entry.name,
+                                         calories: entry.calories, proteinG: entry.proteinG,
+                                         carbsG: entry.carbsG, fatG: entry.fatG))
+            }
+        }
+    }
+
     // MARK: - Already logged in this meal
 
     @ViewBuilder
     private var loggedSection: some View {
         if !mealEntries.isEmpty {
             let total = mealEntries.reduce(0) { $0 + $1.calories }
-            sectionLabel("IN \(meal.label.uppercased()) · \(total) KCAL")
+            sectionLabel("IN %@ · %d KCAL".loc(meal.label.uppercased(), total))
             ForEach(mealEntries) { entry in
                 HStack(spacing: 12) {
                     RoundedRectangle(cornerRadius: 13, style: .continuous)
@@ -275,20 +331,20 @@ struct AddFoodView: View {
     private var manualFallback: some View {
         if showManual {
             VStack(alignment: .leading, spacing: 10) {
-                sectionLabel("EIGENES LEBENSMITTEL")
+                sectionLabel("EIGENES LEBENSMITTEL".loc)
                 VStack(spacing: 10) {
-                    TextField("Name (z.B. Zopf mit Butter)", text: $manualName)
+                    TextField("Name (z.B. Zopf mit Butter)".loc, text: $manualName)
                         .padding(12)
                         .background(Theme.field, in: RoundedRectangle(cornerRadius: 12))
                     HStack(spacing: 10) {
-                        TextField("Kalorien", text: $manualKcal)
+                        TextField("Kalorien".loc, text: $manualKcal)
                             .keyboardType(.numberPad)
                             .padding(12)
                             .background(Theme.field, in: RoundedRectangle(cornerRadius: 12))
                         Button {
                             addManual()
                         } label: {
-                            Text("Hinzufügen")
+                            Text("Hinzufügen".loc)
                                 .font(.fredoka(15, .semibold))
                                 .padding(.horizontal, 16)
                                 .padding(.vertical, 12)
@@ -308,7 +364,7 @@ struct AddFoodView: View {
             Button {
                 withAnimation(.snappy) { showManual = true }
             } label: {
-                Text("Nicht scannbar? Eigenes Lebensmittel eintragen")
+                Text("Nicht scannbar? Eigenes Lebensmittel eintragen".loc)
                     .font(.fredoka(13, .medium))
                     .foregroundStyle(Color.appAccent)
                     .frame(maxWidth: .infinity)
