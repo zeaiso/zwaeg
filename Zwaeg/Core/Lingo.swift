@@ -17,8 +17,20 @@ enum AppLanguage: String, CaseIterable, Identifiable {
     case spanish = "es"
     case turkish = "tr"
     case polish = "pl"
+    case danish = "da"
+    case norwegian = "nb"
+    case swedish = "sv"
+    case dutch = "nl"
 
     var id: String { rawValue }
+
+    /// The four national-language options shown in the picker's Swiss section.
+    var isSwiss: Bool {
+        switch self {
+        case .german, .swissGerman, .french, .italian: return true
+        default: return false
+        }
+    }
 
     /// Native name, shown in the picker.
     var label: String {
@@ -35,6 +47,10 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         case .spanish: return "Español"
         case .turkish: return "Türkçe"
         case .polish: return "Polski"
+        case .danish: return "Dansk"
+        case .norwegian: return "Norsk"
+        case .swedish: return "Svenska"
+        case .dutch: return "Nederlands"
         }
     }
 
@@ -52,6 +68,10 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         case .spanish: return "Spanisch"
         case .turkish: return "Türkisch"
         case .polish: return "Polnisch"
+        case .danish: return "Dänisch"
+        case .norwegian: return "Norwegisch"
+        case .swedish: return "Schwedisch"
+        case .dutch: return "Niederländisch"
         }
     }
 }

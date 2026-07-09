@@ -232,7 +232,13 @@ struct LanguageView: View {
                     .font(.fredoka(13))
                     .foregroundStyle(.secondary)
                     .padding(.leading, 6)
-                ForEach(AppLanguage.allCases) { language in
+                sectionLabel("Schweizer Sprachen".loc)
+                ForEach(AppLanguage.allCases.filter(\.isSwiss)) { language in
+                    languageRow(language)
+                }
+                sectionLabel("Weitere Sprachen".loc)
+                    .padding(.top, 10)
+                ForEach(AppLanguage.allCases.filter { !$0.isSwiss }) { language in
                     languageRow(language)
                 }
             }
@@ -241,6 +247,13 @@ struct LanguageView: View {
         .background(Theme.background)
         .navigationTitle("Sprache".loc)
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private func sectionLabel(_ text: String) -> some View {
+        Text(text.uppercased())
+            .font(.fredoka(12, .semibold))
+            .foregroundStyle(.secondary)
+            .padding(.leading, 6)
     }
 
     private func languageRow(_ language: AppLanguage) -> some View {
