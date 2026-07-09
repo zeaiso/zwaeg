@@ -1,0 +1,837 @@
+[
+  {
+    "id": "randensalat",
+    "name": "Randen-Apfel-Salat",
+    "category": "salad",
+    "minutes": 20,
+    "servings": 2,
+    "gramsPerServing": 300,
+    "kcal": 220,
+    "proteinG": 8,
+    "carbsG": 24,
+    "fatG": 10,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🍎",
+    "ingredients": [
+      "400 g gekochte Randen",
+      "1 Apfel",
+      "100 g Frischkäse",
+      "1 EL Baumnüsse",
+      "2 EL Apfelessig",
+      "1 EL Rapsöl",
+      "1 TL Meerrettich",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Randen und Apfel in feine Scheiben hobeln.",
+      "Essig, Öl und Meerrettich zu einer Sauce rühren.",
+      "Anrichten und mit Frischkäse-Tupfern und Nüssen servieren."
+    ]
+  },
+  {
+    "id": "nuesslisalat",
+    "name": "Nüsslisalat mit Ei und Croûtons",
+    "category": "salad",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 220,
+    "kcal": 260,
+    "proteinG": 13,
+    "carbsG": 14,
+    "fatG": 17,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🥚",
+    "ingredients": [
+      "150 g Nüsslisalat",
+      "2 Eier",
+      "1 Scheibe Vollkornbrot",
+      "1 EL Rapsöl",
+      "1 EL Apfelessig",
+      "1 TL Senf",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Eier hart kochen, Brotwürfel knusprig rösten.",
+      "Aus Öl, Essig und Senf eine Sauce rühren.",
+      "Nüsslisalat mit Eierschnitzen und Croûtons anrichten."
+    ]
+  },
+  {
+    "id": "wurst-kaese-salat",
+    "name": "Wurst-Käse-Salat light",
+    "category": "salad",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 280,
+    "kcal": 340,
+    "proteinG": 24,
+    "carbsG": 10,
+    "fatG": 23,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🧀",
+    "ingredients": [
+      "150 g Geflügel-Lyoner",
+      "100 g Gruyère",
+      "1 kleine Zwiebel",
+      "2 Essiggurken",
+      "2 EL Weissweinessig",
+      "1 EL Rapsöl",
+      "1 TL Senf",
+      "Schnittlauch"
+    ],
+    "steps": [
+      "Wurst und Käse in feine Streifen schneiden.",
+      "Zwiebelringe und Gurkenscheiben zugeben.",
+      "Mit Essig, Öl und Senf mischen und mit Schnittlauch servieren."
+    ]
+  },
+  {
+    "id": "rueblisalat",
+    "name": "Rüeblisalat mit Orangen",
+    "category": "salad",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 220,
+    "kcal": 160,
+    "proteinG": 3,
+    "carbsG": 22,
+    "fatG": 7,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": true,
+    "emoji": "🥕",
+    "ingredients": [
+      "400 g Rüebli",
+      "1 Orange",
+      "1 EL Rapsöl",
+      "1 EL Zitronensaft",
+      "1 TL Honig oder Ahornsirup",
+      "1 EL Sonnenblumenkerne"
+    ],
+    "steps": [
+      "Rüebli fein raffeln.",
+      "Orangenfilets und Saft mit Öl und Ahornsirup mischen.",
+      "Alles vermengen und mit Kernen bestreuen."
+    ]
+  },
+  {
+    "id": "griechischer-salat",
+    "name": "Griechischer Salat",
+    "category": "salad",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 320,
+    "kcal": 280,
+    "proteinG": 10,
+    "carbsG": 12,
+    "fatG": 21,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🫒",
+    "ingredients": [
+      "3 Tomaten",
+      "1 Gurke",
+      "1 rote Zwiebel",
+      "100 g Feta",
+      "Ein paar Oliven",
+      "2 EL Olivenöl",
+      "Oregano, Salz, Pfeffer"
+    ],
+    "steps": [
+      "Gemüse in grobe Stücke schneiden.",
+      "Mit Oliven und Olivenöl mischen.",
+      "Feta darüberbröckeln und mit Oregano würzen."
+    ]
+  },
+  {
+    "id": "caprese",
+    "name": "Caprese mit Burrata light",
+    "category": "salad",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 250,
+    "kcal": 260,
+    "proteinG": 13,
+    "carbsG": 8,
+    "fatG": 19,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍅",
+    "ingredients": [
+      "3 Tomaten",
+      "125 g Mozzarella light",
+      "1 Bund Basilikum",
+      "1 EL Olivenöl",
+      "1 TL Balsamico",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Tomaten und Mozzarella in Scheiben schneiden.",
+      "Abwechselnd anrichten.",
+      "Mit Basilikum, Öl und Balsamico beträufeln."
+    ]
+  },
+  {
+    "id": "quinoa-salat",
+    "name": "Quinoa-Salat mit Gemüse",
+    "category": "salad",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 320,
+    "kcal": 340,
+    "proteinG": 12,
+    "carbsG": 46,
+    "fatG": 12,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥗",
+    "ingredients": [
+      "120 g Quinoa",
+      "1 Gurke",
+      "150 g Cherrytomaten",
+      "1 Peperoni",
+      "1 Bund Peterli",
+      "2 EL Olivenöl",
+      "1 Zitrone",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Quinoa nach Packungsangabe kochen und auskühlen lassen.",
+      "Gemüse fein würfeln und untermischen.",
+      "Mit Öl, Zitronensaft und Peterli abschmecken."
+    ]
+  },
+  {
+    "id": "linsensalat",
+    "name": "Linsensalat mit Feta",
+    "category": "salad",
+    "minutes": 30,
+    "servings": 2,
+    "gramsPerServing": 300,
+    "kcal": 360,
+    "proteinG": 19,
+    "carbsG": 38,
+    "fatG": 14,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥗",
+    "ingredients": [
+      "150 g Belugalinsen",
+      "100 g Feta",
+      "1 rote Zwiebel",
+      "150 g Cherrytomaten",
+      "2 EL Olivenöl",
+      "1 EL Balsamico",
+      "Peterli, Salz, Pfeffer"
+    ],
+    "steps": [
+      "Linsen 20 Minuten bissfest kochen und abkühlen lassen.",
+      "Zwiebel und Tomaten klein schneiden und untermischen.",
+      "Mit Öl und Balsamico anmachen und Feta darüberbröckeln."
+    ]
+  },
+  {
+    "id": "kichererbsensalat",
+    "name": "Kichererbsensalat",
+    "category": "salad",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 300,
+    "kcal": 320,
+    "proteinG": 13,
+    "carbsG": 38,
+    "fatG": 12,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🧆",
+    "ingredients": [
+      "1 Dose Kichererbsen",
+      "1 Gurke",
+      "150 g Cherrytomaten",
+      "1 rote Zwiebel",
+      "2 EL Olivenöl",
+      "1 Zitrone",
+      "Kreuzkümmel, Peterli"
+    ],
+    "steps": [
+      "Kichererbsen abspülen und abtropfen lassen.",
+      "Gemüse würfeln und alles mischen.",
+      "Mit Öl, Zitrone und Kreuzkümmel abschmecken."
+    ]
+  },
+  {
+    "id": "couscous-salat",
+    "name": "Couscous-Salat",
+    "category": "salad",
+    "minutes": 20,
+    "servings": 2,
+    "gramsPerServing": 300,
+    "kcal": 330,
+    "proteinG": 10,
+    "carbsG": 50,
+    "fatG": 10,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥗",
+    "ingredients": [
+      "120 g Couscous",
+      "1 Peperoni",
+      "1 Gurke",
+      "1 Handvoll Minze",
+      "2 EL Olivenöl",
+      "1 Zitrone",
+      "Salz, Paprika"
+    ],
+    "steps": [
+      "Couscous mit heisser Bouillon übergiessen und quellen lassen.",
+      "Gemüse fein würfeln und untermischen.",
+      "Mit Öl, Zitrone und Minze abschmecken."
+    ]
+  },
+  {
+    "id": "taboule",
+    "name": "Taboulé",
+    "category": "salad",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 280,
+    "kcal": 280,
+    "proteinG": 8,
+    "carbsG": 40,
+    "fatG": 10,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🌿",
+    "ingredients": [
+      "100 g Bulgur",
+      "2 Bund glatte Peterli",
+      "1 Bund Minze",
+      "3 Tomaten",
+      "2 EL Olivenöl",
+      "1 Zitrone",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Bulgur quellen lassen und abkühlen.",
+      "Kräuter fein hacken, Tomaten würfeln.",
+      "Alles mischen und kräftig mit Zitrone abschmecken."
+    ]
+  },
+  {
+    "id": "caesar-light",
+    "name": "Poulet-Caesar-Salat light",
+    "category": "salad",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 330,
+    "kcal": 380,
+    "proteinG": 35,
+    "carbsG": 18,
+    "fatG": 18,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥗",
+    "ingredients": [
+      "250 g Pouletbrust",
+      "1 Römersalat",
+      "1 Scheibe Vollkornbrot",
+      "100 g Joghurt",
+      "1 TL Senf",
+      "20 g Parmesan",
+      "1 Knoblauchzehe",
+      "Zitronensaft"
+    ],
+    "steps": [
+      "Poulet braten und in Streifen schneiden, Brotwürfel rösten.",
+      "Joghurt, Senf, Knoblauch, Parmesan und Zitrone zur Sauce rühren.",
+      "Salat mit Poulet, Croûtons und Sauce anrichten."
+    ]
+  },
+  {
+    "id": "thunfischsalat",
+    "name": "Thonsalat mit Bohnen",
+    "category": "salad",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 300,
+    "kcal": 310,
+    "proteinG": 27,
+    "carbsG": 22,
+    "fatG": 12,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🐟",
+    "ingredients": [
+      "1 Dose Thon in Wasser",
+      "1 Dose weisse Bohnen",
+      "1 rote Zwiebel",
+      "150 g Cherrytomaten",
+      "2 EL Olivenöl",
+      "1 EL Weissweinessig",
+      "Peterli"
+    ],
+    "steps": [
+      "Thon und Bohnen abtropfen lassen.",
+      "Zwiebel und Tomaten klein schneiden.",
+      "Alles mit Öl und Essig mischen und mit Peterli servieren."
+    ]
+  },
+  {
+    "id": "nizza-salat",
+    "name": "Salade Niçoise",
+    "category": "salad",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 380,
+    "kcal": 380,
+    "proteinG": 28,
+    "carbsG": 22,
+    "fatG": 19,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🫒",
+    "ingredients": [
+      "1 Dose Thon",
+      "2 Eier",
+      "200 g grüne Bohnen",
+      "200 g Kartoffeln",
+      "Ein paar Oliven",
+      "2 EL Olivenöl",
+      "1 EL Essig",
+      "1 TL Senf"
+    ],
+    "steps": [
+      "Kartoffeln, Bohnen und Eier kochen und abkühlen lassen.",
+      "Alles auf Blattsalat anrichten.",
+      "Mit Thon, Oliven und Senfvinaigrette servieren."
+    ]
+  },
+  {
+    "id": "poke-bowl-lachs",
+    "name": "Poke Bowl mit Lachs",
+    "category": "salad",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 400,
+    "kcal": 480,
+    "proteinG": 28,
+    "carbsG": 52,
+    "fatG": 17,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍣",
+    "ingredients": [
+      "200 g Lachs in Sushi-Qualität",
+      "120 g Sushireis",
+      "1 Avocado, klein",
+      "1 Gurke",
+      "100 g Edamame",
+      "2 EL Sojasauce",
+      "1 TL Sesamöl",
+      "Sesam"
+    ],
+    "steps": [
+      "Reis kochen und abkühlen lassen.",
+      "Lachs würfeln und in Sojasauce und Sesamöl marinieren.",
+      "Alles in Schalen anrichten und mit Sesam bestreuen."
+    ]
+  },
+  {
+    "id": "birnen-rucola",
+    "name": "Birnen-Rucola-Salat",
+    "category": "salad",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 200,
+    "kcal": 220,
+    "proteinG": 7,
+    "carbsG": 18,
+    "fatG": 13,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍐",
+    "ingredients": [
+      "100 g Rucola",
+      "1 Birne",
+      "30 g Parmesan",
+      "1 EL Baumnüsse",
+      "1 EL Olivenöl",
+      "1 TL Balsamico",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Rucola waschen und Birne in Schnitze schneiden.",
+      "Mit Öl und Balsamico anmachen.",
+      "Mit Parmesanspänen und Nüssen servieren."
+    ]
+  },
+  {
+    "id": "panzanella",
+    "name": "Panzanella",
+    "category": "salad",
+    "minutes": 20,
+    "servings": 2,
+    "gramsPerServing": 300,
+    "kcal": 290,
+    "proteinG": 8,
+    "carbsG": 36,
+    "fatG": 13,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍞",
+    "ingredients": [
+      "150 g Brot vom Vortag",
+      "4 reife Tomaten",
+      "1 rote Zwiebel",
+      "1 Gurke",
+      "2 EL Olivenöl",
+      "1 EL Rotweinessig",
+      "Basilikum"
+    ],
+    "steps": [
+      "Brotwürfel knusprig rösten.",
+      "Tomaten, Gurke und Zwiebel schneiden.",
+      "Alles mit Öl, Essig und Basilikum mischen und kurz ziehen lassen."
+    ]
+  },
+  {
+    "id": "gurkensalat-joghurt",
+    "name": "Gurkensalat mit Joghurt",
+    "category": "salad",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 220,
+    "kcal": 90,
+    "proteinG": 5,
+    "carbsG": 9,
+    "fatG": 4,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥒",
+    "ingredients": [
+      "1 grosse Gurke",
+      "150 g Joghurt",
+      "1 Knoblauchzehe",
+      "1 TL Olivenöl",
+      "Dill, Salz, Pfeffer"
+    ],
+    "steps": [
+      "Gurke fein hobeln und leicht salzen.",
+      "Joghurt mit Knoblauch und Dill verrühren.",
+      "Mischen und kalt servieren."
+    ]
+  },
+  {
+    "id": "weisskabissalat",
+    "name": "Weisskabissalat",
+    "category": "salad",
+    "minutes": 15,
+    "servings": 4,
+    "gramsPerServing": 180,
+    "kcal": 120,
+    "proteinG": 3,
+    "carbsG": 12,
+    "fatG": 7,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥬",
+    "ingredients": [
+      "500 g Weisskabis",
+      "1 Rüebli",
+      "2 EL Rapsöl",
+      "2 EL Apfelessig",
+      "1 TL Senf",
+      "1 TL Kümmel",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Kabis fein hobeln und mit Salz kräftig kneten.",
+      "Rüebli raffeln und zugeben.",
+      "Mit Öl, Essig, Senf und Kümmel anmachen und ziehen lassen."
+    ]
+  },
+  {
+    "id": "brokkoli-apfel-salat",
+    "name": "Brokkoli-Apfel-Salat",
+    "category": "salad",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 250,
+    "kcal": 210,
+    "proteinG": 8,
+    "carbsG": 20,
+    "fatG": 11,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥦",
+    "ingredients": [
+      "1 Brokkoli",
+      "1 Apfel",
+      "100 g Joghurt",
+      "1 TL Senf",
+      "1 EL Sultaninen",
+      "1 EL Sonnenblumenkerne",
+      "Zitronensaft"
+    ],
+    "steps": [
+      "Brokkoliröschen 3 Minuten blanchieren und abschrecken.",
+      "Apfel würfeln, Sauce aus Joghurt, Senf und Zitrone rühren.",
+      "Alles mischen und mit Kernen bestreuen."
+    ]
+  },
+  {
+    "id": "wassermelone-feta",
+    "name": "Wassermelonen-Feta-Salat",
+    "category": "salad",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 300,
+    "kcal": 230,
+    "proteinG": 9,
+    "carbsG": 22,
+    "fatG": 12,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍉",
+    "ingredients": [
+      "500 g Wassermelone",
+      "100 g Feta",
+      "Ein paar Minzblätter",
+      "1 EL Olivenöl",
+      "1 TL Limettensaft",
+      "Pfeffer"
+    ],
+    "steps": [
+      "Melone in Würfel schneiden.",
+      "Feta darüberbröckeln.",
+      "Mit Minze, Öl, Limette und Pfeffer anrichten."
+    ]
+  },
+  {
+    "id": "spinat-erdbeer-salat",
+    "name": "Spinat-Erdbeer-Salat",
+    "category": "salad",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 220,
+    "kcal": 200,
+    "proteinG": 6,
+    "carbsG": 16,
+    "fatG": 13,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍓",
+    "ingredients": [
+      "100 g Babyspinat",
+      "200 g Erdbeeren",
+      "50 g Ziegenfrischkäse",
+      "1 EL Pistazien",
+      "1 EL Olivenöl",
+      "1 TL Balsamico"
+    ],
+    "steps": [
+      "Spinat und geviertelte Erdbeeren mischen.",
+      "Mit Öl und Balsamico anmachen.",
+      "Mit Frischkäse und Pistazien toppen."
+    ]
+  },
+  {
+    "id": "avocado-tomaten-salat",
+    "name": "Avocado-Tomaten-Salat",
+    "category": "salad",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 250,
+    "kcal": 250,
+    "proteinG": 4,
+    "carbsG": 12,
+    "fatG": 20,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥑",
+    "ingredients": [
+      "1 Avocado",
+      "3 Tomaten",
+      "1 rote Zwiebel",
+      "1 EL Olivenöl",
+      "1 Limette",
+      "Koriander oder Peterli",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Avocado und Tomaten würfeln.",
+      "Zwiebel fein schneiden und zugeben.",
+      "Mit Öl, Limette und Kräutern abschmecken."
+    ]
+  },
+  {
+    "id": "selleriesalat",
+    "name": "Selleriesalat mit Apfel",
+    "category": "salad",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 220,
+    "kcal": 180,
+    "proteinG": 5,
+    "carbsG": 18,
+    "fatG": 10,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🍏",
+    "ingredients": [
+      "300 g Knollensellerie",
+      "1 Apfel",
+      "100 g Joghurt",
+      "1 TL Mayonnaise",
+      "1 EL Baumnüsse",
+      "Zitronensaft, Salz"
+    ],
+    "steps": [
+      "Sellerie und Apfel fein raffeln.",
+      "Mit Zitronensaft mischen.",
+      "Joghurtsauce unterrühren und mit Nüssen servieren."
+    ]
+  },
+  {
+    "id": "fenchel-orangen-salat",
+    "name": "Fenchel-Orangen-Salat",
+    "category": "salad",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 250,
+    "kcal": 170,
+    "proteinG": 4,
+    "carbsG": 20,
+    "fatG": 9,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍊",
+    "ingredients": [
+      "2 Fenchelknollen",
+      "2 Orangen",
+      "1 EL Olivenöl",
+      "Ein paar Oliven",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Fenchel fein hobeln.",
+      "Orangen filetieren und den Saft auffangen.",
+      "Mit Öl und Orangensaft anmachen und mit Oliven servieren."
+    ]
+  },
+  {
+    "id": "bulgursalat-granatapfel",
+    "name": "Bulgursalat mit Granatapfel",
+    "category": "salad",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 300,
+    "kcal": 320,
+    "proteinG": 9,
+    "carbsG": 52,
+    "fatG": 9,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥗",
+    "ingredients": [
+      "120 g Bulgur",
+      "1 Granatapfel",
+      "1 Bund Peterli",
+      "1 Bund Minze",
+      "2 EL Olivenöl",
+      "1 Zitrone",
+      "Salz, Paprika"
+    ],
+    "steps": [
+      "Bulgur quellen lassen und abkühlen.",
+      "Granatapfelkerne herauslösen.",
+      "Alles mit Kräutern, Öl und Zitrone mischen."
+    ]
+  },
+  {
+    "id": "tomaten-mozzarella-pasta-salat",
+    "name": "Pasta-Salat mit Tomaten",
+    "category": "salad",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 320,
+    "kcal": 380,
+    "proteinG": 15,
+    "carbsG": 52,
+    "fatG": 13,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍝",
+    "ingredients": [
+      "150 g Vollkorn-Penne",
+      "150 g Cherrytomaten",
+      "125 g Mozzarella light",
+      "1 EL Olivenöl",
+      "1 TL Balsamico",
+      "Basilikum, Rucola"
+    ],
+    "steps": [
+      "Penne kochen und abkühlen lassen.",
+      "Tomaten und Mozzarella würfeln.",
+      "Alles mit Öl, Balsamico und Basilikum mischen."
+    ]
+  },
+  {
+    "id": "rettich-karotten-salat",
+    "name": "Rettich-Rüebli-Salat",
+    "category": "salad",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 200,
+    "kcal": 110,
+    "proteinG": 3,
+    "carbsG": 12,
+    "fatG": 6,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥕",
+    "ingredients": [
+      "1 Rettich",
+      "2 Rüebli",
+      "1 EL Sesamöl",
+      "1 EL Reisessig",
+      "1 TL Sojasauce",
+      "Sesam"
+    ],
+    "steps": [
+      "Rettich und Rüebli fein hobeln.",
+      "Mit Öl, Essig und Sojasauce anmachen.",
+      "Mit Sesam bestreuen."
+    ]
+  }
+]

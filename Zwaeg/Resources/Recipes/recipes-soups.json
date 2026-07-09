@@ -1,0 +1,782 @@
+[
+  {
+    "id": "rueblisuppe",
+    "name": "Rüeblisuppe mit Ingwer",
+    "category": "soup",
+    "minutes": 30,
+    "servings": 4,
+    "gramsPerServing": 350,
+    "kcal": 180,
+    "proteinG": 4,
+    "carbsG": 22,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🥕",
+    "ingredients": [
+      "600 g Rüebli",
+      "1 Zwiebel",
+      "1 Stück Ingwer, ca. 2 cm",
+      "1 EL Rapsöl",
+      "8 dl Gemüsebouillon",
+      "1 dl Halbrahm",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Zwiebel und Ingwer im Öl andämpfen.",
+      "Rüebli in Stücken zugeben, mit Bouillon ablöschen und 20 Minuten weich kochen.",
+      "Fein pürieren, Rahm einrühren und abschmecken."
+    ]
+  },
+  {
+    "id": "kuerbissuppe",
+    "name": "Kürbissuppe",
+    "category": "soup",
+    "minutes": 35,
+    "servings": 4,
+    "gramsPerServing": 350,
+    "kcal": 210,
+    "proteinG": 5,
+    "carbsG": 28,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🎃",
+    "ingredients": [
+      "800 g Kürbis, z.B. Butternuss",
+      "1 Zwiebel",
+      "1 Kartoffel",
+      "1 EL Olivenöl",
+      "8 dl Gemüsebouillon",
+      "1 dl Kokosmilch",
+      "Muskat, Salz, Pfeffer"
+    ],
+    "steps": [
+      "Zwiebel im Öl glasig dünsten, Kürbis und Kartoffel in Würfeln mitdämpfen.",
+      "Mit Bouillon ablöschen und 20 Minuten kochen.",
+      "Pürieren, Kokosmilch einrühren und mit Muskat abschmecken."
+    ]
+  },
+  {
+    "id": "gerstensuppe",
+    "name": "Bündner Gerstensuppe",
+    "category": "soup",
+    "minutes": 45,
+    "servings": 4,
+    "gramsPerServing": 400,
+    "kcal": 320,
+    "proteinG": 16,
+    "carbsG": 42,
+    "fatG": 9,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🌾",
+    "ingredients": [
+      "100 g Rollgerste",
+      "60 g Bündnerfleisch, gewürfelt",
+      "1 Lauchstange",
+      "2 Rüebli",
+      "1 Sellerie, klein",
+      "1 Zwiebel",
+      "1 l Gemüsebouillon",
+      "1 dl Milch"
+    ],
+    "steps": [
+      "Zwiebel und Gemüse in Würfeln andämpfen.",
+      "Gerste und Bündnerfleisch zugeben, mit Bouillon ablöschen.",
+      "40 Minuten leise köcheln, mit Milch verfeinern und abschmecken."
+    ]
+  },
+  {
+    "id": "basler-mehlsuppe",
+    "name": "Basler Mehlsuppe light",
+    "category": "soup",
+    "minutes": 35,
+    "servings": 4,
+    "gramsPerServing": 300,
+    "kcal": 190,
+    "proteinG": 7,
+    "carbsG": 22,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🥣",
+    "ingredients": [
+      "60 g Mehl",
+      "1 EL Butter",
+      "1 Zwiebel",
+      "1 l Gemüsebouillon",
+      "1 dl Rotwein, optional",
+      "60 g Gruyère, gerieben",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Mehl in einer Pfanne ohne Fett dunkelbraun rösten.",
+      "Butter und Zwiebel zugeben, mit Bouillon ablöschen.",
+      "20 Minuten köcheln und mit Käse servieren."
+    ]
+  },
+  {
+    "id": "marronisuppe",
+    "name": "Marronisuppe",
+    "category": "soup",
+    "minutes": 30,
+    "servings": 4,
+    "gramsPerServing": 300,
+    "kcal": 240,
+    "proteinG": 5,
+    "carbsG": 34,
+    "fatG": 9,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🌰",
+    "ingredients": [
+      "300 g gekochte Marroni",
+      "1 Zwiebel",
+      "1 EL Butter",
+      "8 dl Gemüsebouillon",
+      "1 dl Halbrahm",
+      "1 Lorbeerblatt",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Zwiebel in der Butter andämpfen, Marroni zugeben.",
+      "Mit Bouillon und Lorbeer 15 Minuten köcheln.",
+      "Lorbeer entfernen, pürieren und mit Rahm verfeinern."
+    ]
+  },
+  {
+    "id": "tomatensuppe",
+    "name": "Tomatensuppe mit Basilikum",
+    "category": "soup",
+    "minutes": 25,
+    "servings": 4,
+    "gramsPerServing": 320,
+    "kcal": 140,
+    "proteinG": 4,
+    "carbsG": 16,
+    "fatG": 7,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍅",
+    "ingredients": [
+      "2 Dosen gehackte Tomaten",
+      "1 Zwiebel",
+      "2 Knoblauchzehen",
+      "1 EL Olivenöl",
+      "4 dl Gemüsebouillon",
+      "1 Bund Basilikum",
+      "1 Prise Zucker, Salz, Pfeffer"
+    ],
+    "steps": [
+      "Zwiebel und Knoblauch im Öl andämpfen.",
+      "Tomaten und Bouillon zugeben und 15 Minuten köcheln.",
+      "Pürieren und mit Basilikum abschmecken."
+    ]
+  },
+  {
+    "id": "brokkolisuppe",
+    "name": "Brokkolisuppe",
+    "category": "soup",
+    "minutes": 25,
+    "servings": 4,
+    "gramsPerServing": 320,
+    "kcal": 150,
+    "proteinG": 7,
+    "carbsG": 12,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥦",
+    "ingredients": [
+      "1 Brokkoli",
+      "1 Zwiebel",
+      "1 Kartoffel",
+      "1 EL Rapsöl",
+      "8 dl Gemüsebouillon",
+      "1 dl Milch",
+      "Muskat, Salz"
+    ],
+    "steps": [
+      "Zwiebel im Öl andämpfen, Brokkoli und Kartoffel zugeben.",
+      "Mit Bouillon 15 Minuten weich kochen.",
+      "Pürieren und mit Milch und Muskat abschmecken."
+    ]
+  },
+  {
+    "id": "blumenkohlsuppe",
+    "name": "Blumenkohl-Cremesuppe",
+    "category": "soup",
+    "minutes": 30,
+    "servings": 4,
+    "gramsPerServing": 320,
+    "kcal": 160,
+    "proteinG": 7,
+    "carbsG": 14,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥣",
+    "ingredients": [
+      "1 Blumenkohl",
+      "1 Zwiebel",
+      "1 EL Butter",
+      "8 dl Gemüsebouillon",
+      "1 dl Halbrahm",
+      "Muskat, Salz, Pfeffer"
+    ],
+    "steps": [
+      "Zwiebel in der Butter andämpfen, Blumenkohlröschen zugeben.",
+      "Mit Bouillon 20 Minuten weich kochen.",
+      "Pürieren, Rahm einrühren und abschmecken."
+    ]
+  },
+  {
+    "id": "linsensuppe",
+    "name": "Rote-Linsen-Suppe",
+    "category": "soup",
+    "minutes": 25,
+    "servings": 4,
+    "gramsPerServing": 350,
+    "kcal": 260,
+    "proteinG": 14,
+    "carbsG": 36,
+    "fatG": 6,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍛",
+    "ingredients": [
+      "200 g rote Linsen",
+      "1 Zwiebel",
+      "2 Rüebli",
+      "1 EL Olivenöl",
+      "1 TL Currypulver",
+      "1 l Gemüsebouillon",
+      "1 dl Kokosmilch",
+      "Zitronensaft"
+    ],
+    "steps": [
+      "Zwiebel und Rüebli im Öl andämpfen, Curry mitrösten.",
+      "Linsen und Bouillon zugeben und 15 Minuten köcheln.",
+      "Grob pürieren und mit Kokosmilch und Zitrone abschmecken."
+    ]
+  },
+  {
+    "id": "minestrone",
+    "name": "Minestrone",
+    "category": "soup",
+    "minutes": 40,
+    "servings": 4,
+    "gramsPerServing": 400,
+    "kcal": 220,
+    "proteinG": 9,
+    "carbsG": 32,
+    "fatG": 6,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍲",
+    "ingredients": [
+      "2 Rüebli",
+      "1 Zucchetti",
+      "1 Stange Sellerie",
+      "1 Dose weisse Bohnen",
+      "1 Dose gehackte Tomaten",
+      "60 g kleine Teigwaren",
+      "1 EL Olivenöl",
+      "1 l Gemüsebouillon",
+      "Basilikum"
+    ],
+    "steps": [
+      "Gemüse würfeln und im Öl andämpfen.",
+      "Tomaten und Bouillon zugeben und 20 Minuten köcheln.",
+      "Bohnen und Teigwaren zugeben und weitere 10 Minuten kochen."
+    ]
+  },
+  {
+    "id": "kartoffel-lauch",
+    "name": "Kartoffel-Lauch-Suppe",
+    "category": "soup",
+    "minutes": 30,
+    "servings": 4,
+    "gramsPerServing": 350,
+    "kcal": 190,
+    "proteinG": 6,
+    "carbsG": 28,
+    "fatG": 6,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥔",
+    "ingredients": [
+      "400 g Kartoffeln",
+      "1 Lauchstange",
+      "1 EL Butter",
+      "8 dl Gemüsebouillon",
+      "1 dl Milch",
+      "Muskat, Salz, Pfeffer"
+    ],
+    "steps": [
+      "Lauchringe in der Butter andämpfen.",
+      "Kartoffelwürfel und Bouillon zugeben und 20 Minuten kochen.",
+      "Teilweise pürieren und mit Milch verfeinern."
+    ]
+  },
+  {
+    "id": "zucchettisuppe",
+    "name": "Zucchettisuppe",
+    "category": "soup",
+    "minutes": 25,
+    "servings": 4,
+    "gramsPerServing": 320,
+    "kcal": 130,
+    "proteinG": 5,
+    "carbsG": 10,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥒",
+    "ingredients": [
+      "2 Zucchetti",
+      "1 Zwiebel",
+      "1 EL Olivenöl",
+      "8 dl Gemüsebouillon",
+      "50 g Frischkäse",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Zwiebel im Öl andämpfen, Zucchettiwürfel zugeben.",
+      "Mit Bouillon 15 Minuten kochen.",
+      "Pürieren und Frischkäse einrühren."
+    ]
+  },
+  {
+    "id": "spinat-kartoffel-suppe",
+    "name": "Spinat-Kartoffel-Suppe",
+    "category": "soup",
+    "minutes": 25,
+    "servings": 4,
+    "gramsPerServing": 330,
+    "kcal": 170,
+    "proteinG": 6,
+    "carbsG": 22,
+    "fatG": 7,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥬",
+    "ingredients": [
+      "300 g Kartoffeln",
+      "200 g Blattspinat",
+      "1 Zwiebel",
+      "1 EL Rapsöl",
+      "8 dl Gemüsebouillon",
+      "1 dl Milch",
+      "Muskat"
+    ],
+    "steps": [
+      "Zwiebel im Öl andämpfen, Kartoffeln und Bouillon zugeben.",
+      "15 Minuten kochen, Spinat kurz mitkochen.",
+      "Pürieren und mit Milch und Muskat abschmecken."
+    ]
+  },
+  {
+    "id": "erbsensuppe",
+    "name": "Grüne Erbsensuppe mit Minze",
+    "category": "soup",
+    "minutes": 20,
+    "servings": 4,
+    "gramsPerServing": 320,
+    "kcal": 180,
+    "proteinG": 10,
+    "carbsG": 22,
+    "fatG": 6,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🟢",
+    "ingredients": [
+      "400 g Erbsen, tiefgekühlt",
+      "1 Zwiebel",
+      "1 EL Butter",
+      "8 dl Gemüsebouillon",
+      "1 dl Halbrahm",
+      "Ein paar Minzblätter"
+    ],
+    "steps": [
+      "Zwiebel in der Butter andämpfen.",
+      "Erbsen und Bouillon zugeben und 10 Minuten kochen.",
+      "Mit Minze pürieren und mit Rahm verfeinern."
+    ]
+  },
+  {
+    "id": "randensuppe",
+    "name": "Randensuppe mit Meerrettich",
+    "category": "soup",
+    "minutes": 30,
+    "servings": 4,
+    "gramsPerServing": 330,
+    "kcal": 160,
+    "proteinG": 5,
+    "carbsG": 20,
+    "fatG": 7,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🟣",
+    "ingredients": [
+      "500 g gekochte Randen",
+      "1 Zwiebel",
+      "1 EL Rapsöl",
+      "8 dl Gemüsebouillon",
+      "100 g Joghurt",
+      "1 TL Meerrettich",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Zwiebel im Öl andämpfen, Randenwürfel zugeben.",
+      "Mit Bouillon 15 Minuten köcheln und pürieren.",
+      "Mit Joghurt und Meerrettich servieren."
+    ]
+  },
+  {
+    "id": "sellerie-apfel-suppe",
+    "name": "Sellerie-Apfel-Suppe",
+    "category": "soup",
+    "minutes": 30,
+    "servings": 4,
+    "gramsPerServing": 320,
+    "kcal": 170,
+    "proteinG": 4,
+    "carbsG": 20,
+    "fatG": 9,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍏",
+    "ingredients": [
+      "400 g Knollensellerie",
+      "1 Apfel",
+      "1 Zwiebel",
+      "1 EL Butter",
+      "8 dl Gemüsebouillon",
+      "1 dl Halbrahm",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Zwiebel in der Butter andämpfen, Sellerie und Apfel zugeben.",
+      "Mit Bouillon 20 Minuten weich kochen.",
+      "Pürieren und mit Rahm abschmecken."
+    ]
+  },
+  {
+    "id": "suesskartoffelsuppe",
+    "name": "Süsskartoffel-Kokos-Suppe",
+    "category": "soup",
+    "minutes": 30,
+    "servings": 4,
+    "gramsPerServing": 350,
+    "kcal": 230,
+    "proteinG": 4,
+    "carbsG": 34,
+    "fatG": 9,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍠",
+    "ingredients": [
+      "600 g Süsskartoffeln",
+      "1 Zwiebel",
+      "1 TL rote Currypaste",
+      "1 EL Rapsöl",
+      "8 dl Gemüsebouillon",
+      "1.5 dl Kokosmilch",
+      "Limettensaft"
+    ],
+    "steps": [
+      "Zwiebel und Currypaste im Öl andämpfen.",
+      "Süsskartoffelwürfel und Bouillon zugeben und 20 Minuten kochen.",
+      "Pürieren und mit Kokosmilch und Limette abschmecken."
+    ]
+  },
+  {
+    "id": "huehnersuppe",
+    "name": "Klare Pouletsuppe mit Gemüse",
+    "category": "soup",
+    "minutes": 35,
+    "servings": 4,
+    "gramsPerServing": 400,
+    "kcal": 210,
+    "proteinG": 22,
+    "carbsG": 18,
+    "fatG": 5,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍗",
+    "ingredients": [
+      "300 g Pouletbrust",
+      "2 Rüebli",
+      "1 Lauchstange",
+      "1 Stange Sellerie",
+      "1 l Hühnerbouillon",
+      "60 g Suppennudeln",
+      "Petersilie"
+    ],
+    "steps": [
+      "Gemüse in feine Streifen schneiden und in der Bouillon 10 Minuten kochen.",
+      "Poulet in Würfeln und Nudeln zugeben.",
+      "10 Minuten sanft garen und mit Petersilie servieren."
+    ]
+  },
+  {
+    "id": "misosuppe",
+    "name": "Misosuppe mit Tofu",
+    "category": "soup",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 350,
+    "kcal": 160,
+    "proteinG": 12,
+    "carbsG": 12,
+    "fatG": 7,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍜",
+    "ingredients": [
+      "2 EL Misopaste",
+      "150 g Tofu",
+      "6 dl Wasser",
+      "2 Frühlingszwiebeln",
+      "1 EL Wakame-Algen",
+      "1 TL Sojasauce"
+    ],
+    "steps": [
+      "Wasser erhitzen und Algen einweichen.",
+      "Misopaste darin auflösen, nicht kochen.",
+      "Tofuwürfel und Frühlingszwiebeln zugeben und servieren."
+    ]
+  },
+  {
+    "id": "thai-kokossuppe",
+    "name": "Thai-Kokossuppe mit Poulet",
+    "category": "soup",
+    "minutes": 30,
+    "servings": 4,
+    "gramsPerServing": 380,
+    "kcal": 280,
+    "proteinG": 22,
+    "carbsG": 14,
+    "fatG": 15,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🌶️",
+    "ingredients": [
+      "300 g Pouletbrust",
+      "4 dl Kokosmilch light",
+      "5 dl Hühnerbouillon",
+      "1 Stängel Zitronengras",
+      "1 Stück Ingwer",
+      "150 g Champignons",
+      "1 Limette",
+      "Koriander"
+    ],
+    "steps": [
+      "Bouillon mit Zitronengras und Ingwer 10 Minuten ziehen lassen.",
+      "Kokosmilch, Pouletstreifen und Pilze zugeben.",
+      "10 Minuten sanft garen und mit Limette und Koriander abschmecken."
+    ]
+  },
+  {
+    "id": "gazpacho",
+    "name": "Gazpacho",
+    "category": "soup",
+    "minutes": 15,
+    "servings": 4,
+    "gramsPerServing": 300,
+    "kcal": 120,
+    "proteinG": 3,
+    "carbsG": 14,
+    "fatG": 6,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍅",
+    "ingredients": [
+      "600 g reife Tomaten",
+      "1 Gurke",
+      "1 Peperoni",
+      "1 Knoblauchzehe",
+      "2 EL Olivenöl",
+      "1 EL Weissweinessig",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Gemüse grob schneiden und fein pürieren.",
+      "Mit Öl, Essig, Salz und Pfeffer abschmecken.",
+      "Mindestens 1 Stunde kalt stellen."
+    ]
+  },
+  {
+    "id": "kichererbsensuppe",
+    "name": "Marokkanische Kichererbsensuppe",
+    "category": "soup",
+    "minutes": 30,
+    "servings": 4,
+    "gramsPerServing": 380,
+    "kcal": 250,
+    "proteinG": 11,
+    "carbsG": 34,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🧆",
+    "ingredients": [
+      "1 Dose Kichererbsen",
+      "1 Dose gehackte Tomaten",
+      "1 Zwiebel",
+      "1 EL Olivenöl",
+      "1 TL Kreuzkümmel",
+      "1 TL Paprika",
+      "8 dl Gemüsebouillon",
+      "Koriander"
+    ],
+    "steps": [
+      "Zwiebel mit den Gewürzen im Öl andämpfen.",
+      "Tomaten, Kichererbsen und Bouillon zugeben.",
+      "20 Minuten köcheln und mit Koriander servieren."
+    ]
+  },
+  {
+    "id": "pilzsuppe",
+    "name": "Pilzcremesuppe light",
+    "category": "soup",
+    "minutes": 25,
+    "servings": 4,
+    "gramsPerServing": 320,
+    "kcal": 170,
+    "proteinG": 6,
+    "carbsG": 12,
+    "fatG": 11,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍄",
+    "ingredients": [
+      "400 g Champignons",
+      "1 Zwiebel",
+      "1 EL Butter",
+      "8 dl Gemüsebouillon",
+      "1 dl Halbrahm",
+      "Petersilie, Salz, Pfeffer"
+    ],
+    "steps": [
+      "Pilze und Zwiebel in der Butter kräftig anbraten.",
+      "Mit Bouillon ablöschen und 15 Minuten köcheln.",
+      "Pürieren, Rahm einrühren und mit Petersilie servieren."
+    ]
+  },
+  {
+    "id": "peperonisuppe",
+    "name": "Peperonisuppe",
+    "category": "soup",
+    "minutes": 30,
+    "servings": 4,
+    "gramsPerServing": 320,
+    "kcal": 150,
+    "proteinG": 4,
+    "carbsG": 16,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🫑",
+    "ingredients": [
+      "3 rote Peperoni",
+      "1 Zwiebel",
+      "1 Kartoffel",
+      "1 EL Olivenöl",
+      "8 dl Gemüsebouillon",
+      "1 TL Paprika",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Zwiebel und Peperonistreifen im Öl andämpfen.",
+      "Kartoffel und Bouillon zugeben und 20 Minuten kochen.",
+      "Pürieren und mit Paprika abschmecken."
+    ]
+  },
+  {
+    "id": "fenchelsuppe",
+    "name": "Fenchelsuppe mit Zitrone",
+    "category": "soup",
+    "minutes": 25,
+    "servings": 4,
+    "gramsPerServing": 320,
+    "kcal": 140,
+    "proteinG": 4,
+    "carbsG": 13,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🌿",
+    "ingredients": [
+      "2 Fenchelknollen",
+      "1 Zwiebel",
+      "1 Kartoffel",
+      "1 EL Olivenöl",
+      "8 dl Gemüsebouillon",
+      "1 dl Halbrahm",
+      "1 Zitrone"
+    ],
+    "steps": [
+      "Zwiebel und Fenchel im Öl andämpfen.",
+      "Kartoffel und Bouillon zugeben und 20 Minuten kochen.",
+      "Pürieren und mit Rahm und Zitrone abschmecken."
+    ]
+  },
+  {
+    "id": "buendner-gemuesesuppe",
+    "name": "Bunte Gemüsesuppe",
+    "category": "soup",
+    "minutes": 30,
+    "servings": 4,
+    "gramsPerServing": 380,
+    "kcal": 150,
+    "proteinG": 6,
+    "carbsG": 20,
+    "fatG": 5,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥕",
+    "ingredients": [
+      "2 Rüebli",
+      "1 Lauchstange",
+      "2 Kartoffeln",
+      "1 Kohlrabi",
+      "1 EL Rapsöl",
+      "1 l Gemüsebouillon",
+      "Peterli"
+    ],
+    "steps": [
+      "Gemüse würfeln und im Öl andämpfen.",
+      "Mit Bouillon ablöschen und 20 Minuten kochen.",
+      "Mit Peterli servieren."
+    ]
+  }
+]

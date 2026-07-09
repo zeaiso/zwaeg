@@ -1,0 +1,1185 @@
+[
+  {
+    "id": "poke-bowl-thon",
+    "name": "Poke Bowl mit Thon",
+    "category": "main",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 400,
+    "kcal": 460,
+    "proteinG": 30,
+    "carbsG": 54,
+    "fatG": 13,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍣",
+    "ingredients": [
+      "200 g Thon in Sushi-Qualität",
+      "120 g Sushireis",
+      "1 Gurke",
+      "1 Rüebli",
+      "100 g Edamame",
+      "2 EL Sojasauce",
+      "1 TL Sesamöl",
+      "Sesam, Ingwer"
+    ],
+    "steps": [
+      "Reis kochen und abkühlen lassen.",
+      "Thon würfeln und in Sojasauce und Sesamöl marinieren.",
+      "Alles in Schalen anrichten und mit Sesam bestreuen."
+    ]
+  },
+  {
+    "id": "buddha-bowl",
+    "name": "Buddha Bowl",
+    "category": "main",
+    "minutes": 35,
+    "servings": 2,
+    "gramsPerServing": 450,
+    "kcal": 480,
+    "proteinG": 17,
+    "carbsG": 62,
+    "fatG": 18,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥗",
+    "ingredients": [
+      "120 g Quinoa",
+      "1 Süsskartoffel",
+      "1 Dose Kichererbsen",
+      "1 Avocado, klein",
+      "100 g Babyspinat",
+      "2 EL Tahini",
+      "1 Zitrone",
+      "1 EL Olivenöl"
+    ],
+    "steps": [
+      "Süsskartoffelwürfel und Kichererbsen mit Öl bei 200 Grad 25 Minuten rösten.",
+      "Quinoa kochen.",
+      "Alles mit Spinat anrichten und mit Tahini-Zitronen-Sauce beträufeln."
+    ]
+  },
+  {
+    "id": "burrito-bowl",
+    "name": "Burrito Bowl",
+    "category": "main",
+    "minutes": 30,
+    "servings": 2,
+    "gramsPerServing": 450,
+    "kcal": 520,
+    "proteinG": 32,
+    "carbsG": 62,
+    "fatG": 15,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🌯",
+    "ingredients": [
+      "250 g Pouletbrust",
+      "120 g Reis",
+      "1 Dose schwarze Bohnen",
+      "1 Dose Mais",
+      "1 Tomate",
+      "1 Limette",
+      "1 TL Paprika, Kreuzkümmel",
+      "Joghurt, Koriander"
+    ],
+    "steps": [
+      "Reis kochen, Poulet würzen und braten.",
+      "Bohnen und Mais erwärmen.",
+      "Alles in Schalen mit Tomatensalsa und Joghurt anrichten."
+    ]
+  },
+  {
+    "id": "chili-con-carne",
+    "name": "Chili con Carne light",
+    "category": "main",
+    "minutes": 45,
+    "servings": 4,
+    "gramsPerServing": 400,
+    "kcal": 400,
+    "proteinG": 30,
+    "carbsG": 38,
+    "fatG": 13,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🌶️",
+    "ingredients": [
+      "400 g Rindshackfleisch, mager",
+      "1 Dose Kidneybohnen",
+      "1 Dose Mais",
+      "2 Dosen gehackte Tomaten",
+      "1 Zwiebel",
+      "1 EL Rapsöl",
+      "Chili, Kreuzkümmel, Paprika"
+    ],
+    "steps": [
+      "Zwiebel und Hackfleisch im Öl anbraten.",
+      "Tomaten und Gewürze zugeben und 25 Minuten köcheln.",
+      "Bohnen und Mais zugeben und nochmals 10 Minuten kochen."
+    ]
+  },
+  {
+    "id": "chili-sin-carne",
+    "name": "Chili sin Carne",
+    "category": "main",
+    "minutes": 40,
+    "servings": 4,
+    "gramsPerServing": 400,
+    "kcal": 340,
+    "proteinG": 16,
+    "carbsG": 50,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🌶️",
+    "ingredients": [
+      "1 Dose Kidneybohnen",
+      "1 Dose Linsen",
+      "1 Dose Mais",
+      "2 Dosen gehackte Tomaten",
+      "1 Zwiebel",
+      "1 Peperoni",
+      "1 EL Olivenöl",
+      "Chili, Kreuzkümmel, Kakao"
+    ],
+    "steps": [
+      "Zwiebel und Peperoni im Öl andämpfen.",
+      "Tomaten und Gewürze zugeben und 20 Minuten köcheln.",
+      "Hülsenfrüchte und Mais zugeben und 10 Minuten fertig kochen."
+    ]
+  },
+  {
+    "id": "poulet-tacos",
+    "name": "Poulet-Tacos",
+    "category": "main",
+    "minutes": 30,
+    "servings": 2,
+    "gramsPerServing": 350,
+    "kcal": 470,
+    "proteinG": 34,
+    "carbsG": 48,
+    "fatG": 15,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🌮",
+    "ingredients": [
+      "250 g Pouletbrust",
+      "4 kleine Tortillas",
+      "1 Tomate",
+      "1 Zwiebel",
+      "1 Limette",
+      "100 g Joghurt",
+      "1 TL Paprika, Kreuzkümmel",
+      "Eisbergsalat"
+    ],
+    "steps": [
+      "Pouletstreifen würzen und braten.",
+      "Tomatensalsa mit Zwiebel und Limette mischen.",
+      "Tortillas mit Salat, Poulet, Salsa und Joghurt füllen."
+    ]
+  },
+  {
+    "id": "quesadilla",
+    "name": "Gemüse-Quesadilla",
+    "category": "main",
+    "minutes": 20,
+    "servings": 2,
+    "gramsPerServing": 300,
+    "kcal": 430,
+    "proteinG": 18,
+    "carbsG": 46,
+    "fatG": 19,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🫓",
+    "ingredients": [
+      "4 Tortillas",
+      "1 Peperoni",
+      "1 Dose Mais",
+      "1 Frühlingszwiebel",
+      "100 g geriebener Käse",
+      "1 TL Rapsöl",
+      "Salsa zum Dippen"
+    ],
+    "steps": [
+      "Gemüse klein schneiden und kurz anbraten.",
+      "Tortillas mit Gemüse und Käse belegen und zuklappen.",
+      "Beidseitig goldbraun braten und mit Salsa servieren."
+    ]
+  },
+  {
+    "id": "pad-thai",
+    "name": "Pad Thai light",
+    "category": "main",
+    "minutes": 30,
+    "servings": 2,
+    "gramsPerServing": 400,
+    "kcal": 480,
+    "proteinG": 26,
+    "carbsG": 60,
+    "fatG": 15,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍜",
+    "ingredients": [
+      "150 g Reisnudeln",
+      "200 g Pouletbrust",
+      "1 Ei",
+      "100 g Sojasprossen",
+      "2 Frühlingszwiebeln",
+      "2 EL Fischsauce",
+      "1 Limette",
+      "1 EL Erdnüsse"
+    ],
+    "steps": [
+      "Reisnudeln einweichen.",
+      "Poulet im Wok braten, Ei dazurühren.",
+      "Nudeln, Sprossen und Sauce zugeben und mit Erdnüssen und Limette servieren."
+    ]
+  },
+  {
+    "id": "poulet-curry",
+    "name": "Poulet-Kokos-Curry",
+    "category": "main",
+    "minutes": 35,
+    "servings": 2,
+    "gramsPerServing": 420,
+    "kcal": 500,
+    "proteinG": 34,
+    "carbsG": 52,
+    "fatG": 17,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍛",
+    "ingredients": [
+      "250 g Pouletbrust",
+      "120 g Basmatireis",
+      "1 EL rote Currypaste",
+      "2 dl Kokosmilch light",
+      "1 Peperoni",
+      "100 g Zuckerschoten",
+      "1 EL Rapsöl",
+      "Koriander"
+    ],
+    "steps": [
+      "Reis kochen.",
+      "Poulet und Currypaste im Öl anbraten.",
+      "Kokosmilch und Gemüse zugeben und 10 Minuten köcheln."
+    ]
+  },
+  {
+    "id": "gemuese-curry",
+    "name": "Gemüse-Curry",
+    "category": "main",
+    "minutes": 35,
+    "servings": 2,
+    "gramsPerServing": 450,
+    "kcal": 420,
+    "proteinG": 11,
+    "carbsG": 60,
+    "fatG": 15,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍛",
+    "ingredients": [
+      "1 Blumenkohl, klein",
+      "2 Rüebli",
+      "100 g Erbsen",
+      "1 EL Currypulver",
+      "2 dl Kokosmilch light",
+      "120 g Basmatireis",
+      "1 Zwiebel",
+      "1 EL Rapsöl"
+    ],
+    "steps": [
+      "Zwiebel und Curry im Öl andämpfen.",
+      "Gemüse und Kokosmilch zugeben und 15 Minuten köcheln.",
+      "Mit Basmatireis servieren."
+    ]
+  },
+  {
+    "id": "linsen-dal",
+    "name": "Linsen-Dal",
+    "category": "main",
+    "minutes": 30,
+    "servings": 2,
+    "gramsPerServing": 400,
+    "kcal": 430,
+    "proteinG": 20,
+    "carbsG": 64,
+    "fatG": 10,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍛",
+    "ingredients": [
+      "200 g rote Linsen",
+      "1 Zwiebel",
+      "1 Stück Ingwer",
+      "1 TL Kurkuma und Garam Masala",
+      "1 Dose gehackte Tomaten",
+      "1 dl Kokosmilch",
+      "100 g Basmatireis",
+      "Koriander"
+    ],
+    "steps": [
+      "Zwiebel, Ingwer und Gewürze andämpfen.",
+      "Linsen und Tomaten zugeben und 20 Minuten köcheln.",
+      "Mit Kokosmilch verfeinern und mit Reis servieren."
+    ]
+  },
+  {
+    "id": "butter-chicken",
+    "name": "Butter Chicken light",
+    "category": "main",
+    "minutes": 40,
+    "servings": 2,
+    "gramsPerServing": 420,
+    "kcal": 490,
+    "proteinG": 36,
+    "carbsG": 50,
+    "fatG": 15,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍛",
+    "ingredients": [
+      "300 g Pouletbrust",
+      "150 g Joghurt",
+      "1 Dose gehackte Tomaten",
+      "1 EL Butter",
+      "1 TL Garam Masala, Kurkuma, Paprika",
+      "120 g Basmatireis",
+      "1 Knoblauchzehe, Ingwer"
+    ],
+    "steps": [
+      "Poulet in Joghurt und Gewürzen marinieren.",
+      "Anbraten, Tomaten zugeben und 15 Minuten köcheln.",
+      "Mit Butter verfeinern und mit Reis servieren."
+    ]
+  },
+  {
+    "id": "teriyaki-lachs",
+    "name": "Teriyaki-Lachs mit Reis",
+    "category": "main",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 380,
+    "kcal": 480,
+    "proteinG": 30,
+    "carbsG": 52,
+    "fatG": 17,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍣",
+    "ingredients": [
+      "2 Lachsfilets à 130 g",
+      "120 g Reis",
+      "3 EL Sojasauce",
+      "1 EL Honig",
+      "1 TL Sesamöl",
+      "1 Stück Ingwer",
+      "200 g Broccoli",
+      "Sesam"
+    ],
+    "steps": [
+      "Reis kochen, Broccoli dämpfen.",
+      "Sojasauce, Honig, Ingwer und Sesamöl einkochen.",
+      "Lachs braten, glasieren und mit Sesam servieren."
+    ]
+  },
+  {
+    "id": "gebratener-reis",
+    "name": "Gebratener Reis mit Ei und Gemüse",
+    "category": "main",
+    "minutes": 20,
+    "servings": 2,
+    "gramsPerServing": 380,
+    "kcal": 440,
+    "proteinG": 17,
+    "carbsG": 62,
+    "fatG": 14,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍚",
+    "ingredients": [
+      "250 g gekochter Reis vom Vortag",
+      "2 Eier",
+      "150 g Erbsen und Rüebli",
+      "2 Frühlingszwiebeln",
+      "2 EL Sojasauce",
+      "1 EL Rapsöl",
+      "1 TL Sesamöl"
+    ],
+    "steps": [
+      "Eier im Wok verrühren und herausnehmen.",
+      "Gemüse anbraten, Reis zugeben und kräftig rösten.",
+      "Ei und Sojasauce untermischen."
+    ]
+  },
+  {
+    "id": "poulet-wok",
+    "name": "Poulet-Gemüse-Wok",
+    "category": "main",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 400,
+    "kcal": 430,
+    "proteinG": 34,
+    "carbsG": 46,
+    "fatG": 12,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥡",
+    "ingredients": [
+      "250 g Pouletbrust",
+      "1 Peperoni",
+      "1 Brokkoli, klein",
+      "1 Rüebli",
+      "2 EL Sojasauce",
+      "1 EL Austernsauce",
+      "100 g Reisnudeln",
+      "1 EL Rapsöl, Ingwer"
+    ],
+    "steps": [
+      "Pouletstreifen im Wok scharf anbraten.",
+      "Gemüse zugeben und bissfest rühren.",
+      "Nudeln und Saucen untermischen."
+    ]
+  },
+  {
+    "id": "ramen",
+    "name": "Schnelle Ramen mit Ei",
+    "category": "main",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 450,
+    "kcal": 420,
+    "proteinG": 22,
+    "carbsG": 54,
+    "fatG": 13,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍜",
+    "ingredients": [
+      "150 g Ramen-Nudeln",
+      "8 dl Gemüsebouillon",
+      "2 Eier",
+      "150 g Pak Choi",
+      "100 g Champignons",
+      "2 EL Misopaste",
+      "1 EL Sojasauce",
+      "Frühlingszwiebeln"
+    ],
+    "steps": [
+      "Eier 7 Minuten kochen und schälen.",
+      "Bouillon mit Miso und Sojasauce erhitzen, Gemüse zugeben.",
+      "Nudeln garen und alles mit halbierten Eiern anrichten."
+    ]
+  },
+  {
+    "id": "bibimbap",
+    "name": "Bibimbap light",
+    "category": "main",
+    "minutes": 35,
+    "servings": 2,
+    "gramsPerServing": 450,
+    "kcal": 490,
+    "proteinG": 28,
+    "carbsG": 62,
+    "fatG": 14,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍚",
+    "ingredients": [
+      "250 g Rindshackfleisch, mager",
+      "120 g Reis",
+      "1 Rüebli",
+      "100 g Spinat",
+      "100 g Sojasprossen",
+      "2 Eier",
+      "2 EL Sojasauce",
+      "1 TL Sesamöl, Gochujang"
+    ],
+    "steps": [
+      "Reis kochen, Gemüse einzeln kurz anbraten.",
+      "Hackfleisch mit Sojasauce braten.",
+      "Alles auf dem Reis anrichten und mit Spiegelei und Gochujang toppen."
+    ]
+  },
+  {
+    "id": "falafel-bowl",
+    "name": "Falafel-Bowl mit Hummus",
+    "category": "main",
+    "minutes": 30,
+    "servings": 2,
+    "gramsPerServing": 400,
+    "kcal": 480,
+    "proteinG": 17,
+    "carbsG": 56,
+    "fatG": 21,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🧆",
+    "ingredients": [
+      "8 Falafel",
+      "100 g Hummus",
+      "1 Tomate",
+      "1 Gurke",
+      "100 g Couscous",
+      "1 Zitrone",
+      "Peterli, Minze"
+    ],
+    "steps": [
+      "Couscous quellen lassen.",
+      "Falafel im Ofen aufbacken.",
+      "Mit Gemüse, Hummus und Kräutern in Schalen anrichten."
+    ]
+  },
+  {
+    "id": "gemuese-couscous",
+    "name": "Gemüse-Couscous",
+    "category": "main",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 400,
+    "kcal": 390,
+    "proteinG": 12,
+    "carbsG": 62,
+    "fatG": 11,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🫑",
+    "ingredients": [
+      "120 g Couscous",
+      "1 Zucchetti",
+      "1 Peperoni",
+      "1 Dose Kichererbsen",
+      "1 TL Ras el Hanout",
+      "2 EL Olivenöl",
+      "1 Zitrone",
+      "Minze"
+    ],
+    "steps": [
+      "Gemüse würfeln und im Öl mit Gewürzen anbraten.",
+      "Kichererbsen zugeben.",
+      "Couscous quellen lassen und alles mischen."
+    ]
+  },
+  {
+    "id": "tofu-teriyaki",
+    "name": "Tofu-Teriyaki mit Broccoli",
+    "category": "main",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 380,
+    "kcal": 420,
+    "proteinG": 24,
+    "carbsG": 48,
+    "fatG": 14,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🌱",
+    "ingredients": [
+      "300 g Tofu",
+      "1 Brokkoli",
+      "120 g Reis",
+      "3 EL Sojasauce",
+      "1 EL Ahornsirup",
+      "1 TL Sesamöl",
+      "Ingwer, Knoblauch",
+      "Sesam"
+    ],
+    "steps": [
+      "Tofuwürfel knusprig braten.",
+      "Sauce aus Sojasauce, Ahornsirup und Ingwer einkochen.",
+      "Mit gedämpftem Broccoli und Reis servieren."
+    ]
+  },
+  {
+    "id": "gyros-bowl",
+    "name": "Gyros-Bowl light",
+    "category": "main",
+    "minutes": 30,
+    "servings": 2,
+    "gramsPerServing": 420,
+    "kcal": 470,
+    "proteinG": 36,
+    "carbsG": 42,
+    "fatG": 17,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥙",
+    "ingredients": [
+      "300 g Pouletbrust",
+      "1 TL Gyrosgewürz",
+      "100 g Reis",
+      "1 Tomate",
+      "1 Gurke",
+      "100 g Joghurt",
+      "1 Knoblauchzehe",
+      "1 EL Olivenöl"
+    ],
+    "steps": [
+      "Pouletstreifen mit Gyrosgewürz im Öl braten.",
+      "Tsatsiki aus Joghurt, Gurke und Knoblauch rühren.",
+      "Mit Reis und Gemüse in Schalen anrichten."
+    ]
+  },
+  {
+    "id": "schawarma-pita",
+    "name": "Poulet-Schawarma-Pita",
+    "category": "main",
+    "minutes": 30,
+    "servings": 2,
+    "gramsPerServing": 350,
+    "kcal": 460,
+    "proteinG": 35,
+    "carbsG": 48,
+    "fatG": 14,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥙",
+    "ingredients": [
+      "250 g Pouletbrust",
+      "2 Pitabrote",
+      "1 TL Schawarma-Gewürz",
+      "1 Tomate",
+      "Eisbergsalat",
+      "100 g Joghurt",
+      "1 EL Tahini",
+      "1 Zitrone"
+    ],
+    "steps": [
+      "Poulet würzen und braten.",
+      "Sauce aus Joghurt, Tahini und Zitrone rühren.",
+      "Pita füllen und servieren."
+    ]
+  },
+  {
+    "id": "pesto-bohnen-pasta",
+    "name": "Penne mit Pesto und Bohnen",
+    "category": "main",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 380,
+    "kcal": 490,
+    "proteinG": 18,
+    "carbsG": 68,
+    "fatG": 17,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍝",
+    "ingredients": [
+      "180 g Vollkorn-Penne",
+      "200 g grüne Bohnen",
+      "2 EL Pesto",
+      "150 g Cherrytomaten",
+      "20 g Parmesan"
+    ],
+    "steps": [
+      "Penne kochen, Bohnen die letzten 6 Minuten mitkochen.",
+      "Mit Pesto und halbierten Tomaten mischen.",
+      "Mit Parmesan servieren."
+    ]
+  },
+  {
+    "id": "zoodles-bolognese",
+    "name": "Zucchetti-Spaghetti Bolognese",
+    "category": "main",
+    "minutes": 35,
+    "servings": 2,
+    "gramsPerServing": 400,
+    "kcal": 320,
+    "proteinG": 30,
+    "carbsG": 14,
+    "fatG": 16,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥒",
+    "ingredients": [
+      "3 Zucchetti",
+      "300 g Rindshackfleisch, mager",
+      "1 Dose gehackte Tomaten",
+      "1 Zwiebel",
+      "1 Rüebli",
+      "1 EL Olivenöl",
+      "Oregano, Basilikum"
+    ],
+    "steps": [
+      "Hackfleisch mit Zwiebel und Rüebli anbraten.",
+      "Tomaten zugeben und 20 Minuten köcheln.",
+      "Zucchetti-Spiralen kurz anbraten und mit der Sauce servieren."
+    ]
+  },
+  {
+    "id": "blumenkohl-curry",
+    "name": "Blumenkohl-Kichererbsen-Curry",
+    "category": "main",
+    "minutes": 35,
+    "servings": 2,
+    "gramsPerServing": 450,
+    "kcal": 410,
+    "proteinG": 15,
+    "carbsG": 56,
+    "fatG": 14,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥥",
+    "ingredients": [
+      "1 Blumenkohl, klein",
+      "1 Dose Kichererbsen",
+      "1 Dose gehackte Tomaten",
+      "1 EL Currypulver",
+      "1.5 dl Kokosmilch",
+      "100 g Reis",
+      "1 Zwiebel",
+      "Koriander"
+    ],
+    "steps": [
+      "Zwiebel und Curry andämpfen.",
+      "Blumenkohl, Tomaten und Kichererbsen zugeben und 20 Minuten köcheln.",
+      "Mit Kokosmilch abschmecken und mit Reis servieren."
+    ]
+  },
+  {
+    "id": "suesskartoffel-ofen",
+    "name": "Ofen-Süsskartoffel mit Kichererbsen",
+    "category": "main",
+    "minutes": 45,
+    "servings": 2,
+    "gramsPerServing": 420,
+    "kcal": 440,
+    "proteinG": 13,
+    "carbsG": 64,
+    "fatG": 15,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍠",
+    "ingredients": [
+      "2 grosse Süsskartoffeln",
+      "1 Dose Kichererbsen",
+      "1 TL Paprika, Kreuzkümmel",
+      "2 EL Tahini",
+      "1 Zitrone",
+      "1 EL Olivenöl",
+      "Peterli"
+    ],
+    "steps": [
+      "Süsskartoffeln bei 200 Grad 40 Minuten backen.",
+      "Kichererbsen mit Gewürzen und Öl rösten.",
+      "Aufschneiden, füllen und mit Tahini-Zitronen-Sauce servieren."
+    ]
+  },
+  {
+    "id": "quinoa-gemuese-bowl",
+    "name": "Quinoa-Gemüse-Bowl",
+    "category": "main",
+    "minutes": 30,
+    "servings": 2,
+    "gramsPerServing": 420,
+    "kcal": 430,
+    "proteinG": 15,
+    "carbsG": 58,
+    "fatG": 15,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥗",
+    "ingredients": [
+      "120 g Quinoa",
+      "1 Zucchetti",
+      "1 Peperoni",
+      "150 g Cherrytomaten",
+      "1 Avocado, klein",
+      "2 EL Olivenöl",
+      "1 Zitrone",
+      "Kürbiskerne"
+    ],
+    "steps": [
+      "Quinoa kochen.",
+      "Gemüse im Öl rösten.",
+      "Alles anrichten und mit Avocado und Kernen toppen."
+    ]
+  },
+  {
+    "id": "lachs-quinoa",
+    "name": "Lachs mit Quinoa und Spargel",
+    "category": "main",
+    "minutes": 30,
+    "servings": 2,
+    "gramsPerServing": 400,
+    "kcal": 470,
+    "proteinG": 34,
+    "carbsG": 38,
+    "fatG": 20,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🐟",
+    "ingredients": [
+      "2 Lachsfilets à 130 g",
+      "120 g Quinoa",
+      "300 g grüner Spargel",
+      "1 Zitrone",
+      "1 EL Olivenöl",
+      "Dill, Salz, Pfeffer"
+    ],
+    "steps": [
+      "Quinoa kochen.",
+      "Spargel und Lachs im Öl braten.",
+      "Mit Zitrone und Dill servieren."
+    ]
+  },
+  {
+    "id": "knoblauch-crevetten",
+    "name": "Knoblauch-Crevetten mit Reis",
+    "category": "main",
+    "minutes": 20,
+    "servings": 2,
+    "gramsPerServing": 350,
+    "kcal": 400,
+    "proteinG": 28,
+    "carbsG": 50,
+    "fatG": 9,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🦐",
+    "ingredients": [
+      "250 g Crevetten",
+      "120 g Reis",
+      "3 Knoblauchzehen",
+      "1 EL Olivenöl",
+      "Chiliflocken",
+      "1 Zitrone",
+      "Peterli"
+    ],
+    "steps": [
+      "Reis kochen.",
+      "Crevetten mit Knoblauch und Chili im Öl braten.",
+      "Mit Zitrone und Peterli servieren."
+    ]
+  },
+  {
+    "id": "thon-spaghetti",
+    "name": "Thon-Spaghetti",
+    "category": "main",
+    "minutes": 20,
+    "servings": 2,
+    "gramsPerServing": 350,
+    "kcal": 480,
+    "proteinG": 28,
+    "carbsG": 68,
+    "fatG": 11,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍝",
+    "ingredients": [
+      "180 g Spaghetti",
+      "1 Dose Thon in Wasser",
+      "1 Dose gehackte Tomaten",
+      "2 Knoblauchzehen",
+      "1 EL Olivenöl",
+      "Kapern, Peterli"
+    ],
+    "steps": [
+      "Spaghetti kochen.",
+      "Knoblauch im Öl andämpfen, Tomaten 10 Minuten köcheln.",
+      "Thon und Kapern zugeben und mit den Spaghetti mischen."
+    ]
+  },
+  {
+    "id": "tortilla-espanola",
+    "name": "Spanische Tortilla",
+    "category": "main",
+    "minutes": 35,
+    "servings": 2,
+    "gramsPerServing": 350,
+    "kcal": 430,
+    "proteinG": 19,
+    "carbsG": 36,
+    "fatG": 23,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥘",
+    "ingredients": [
+      "4 Eier",
+      "400 g Kartoffeln",
+      "1 Zwiebel",
+      "2 EL Olivenöl",
+      "Salz, Pfeffer",
+      "Blattsalat als Beilage"
+    ],
+    "steps": [
+      "Kartoffelscheiben im Öl weich braten.",
+      "Verquirlte Eier zugeben und stocken lassen.",
+      "Wenden, fertig braten und mit Salat servieren."
+    ]
+  },
+  {
+    "id": "fajita-pfanne",
+    "name": "Fajita-Pfanne",
+    "category": "main",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 380,
+    "kcal": 450,
+    "proteinG": 34,
+    "carbsG": 44,
+    "fatG": 15,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥘",
+    "ingredients": [
+      "250 g Pouletbrust",
+      "2 Peperoni",
+      "1 Zwiebel",
+      "4 kleine Tortillas",
+      "1 TL Paprika, Kreuzkümmel",
+      "1 EL Rapsöl",
+      "Limette, Koriander"
+    ],
+    "steps": [
+      "Pouletstreifen scharf anbraten.",
+      "Peperoni und Zwiebel zugeben und würzen.",
+      "Mit warmen Tortillas und Limette servieren."
+    ]
+  },
+  {
+    "id": "beef-burger",
+    "name": "Beef-Burger light",
+    "category": "main",
+    "minutes": 30,
+    "servings": 2,
+    "gramsPerServing": 320,
+    "kcal": 490,
+    "proteinG": 34,
+    "carbsG": 42,
+    "fatG": 20,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍔",
+    "ingredients": [
+      "300 g Rindshackfleisch, mager",
+      "2 Vollkorn-Burgerbrötchen",
+      "1 Tomate",
+      "Salatblätter",
+      "1 rote Zwiebel",
+      "2 EL Joghurtsauce",
+      "1 TL Senf"
+    ],
+    "steps": [
+      "Aus dem Hackfleisch zwei Patties formen.",
+      "Beidseitig 4 Minuten braten.",
+      "Brötchen mit Salat, Patty, Tomate und Sauce füllen."
+    ]
+  },
+  {
+    "id": "souvlaki",
+    "name": "Poulet-Souvlaki mit Tsatsiki",
+    "category": "main",
+    "minutes": 30,
+    "servings": 2,
+    "gramsPerServing": 380,
+    "kcal": 440,
+    "proteinG": 38,
+    "carbsG": 34,
+    "fatG": 16,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍢",
+    "ingredients": [
+      "300 g Pouletbrust",
+      "1 Zitrone",
+      "1 TL Oregano",
+      "1 EL Olivenöl",
+      "150 g Joghurt",
+      "1 Gurke",
+      "1 Knoblauchzehe",
+      "2 Pitabrote"
+    ],
+    "steps": [
+      "Pouletwürfel mit Zitrone, Öl und Oregano marinieren und aufspiessen.",
+      "Grillieren oder braten.",
+      "Mit Tsatsiki und Pita servieren."
+    ]
+  },
+  {
+    "id": "erbsen-risotto",
+    "name": "Erbsen-Minze-Risotto",
+    "category": "main",
+    "minutes": 35,
+    "servings": 2,
+    "gramsPerServing": 380,
+    "kcal": 440,
+    "proteinG": 14,
+    "carbsG": 66,
+    "fatG": 13,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍚",
+    "ingredients": [
+      "160 g Risottoreis",
+      "200 g Erbsen",
+      "1 Schalotte",
+      "1 dl Weisswein",
+      "7 dl Gemüsebouillon",
+      "30 g Parmesan",
+      "Minze",
+      "1 EL Butter"
+    ],
+    "steps": [
+      "Schalotte andämpfen, Reis glasig rühren und ablöschen.",
+      "Bouillon nach und nach zugeben.",
+      "Erbsen und Minze zum Schluss unterrühren, mit Parmesan verfeinern."
+    ]
+  },
+  {
+    "id": "wraps-poulet",
+    "name": "Poulet-Wraps",
+    "category": "main",
+    "minutes": 20,
+    "servings": 2,
+    "gramsPerServing": 320,
+    "kcal": 450,
+    "proteinG": 32,
+    "carbsG": 46,
+    "fatG": 15,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🌯",
+    "ingredients": [
+      "250 g Pouletbrust",
+      "2 grosse Tortillas",
+      "Eisbergsalat",
+      "1 Tomate",
+      "1 Rüebli",
+      "2 EL Joghurtsauce",
+      "1 TL Paprika"
+    ],
+    "steps": [
+      "Pouletstreifen würzen und braten.",
+      "Tortillas mit Salat, Gemüse und Poulet belegen.",
+      "Sauce darüber und satt einrollen."
+    ]
+  },
+  {
+    "id": "gnocchi-tomaten-spinat",
+    "name": "Gnocchi mit Tomaten und Spinat",
+    "category": "main",
+    "minutes": 20,
+    "servings": 2,
+    "gramsPerServing": 380,
+    "kcal": 430,
+    "proteinG": 13,
+    "carbsG": 66,
+    "fatG": 13,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥟",
+    "ingredients": [
+      "400 g Gnocchi",
+      "150 g Cherrytomaten",
+      "150 g Blattspinat",
+      "1 Knoblauchzehe",
+      "1 EL Olivenöl",
+      "30 g Parmesan"
+    ],
+    "steps": [
+      "Gnocchi nach Packungsangabe kochen.",
+      "Knoblauch und Tomaten im Öl anbraten, Spinat zusammenfallen lassen.",
+      "Gnocchi untermischen und mit Parmesan servieren."
+    ]
+  },
+  {
+    "id": "omelette-wrap",
+    "name": "Omelette-Wrap mit Frischkäse",
+    "category": "main",
+    "minutes": 15,
+    "servings": 1,
+    "gramsPerServing": 280,
+    "kcal": 360,
+    "proteinG": 24,
+    "carbsG": 10,
+    "fatG": 25,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍳",
+    "ingredients": [
+      "3 Eier",
+      "40 g Frischkäse",
+      "1 Handvoll Spinat",
+      "1 Tomate",
+      "Schnittlauch",
+      "1 TL Rapsöl"
+    ],
+    "steps": [
+      "Aus den Eiern eine dünne Omelette braten.",
+      "Mit Frischkäse bestreichen und mit Gemüse belegen.",
+      "Einrollen und halbieren."
+    ]
+  },
+  {
+    "id": "haehnchenschenkel-ofen",
+    "name": "Pouletschenkel mit Ofengemüse",
+    "category": "main",
+    "minutes": 50,
+    "servings": 2,
+    "gramsPerServing": 420,
+    "kcal": 480,
+    "proteinG": 36,
+    "carbsG": 32,
+    "fatG": 22,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍗",
+    "ingredients": [
+      "2 Pouletschenkel",
+      "400 g Kartoffeln",
+      "2 Rüebli",
+      "1 Zwiebel",
+      "2 EL Olivenöl",
+      "Rosmarin, Paprika, Salz"
+    ],
+    "steps": [
+      "Gemüse und Kartoffeln mit Öl aufs Blech geben.",
+      "Gewürzte Schenkel darauflegen.",
+      "Bei 200 Grad 40 Minuten backen."
+    ]
+  }
+]

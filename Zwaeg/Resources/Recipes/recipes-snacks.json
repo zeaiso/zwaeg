@@ -1,0 +1,640 @@
+[
+  {
+    "id": "chaeschuechli",
+    "name": "Chäschüechli light",
+    "category": "snack",
+    "minutes": 40,
+    "servings": 4,
+    "gramsPerServing": 120,
+    "kcal": 280,
+    "proteinG": 13,
+    "carbsG": 22,
+    "fatG": 15,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🧀",
+    "ingredients": [
+      "1 runder Kuchenteig",
+      "120 g Gruyère, gerieben",
+      "2 Eier",
+      "1.5 dl Milch",
+      "1 EL Mehl",
+      "Muskat, Pfeffer"
+    ],
+    "steps": [
+      "Teig in Förmchen legen und einstechen.",
+      "Käse, Eier, Milch und Mehl verrühren und einfüllen.",
+      "Bei 200 Grad 25 Minuten goldbraun backen."
+    ]
+  },
+  {
+    "id": "hummus-sticks",
+    "name": "Hummus mit Gemüsesticks",
+    "category": "snack",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 220,
+    "kcal": 220,
+    "proteinG": 8,
+    "carbsG": 20,
+    "fatG": 12,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥕",
+    "ingredients": [
+      "150 g Hummus",
+      "2 Rüebli",
+      "1 Gurke",
+      "1 Peperoni",
+      "1 TL Olivenöl",
+      "Paprika"
+    ],
+    "steps": [
+      "Gemüse in Sticks schneiden.",
+      "Hummus mit Öl und Paprika anrichten.",
+      "Zusammen servieren."
+    ]
+  },
+  {
+    "id": "guacamole",
+    "name": "Guacamole mit Vollkorncrackern",
+    "category": "snack",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 180,
+    "kcal": 260,
+    "proteinG": 6,
+    "carbsG": 22,
+    "fatG": 17,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥑",
+    "ingredients": [
+      "1 Avocado",
+      "1 Tomate",
+      "1 Limette",
+      "0.5 rote Zwiebel",
+      "Koriander",
+      "6 Vollkorncracker"
+    ],
+    "steps": [
+      "Avocado zerdrücken.",
+      "Tomate, Zwiebel und Limette untermischen.",
+      "Mit Crackern servieren."
+    ]
+  },
+  {
+    "id": "edamame",
+    "name": "Edamame mit Meersalz",
+    "category": "snack",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 150,
+    "kcal": 160,
+    "proteinG": 14,
+    "carbsG": 10,
+    "fatG": 7,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🫛",
+    "ingredients": [
+      "300 g Edamame in der Schote, tiefgekühlt",
+      "Meersalz",
+      "Chiliflocken, optional"
+    ],
+    "steps": [
+      "Edamame 5 Minuten in Salzwasser kochen.",
+      "Abtropfen lassen.",
+      "Mit Meersalz und Chili bestreuen."
+    ]
+  },
+  {
+    "id": "apfel-nussbutter",
+    "name": "Apfelschnitze mit Nussbutter",
+    "category": "snack",
+    "minutes": 5,
+    "servings": 1,
+    "gramsPerServing": 180,
+    "kcal": 220,
+    "proteinG": 5,
+    "carbsG": 28,
+    "fatG": 10,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍎",
+    "ingredients": [
+      "1 Apfel",
+      "1 EL Mandel- oder Erdnussbutter",
+      "Zimt"
+    ],
+    "steps": [
+      "Apfel in Schnitze schneiden.",
+      "Mit Nussbutter und Zimt servieren."
+    ]
+  },
+  {
+    "id": "energy-balls",
+    "name": "Dattel-Energy-Balls",
+    "category": "snack",
+    "minutes": 15,
+    "servings": 4,
+    "gramsPerServing": 60,
+    "kcal": 190,
+    "proteinG": 4,
+    "carbsG": 26,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "⚡",
+    "ingredients": [
+      "150 g Datteln, entsteint",
+      "80 g Haferflocken",
+      "2 EL Kakaopulver",
+      "1 EL Mandelbutter",
+      "Kokosflocken zum Wälzen"
+    ],
+    "steps": [
+      "Alle Zutaten im Mixer zu einer klebrigen Masse verarbeiten.",
+      "Zu Kugeln rollen.",
+      "In Kokosflocken wälzen und kühl stellen."
+    ]
+  },
+  {
+    "id": "popcorn",
+    "name": "Popcorn natur",
+    "category": "snack",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 30,
+    "kcal": 130,
+    "proteinG": 4,
+    "carbsG": 22,
+    "fatG": 3,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍿",
+    "ingredients": [
+      "60 g Popcorn-Mais",
+      "1 TL Rapsöl",
+      "Salz oder Paprika"
+    ],
+    "steps": [
+      "Öl in einer grossen Pfanne erhitzen.",
+      "Mais zugeben und zugedeckt poppen lassen.",
+      "Mit Salz oder Paprika würzen."
+    ]
+  },
+  {
+    "id": "gefuellte-eier",
+    "name": "Gefüllte Eier mit Quark",
+    "category": "snack",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 130,
+    "kcal": 180,
+    "proteinG": 15,
+    "carbsG": 3,
+    "fatG": 12,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥚",
+    "ingredients": [
+      "4 Eier",
+      "2 EL Magerquark",
+      "1 TL Senf",
+      "Schnittlauch",
+      "Paprika, Salz"
+    ],
+    "steps": [
+      "Eier hart kochen und halbieren.",
+      "Eigelb mit Quark, Senf und Schnittlauch verrühren.",
+      "Wieder einfüllen und mit Paprika bestreuen."
+    ]
+  },
+  {
+    "id": "quark-dip",
+    "name": "Kräuterquark-Dip mit Gemüse",
+    "category": "snack",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 220,
+    "kcal": 140,
+    "proteinG": 14,
+    "carbsG": 12,
+    "fatG": 4,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥒",
+    "ingredients": [
+      "200 g Magerquark",
+      "1 Bund Schnittlauch und Peterli",
+      "1 Knoblauchzehe",
+      "1 Schuss Milch",
+      "Gemüsesticks",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Quark mit Milch glatt rühren.",
+      "Kräuter und Knoblauch untermischen.",
+      "Mit Gemüsesticks servieren."
+    ]
+  },
+  {
+    "id": "poulet-sandwich",
+    "name": "Poulet-Sandwich",
+    "category": "snack",
+    "minutes": 10,
+    "servings": 1,
+    "gramsPerServing": 220,
+    "kcal": 340,
+    "proteinG": 26,
+    "carbsG": 36,
+    "fatG": 10,
+    "vegetarian": false,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥪",
+    "ingredients": [
+      "2 Scheiben Vollkornbrot",
+      "80 g Pouletbrust, gebraten",
+      "1 TL Senf",
+      "1 EL Frischkäse",
+      "Salat, Tomate, Gurke"
+    ],
+    "steps": [
+      "Brot mit Frischkäse und Senf bestreichen.",
+      "Mit Poulet und Gemüse belegen.",
+      "Zusammenklappen und halbieren."
+    ]
+  },
+  {
+    "id": "huettenkaese-wrap",
+    "name": "Hüttenkäse-Wrap",
+    "category": "snack",
+    "minutes": 10,
+    "servings": 1,
+    "gramsPerServing": 220,
+    "kcal": 300,
+    "proteinG": 18,
+    "carbsG": 34,
+    "fatG": 10,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🌯",
+    "ingredients": [
+      "1 grosse Tortilla",
+      "100 g Hüttenkäse",
+      "0.5 Rüebli, geraffelt",
+      "Salatblätter",
+      "Schnittlauch, Pfeffer"
+    ],
+    "steps": [
+      "Tortilla mit Hüttenkäse bestreichen.",
+      "Mit Gemüse belegen und würzen.",
+      "Satt einrollen und halbieren."
+    ]
+  },
+  {
+    "id": "reiswaffeln-avocado",
+    "name": "Reiswaffeln mit Avocado",
+    "category": "snack",
+    "minutes": 5,
+    "servings": 1,
+    "gramsPerServing": 120,
+    "kcal": 200,
+    "proteinG": 4,
+    "carbsG": 20,
+    "fatG": 12,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥑",
+    "ingredients": [
+      "3 Reiswaffeln",
+      "0.5 Avocado",
+      "Zitronensaft",
+      "Chiliflocken, Salz"
+    ],
+    "steps": [
+      "Avocado zerdrücken und mit Zitrone würzen.",
+      "Auf die Reiswaffeln streichen.",
+      "Mit Chili bestreuen."
+    ]
+  },
+  {
+    "id": "joghurt-nuesse",
+    "name": "Joghurt mit Nüssen und Honig",
+    "category": "snack",
+    "minutes": 5,
+    "servings": 1,
+    "gramsPerServing": 200,
+    "kcal": 240,
+    "proteinG": 10,
+    "carbsG": 20,
+    "fatG": 13,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍯",
+    "ingredients": [
+      "150 g griechisches Joghurt",
+      "1 EL gemischte Nüsse",
+      "1 TL Honig"
+    ],
+    "steps": [
+      "Joghurt in eine Schale geben.",
+      "Nüsse grob hacken und darüberstreuen.",
+      "Mit Honig beträufeln."
+    ]
+  },
+  {
+    "id": "roestete-kichererbsen",
+    "name": "Geröstete Kichererbsen",
+    "category": "snack",
+    "minutes": 35,
+    "servings": 2,
+    "gramsPerServing": 100,
+    "kcal": 180,
+    "proteinG": 9,
+    "carbsG": 24,
+    "fatG": 5,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🧆",
+    "ingredients": [
+      "1 Dose Kichererbsen",
+      "1 EL Olivenöl",
+      "1 TL Paprika",
+      "0.5 TL Kreuzkümmel",
+      "Salz"
+    ],
+    "steps": [
+      "Kichererbsen trocken tupfen.",
+      "Mit Öl und Gewürzen mischen.",
+      "Bei 200 Grad 30 Minuten knusprig rösten."
+    ]
+  },
+  {
+    "id": "cracker-frischkaese",
+    "name": "Cracker mit Frischkäse und Gurke",
+    "category": "snack",
+    "minutes": 5,
+    "servings": 1,
+    "gramsPerServing": 130,
+    "kcal": 210,
+    "proteinG": 7,
+    "carbsG": 24,
+    "fatG": 10,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🥒",
+    "ingredients": [
+      "4 Vollkorncracker",
+      "60 g Frischkäse",
+      "0.5 Gurke",
+      "Dill, Pfeffer"
+    ],
+    "steps": [
+      "Cracker mit Frischkäse bestreichen.",
+      "Gurkenscheiben darauflegen.",
+      "Mit Dill und Pfeffer würzen."
+    ]
+  },
+  {
+    "id": "fruechte-spiessli",
+    "name": "Früchte-Spiessli",
+    "category": "snack",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 200,
+    "kcal": 110,
+    "proteinG": 2,
+    "carbsG": 24,
+    "fatG": 1,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍇",
+    "ingredients": [
+      "200 g Trauben",
+      "1 Banane",
+      "1 Apfel",
+      "150 g Erdbeeren oder Melone",
+      "1 Limette"
+    ],
+    "steps": [
+      "Früchte in mundgerechte Stücke schneiden.",
+      "Abwechselnd aufspiessen.",
+      "Mit Limettensaft beträufeln."
+    ]
+  },
+  {
+    "id": "gemuese-muffins",
+    "name": "Gemüse-Muffins",
+    "category": "snack",
+    "minutes": 35,
+    "servings": 6,
+    "gramsPerServing": 80,
+    "kcal": 150,
+    "proteinG": 8,
+    "carbsG": 12,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🧁",
+    "ingredients": [
+      "3 Eier",
+      "100 g Mehl",
+      "1 TL Backpulver",
+      "1 Rüebli",
+      "1 Zucchetti, klein",
+      "60 g Käse, gerieben",
+      "1 dl Milch",
+      "Salz, Pfeffer"
+    ],
+    "steps": [
+      "Gemüse raffeln und mit allen Zutaten verrühren.",
+      "In Muffinförmchen füllen.",
+      "Bei 180 Grad 25 Minuten backen."
+    ]
+  },
+  {
+    "id": "suesskartoffel-pommes",
+    "name": "Süsskartoffel-Pommes aus dem Ofen",
+    "category": "snack",
+    "minutes": 35,
+    "servings": 2,
+    "gramsPerServing": 220,
+    "kcal": 240,
+    "proteinG": 3,
+    "carbsG": 40,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍟",
+    "ingredients": [
+      "2 Süsskartoffeln",
+      "1 EL Olivenöl",
+      "1 TL Paprika",
+      "Salz",
+      "Joghurt-Dip, optional"
+    ],
+    "steps": [
+      "Süsskartoffeln in Stäbchen schneiden.",
+      "Mit Öl und Gewürzen mischen.",
+      "Bei 220 Grad 25 Minuten knusprig backen."
+    ]
+  },
+  {
+    "id": "bruschetta",
+    "name": "Bruschetta",
+    "category": "snack",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 180,
+    "kcal": 230,
+    "proteinG": 6,
+    "carbsG": 34,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍅",
+    "ingredients": [
+      "4 Scheiben Ruchbrot",
+      "3 Tomaten",
+      "1 Knoblauchzehe",
+      "1 EL Olivenöl",
+      "Basilikum, Salz"
+    ],
+    "steps": [
+      "Brot rösten und mit Knoblauch einreiben.",
+      "Tomatenwürfel mit Öl und Basilikum mischen.",
+      "Auf das Brot geben und sofort servieren."
+    ]
+  },
+  {
+    "id": "caprese-spiessli",
+    "name": "Caprese-Spiessli",
+    "category": "snack",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 150,
+    "kcal": 190,
+    "proteinG": 10,
+    "carbsG": 5,
+    "fatG": 14,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍢",
+    "ingredients": [
+      "150 g Mozzarella-Kügeli",
+      "200 g Cherrytomaten",
+      "Basilikum",
+      "1 TL Olivenöl",
+      "Balsamico, Pfeffer"
+    ],
+    "steps": [
+      "Mozzarella, Tomaten und Basilikum aufspiessen.",
+      "Mit Öl und Balsamico beträufeln.",
+      "Mit Pfeffer würzen."
+    ]
+  },
+  {
+    "id": "studentenfutter",
+    "name": "Studentenfutter",
+    "category": "snack",
+    "minutes": 5,
+    "servings": 4,
+    "gramsPerServing": 40,
+    "kcal": 190,
+    "proteinG": 5,
+    "carbsG": 16,
+    "fatG": 12,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥜",
+    "ingredients": [
+      "60 g gemischte Nüsse",
+      "40 g Mandeln",
+      "60 g Sultaninen und Dörraprikosen"
+    ],
+    "steps": [
+      "Nüsse und Dörrfrüchte mischen.",
+      "In kleine Portionen abfüllen."
+    ]
+  },
+  {
+    "id": "protein-shake",
+    "name": "Bananen-Protein-Shake",
+    "category": "snack",
+    "minutes": 5,
+    "servings": 1,
+    "gramsPerServing": 350,
+    "kcal": 280,
+    "proteinG": 24,
+    "carbsG": 36,
+    "fatG": 5,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍌",
+    "ingredients": [
+      "1 Banane",
+      "2 dl Milch",
+      "150 g Magerquark",
+      "1 TL Honig",
+      "1 EL Haferflocken",
+      "Zimt"
+    ],
+    "steps": [
+      "Alle Zutaten in den Mixer geben.",
+      "Cremig mixen und mit Zimt servieren."
+    ]
+  },
+  {
+    "id": "birchermuesli-riegel",
+    "name": "Müesli-Riegel selbstgemacht",
+    "category": "snack",
+    "minutes": 35,
+    "servings": 8,
+    "gramsPerServing": 50,
+    "kcal": 170,
+    "proteinG": 4,
+    "carbsG": 22,
+    "fatG": 7,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🌾",
+    "ingredients": [
+      "150 g Haferflocken",
+      "2 reife Bananen",
+      "2 EL Honig",
+      "40 g Nüsse",
+      "2 EL Sultaninen",
+      "1 EL Leinsamen"
+    ],
+    "steps": [
+      "Bananen zerdrücken und mit allen Zutaten mischen.",
+      "In einer Form flach drücken.",
+      "Bei 180 Grad 25 Minuten backen und in Riegel schneiden."
+    ]
+  }
+]

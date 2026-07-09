@@ -1,0 +1,713 @@
+[
+  {
+    "id": "birnenquark",
+    "name": "Birnen-Quark mit Baumnüssen",
+    "category": "sweet",
+    "minutes": 10,
+    "servings": 1,
+    "gramsPerServing": 250,
+    "kcal": 240,
+    "proteinG": 18,
+    "carbsG": 24,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🍐",
+    "ingredients": [
+      "150 g Magerquark",
+      "1 reife Birne",
+      "1 EL Baumnüsse",
+      "1 TL Honig",
+      "1 Prise Zimt"
+    ],
+    "steps": [
+      "Quark glatt rühren und mit Honig süssen.",
+      "Birne in Schnitze schneiden und darauf anrichten.",
+      "Mit Baumnüssen und Zimt bestreuen."
+    ]
+  },
+  {
+    "id": "vogelheu",
+    "name": "Vogelheu mit Apfel",
+    "category": "sweet",
+    "minutes": 20,
+    "servings": 2,
+    "gramsPerServing": 300,
+    "kcal": 350,
+    "proteinG": 16,
+    "carbsG": 46,
+    "fatG": 11,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🍞",
+    "ingredients": [
+      "4 Scheiben Zopf oder Brot vom Vortag",
+      "2 Eier",
+      "2 dl Milch",
+      "1 Apfel",
+      "1 EL Butter",
+      "1 EL Zucker",
+      "Zimt"
+    ],
+    "steps": [
+      "Brot würfeln, Eier und Milch verquirlen und darüber giessen.",
+      "Apfelschnitze in der Butter andämpfen.",
+      "Brotmasse zugeben und goldbraun braten, mit Zimtzucker bestreuen."
+    ]
+  },
+  {
+    "id": "fotzelschnitten",
+    "name": "Fotzelschnitten light",
+    "category": "sweet",
+    "minutes": 20,
+    "servings": 2,
+    "gramsPerServing": 250,
+    "kcal": 340,
+    "proteinG": 14,
+    "carbsG": 44,
+    "fatG": 12,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🍞",
+    "ingredients": [
+      "4 Scheiben Zopf vom Vortag",
+      "2 Eier",
+      "1.5 dl Milch",
+      "1 EL Butter",
+      "1 EL Zucker",
+      "Zimt",
+      "Apfelmus"
+    ],
+    "steps": [
+      "Zopfscheiben in Ei und Milch tränken.",
+      "In der Butter beidseitig goldbraun braten.",
+      "Mit Zimtzucker und Apfelmus servieren."
+    ]
+  },
+  {
+    "id": "oepfelchuechli",
+    "name": "Öpfelchüechli aus dem Ofen",
+    "category": "sweet",
+    "minutes": 35,
+    "servings": 2,
+    "gramsPerServing": 220,
+    "kcal": 320,
+    "proteinG": 10,
+    "carbsG": 48,
+    "fatG": 10,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🍎",
+    "ingredients": [
+      "2 Äpfel",
+      "100 g Mehl",
+      "1 Ei",
+      "1 dl Milch",
+      "1 TL Backpulver",
+      "1 EL Zucker",
+      "Zimt"
+    ],
+    "steps": [
+      "Äpfel in Ringe schneiden.",
+      "Aus Mehl, Ei, Milch und Backpulver einen Teig rühren.",
+      "Ringe eintauchen und auf dem Blech bei 200 Grad 20 Minuten backen, mit Zimtzucker bestreuen."
+    ]
+  },
+  {
+    "id": "broennti-creme",
+    "name": "Brönnti Creme light",
+    "category": "sweet",
+    "minutes": 30,
+    "servings": 4,
+    "gramsPerServing": 150,
+    "kcal": 210,
+    "proteinG": 6,
+    "carbsG": 26,
+    "fatG": 9,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🍮",
+    "ingredients": [
+      "80 g Zucker",
+      "5 dl Milch",
+      "2 EL Maisstärke",
+      "1 Ei",
+      "1 TL Vanillezucker"
+    ],
+    "steps": [
+      "Zucker in der Pfanne goldbraun karamellisieren.",
+      "Mit Milch ablöschen und auflösen.",
+      "Stärke und Ei anrühren, einrühren und bis kurz vor dem Kochen binden."
+    ]
+  },
+  {
+    "id": "griesskoepfli",
+    "name": "Griessköpfli mit Himbeeren",
+    "category": "sweet",
+    "minutes": 30,
+    "servings": 4,
+    "gramsPerServing": 180,
+    "kcal": 230,
+    "proteinG": 8,
+    "carbsG": 36,
+    "fatG": 6,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🍮",
+    "ingredients": [
+      "80 g Griess",
+      "5 dl Milch",
+      "3 EL Zucker",
+      "1 TL Vanillezucker",
+      "200 g Himbeeren",
+      "1 Zitrone"
+    ],
+    "steps": [
+      "Milch mit Zucker aufkochen, Griess einrieseln und quellen lassen.",
+      "In kalt ausgespülte Förmchen füllen und kühl stellen.",
+      "Stürzen und mit Himbeersauce servieren."
+    ]
+  },
+  {
+    "id": "schoggi-quarkmousse",
+    "name": "Schoggi-Quarkmousse",
+    "category": "sweet",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 180,
+    "kcal": 260,
+    "proteinG": 16,
+    "carbsG": 28,
+    "fatG": 9,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍫",
+    "ingredients": [
+      "250 g Magerquark",
+      "50 g dunkle Schoggi",
+      "1 EL Kakaopulver",
+      "2 EL Ahornsirup",
+      "1 Schuss Milch"
+    ],
+    "steps": [
+      "Schoggi schmelzen.",
+      "Mit Quark, Kakao und Sirup cremig rühren.",
+      "Kühl stellen und mit Schoggispänen servieren."
+    ]
+  },
+  {
+    "id": "apfelmus",
+    "name": "Apfelmus mit Zimt",
+    "category": "sweet",
+    "minutes": 20,
+    "servings": 4,
+    "gramsPerServing": 150,
+    "kcal": 90,
+    "proteinG": 0,
+    "carbsG": 21,
+    "fatG": 0,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍎",
+    "ingredients": [
+      "6 Äpfel",
+      "0.5 dl Wasser",
+      "1 Zitrone",
+      "1 Zimtstange",
+      "1 TL Zucker, optional"
+    ],
+    "steps": [
+      "Äpfel schälen und würfeln.",
+      "Mit Wasser, Zitrone und Zimt 15 Minuten weich kochen.",
+      "Fein pürieren oder grob zerstampfen."
+    ]
+  },
+  {
+    "id": "bratapfel",
+    "name": "Bratapfel mit Nussfüllung",
+    "category": "sweet",
+    "minutes": 35,
+    "servings": 2,
+    "gramsPerServing": 200,
+    "kcal": 250,
+    "proteinG": 4,
+    "carbsG": 38,
+    "fatG": 9,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍎",
+    "ingredients": [
+      "2 grosse Äpfel",
+      "2 EL gehackte Baumnüsse",
+      "1 EL Sultaninen",
+      "1 TL Honig",
+      "1 TL Butter",
+      "Zimt"
+    ],
+    "steps": [
+      "Kerngehäuse ausstechen.",
+      "Nüsse, Sultaninen, Honig und Butter mischen und einfüllen.",
+      "Bei 180 Grad 25 Minuten backen."
+    ]
+  },
+  {
+    "id": "beeren-nicecream",
+    "name": "Beeren-Nicecream",
+    "category": "sweet",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 200,
+    "kcal": 140,
+    "proteinG": 3,
+    "carbsG": 30,
+    "fatG": 1,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍨",
+    "ingredients": [
+      "2 gefrorene Bananen",
+      "150 g gefrorene Beeren",
+      "1 Schuss Haferdrink"
+    ],
+    "steps": [
+      "Gefrorene Früchte kurz antauen lassen.",
+      "Mit dem Haferdrink cremig mixen.",
+      "Sofort servieren."
+    ]
+  },
+  {
+    "id": "schoggi-nicecream",
+    "name": "Schoggi-Bananen-Nicecream",
+    "category": "sweet",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 180,
+    "kcal": 160,
+    "proteinG": 3,
+    "carbsG": 34,
+    "fatG": 2,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍫",
+    "ingredients": [
+      "3 gefrorene Bananen",
+      "2 EL Kakaopulver",
+      "1 Schuss Haferdrink",
+      "1 TL Erdnussbutter, optional"
+    ],
+    "steps": [
+      "Bananen mit Kakao und Haferdrink cremig mixen.",
+      "Nach Belieben mit Erdnussbutter verfeinern.",
+      "Sofort servieren."
+    ]
+  },
+  {
+    "id": "kaesekuchen-light",
+    "name": "Käsekuchen light",
+    "category": "sweet",
+    "minutes": 70,
+    "servings": 8,
+    "gramsPerServing": 120,
+    "kcal": 220,
+    "proteinG": 12,
+    "carbsG": 26,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍰",
+    "ingredients": [
+      "500 g Magerquark",
+      "3 Eier",
+      "80 g Zucker",
+      "40 g Maisstärke",
+      "1 Zitrone",
+      "1 TL Vanillezucker"
+    ],
+    "steps": [
+      "Alle Zutaten glatt rühren.",
+      "In eine Springform füllen.",
+      "Bei 160 Grad 50 Minuten backen und auskühlen lassen."
+    ]
+  },
+  {
+    "id": "hafer-guetzli",
+    "name": "Hafer-Bananen-Guetzli",
+    "category": "sweet",
+    "minutes": 25,
+    "servings": 6,
+    "gramsPerServing": 50,
+    "kcal": 130,
+    "proteinG": 3,
+    "carbsG": 22,
+    "fatG": 4,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍪",
+    "ingredients": [
+      "2 reife Bananen",
+      "120 g Haferflocken",
+      "1 EL Sultaninen",
+      "1 EL gehackte Nüsse",
+      "Zimt"
+    ],
+    "steps": [
+      "Bananen zerdrücken und mit allen Zutaten mischen.",
+      "Häufchen auf ein Blech setzen.",
+      "Bei 180 Grad 15 Minuten backen."
+    ]
+  },
+  {
+    "id": "schoggi-datteln",
+    "name": "Datteln mit Schoggi und Nüssen",
+    "category": "sweet",
+    "minutes": 15,
+    "servings": 4,
+    "gramsPerServing": 50,
+    "kcal": 160,
+    "proteinG": 3,
+    "carbsG": 24,
+    "fatG": 6,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍫",
+    "ingredients": [
+      "12 Datteln",
+      "50 g dunkle Schoggi",
+      "12 Mandeln oder Baumnüsse",
+      "Meersalz"
+    ],
+    "steps": [
+      "Datteln entsteinen und mit je einer Nuss füllen.",
+      "In geschmolzene Schoggi tauchen.",
+      "Mit etwas Meersalz bestreuen und fest werden lassen."
+    ]
+  },
+  {
+    "id": "fruechtesalat",
+    "name": "Früchtesalat mit Minze",
+    "category": "sweet",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 280,
+    "kcal": 130,
+    "proteinG": 2,
+    "carbsG": 30,
+    "fatG": 1,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🍇",
+    "ingredients": [
+      "1 Apfel",
+      "1 Banane",
+      "1 Orange",
+      "100 g Trauben",
+      "100 g Beeren",
+      "1 Limette",
+      "Minze"
+    ],
+    "steps": [
+      "Früchte in mundgerechte Stücke schneiden.",
+      "Mit Limettensaft mischen.",
+      "Mit Minze anrichten."
+    ]
+  },
+  {
+    "id": "joghurt-beeren-bites",
+    "name": "Gefrorene Joghurt-Beeren-Bites",
+    "category": "sweet",
+    "minutes": 10,
+    "servings": 4,
+    "gramsPerServing": 80,
+    "kcal": 90,
+    "proteinG": 5,
+    "carbsG": 12,
+    "fatG": 2,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🫐",
+    "ingredients": [
+      "300 g griechisches Joghurt",
+      "150 g Beeren",
+      "1 EL Honig"
+    ],
+    "steps": [
+      "Joghurt mit Honig verrühren.",
+      "Beeren unterheben und Kleckse aufs Blech setzen.",
+      "2 Stunden gefrieren."
+    ]
+  },
+  {
+    "id": "milchreis",
+    "name": "Milchreis mit Zwetschgen",
+    "category": "sweet",
+    "minutes": 35,
+    "servings": 2,
+    "gramsPerServing": 300,
+    "kcal": 330,
+    "proteinG": 10,
+    "carbsG": 60,
+    "fatG": 6,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍚",
+    "ingredients": [
+      "100 g Milchreis",
+      "5 dl Milch",
+      "2 EL Zucker",
+      "1 TL Vanillezucker",
+      "200 g Zwetschgen",
+      "Zimt"
+    ],
+    "steps": [
+      "Reis in der Milch mit Zucker 30 Minuten sanft köcheln.",
+      "Zwetschgen mit wenig Wasser weich dünsten.",
+      "Zusammen mit Zimt servieren."
+    ]
+  },
+  {
+    "id": "schoggi-avocado-creme",
+    "name": "Schoggi-Avocado-Creme",
+    "category": "sweet",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 150,
+    "kcal": 240,
+    "proteinG": 4,
+    "carbsG": 24,
+    "fatG": 15,
+    "vegetarian": true,
+    "vegan": true,
+    "swiss": false,
+    "emoji": "🥑",
+    "ingredients": [
+      "1 reife Avocado",
+      "3 EL Kakaopulver",
+      "3 EL Ahornsirup",
+      "1 Schuss Haferdrink",
+      "1 Prise Salz"
+    ],
+    "steps": [
+      "Alle Zutaten fein pürieren.",
+      "In Gläser füllen.",
+      "30 Minuten kühl stellen."
+    ]
+  },
+  {
+    "id": "erdbeer-frozen-joghurt",
+    "name": "Erdbeer-Frozen-Joghurt",
+    "category": "sweet",
+    "minutes": 10,
+    "servings": 2,
+    "gramsPerServing": 200,
+    "kcal": 150,
+    "proteinG": 7,
+    "carbsG": 24,
+    "fatG": 3,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍓",
+    "ingredients": [
+      "300 g gefrorene Erdbeeren",
+      "150 g Joghurt",
+      "1 EL Honig",
+      "1 TL Zitronensaft"
+    ],
+    "steps": [
+      "Gefrorene Erdbeeren mit Joghurt und Honig mixen.",
+      "Sofort servieren oder kurz anfrieren."
+    ]
+  },
+  {
+    "id": "birnen-crumble",
+    "name": "Birnen-Hafer-Crumble",
+    "category": "sweet",
+    "minutes": 40,
+    "servings": 4,
+    "gramsPerServing": 200,
+    "kcal": 280,
+    "proteinG": 5,
+    "carbsG": 44,
+    "fatG": 10,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍐",
+    "ingredients": [
+      "4 Birnen",
+      "100 g Haferflocken",
+      "40 g Butter",
+      "2 EL Zucker",
+      "1 TL Zimt",
+      "1 EL gehackte Nüsse"
+    ],
+    "steps": [
+      "Birnenschnitze in eine Form geben.",
+      "Haferflocken, Butter, Zucker und Nüsse verkneten und darüberstreuen.",
+      "Bei 180 Grad 30 Minuten backen."
+    ]
+  },
+  {
+    "id": "ruebli-muffins",
+    "name": "Rüebli-Muffins light",
+    "category": "sweet",
+    "minutes": 40,
+    "servings": 6,
+    "gramsPerServing": 80,
+    "kcal": 200,
+    "proteinG": 6,
+    "carbsG": 26,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🥕",
+    "ingredients": [
+      "200 g Rüebli",
+      "150 g Mehl",
+      "80 g gemahlene Mandeln",
+      "2 Eier",
+      "60 g Zucker",
+      "1 TL Backpulver",
+      "1 Zitrone",
+      "Zimt"
+    ],
+    "steps": [
+      "Rüebli fein raffeln.",
+      "Alle Zutaten zu einem Teig mischen.",
+      "In Förmchen bei 180 Grad 25 Minuten backen."
+    ]
+  },
+  {
+    "id": "vermicelles",
+    "name": "Vermicelles light",
+    "category": "sweet",
+    "minutes": 15,
+    "servings": 2,
+    "gramsPerServing": 180,
+    "kcal": 300,
+    "proteinG": 7,
+    "carbsG": 48,
+    "fatG": 9,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": true,
+    "emoji": "🌰",
+    "ingredients": [
+      "200 g Marronipüree",
+      "1 EL Kirsch, optional",
+      "100 g griechisches Joghurt",
+      "2 Meringues, klein",
+      "1 TL Puderzucker"
+    ],
+    "steps": [
+      "Marronipüree durch die Presse auf die Meringues drücken.",
+      "Mit Joghurt statt Rahm anrichten.",
+      "Mit Puderzucker bestäuben."
+    ]
+  },
+  {
+    "id": "heidelbeer-muffins",
+    "name": "Heidelbeer-Vollkorn-Muffins",
+    "category": "sweet",
+    "minutes": 35,
+    "servings": 6,
+    "gramsPerServing": 80,
+    "kcal": 190,
+    "proteinG": 5,
+    "carbsG": 30,
+    "fatG": 6,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🫐",
+    "ingredients": [
+      "200 g Vollkornmehl",
+      "150 g Heidelbeeren",
+      "2 Eier",
+      "60 g Zucker",
+      "1.5 dl Milch",
+      "2 EL Rapsöl",
+      "1 TL Backpulver"
+    ],
+    "steps": [
+      "Trockene und feuchte Zutaten getrennt mischen, dann zügig verrühren.",
+      "Heidelbeeren unterheben.",
+      "Bei 180 Grad 22 Minuten backen."
+    ]
+  },
+  {
+    "id": "joghurt-panna-cotta",
+    "name": "Joghurt-Panna-Cotta mit Beeren",
+    "category": "sweet",
+    "minutes": 20,
+    "servings": 4,
+    "gramsPerServing": 150,
+    "kcal": 180,
+    "proteinG": 6,
+    "carbsG": 20,
+    "fatG": 8,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍮",
+    "ingredients": [
+      "300 g Joghurt",
+      "2 dl Halbrahm",
+      "3 EL Zucker",
+      "3 Blatt Gelatine",
+      "200 g Beeren",
+      "1 TL Vanillezucker"
+    ],
+    "steps": [
+      "Rahm mit Zucker erwärmen und die eingeweichte Gelatine auflösen.",
+      "Joghurt unterrühren und in Förmchen 4 Stunden kühlen.",
+      "Mit Beeren servieren."
+    ]
+  },
+  {
+    "id": "zimt-ofen-zwetschgen",
+    "name": "Ofen-Zwetschgen mit Joghurt",
+    "category": "sweet",
+    "minutes": 25,
+    "servings": 2,
+    "gramsPerServing": 220,
+    "kcal": 180,
+    "proteinG": 6,
+    "carbsG": 30,
+    "fatG": 4,
+    "vegetarian": true,
+    "vegan": false,
+    "swiss": false,
+    "emoji": "🍑",
+    "ingredients": [
+      "400 g Zwetschgen",
+      "1 TL Honig",
+      "Zimt",
+      "150 g griechisches Joghurt",
+      "1 EL gehackte Nüsse"
+    ],
+    "steps": [
+      "Halbierte Zwetschgen mit Honig und Zimt bei 200 Grad 15 Minuten backen.",
+      "Mit Joghurt anrichten.",
+      "Mit Nüssen bestreuen."
+    ]
+  }
+]
