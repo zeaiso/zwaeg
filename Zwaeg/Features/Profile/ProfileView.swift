@@ -321,12 +321,26 @@ struct LookView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 
+    /// The home screen icon follows the look (Munch is the primary icon).
+    private func applyIcon(for look: AppLook) {
+        guard UIApplication.shared.supportsAlternateIcons else { return }
+        let name: String?
+        switch look {
+        case .munch: name = nil
+        case .midnight: name = "AppIconMidnight"
+        case .mono: name = "AppIconMono"
+        }
+        guard UIApplication.shared.alternateIconName != name else { return }
+        UIApplication.shared.setAlternateIconName(name)
+    }
+
     private func lookRow(_ look: AppLook) -> some View {
         let isSelected = themer.look == look
         return Button {
             withAnimation(.snappy) {
                 themer.look = look
             }
+            applyIcon(for: look)
         } label: {
             HStack(spacing: 12) {
                 ZStack {

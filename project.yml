@@ -34,6 +34,16 @@ targets:
           - Fredoka-Regular.ttf
           - Fredoka-Medium.ttf
           - Fredoka-SemiBold.ttf
+        CFBundleIcons:
+          CFBundlePrimaryIcon:
+            CFBundleIconName: AppIcon
+          CFBundleAlternateIcons:
+            AppIconMidnight:
+              CFBundleIconFiles:
+                - AppIconMidnight
+            AppIconMono:
+              CFBundleIconFiles:
+                - AppIconMono
     entitlements:
       path: Zwaeg/Zwaeg.entitlements
       properties:
