@@ -22,6 +22,7 @@ Zwäg (Swiss German for feeling fit and well) tracks your calories, macros, step
 ## Features
 
 - **Diary**: log meals with a daily calorie budget, macros, week strip, steps from Apple Health and a water counter
+- **Recipes**: 200+ healthy recipes with Swiss classics, browsable by category, calories and diet, one tap logs a portion to the diary
 - **Barcode scanner**: live EAN scanning (VisionKit) with product lookup on Open Food Facts, plus the official Swiss Food Composition Database (BLV, 1220 foods) bundled for offline search
 - **Calculators**: BMI, ideal weight, daily calorie needs (Mifflin-St Jeor) and calorie burn (MET based)
 - **Progress**: weight trend chart, weekly calorie bars, monthly stats
@@ -48,6 +49,7 @@ The `.xcodeproj`, `Info.plist` and entitlements are generated from `project.yml`
 ## Credits
 
 - Nutrition data: [Swiss Food Composition Database](https://naehrwertdaten.ch) (BLV) and [Open Food Facts](https://ch.openfoodfacts.org)
+- Recipe photos: [Wikimedia Commons](https://commons.wikimedia.org), openly licensed (CC BY, CC BY-SA, CC0 or public domain), fetched with `scripts/fetch_recipe_images.py`; every image with author and license in [docs/IMAGE-CREDITS.md](docs/IMAGE-CREDITS.md) and shown in the app on the recipe page
 - Avatars: generated with [DiceBear](https://dicebear.com), styles Thumbs (CC0) and Avataaars by [Pablo Stanley](https://avataaars.com) (free for personal and commercial use)
 - Font: [Fredoka](https://fonts.google.com/specimen/Fredoka) (SIL Open Font License)
 
