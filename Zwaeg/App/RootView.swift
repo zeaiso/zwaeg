@@ -99,6 +99,7 @@ struct MainTabView: View {
                 case 2: ScannerScreen(profile: profile)
                 case 3: CalculatorsView(profile: profile)
                 case 4: ProfileView(profile: profile)
+                case 5: RecipesScreen(profile: profile)
                 default: DiaryView(profile: profile)
                 }
             }
@@ -121,6 +122,7 @@ struct ZwaegTabBar: View {
     var body: some View {
         HStack(spacing: 0) {
             tabButton(0, symbol: "house.fill")
+            tabButton(5, symbol: "book.fill")
             tabButton(1, symbol: "flame.fill")
             scanButton
             tabButton(3, symbol: "chart.bar.fill")
