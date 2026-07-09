@@ -9,6 +9,7 @@ struct FastingView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \FastingSession.start, order: .reverse) private var sessions: [FastingSession]
     @AppStorage("fastingPlan") private var planRaw = FastingPlan.sixteenEight.rawValue
+    @State private var confettiTrigger = 0
 
     private var plan: FastingPlan { FastingPlan(rawValue: planRaw) ?? .sixteenEight }
 
@@ -35,6 +36,9 @@ struct FastingView: View {
         }
         .background(Theme.background)
         .toolbar(.hidden, for: .navigationBar)
+        .overlay {
+            ConfettiBurst(trigger: confettiTrigger)
+        }
     }
 
     // MARK: - Plan picker
@@ -59,7 +63,7 @@ struct FastingView: View {
                     .background(selected == option ? AnyShapeStyle(Theme.accent.gradient)
                                                   : AnyShapeStyle(Theme.card),
                                 in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .shadow(color: Theme.ink.opacity(0.05), radius: 6, y: 2)
+                    .shadow(color: Theme.shadow.opacity(0.05), radius: 6, y: 2)
                 }
                 .buttonStyle(.plain)
                 .disabled(activeSession != nil)
@@ -100,7 +104,7 @@ struct FastingView: View {
         let remaining = total - elapsed
         return ZStack {
             Circle()
-                .stroke(Color.white.opacity(0.7), lineWidth: 14)
+                .stroke(Theme.track, lineWidth: 14)
             Circle()
                 .trim(from: 0, to: progress)
                 .stroke(
@@ -188,6 +192,9 @@ struct FastingView: View {
     }
 
     private func stop(_ session: FastingSession) {
+        if Date.now >= session.goalEnd {
+            confettiTrigger += 1
+        }
         withAnimation(.snappy) {
             session.endedAt = .now
         }

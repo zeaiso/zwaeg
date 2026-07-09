@@ -16,6 +16,8 @@ struct DiaryView: View {
     @State private var openFasting = false
     @State private var activity = HealthKitService.DayActivity()
     @State private var weightSaveTask: Task<Void, Never>?
+    @State private var confettiTrigger = 0
+    @State private var buddyBounced = false
 
     private var health: HealthKitService { HealthKitService.shared }
 
@@ -50,6 +52,9 @@ struct DiaryView: View {
             }
             .defaultScrollAnchor(CommandLine.arguments.contains("-scroll-bottom") ? .bottom : .top)
             .background(Theme.background)
+            .overlay {
+                ConfettiBurst(trigger: confettiTrigger)
+            }
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(item: $openMeal) { meal in
                 AddFoodView(day: selectedDay, meal: meal)
@@ -91,7 +96,25 @@ struct DiaryView: View {
 
     private var header: some View {
         HStack(spacing: 12) {
-            BuddyView(buddy: profile.buddy, size: 46)
+            ZStack(alignment: .bottomTrailing) {
+                BuddyView(buddy: profile.buddy, size: 46)
+                if let mood = buddyMood {
+                    Image(systemName: mood.symbol)
+                        .font(.system(size: 9, weight: .bold))
+                        .foregroundStyle(mood.color)
+                        .frame(width: 18, height: 18)
+                        .background(Theme.card, in: Circle())
+                        .shadow(color: Theme.shadow.opacity(0.15), radius: 2, y: 1)
+                        .offset(x: 3, y: 3)
+                }
+            }
+            .scaleEffect(buddyBounced ? 1 : 0.6)
+            .rotationEffect(.degrees(buddyBounced ? 0 : -14))
+            .onAppear {
+                withAnimation(.spring(response: 0.55, dampingFraction: 0.55).delay(0.15)) {
+                    buddyBounced = true
+                }
+            }
             VStack(alignment: .leading, spacing: 1) {
                 Text(greeting)
                     .font(.fredoka(13))
@@ -113,7 +136,7 @@ struct DiaryView: View {
             .padding(.horizontal, 13)
             .frame(height: 42)
             .background(Theme.card, in: Capsule())
-            .shadow(color: Theme.ink.opacity(0.05), radius: 6, y: 2)
+            .shadow(color: Theme.shadow.opacity(0.05), radius: 6, y: 2)
             NavigationLink {
                 RemindersView()
             } label: {
@@ -122,11 +145,19 @@ struct DiaryView: View {
                     .foregroundStyle(Theme.ink)
                     .frame(width: 42, height: 42)
                     .background(Theme.card, in: Circle())
-                    .shadow(color: Theme.ink.opacity(0.05), radius: 6, y: 2)
+                    .shadow(color: Theme.shadow.opacity(0.05), radius: 6, y: 2)
             }
             .buttonStyle(.plain)
         }
         .padding(.top, 8)
+    }
+
+    /// Badge on the header buddy reacting to the selected day:
+    /// sleeping while nothing is logged, thumbs up on track, alert when over.
+    private var buddyMood: (symbol: String, color: Color)? {
+        if dayEntries.isEmpty { return ("zzz", Color(.systemGray)) }
+        if remaining >= 0 { return ("hand.thumbsup.fill", Color(red: 0.3, green: 0.65, blue: 0.35)) }
+        return ("exclamationmark", Color.appAccent)
     }
 
     /// Consecutive days with at least one logged food, ending today or yesterday.
@@ -212,11 +243,11 @@ struct DiaryView: View {
                 RoundedRectangle(cornerRadius: 24, style: .continuous)
                     .fill(Theme.accentSoft)
                 Circle()
-                    .fill(.white.opacity(0.35))
+                    .fill(Theme.decorStrong)
                     .frame(width: 190, height: 190)
                     .offset(x: 70, y: -80)
                 Circle()
-                    .fill(.white.opacity(0.25))
+                    .fill(Theme.decorSoft)
                     .frame(width: 90, height: 90)
                     .offset(x: -230, y: 150)
             }
@@ -227,7 +258,7 @@ struct DiaryView: View {
     private var remainingRing: some View {
         ZStack {
             Circle()
-                .stroke(Color.white.opacity(0.7), lineWidth: 11)
+                .stroke(Theme.track, lineWidth: 11)
             Circle()
                 .trim(from: 0, to: progress)
                 .stroke(
@@ -276,7 +307,7 @@ struct DiaryView: View {
                 .minimumScaleFactor(0.8)
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
-                    Capsule().fill(Color.white.opacity(0.7))
+                    Capsule().fill(Theme.track)
                     Capsule()
                         .fill(color)
                         .frame(width: max(0, geo.size.width * min(1, eaten / Double(max(1, target)))))
@@ -431,6 +462,10 @@ struct DiaryView: View {
 
     /// Tapping the nth glass fills up to n; tapping the last filled one empties it again.
     private func setWater(_ glasses: Int) {
+        let previous = waterEntry?.glasses ?? 0
+        if previous < profile.waterGoalGlasses && glasses >= profile.waterGoalGlasses {
+            confettiTrigger += 1
+        }
         withAnimation(.snappy) {
             if let entry = waterEntry {
                 entry.glasses = max(0, glasses)
