@@ -238,7 +238,8 @@ struct LanguageView: View {
                 }
                 sectionLabel("Weitere Sprachen".loc)
                     .padding(.top, 10)
-                ForEach(AppLanguage.allCases.filter { !$0.isSwiss }) { language in
+                ForEach(AppLanguage.allCases.filter { !$0.isSwiss }
+                    .sorted { $0.label.localizedCompare($1.label) == .orderedAscending }) { language in
                     languageRow(language)
                 }
             }
