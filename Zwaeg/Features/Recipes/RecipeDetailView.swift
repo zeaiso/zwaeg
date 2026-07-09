@@ -6,10 +6,28 @@ import SwiftUI
 struct RecipeDetailView: View {
     let recipe: Recipe
 
+    @State private var servings: Int
     @State private var showPortionSheet = false
     @State private var addedToList = false
     @State private var favorites = RecipeFavorites.shared
     @Environment(\.dismiss) private var dismiss
+
+    init(recipe: Recipe) {
+        self.recipe = recipe
+        _servings = State(initialValue: recipe.servings)
+    }
+
+    /// Ingredient lines start with their quantity; scale it to the chosen
+    /// servings and leave lines without a leading number untouched.
+    private func scaledIngredient(_ ingredient: String) -> String {
+        guard servings != recipe.servings,
+              let match = ingredient.firstMatch(of: /^(\d+(?:\.\d+)?)/),
+              let value = Double(match.1) else { return ingredient }
+        let scaled = value * Double(servings) / Double(recipe.servings)
+        let number = scaled.formatted(.number.precision(.fractionLength(0...2))
+            .locale(Lingo.shared.language.locale))
+        return number + ingredient[match.range.upperBound...]
+    }
 
     var body: some View {
         ScrollView {
@@ -120,7 +138,7 @@ struct RecipeDetailView: View {
     private var bottomBar: some View {
         HStack(spacing: 12) {
             Button {
-                ShoppingList.shared.add(recipe.ingredients)
+                ShoppingList.shared.add(recipe.ingredients.map(scaledIngredient))
                 withAnimation(.snappy(duration: 0.2)) {
                     addedToList = true
                 }
@@ -193,21 +211,50 @@ struct RecipeDetailView: View {
     private var ingredientsCard: some View {
         Card {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Zutaten".loc)
-                    .font(.fredoka(15, .semibold))
+                HStack(spacing: 10) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Zutaten".loc)
+                            .font(.fredoka(15, .semibold))
+                        Text((servings == 1 ? "Für %d Portion" : "Für %d Portionen").loc(servings))
+                            .font(.fredoka(12))
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    servingsButton("minus", enabled: servings > 1) { servings -= 1 }
+                    servingsButton("plus", enabled: servings < 12) { servings += 1 }
+                }
                 ForEach(recipe.ingredients, id: \.self) { ingredient in
                     HStack(alignment: .firstTextBaseline, spacing: 10) {
                         Circle()
                             .fill(Color.appAccent)
                             .frame(width: 6, height: 6)
                             .offset(y: -2)
-                        Text(ingredient)
+                        Text(scaledIngredient(ingredient))
                             .font(.fredoka(14))
+                            .contentTransition(.numericText())
                     }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+    }
+
+    private func servingsButton(_ symbol: String, enabled: Bool, action: @escaping () -> Void) -> some View {
+        Button {
+            withAnimation(.snappy(duration: 0.2)) {
+                action()
+            }
+        } label: {
+            Image(systemName: symbol)
+                .font(.system(size: 14, weight: .bold))
+                .foregroundStyle(enabled ? Theme.onAccent : Color(.systemGray2))
+                .frame(width: 32, height: 32)
+                .background(enabled ? AnyShapeStyle(Theme.accent.gradient)
+                                    : AnyShapeStyle(Theme.field),
+                            in: Circle())
+        }
+        .buttonStyle(.plain)
+        .disabled(!enabled)
     }
 
     private var stepsCard: some View {
