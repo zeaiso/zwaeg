@@ -35,14 +35,14 @@ struct DiaryView: View {
                     summaryCard
                     HStack(spacing: 16) {
                         stepsCard
-                        waterCard
+                        weightCard
                     }
                     weekStrip
                     ForEach(MealType.allCases) { meal in
                         mealCard(meal)
                     }
+                    waterCard
                     fastingCard
-                    weightCard
                     moodCard
                 }
                 .padding(.horizontal, 16)
@@ -55,7 +55,7 @@ struct DiaryView: View {
                 AddFoodView(day: selectedDay, meal: meal)
             }
             .navigationDestination(isPresented: $openFasting) {
-                FastingView()
+                FastingView(profile: profile)
             }
             .task(id: selectedDay) {
                 await refreshActivity()
@@ -207,7 +207,21 @@ struct DiaryView: View {
             }
         }
         .padding(16)
-        .background(Theme.accentSoft, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .background {
+            ZStack(alignment: .topTrailing) {
+                RoundedRectangle(cornerRadius: 24, style: .continuous)
+                    .fill(Theme.accentSoft)
+                Circle()
+                    .fill(.white.opacity(0.35))
+                    .frame(width: 190, height: 190)
+                    .offset(x: 70, y: -80)
+                Circle()
+                    .fill(.white.opacity(0.25))
+                    .frame(width: 90, height: 90)
+                    .offset(x: -230, y: 150)
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+        }
     }
 
     private var remainingRing: some View {
@@ -332,22 +346,39 @@ struct DiaryView: View {
 
     private var waterCard: some View {
         let glasses = waterEntry?.glasses ?? 0
+        let goal = max(1, profile.waterGoalGlasses)
+        let blue = Color(red: 0.24, green: 0.64, blue: 1.0)
+        let columns = [GridItem(.adaptive(minimum: 36), spacing: 8)]
         return Card {
-            VStack(alignment: .leading, spacing: 10) {
-                HStack {
+            VStack(alignment: .leading, spacing: 14) {
+                HStack(spacing: 12) {
                     Image(systemName: "drop.fill")
                         .font(.fredoka(17, .semibold))
                         .foregroundStyle(.white)
-                        .frame(width: 40, height: 40)
-                        .background(Color(red: 0.24, green: 0.64, blue: 1.0).gradient,
-                                    in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+                        .frame(width: 46, height: 46)
+                        .background(blue.gradient,
+                                    in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack(alignment: .firstTextBaseline, spacing: 4) {
+                            Text(String(format: "%.2f", Double(glasses) * 0.25))
+                                .font(.fredoka(19, .semibold))
+                                .foregroundStyle(Theme.ink)
+                                .contentTransition(.numericText())
+                            Text("l")
+                                .font(.fredoka(13))
+                                .foregroundStyle(.secondary)
+                        }
+                        Text("Ziel: %@ Liter".loc(String(format: "%.1f", Double(goal) * 0.25)))
+                            .font(.fredoka(12))
+                            .foregroundStyle(.secondary)
+                    }
                     Spacer()
                     Button {
                         addWater(-1)
                     } label: {
                         Image(systemName: "minus")
-                            .font(.fredoka(12, .semibold))
-                            .frame(width: 26, height: 26)
+                            .font(.fredoka(13, .semibold))
+                            .frame(width: 32, height: 32)
                             .background(Theme.field, in: Circle())
                             .foregroundStyle(Theme.ink)
                     }
@@ -357,45 +388,54 @@ struct DiaryView: View {
                         addWater(1)
                     } label: {
                         Image(systemName: "plus")
-                            .font(.fredoka(12, .semibold))
-                            .frame(width: 26, height: 26)
+                            .font(.fredoka(13, .semibold))
+                            .frame(width: 32, height: 32)
                             .background(Theme.accent, in: Circle())
                             .foregroundStyle(Theme.onAccent)
                     }
                     .buttonStyle(.plain)
                 }
-                HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text("\(glasses)")
-                        .font(.fredoka(22, .semibold))
-                        .foregroundStyle(Theme.ink)
-                        .contentTransition(.numericText())
-                    Text("/ \(profile.waterGoalGlasses) \("Glas".loc)")
-                        .font(.fredoka(13))
-                        .foregroundStyle(.secondary)
-                }
-                GeometryReader { geo in
-                    ZStack(alignment: .leading) {
-                        Capsule().fill(Theme.field)
-                        Capsule()
-                            .fill(Color(red: 0.24, green: 0.64, blue: 1.0))
-                            .frame(width: max(0, geo.size.width * min(1, Double(glasses) / Double(max(1, profile.waterGoalGlasses)))))
-                            .animation(.snappy, value: glasses)
+                LazyVGrid(columns: columns, spacing: 8) {
+                    ForEach(0..<max(goal, glasses), id: \.self) { index in
+                        Button {
+                            setWater(index < glasses ? index : index + 1)
+                        } label: {
+                            Image(systemName: index < glasses ? "drop.fill" : "drop")
+                                .font(.fredoka(24, .semibold))
+                                .foregroundStyle(index < glasses ? blue : Color(.systemGray4))
+                                .frame(maxWidth: .infinity, minHeight: 40)
+                                .background((index < glasses ? blue.opacity(0.10) : Theme.field.opacity(0.4)),
+                                            in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        }
+                        .buttonStyle(.plain)
                     }
+                    Button {
+                        addWater(1)
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(.fredoka(17, .semibold))
+                            .foregroundStyle(blue)
+                            .frame(maxWidth: .infinity, minHeight: 40)
+                            .background(blue.opacity(0.10),
+                                        in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
                 }
-                .frame(height: 6)
-                Text("Ziel: %@ Liter".loc(String(format: "%.1f", Double(profile.waterGoalGlasses) * 0.25)))
-                    .font(.fredoka(12))
-                    .foregroundStyle(.secondary)
             }
         }
     }
 
     private func addWater(_ delta: Int) {
+        setWater(max(0, (waterEntry?.glasses ?? 0) + delta))
+    }
+
+    /// Tapping the nth glass fills up to n; tapping the last filled one empties it again.
+    private func setWater(_ glasses: Int) {
         withAnimation(.snappy) {
             if let entry = waterEntry {
-                entry.glasses = max(0, entry.glasses + delta)
-            } else if delta > 0 {
-                context.insert(WaterDay(day: selectedDay, glasses: delta))
+                entry.glasses = max(0, glasses)
+            } else if glasses > 0 {
+                context.insert(WaterDay(day: selectedDay, glasses: glasses))
             }
         }
     }
@@ -464,17 +504,28 @@ struct DiaryView: View {
     private func mealCard(_ meal: MealType) -> some View {
         let entries = dayEntries.filter { $0.meal == meal }
         let kcal = entries.reduce(0) { $0 + $1.calories }
+        let mealProgress = min(1, Double(kcal) / Double(max(1, mealBudget(meal))))
         return Button {
             openMeal = meal
         } label: {
             Card {
                 HStack(spacing: 12) {
-                    Image(systemName: meal.symbol)
-                        .font(.fredoka(17, .semibold))
-                        .foregroundStyle(.white)
-                        .frame(width: 46, height: 46)
-                        .background(mealGradient(meal),
-                                    in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    ZStack {
+                        Circle()
+                            .stroke(Theme.field, lineWidth: 3.5)
+                        Circle()
+                            .trim(from: 0, to: mealProgress)
+                            .stroke(mealGradient(meal),
+                                    style: StrokeStyle(lineWidth: 3.5, lineCap: .round))
+                            .rotationEffect(.degrees(-90))
+                            .animation(.spring(duration: 0.5), value: mealProgress)
+                        Image(systemName: meal.symbol)
+                            .font(.fredoka(15, .semibold))
+                            .foregroundStyle(.white)
+                            .frame(width: 38, height: 38)
+                            .background(mealGradient(meal), in: Circle())
+                    }
+                    .frame(width: 50, height: 50)
                     VStack(alignment: .leading, spacing: 2) {
                         Text(meal.label)
                             .font(.fredoka(17, .semibold))
@@ -483,6 +534,12 @@ struct DiaryView: View {
                             .font(.fredoka(12))
                             .foregroundStyle(.secondary)
                             .contentTransition(.numericText())
+                        if !entries.isEmpty {
+                            Text(entries.map(\.name).joined(separator: ", "))
+                                .font(.fredoka(11))
+                                .foregroundStyle(.tertiary)
+                                .lineLimit(1)
+                        }
                     }
                     Spacer()
                     Text("Add")
@@ -566,48 +623,50 @@ struct DiaryView: View {
     private var weightCard: some View {
         let current = latestWeight?.weightKg ?? profile.weightKg
         return Card {
-            HStack(spacing: 12) {
-                Image(systemName: "scalemass.fill")
-                    .font(.fredoka(17, .semibold))
-                    .foregroundStyle(.white)
-                    .frame(width: 46, height: 46)
-                    .background(Color(red: 0.55, green: 0.78, blue: 0.45).gradient,
-                                in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack(alignment: .firstTextBaseline, spacing: 4) {
-                        Text(String(format: "%.1f", current))
-                            .font(.fredoka(19, .semibold))
+            VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                    Image(systemName: "scalemass.fill")
+                        .font(.fredoka(17, .semibold))
+                        .foregroundStyle(.white)
+                        .frame(width: 40, height: 40)
+                        .background(Color(red: 0.55, green: 0.78, blue: 0.45).gradient,
+                                    in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+                    Spacer()
+                    Button {
+                        adjustWeight(-0.1)
+                    } label: {
+                        Image(systemName: "minus")
+                            .font(.fredoka(12, .semibold))
+                            .frame(width: 26, height: 26)
+                            .background(Theme.field, in: Circle())
                             .foregroundStyle(Theme.ink)
-                            .contentTransition(.numericText())
-                        Text("kg")
-                            .font(.fredoka(13))
-                            .foregroundStyle(.secondary)
                     }
-                    Text(weightDeltaLabel)
-                        .font(.fredoka(12))
+                    .buttonStyle(.plain)
+                    Button {
+                        adjustWeight(0.1)
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(.fredoka(12, .semibold))
+                            .frame(width: 26, height: 26)
+                            .background(Theme.accent, in: Circle())
+                            .foregroundStyle(Theme.onAccent)
+                    }
+                    .buttonStyle(.plain)
+                }
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    Text(String(format: "%.1f", current))
+                        .font(.fredoka(22, .semibold))
+                        .foregroundStyle(Theme.ink)
+                        .contentTransition(.numericText())
+                    Text("kg")
+                        .font(.fredoka(13))
                         .foregroundStyle(.secondary)
                 }
-                Spacer()
-                Button {
-                    adjustWeight(-0.1)
-                } label: {
-                    Image(systemName: "minus")
-                        .font(.fredoka(13, .semibold))
-                        .frame(width: 32, height: 32)
-                        .background(Theme.field, in: Circle())
-                        .foregroundStyle(Theme.ink)
-                }
-                .buttonStyle(.plain)
-                Button {
-                    adjustWeight(0.1)
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.fredoka(13, .semibold))
-                        .frame(width: 32, height: 32)
-                        .background(Theme.accent, in: Circle())
-                        .foregroundStyle(Theme.onAccent)
-                }
-                .buttonStyle(.plain)
+                Text(weightDeltaLabel)
+                    .font(.fredoka(12))
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
             }
         }
     }
