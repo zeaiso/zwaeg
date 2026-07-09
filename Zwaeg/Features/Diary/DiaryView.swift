@@ -17,6 +17,7 @@ struct DiaryView: View {
         case meal(MealType)
         case details
         case reminders
+        case challenges
 
         var id: Self { self }
     }
@@ -77,6 +78,8 @@ struct DiaryView: View {
                     DayDetailView(day: selectedDay, profile: profile)
                 case .reminders:
                     RemindersView()
+                case .challenges:
+                    ChallengesView(profile: profile)
                 }
             }
             .sheet(isPresented: $showCalendar) {
@@ -99,6 +102,12 @@ struct DiaryView: View {
                     Task {
                         try? await Task.sleep(for: .milliseconds(500))
                         route = .meal(MealType(rawValue: next) ?? .breakfast)
+                    }
+                }
+                if CommandLine.arguments.contains("-open-challenges") {
+                    Task {
+                        try? await Task.sleep(for: .milliseconds(500))
+                        route = .challenges
                     }
                 }
                 if CommandLine.arguments.contains("-open-calendar") {
@@ -158,19 +167,24 @@ struct DiaryView: View {
                     .foregroundStyle(Theme.ink)
             }
             Spacer()
-            HStack(spacing: 5) {
-                Image(systemName: "flame.fill")
-                    .font(.fredoka(13, .semibold))
-                    .foregroundStyle(Color.appAccent)
-                Text("\(streak)")
-                    .font(.fredoka(15, .semibold))
-                    .foregroundStyle(Theme.ink)
-                    .contentTransition(.numericText())
+            Button {
+                route = .challenges
+            } label: {
+                HStack(spacing: 5) {
+                    Image(systemName: "flame.fill")
+                        .font(.fredoka(13, .semibold))
+                        .foregroundStyle(Color.appAccent)
+                    Text("\(streak)")
+                        .font(.fredoka(15, .semibold))
+                        .foregroundStyle(Theme.ink)
+                        .contentTransition(.numericText())
+                }
+                .padding(.horizontal, 13)
+                .frame(height: 42)
+                .background(Theme.card, in: Capsule())
+                .shadow(color: Theme.shadow.opacity(0.05), radius: 6, y: 2)
             }
-            .padding(.horizontal, 13)
-            .frame(height: 42)
-            .background(Theme.card, in: Capsule())
-            .shadow(color: Theme.shadow.opacity(0.05), radius: 6, y: 2)
+            .buttonStyle(.plain)
             Button {
                 showCalendar = true
             } label: {
