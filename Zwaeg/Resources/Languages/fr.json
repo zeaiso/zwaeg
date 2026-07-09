@@ -288,5 +288,15 @@
   "%d Tage am Stück!": "%d jours d'affilée !",
   "Wasser geloggt. Heute insgesamt: %d Gläser.": "Eau enregistrée. Total aujourd'hui : %d verres.",
   "Du hast noch %@ kcal übrig.": "Il te reste %@ kcal.",
-  "Akzentfarbe": "Couleur d'accent"
+  "Akzentfarbe": "Couleur d'accent",
+  "Rezepte": "Recettes",
+  "Gesunde Schweizer Küche": "Cuisine suisse saine",
+  "Alle": "Toutes",
+  "Hauptgericht": "Plat principal",
+  "Suppe": "Soupe",
+  "Süsses": "Douceur",
+  "Vegetarisch": "Végétarien",
+  "Zutaten": "Ingrédients",
+  "Zubereitung": "Préparation",
+  "Pro Portion": "Par portion"
 }

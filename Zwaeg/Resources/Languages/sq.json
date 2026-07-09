@@ -288,5 +288,15 @@
   "%d Tage am Stück!": "%d ditë rresht!",
   "Wasser geloggt. Heute insgesamt: %d Gläser.": "Uji u regjistrua. Gjithsej sot: %d gota.",
   "Du hast noch %@ kcal übrig.": "Të kanë mbetur %@ kcal.",
-  "Akzentfarbe": "Ngjyra kryesore"
+  "Akzentfarbe": "Ngjyra kryesore",
+  "Rezepte": "Receta",
+  "Gesunde Schweizer Küche": "Kuzhinë e shëndetshme zvicerane",
+  "Alle": "Të gjitha",
+  "Hauptgericht": "Pjatë kryesore",
+  "Suppe": "Supë",
+  "Süsses": "Ëmbëlsirë",
+  "Vegetarisch": "Vegjetariane",
+  "Zutaten": "Përbërësit",
+  "Zubereitung": "Përgatitja",
+  "Pro Portion": "Për porcion"
 }

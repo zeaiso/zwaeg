@@ -288,5 +288,15 @@
   "%d Tage am Stück!": "Üst üste %d gün!",
   "Wasser geloggt. Heute insgesamt: %d Gläser.": "Su kaydedildi. Bugün toplam: %d bardak.",
   "Du hast noch %@ kcal übrig.": "%@ kcal hakkın kaldı.",
-  "Akzentfarbe": "Vurgu rengi"
+  "Akzentfarbe": "Vurgu rengi",
+  "Rezepte": "Tarifler",
+  "Gesunde Schweizer Küche": "Sağlıklı İsviçre mutfağı",
+  "Alle": "Tümü",
+  "Hauptgericht": "Ana yemek",
+  "Suppe": "Çorba",
+  "Süsses": "Tatlı",
+  "Vegetarisch": "Vejetaryen",
+  "Zutaten": "Malzemeler",
+  "Zubereitung": "Hazırlanışı",
+  "Pro Portion": "Porsiyon başına"
 }

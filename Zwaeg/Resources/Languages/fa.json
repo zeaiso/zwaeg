@@ -288,5 +288,15 @@
   "Wasser geloggt. Heute insgesamt: %d Gläser.": "آب ثبت شد. جمع امروز: %d لیوان.",
   "Du hast noch %@ kcal übrig.": "هنوز %@ کیلوکالری برایت مانده.",
   "Was hast du gegessen?": "چه خوردی؟",
-  "Akzentfarbe": "رنگ اصلی"
+  "Akzentfarbe": "رنگ اصلی",
+  "Rezepte": "دستور پخت",
+  "Gesunde Schweizer Küche": "آشپزی سالم سوئیسی",
+  "Alle": "همه",
+  "Hauptgericht": "غذای اصلی",
+  "Suppe": "سوپ",
+  "Süsses": "شیرینی",
+  "Vegetarisch": "گیاهی",
+  "Zutaten": "مواد لازم",
+  "Zubereitung": "طرز تهیه",
+  "Pro Portion": "برای هر وعده"
 }

@@ -288,5 +288,15 @@
   "%d Tage am Stück!": "%d днів поспіль!",
   "Wasser geloggt. Heute insgesamt: %d Gläser.": "Воду записано. Разом сьогодні: %d склянок.",
   "Du hast noch %@ kcal übrig.": "У тебе залишилось %@ ккал.",
-  "Akzentfarbe": "Акцентний колір"
+  "Akzentfarbe": "Акцентний колір",
+  "Rezepte": "Рецепти",
+  "Gesunde Schweizer Küche": "Здорова швейцарська кухня",
+  "Alle": "Усі",
+  "Hauptgericht": "Основна страва",
+  "Suppe": "Суп",
+  "Süsses": "Солодке",
+  "Vegetarisch": "Вегетаріанське",
+  "Zutaten": "Інгредієнти",
+  "Zubereitung": "Приготування",
+  "Pro Portion": "На порцію"
 }

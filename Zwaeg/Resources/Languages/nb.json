@@ -288,5 +288,15 @@
   "%d Tage am Stück!": "%d dager på rad!",
   "Wasser geloggt. Heute insgesamt: %d Gläser.": "Vann logget. Totalt i dag: %d glass.",
   "Du hast noch %@ kcal übrig.": "Du har %@ kcal igjen.",
-  "Akzentfarbe": "Aksentfarge"
+  "Akzentfarbe": "Aksentfarge",
+  "Rezepte": "Oppskrifter",
+  "Gesunde Schweizer Küche": "Sunt sveitsisk kjøkken",
+  "Alle": "Alle",
+  "Hauptgericht": "Hovedrett",
+  "Suppe": "Suppe",
+  "Süsses": "Søtt",
+  "Vegetarisch": "Vegetarisk",
+  "Zutaten": "Ingredienser",
+  "Zubereitung": "Tilberedning",
+  "Pro Portion": "Per porsjon"
 }

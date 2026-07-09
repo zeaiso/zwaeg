@@ -288,5 +288,15 @@
   "%d Tage am Stück!": "%d days in a row!",
   "Wasser geloggt. Heute insgesamt: %d Gläser.": "Water logged. Total today: %d glasses.",
   "Du hast noch %@ kcal übrig.": "You have %@ kcal left.",
-  "Akzentfarbe": "Accent color"
+  "Akzentfarbe": "Accent color",
+  "Rezepte": "Recipes",
+  "Gesunde Schweizer Küche": "Healthy Swiss cooking",
+  "Alle": "All",
+  "Hauptgericht": "Main dish",
+  "Suppe": "Soup",
+  "Süsses": "Sweet",
+  "Vegetarisch": "Vegetarian",
+  "Zutaten": "Ingredients",
+  "Zubereitung": "Preparation",
+  "Pro Portion": "Per serving"
 }

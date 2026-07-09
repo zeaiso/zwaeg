@@ -288,5 +288,15 @@
   "%d Tage am Stück!": "தொடர்ந்து %d நாட்கள்!",
   "Wasser geloggt. Heute insgesamt: %d Gläser.": "தண்ணீர் பதிவானது. இன்று மொத்தம்: %d டம்ளர்.",
   "Du hast noch %@ kcal übrig.": "உனக்கு இன்னும் %@ kcal உள்ளது.",
-  "Akzentfarbe": "முதன்மை நிறம்"
+  "Akzentfarbe": "முதன்மை நிறம்",
+  "Rezepte": "சமையல் குறிப்புகள்",
+  "Gesunde Schweizer Küche": "ஆரோக்கியமான சுவிஸ் சமையல்",
+  "Alle": "அனைத்தும்",
+  "Hauptgericht": "முதன்மை உணவு",
+  "Suppe": "சூப்",
+  "Süsses": "இனிப்பு",
+  "Vegetarisch": "சைவம்",
+  "Zutaten": "தேவையான பொருட்கள்",
+  "Zubereitung": "தயாரிப்பு",
+  "Pro Portion": "ஒரு பரிமாறலுக்கு"
 }

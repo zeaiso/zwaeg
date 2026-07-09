@@ -288,5 +288,15 @@
   "Wasser geloggt. Heute insgesamt: %d Gläser.": "تم تسجيل الماء. إجمالي اليوم: %d أكواب.",
   "Du hast noch %@ kcal übrig.": "بقي لك %@ سعرة حرارية.",
   "Was hast du gegessen?": "ماذا أكلت؟",
-  "Akzentfarbe": "اللون المميز"
+  "Akzentfarbe": "اللون المميز",
+  "Rezepte": "وصفات",
+  "Gesunde Schweizer Küche": "مطبخ سويسري صحي",
+  "Alle": "الكل",
+  "Hauptgericht": "طبق رئيسي",
+  "Suppe": "شوربة",
+  "Süsses": "حلويات",
+  "Vegetarisch": "نباتي",
+  "Zutaten": "المكونات",
+  "Zubereitung": "طريقة التحضير",
+  "Pro Portion": "لكل حصة"
 }
