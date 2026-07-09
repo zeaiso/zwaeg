@@ -298,5 +298,21 @@
   "Vegetarisch": "Vegetariano",
   "Zutaten": "Ingredientes",
   "Zubereitung": "Preparación",
-  "Pro Portion": "Por ración"
+  "Pro Portion": "Por ración",
+  "Beliebte Kategorien": "Categorías populares",
+  "Nach Kalorien": "Por calorías",
+  "Nach Ernährung": "Por dieta",
+  "Salat": "Ensalada",
+  "Snack": "Snack",
+  "Vegan": "Vegano",
+  "Proteinreich": "Rico en proteínas",
+  "Schweizer Klassiker": "Clásicos suizos",
+  "Favoriten": "Favoritos",
+  "bis %d kcal": "hasta %d kcal",
+  "ab %d kcal": "más de %d kcal",
+  "Wonach hast du Lust?": "¿Qué te apetece?",
+  "Alle %d Rezepte": "Todas las %d recetas",
+  "Keine Rezepte gefunden": "No se encontraron recetas",
+  "Fettarm": "Bajo en grasa",
+  "Kalorienarm": "Bajo en calorías"
 }

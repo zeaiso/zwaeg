@@ -298,5 +298,21 @@
   "Vegetarisch": "نباتي",
   "Zutaten": "المكونات",
   "Zubereitung": "طريقة التحضير",
-  "Pro Portion": "لكل حصة"
+  "Pro Portion": "لكل حصة",
+  "Beliebte Kategorien": "فئات شائعة",
+  "Nach Kalorien": "حسب السعرات",
+  "Nach Ernährung": "حسب النظام الغذائي",
+  "Salat": "سلطة",
+  "Snack": "وجبة خفيفة",
+  "Vegan": "نباتي صرف",
+  "Proteinreich": "غني بالبروتين",
+  "Schweizer Klassiker": "كلاسيكيات سويسرية",
+  "Favoriten": "المفضلة",
+  "bis %d kcal": "حتى %d سعرة",
+  "ab %d kcal": "من %d سعرة",
+  "Wonach hast du Lust?": "ما الذي تشتهيه؟",
+  "Alle %d Rezepte": "كل الوصفات (%d)",
+  "Keine Rezepte gefunden": "لم يتم العثور على وصفات",
+  "Fettarm": "قليل الدهون",
+  "Kalorienarm": "قليل السعرات"
 }

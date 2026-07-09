@@ -298,5 +298,21 @@
   "Vegetarisch": "Vegetarian",
   "Zutaten": "Ingredients",
   "Zubereitung": "Preparation",
-  "Pro Portion": "Per serving"
+  "Pro Portion": "Per serving",
+  "Beliebte Kategorien": "Popular categories",
+  "Nach Kalorien": "By calories",
+  "Nach Ernährung": "By diet",
+  "Salat": "Salad",
+  "Snack": "Snack",
+  "Vegan": "Vegan",
+  "Proteinreich": "High protein",
+  "Schweizer Klassiker": "Swiss classics",
+  "Favoriten": "Favorites",
+  "bis %d kcal": "under %d kcal",
+  "ab %d kcal": "over %d kcal",
+  "Wonach hast du Lust?": "What are you craving?",
+  "Alle %d Rezepte": "All %d recipes",
+  "Keine Rezepte gefunden": "No recipes found",
+  "Fettarm": "Low fat",
+  "Kalorienarm": "Low calorie"
 }

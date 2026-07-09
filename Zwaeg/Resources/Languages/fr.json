@@ -298,5 +298,21 @@
   "Vegetarisch": "Végétarien",
   "Zutaten": "Ingrédients",
   "Zubereitung": "Préparation",
-  "Pro Portion": "Par portion"
+  "Pro Portion": "Par portion",
+  "Beliebte Kategorien": "Catégories populaires",
+  "Nach Kalorien": "Par calories",
+  "Nach Ernährung": "Par régime",
+  "Salat": "Salade",
+  "Snack": "Snack",
+  "Vegan": "Végane",
+  "Proteinreich": "Riche en protéines",
+  "Schweizer Klassiker": "Classiques suisses",
+  "Favoriten": "Favoris",
+  "bis %d kcal": "jusqu'à %d kcal",
+  "ab %d kcal": "dès %d kcal",
+  "Wonach hast du Lust?": "Envie de quoi?",
+  "Alle %d Rezepte": "Toutes les %d recettes",
+  "Keine Rezepte gefunden": "Aucune recette trouvée",
+  "Fettarm": "Pauvre en graisses",
+  "Kalorienarm": "Peu calorique"
 }
