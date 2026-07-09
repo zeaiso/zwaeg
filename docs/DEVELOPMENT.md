@@ -18,7 +18,7 @@ Useful for driving the app from the CLI or Xcode scheme arguments:
 | Argument | Effect |
 |---|---|
 | `-seed-profile` | Creates a test profile with weight history, three days of meals, water and a demo battle when no profile exists |
-| `-tab <0-4>` | Opens a specific tab (0 diary, 1 battles, 2 scanner, 3 calculators, 4 profile) |
+| `-tab <0-5>` | Opens a specific tab (0 diary, 1 battles, 2 scanner, 3 calculators, 4 profile, 5 recipes) |
 | `-lang <code>` | Forces an app language (`de`, `gsw`, `fr`, `it`, `rm`, `en`, `ar`, `ti`, ...) |
 | `-look <name>` | Forces a look (`munch`, `midnight`, `mono`) |
 | `-accent <RRGGBB>` | Forces an accent color for this launch without persisting it |
@@ -27,6 +27,7 @@ Useful for driving the app from the CLI or Xcode scheme arguments:
 | `-add-food <meal>` | Opens the add-food page (`breakfast`, `lunch`, `dinner`, `snack`) |
 | `-open-calc <name>` | Opens a calculator (`bmi`, `ideal`, `needs`, `burn`, combine with `-tab 3`) |
 | `-open-fasting` | Opens the fasting screen |
+| `-open-recipe <id>` | Opens a recipe detail page, first recipe if the id is unknown (combine with `-tab 5`) |
 | `-open-calendar` | Opens the calendar sheet |
 | `-open-details` | Opens the day details page |
 | `-open-progress` | Opens the progress screen (combine with `-tab 4`) |
