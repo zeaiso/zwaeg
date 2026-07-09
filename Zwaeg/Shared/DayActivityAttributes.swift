@@ -3,6 +3,24 @@ import Foundation
 
 /// Shared between the app and the widget extension: the state of today's
 /// diary shown on the lock screen and in the Dynamic Island.
+/// App-group store so the home screen widget can read today's numbers.
+enum DaySnapshotStore {
+    static let suiteName = "group.ch.emanuell.zwaeg"
+    private static let key = "daySnapshot"
+
+    static func save(_ state: DayActivityAttributes.ContentState) {
+        guard let defaults = UserDefaults(suiteName: suiteName),
+              let data = try? JSONEncoder().encode(state) else { return }
+        defaults.set(data, forKey: key)
+    }
+
+    static func load() -> DayActivityAttributes.ContentState? {
+        guard let defaults = UserDefaults(suiteName: suiteName),
+              let data = defaults.data(forKey: key) else { return nil }
+        return try? JSONDecoder().decode(DayActivityAttributes.ContentState.self, from: data)
+    }
+}
+
 struct DayActivityAttributes: ActivityAttributes {
     struct ContentState: Codable, Hashable {
         var consumed: Int

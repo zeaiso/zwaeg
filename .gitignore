@@ -14,6 +14,7 @@ Zwaeg.xcodeproj/
 Zwaeg/Info.plist
 Zwaeg/Zwaeg.entitlements
 ZwaegWidgets/Info.plist
+ZwaegWidgets/ZwaegWidgets.entitlements
 
 # IDE
 .idea/

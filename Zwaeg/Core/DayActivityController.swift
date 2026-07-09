@@ -1,5 +1,6 @@
 import ActivityKit
 import Foundation
+import WidgetKit
 
 /// Starts and updates the Live Activity that mirrors today's diary on the
 /// lock screen and in the Dynamic Island. Local updates only, no push needed.
@@ -18,6 +19,8 @@ enum DayActivityController {
             remainingLabel: "kcal übrig".loc,
             fastingLabel: "Fasten".loc,
             midnight: Themer.shared.look == .midnight)
+        DaySnapshotStore.save(state)
+        WidgetCenter.shared.reloadAllTimelines()
         let midnightTonight = Calendar.current.startOfDay(for: .now).addingTimeInterval(86_400)
         let content = ActivityContent(state: state, staleDate: midnightTonight)
         Task {

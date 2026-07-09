@@ -5,6 +5,7 @@ import WidgetKit
 @main
 struct ZwaegWidgetsBundle: WidgetBundle {
     var body: some Widget {
+        ZwaegRingWidget()
         ZwaegDayLiveActivity()
     }
 }
@@ -28,6 +29,121 @@ private enum Palette {
     static func track(_ midnight: Bool) -> Color {
         midnight ? .white.opacity(0.16)
                  : Color(red: 0.918, green: 0.878, blue: 0.851)
+    }
+}
+
+// MARK: - Home screen widget
+
+struct DaySnapshotEntry: TimelineEntry {
+    let date: Date
+    let state: DayActivityAttributes.ContentState
+}
+
+struct DaySnapshotProvider: TimelineProvider {
+    private var sample: DayActivityAttributes.ContentState {
+        DayActivityAttributes.ContentState(
+            consumed: 980, target: 2200, burned: 240, glasses: 4, waterGoal: 8,
+            fastingEnd: nil, remainingLabel: "kcal", fastingLabel: "Fasten", midnight: false)
+    }
+
+    private var current: DayActivityAttributes.ContentState {
+        DaySnapshotStore.load() ?? sample
+    }
+
+    func placeholder(in context: Context) -> DaySnapshotEntry {
+        DaySnapshotEntry(date: .now, state: sample)
+    }
+
+    func getSnapshot(in context: Context, completion: @escaping (DaySnapshotEntry) -> Void) {
+        completion(DaySnapshotEntry(date: .now, state: current))
+    }
+
+    func getTimeline(in context: Context, completion: @escaping (Timeline<DaySnapshotEntry>) -> Void) {
+        // The app reloads the timeline on every change; no self-refresh needed.
+        completion(Timeline(entries: [DaySnapshotEntry(date: .now, state: current)], policy: .never))
+    }
+}
+
+struct ZwaegRingWidget: Widget {
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: "ZwaegRingWidget", provider: DaySnapshotProvider()) { entry in
+            RingWidgetView(state: entry.state)
+                .containerBackground(for: .widget) {
+                    Palette.background(entry.state.midnight)
+                }
+        }
+        .configurationDisplayName("Zwäg")
+        .description("Dein Tag auf einen Blick.")
+        .supportedFamilies([.systemSmall, .systemMedium])
+    }
+}
+
+private struct RingWidgetView: View {
+    let state: DayActivityAttributes.ContentState
+
+    @Environment(\.widgetFamily) private var family
+
+    var body: some View {
+        switch family {
+        case .systemMedium:
+            HStack(spacing: 18) {
+                ring(size: 96, lineWidth: 10)
+                VStack(alignment: .leading, spacing: 8) {
+                    statRow(icon: "fork.knife", color: Palette.accent, value: "\(state.consumed) kcal")
+                    statRow(icon: "flame.fill", color: Palette.orange, value: "\(state.burned) kcal")
+                    statRow(icon: "drop.fill", color: Palette.blue, value: "\(state.glasses)/\(state.waterGoal)")
+                }
+                Spacer(minLength: 0)
+            }
+        default:
+            VStack(spacing: 6) {
+                ring(size: 78, lineWidth: 9)
+                Text(state.remaining.formatted())
+                    .font(.custom("Fredoka-SemiBold", size: 21))
+                    .foregroundStyle(Palette.ink(state.midnight))
+                Text(state.remainingLabel)
+                    .font(.custom("Fredoka-Regular", size: 11))
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    private func ring(size: CGFloat, lineWidth: CGFloat) -> some View {
+        ZStack {
+            Circle()
+                .stroke(Palette.track(state.midnight), lineWidth: lineWidth)
+            Circle()
+                .trim(from: 0, to: state.progress)
+                .stroke(Palette.accent, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+                .rotationEffect(.degrees(-90))
+            if family == .systemMedium {
+                VStack(spacing: 0) {
+                    Text(state.remaining.formatted())
+                        .font(.custom("Fredoka-SemiBold", size: 22))
+                        .foregroundStyle(Palette.ink(state.midnight))
+                    Text(state.remainingLabel)
+                        .font(.custom("Fredoka-Regular", size: 10))
+                        .foregroundStyle(.secondary)
+                }
+            } else {
+                Image(systemName: "fork.knife")
+                    .font(.system(size: size * 0.28, weight: .bold))
+                    .foregroundStyle(Palette.accent)
+            }
+        }
+        .frame(width: size, height: size)
+    }
+
+    private func statRow(icon: String, color: Color, value: String) -> some View {
+        HStack(spacing: 7) {
+            Image(systemName: icon)
+                .font(.system(size: 12, weight: .bold))
+                .foregroundStyle(color)
+                .frame(width: 16)
+            Text(value)
+                .font(.custom("Fredoka-SemiBold", size: 15))
+                .foregroundStyle(Palette.ink(state.midnight))
+        }
     }
 }
 

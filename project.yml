@@ -48,6 +48,8 @@ targets:
       path: Zwaeg/Zwaeg.entitlements
       properties:
         com.apple.developer.healthkit: true
+        com.apple.security.application-groups:
+          - group.ch.emanuell.zwaeg
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.zwaeg
@@ -69,6 +71,11 @@ targets:
           - Fredoka-Regular.ttf
           - Fredoka-Medium.ttf
           - Fredoka-SemiBold.ttf
+    entitlements:
+      path: ZwaegWidgets/ZwaegWidgets.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.ch.emanuell.zwaeg
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.zwaeg.widgets
