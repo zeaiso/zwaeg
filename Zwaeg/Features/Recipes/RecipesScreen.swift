@@ -32,6 +32,8 @@ struct RecipesScreen: View {
     @State private var path: [RecipeRoute] = []
     @State private var query = ""
     @State private var favorites = RecipeFavorites.shared
+    @State private var showShoppingList = false
+    @State private var shoppingList = ShoppingList.shared
 
     private var searchResults: [Recipe] {
         let text = query.trimmingCharacters(in: .whitespaces)
@@ -54,6 +56,30 @@ struct RecipesScreen: View {
             }
             .background(Theme.background)
             .navigationTitle("Rezepte".loc)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showShoppingList = true
+                    } label: {
+                        Image(systemName: "basket")
+                            .overlay(alignment: .topTrailing) {
+                                let open = shoppingList.items.filter { !$0.done }.count
+                                if open > 0 {
+                                    Text("\(min(open, 99))")
+                                        .font(.fredoka(9, .semibold))
+                                        .foregroundStyle(Theme.onAccent)
+                                        .padding(3)
+                                        .background(Theme.accent, in: Circle())
+                                        .offset(x: 9, y: -7)
+                                }
+                            }
+                    }
+                }
+            }
+            .sheet(isPresented: $showShoppingList) {
+                ShoppingListView()
+                    .presentationDetents([.medium, .large])
+            }
             .navigationDestination(for: RecipeRoute.self) { route in
                 switch route {
                 case .detail(let recipe): RecipeDetailView(recipe: recipe)
@@ -61,6 +87,12 @@ struct RecipesScreen: View {
                 }
             }
             .onAppear {
+                if CommandLine.arguments.contains("-open-shopping-list") {
+                    if ShoppingList.shared.items.isEmpty, let recipe = RecipeStore.all.first {
+                        ShoppingList.shared.add(recipe.ingredients)
+                    }
+                    showShoppingList = true
+                }
                 if let flagIndex = CommandLine.arguments.firstIndex(of: "-open-recipe") {
                     let id = CommandLine.arguments.indices.contains(flagIndex + 1)
                         ? CommandLine.arguments[flagIndex + 1] : ""
@@ -328,9 +360,10 @@ struct RecipeHero: View {
     var height: CGFloat
     var emojiSize: CGFloat
     var compact = false
+    var flat = false
 
     var body: some View {
-        ZStack {
+        Group {
             if let photo = recipe.photo {
                 Color.clear
                     .overlay {
@@ -341,23 +374,29 @@ struct RecipeHero: View {
             } else {
                 LinearGradient(colors: recipe.category.gradient,
                                startPoint: .topLeading, endPoint: .bottomTrailing)
-                Circle()
-                    .fill(.white.opacity(0.14))
-                    .frame(width: height * 1.3)
-                    .offset(x: -height * 0.9, y: height * 0.35)
-                Circle()
-                    .fill(.white.opacity(0.10))
-                    .frame(width: height * 0.9)
-                    .offset(x: height * 1.1, y: -height * 0.4)
-                EmojiOrSymbol(emoji: recipe.emoji, symbol: recipe.category.symbol,
-                              size: emojiSize, symbolColor: .white)
+                    // Overlays so the oversized decor circles never widen the layout.
+                    .overlay {
+                        ZStack {
+                            Circle()
+                                .fill(.white.opacity(0.14))
+                                .frame(width: height * 1.3)
+                                .offset(x: -height * 0.9, y: height * 0.35)
+                            Circle()
+                                .fill(.white.opacity(0.10))
+                                .frame(width: height * 0.9)
+                                .offset(x: height * 1.1, y: -height * 0.4)
+                            EmojiOrSymbol(emoji: recipe.emoji, symbol: recipe.category.symbol,
+                                          size: emojiSize, symbolColor: .white)
+                        }
+                    }
             }
         }
         .frame(height: height)
-        .clipShape(UnevenRoundedRectangle(topLeadingRadius: compact ? 18 : 22,
-                                          topTrailingRadius: compact ? 18 : 22))
+        .clipShape(UnevenRoundedRectangle(topLeadingRadius: flat ? 0 : (compact ? 18 : 22),
+                                          topTrailingRadius: flat ? 0 : (compact ? 18 : 22)))
         .overlay(alignment: .topTrailing) {
-            if !compact {
+            // The flat detail hero runs under the status bar and shows kcal below.
+            if !compact && !flat {
                 Text("\(recipe.kcal.formatted(.number.locale(Lingo.shared.language.locale))) kcal")
                     .font(.fredoka(12, .semibold))
                     .foregroundStyle(.white)

@@ -1,71 +1,159 @@
 import SwiftUI
 
-/// Full recipe page: hero, per-portion macros, ingredients, steps
-/// and a button that logs the recipe through the portion sheet.
+/// Full recipe page: edge-to-edge hero with floating actions, per-portion
+/// macros, ingredients, steps and a bottom bar that replaces the tab bar
+/// with shopping list and diary actions.
 struct RecipeDetailView: View {
     let recipe: Recipe
 
     @State private var showPortionSheet = false
+    @State private var addedToList = false
     @State private var favorites = RecipeFavorites.shared
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                RecipeHero(recipe: recipe, height: 170, emojiSize: 72)
-                    .clipShape(RoundedRectangle(cornerRadius: 22))
-                if let credit = RecipeCredits.byId[recipe.id] {
-                    Text(credit.license == "Pexels License"
-                         ? "Foto: \(credit.artist) · Pexels"
-                         : "Foto: \(credit.artist) · \(credit.license) · Wikimedia Commons")
-                        .font(.fredoka(10))
-                        .foregroundStyle(.tertiary)
-                        .padding(.top, -8)
-                }
+                RecipeHero(recipe: recipe, height: 340, emojiSize: 96, flat: true)
 
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(recipe.name)
-                        .font(.fredoka(24, .semibold))
-                    HStack(spacing: 14) {
-                        Label("\(recipe.minutes) \("Min".loc)", systemImage: "clock")
-                        Label("\(recipe.servings)", systemImage: "person.2")
-                        if recipe.vegan {
-                            Label("Vegan".loc, systemImage: "leaf.fill")
-                        } else if recipe.vegetarian {
-                            Label("Vegetarisch".loc, systemImage: "leaf")
+                VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .leading, spacing: 6) {
+                        if let credit = RecipeCredits.byId[recipe.id] {
+                            Text(credit.license == "Pexels License"
+                                 ? "Foto: \(credit.artist) · Pexels"
+                                 : "Foto: \(credit.artist) · \(credit.license) · Wikimedia Commons")
+                                .font(.fredoka(10))
+                                .foregroundStyle(.tertiary)
                         }
+                        Text(recipe.name)
+                            .font(.fredoka(26, .semibold))
+                        HStack(spacing: 14) {
+                            Label("\(recipe.minutes) \("Min".loc)", systemImage: "clock")
+                            Label("\(recipe.servings)", systemImage: "person.2")
+                            if recipe.vegan {
+                                Label("Vegan".loc, systemImage: "leaf.fill")
+                            } else if recipe.vegetarian {
+                                Label("Vegetarisch".loc, systemImage: "leaf")
+                            }
+                        }
+                        .font(.fredoka(14))
+                        .foregroundStyle(.secondary)
                     }
-                    .font(.fredoka(14))
-                    .foregroundStyle(.secondary)
-                }
 
-                macroCard
-                ingredientsCard
-                stepsCard
-            }
-            .padding(16)
-            .padding(.bottom, 90)
-        }
-        .background(Theme.background)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    withAnimation(.snappy(duration: 0.2)) {
-                        favorites.toggle(recipe.id)
-                    }
-                } label: {
-                    Image(systemName: favorites.contains(recipe.id) ? "heart.fill" : "heart")
-                        .foregroundStyle(Color.appAccent)
+                    macroCard
+                    ingredientsCard
+                    stepsCard
                 }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 16)
             }
+        }
+        .ignoresSafeArea(edges: .top)
+        .background(Theme.background)
+        .toolbar(.hidden, for: .navigationBar)
+        .overlay(alignment: .top) {
+            heroButtons
         }
         .safeAreaInset(edge: .bottom) {
-            addButton
+            bottomBar
         }
         .sheet(isPresented: $showPortionSheet) {
             ProductPortionSheet(product: recipe.asProduct)
         }
+        .onAppear {
+            TabRouter.shared.tabBarHidden = true
+        }
+        .onDisappear {
+            TabRouter.shared.tabBarHidden = false
+        }
     }
+
+    // MARK: - Hero actions
+
+    private var shareText: String {
+        var lines = ["\(recipe.emoji) \(recipe.name)",
+                     "\(recipe.kcal) kcal · \(recipe.minutes) \("Min".loc) · \(recipe.servings)x", "",
+                     "\("Zutaten".loc):"]
+        lines += recipe.ingredients.map { "- \($0)" }
+        lines += ["", "\("Zubereitung".loc):"]
+        lines += recipe.steps.enumerated().map { "\($0.offset + 1). \($0.element)" }
+        lines += ["", "Zwäg 🧡"]
+        return lines.joined(separator: "\n")
+    }
+
+    private var heroButtons: some View {
+        HStack {
+            Button {
+                dismiss()
+            } label: {
+                heroCircle("chevron.backward")
+            }
+            .buttonStyle(.plain)
+            Spacer()
+            ShareLink(item: shareText) {
+                heroCircle("square.and.arrow.up")
+            }
+            .buttonStyle(.plain)
+            Button {
+                withAnimation(.snappy(duration: 0.2)) {
+                    favorites.toggle(recipe.id)
+                }
+            } label: {
+                heroCircle(favorites.contains(recipe.id) ? "heart.fill" : "heart",
+                           color: .appAccent)
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(.horizontal, 16)
+    }
+
+    private func heroCircle(_ symbol: String, color: Color = .primary) -> some View {
+        Image(systemName: symbol)
+            .font(.system(size: 17, weight: .semibold))
+            .foregroundStyle(color)
+            .frame(width: 42, height: 42)
+            .background(.thinMaterial, in: Circle())
+    }
+
+    // MARK: - Bottom bar
+
+    private var bottomBar: some View {
+        HStack(spacing: 12) {
+            Button {
+                ShoppingList.shared.add(recipe.ingredients)
+                withAnimation(.snappy(duration: 0.2)) {
+                    addedToList = true
+                }
+            } label: {
+                Label(addedToList ? "Einkaufsliste".loc : "Liste".loc,
+                      systemImage: addedToList ? "checkmark" : "basket")
+                    .font(.fredoka(16, .semibold))
+                    .foregroundStyle(addedToList ? Color.appAccent : .primary)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 15)
+                    .background(Theme.card, in: Capsule())
+            }
+            .buttonStyle(.plain)
+
+            Button {
+                showPortionSheet = true
+            } label: {
+                Label("Hinzufügen".loc, systemImage: "plus")
+                    .font(.fredoka(16, .semibold))
+                    .foregroundStyle(Theme.onAccent)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 15)
+                    .background(Theme.accent.gradient, in: Capsule())
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 10)
+        .padding(.bottom, 4)
+        .background(Theme.background.opacity(0.92))
+    }
+
+    // MARK: - Cards
 
     private var macroCard: some View {
         Card {
@@ -141,22 +229,5 @@ struct RecipeDetailView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-    }
-
-    private var addButton: some View {
-        Button {
-            showPortionSheet = true
-        } label: {
-            Label("Hinzufügen".loc, systemImage: "plus")
-                .font(.fredoka(17, .semibold))
-                .foregroundStyle(Theme.onAccent)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 15)
-                .background(Theme.accent.gradient, in: Capsule())
-        }
-        .buttonStyle(.plain)
-        .padding(.horizontal, 16)
-        // Clears the floating tab bar, which the inner safe area does not know about.
-        .padding(.bottom, 74)
     }
 }
