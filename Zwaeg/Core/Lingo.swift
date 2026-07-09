@@ -27,6 +27,7 @@ enum AppLanguage: String, CaseIterable, Identifiable {
     case tamil = "ta"
     case arabic = "ar"
     case farsi = "fa"
+    case tigrinya = "ti"
 
     var id: String { rawValue }
 
@@ -80,6 +81,7 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         case .tamil: return "தமிழ்"
         case .arabic: return "العربية"
         case .farsi: return "فارسی"
+        case .tigrinya: return "ትግርኛ"
         }
     }
 
@@ -107,6 +109,7 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         case .tamil: return "Tamilisch"
         case .arabic: return "Arabisch"
         case .farsi: return "Persisch"
+        case .tigrinya: return "Tigrinya"
         }
     }
 }
