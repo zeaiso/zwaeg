@@ -16,6 +16,8 @@ targets:
     platform: iOS
     sources:
       - Zwaeg
+    dependencies:
+      - target: ZwaegWidgets
     info:
       path: Zwaeg/Info.plist
       properties:
@@ -27,6 +29,7 @@ targets:
         ITSAppUsesNonExemptEncryption: false
         NSHealthShareUsageDescription: Zwäg liest Schritte und Aktivenergie, um deinen Tagesverbrauch anzuzeigen.
         NSHealthUpdateUsageDescription: Zwäg speichert dein geloggtes Gewicht in Apple Health.
+        NSSupportsLiveActivities: true
         UIAppFonts:
           - Fredoka-Regular.ttf
           - Fredoka-Medium.ttf
@@ -38,3 +41,25 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.zwaeg
+  ZwaegWidgets:
+    type: app-extension
+    platform: iOS
+    sources:
+      - ZwaegWidgets
+      - Zwaeg/Shared
+      - path: Zwaeg/Resources/Fonts
+        buildPhase: resources
+    info:
+      path: ZwaegWidgets/Info.plist
+      properties:
+        CFBundleDisplayName: Zwäg
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+        UIAppFonts:
+          - Fredoka-Regular.ttf
+          - Fredoka-Medium.ttf
+          - Fredoka-SemiBold.ttf
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.zwaeg.widgets
+        SKIP_INSTALL: true
