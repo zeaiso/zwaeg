@@ -1,8 +1,11 @@
 import SwiftData
 import SwiftUI
 
-/// Intermittent fasting tracker: live ring timer, plan picker and history.
+/// Intermittent fasting tracker: live ring timer with the buddy inside,
+/// plan picker and history.
 struct FastingView: View {
+    let profile: UserProfile
+
     @Environment(\.modelContext) private var context
     @Query(sort: \FastingSession.start, order: .reverse) private var sessions: [FastingSession]
     @AppStorage("fastingPlan") private var planRaw = FastingPlan.sixteenEight.rawValue
@@ -107,22 +110,21 @@ struct FastingView: View {
                 .rotationEffect(.degrees(-90))
                 .animation(.spring(duration: 0.5), value: progress)
             VStack(spacing: 4) {
+                BuddyView(buddy: profile.buddy, size: 52)
+                    .padding(.bottom, 2)
                 if session != nil {
                     if remaining > 0 {
                         Text(format(remaining))
-                            .font(.fredoka(34, .semibold))
+                            .font(.fredoka(30, .semibold))
                             .foregroundStyle(Theme.ink)
                             .monospacedDigit()
                         Text("bis zum Ziel".loc)
                             .font(.fredoka(13))
                             .foregroundStyle(.secondary)
                     } else {
-                        Image(systemName: "checkmark.seal.fill")
-                            .font(.fredoka(28, .semibold))
-                            .foregroundStyle(Color.appAccent)
                         Text("Ziel erreicht!".loc)
                             .font(.fredoka(20, .semibold))
-                            .foregroundStyle(Theme.ink)
+                            .foregroundStyle(Color.appAccent)
                         Text("+\(format(-remaining))")
                             .font(.fredoka(13))
                             .foregroundStyle(.secondary)
@@ -130,7 +132,7 @@ struct FastingView: View {
                     }
                 } else {
                     Text(plan.label)
-                        .font(.fredoka(34, .semibold))
+                        .font(.fredoka(30, .semibold))
                         .foregroundStyle(Theme.ink)
                     Text("Bereit zum Fasten?".loc)
                         .font(.fredoka(13))

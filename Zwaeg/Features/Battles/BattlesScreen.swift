@@ -80,9 +80,7 @@ struct BattlesScreen: View {
     private var emptyState: some View {
         Card {
             VStack(spacing: 12) {
-                Image(systemName: "trophy.fill")
-                    .font(.system(size: 44))
-                    .foregroundStyle(.yellow)
+                BuddyView(buddy: profile.buddy, size: 84)
                 Text("Noch keine Battles".loc)
                     .font(.fredoka(17, .semibold))
                 Text("Fordere Freunde heraus: Wer macht mehr Schritte, verbrennt mehr Kalorien oder spart am meisten ein?".loc)

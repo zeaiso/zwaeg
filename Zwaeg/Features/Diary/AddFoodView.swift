@@ -85,6 +85,14 @@ struct AddFoodView: View {
                 .font(.fredoka(22, .semibold))
                 .foregroundStyle(Theme.ink)
             Spacer()
+            if !mealEntries.isEmpty {
+                Text("\(mealEntries.count)")
+                    .font(.fredoka(15, .semibold))
+                    .foregroundStyle(Theme.onAccent)
+                    .frame(width: 32, height: 32)
+                    .background(Theme.accent.gradient, in: Circle())
+                    .contentTransition(.numericText())
+            }
         }
     }
 
@@ -92,7 +100,7 @@ struct AddFoodView: View {
         HStack(spacing: 10) {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(.secondary)
-            TextField("Lebensmittel suchen...".loc, text: $query)
+            TextField("Was hast du gegessen?".loc, text: $query)
                 .autocorrectionDisabled()
         }
         .padding(14)
@@ -314,7 +322,8 @@ struct AddFoodView: View {
     private func productRow(_ product: FoodProduct) -> some View {
         foodRow(name: product.name,
                 subtitle: "100 g · \(Int(product.kcalPer100g.rounded())) kcal",
-                added: justAdded == product.id,
+                added: justAdded == product.id
+                    || mealEntries.contains { $0.name == product.displayName },
                 onOpen: { detailProduct = product }) {
             add(name: product.displayName,
                 calories: product.kcal(for: 100),
