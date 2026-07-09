@@ -13,6 +13,12 @@ struct RecipeDetailView: View {
             VStack(alignment: .leading, spacing: 16) {
                 RecipeHero(recipe: recipe, height: 170, emojiSize: 72)
                     .clipShape(RoundedRectangle(cornerRadius: 22))
+                if let credit = RecipeCredits.byId[recipe.id] {
+                    Text("Foto: \(credit.artist) · \(credit.license) · Wikimedia Commons")
+                        .font(.fredoka(10))
+                        .foregroundStyle(.tertiary)
+                        .padding(.top, -8)
+                }
 
                 VStack(alignment: .leading, spacing: 6) {
                     Text(recipe.name)

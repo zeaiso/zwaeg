@@ -104,6 +104,31 @@ struct Recipe: Codable, Identifiable, Hashable {
     }
 }
 
+extension Recipe {
+    /// Bundled Wikimedia Commons photo, if one was fetched for this recipe.
+    var photo: UIImage? {
+        UIImage(named: "recipe-\(id).jpg")
+    }
+}
+
+/// Attribution for a bundled recipe photo; see docs/IMAGE-CREDITS.md.
+struct RecipeCredit: Codable {
+    let id: String
+    let title: String
+    let artist: String
+    let license: String
+    let source: String
+}
+
+enum RecipeCredits {
+    static let byId: [String: RecipeCredit] = {
+        guard let url = Bundle.main.url(forResource: "credits", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let credits = try? JSONDecoder().decode([RecipeCredit].self, from: data) else { return [:] }
+        return Dictionary(uniqueKeysWithValues: credits.map { ($0.id, $0) })
+    }()
+}
+
 enum RecipeStore {
     private static let files = ["recipes-breakfast", "recipes-soups", "recipes-salads",
                                 "recipes-mains-1", "recipes-mains-2", "recipes-snacks",

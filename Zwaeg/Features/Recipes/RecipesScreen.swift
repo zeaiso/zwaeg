@@ -331,18 +331,27 @@ struct RecipeHero: View {
 
     var body: some View {
         ZStack {
-            LinearGradient(colors: recipe.category.gradient,
-                           startPoint: .topLeading, endPoint: .bottomTrailing)
-            Circle()
-                .fill(.white.opacity(0.14))
-                .frame(width: height * 1.3)
-                .offset(x: -height * 0.9, y: height * 0.35)
-            Circle()
-                .fill(.white.opacity(0.10))
-                .frame(width: height * 0.9)
-                .offset(x: height * 1.1, y: -height * 0.4)
-            EmojiOrSymbol(emoji: recipe.emoji, symbol: recipe.category.symbol,
-                          size: emojiSize, symbolColor: .white)
+            if let photo = recipe.photo {
+                Color.clear
+                    .overlay {
+                        Image(uiImage: photo)
+                            .resizable()
+                            .scaledToFill()
+                    }
+            } else {
+                LinearGradient(colors: recipe.category.gradient,
+                               startPoint: .topLeading, endPoint: .bottomTrailing)
+                Circle()
+                    .fill(.white.opacity(0.14))
+                    .frame(width: height * 1.3)
+                    .offset(x: -height * 0.9, y: height * 0.35)
+                Circle()
+                    .fill(.white.opacity(0.10))
+                    .frame(width: height * 0.9)
+                    .offset(x: height * 1.1, y: -height * 0.4)
+                EmojiOrSymbol(emoji: recipe.emoji, symbol: recipe.category.symbol,
+                              size: emojiSize, symbolColor: .white)
+            }
         }
         .frame(height: height)
         .clipShape(UnevenRoundedRectangle(topLeadingRadius: compact ? 18 : 22,
