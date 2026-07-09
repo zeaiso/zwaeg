@@ -7,6 +7,9 @@ All notable changes to Zwäg are documented here.
 First feature-complete build.
 
 ### Added
+- Water goal (2 liters as 8 glasses, configurable) with progress on the diary card
+- Reminders: local notifications for water and meals, no server needed
+- Buddy mascots: blob set, 500 gendered funky avatars, Avatar-Studio wardrobe and saved looks closet
 - Official Swiss Food Composition Database V7.0 (BLV) bundled for offline search, 1220 foods with synonyms
 - Onboarding with one question per screen and typed number inputs
 - Diary with daily calorie budget, macros, week strip, meal logging and offline Swiss food search

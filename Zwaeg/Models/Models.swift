@@ -139,6 +139,8 @@ final class UserProfile {
     var dailyCalorieTarget: Int
     var createdAt: Date
     var buddyRaw: String = ""
+    /// Daily water goal in glasses of 2.5 dl; 8 glasses = 2 liters.
+    var waterGoalGlasses: Int = 8
 
     init(name: String, sex: Sex, age: Int, heightCm: Double, weightKg: Double,
          activity: ActivityLevel, goal: Goal) {

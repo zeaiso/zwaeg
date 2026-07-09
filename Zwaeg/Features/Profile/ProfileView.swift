@@ -173,7 +173,7 @@ struct ProfileView: View {
                 ProgressScreen(profile: profile)
             }
             accountRow("Erinnerungen", symbol: "bell.fill", color: Color(red: 0.24, green: 0.68, blue: 1.0)) {
-                RemindersPlaceholderView()
+                RemindersView()
             }
             accountRow("Hilfe & Support", symbol: "questionmark.circle.fill", color: Color(red: 1.0, green: 0.63, blue: 0.14)) {
                 AboutView()
@@ -288,6 +288,12 @@ struct GoalsView: View {
                     ForEach(Goal.allCases) { g in Text(g.label).tag(g) }
                 }
             }
+            Section {
+                Stepper("Wasserziel: \(profile.waterGoalGlasses) Gläser",
+                        value: $profile.waterGoalGlasses, in: 4...16)
+            } footer: {
+                Text("1 Glas = 2.5 dl. 8 Gläser entsprechen 2 Litern am Tag.")
+            }
             Section("Ergebnis") {
                 LabeledContent("Tagesziel", value: "\(profile.dailyCalorieTarget) kcal")
                 LabeledContent("BMI", value: String(format: "%.1f", profile.bmi))
@@ -302,24 +308,88 @@ struct GoalsView: View {
     }
 }
 
-struct RemindersPlaceholderView: View {
+struct RemindersView: View {
+    @AppStorage("waterRemindersOn") private var waterOn = false
+    @AppStorage("mealRemindersOn") private var mealsOn = false
+    @State private var permissionDenied = false
+
     var body: some View {
-        VStack(spacing: 14) {
-            Image(systemName: "bell.badge.fill")
-                .font(.system(size: 44))
-                .foregroundStyle(Color.appAccent)
-            Text("Erinnerungen")
-                .font(.fredoka(19, .semibold))
-            Text("Push-Erinnerungen für Mahlzeiten und Wasser kommen in einem späteren Update.")
-                .font(.fredoka(13))
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 30)
+        ScrollView {
+            VStack(spacing: 16) {
+                reminderCard(
+                    title: "Wasser trinken",
+                    subtitle: "4x täglich um 10, 13, 16 und 19 Uhr",
+                    symbol: "drop.fill",
+                    color: Color(red: 0.24, green: 0.64, blue: 1.0),
+                    isOn: $waterOn)
+                reminderCard(
+                    title: "Mahlzeiten loggen",
+                    subtitle: "Frühstück 8:00, Mittag 12:30, Abend 19:00",
+                    symbol: "fork.knife",
+                    color: Color.appAccent,
+                    isOn: $mealsOn)
+                if permissionDenied {
+                    Label("Benachrichtigungen sind deaktiviert. Erlaube sie in den iOS-Einstellungen für Zwäg.",
+                          systemImage: "bell.slash")
+                        .font(.fredoka(13))
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .padding(16)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Theme.background)
         .navigationTitle("Erinnerungen")
         .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: waterOn) {
+            apply(water: waterOn, meals: mealsOn)
+        }
+        .onChange(of: mealsOn) {
+            apply(water: waterOn, meals: mealsOn)
+        }
+    }
+
+    private func reminderCard(title: String, subtitle: String, symbol: String,
+                              color: Color, isOn: Binding<Bool>) -> some View {
+        Card {
+            HStack(spacing: 12) {
+                Image(systemName: symbol)
+                    .font(.fredoka(14, .semibold))
+                    .foregroundStyle(.white)
+                    .frame(width: 40, height: 40)
+                    .background(color.gradient, in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.fredoka(16, .semibold))
+                        .foregroundStyle(Theme.ink)
+                    Text(subtitle)
+                        .font(.fredoka(12))
+                        .foregroundStyle(.secondary)
+                }
+                Spacer()
+                Toggle("", isOn: isOn)
+                    .labelsHidden()
+                    .tint(Color.appAccent)
+            }
+        }
+    }
+
+    private func apply(water: Bool, meals: Bool) {
+        Task {
+            if water || meals {
+                let granted = await NotificationService.requestPermission()
+                if !granted {
+                    permissionDenied = true
+                    waterOn = false
+                    mealsOn = false
+                    NotificationService.updateWaterReminders(enabled: false)
+                    NotificationService.updateMealReminders(enabled: false)
+                    return
+                }
+            }
+            permissionDenied = false
+            NotificationService.updateWaterReminders(enabled: water)
+            NotificationService.updateMealReminders(enabled: meals)
+        }
     }
 }
 

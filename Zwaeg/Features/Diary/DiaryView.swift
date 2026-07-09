@@ -84,7 +84,7 @@ struct DiaryView: View {
             }
             Spacer()
             NavigationLink {
-                RemindersPlaceholderView()
+                RemindersView()
             } label: {
                 Image(systemName: "bell")
                     .font(.fredoka(17, .semibold))
@@ -268,11 +268,21 @@ struct DiaryView: View {
                         .font(.fredoka(22, .semibold))
                         .foregroundStyle(Theme.ink)
                         .contentTransition(.numericText())
-                    Text("Glas")
+                    Text("/ \(profile.waterGoalGlasses) Glas")
                         .font(.fredoka(13))
                         .foregroundStyle(.secondary)
                 }
-                Text("Wasser trinken")
+                GeometryReader { geo in
+                    ZStack(alignment: .leading) {
+                        Capsule().fill(Theme.field)
+                        Capsule()
+                            .fill(Color(red: 0.24, green: 0.64, blue: 1.0))
+                            .frame(width: max(0, geo.size.width * min(1, Double(glasses) / Double(max(1, profile.waterGoalGlasses)))))
+                            .animation(.snappy, value: glasses)
+                    }
+                }
+                .frame(height: 6)
+                Text("Ziel: \(String(format: "%.1f", Double(profile.waterGoalGlasses) * 0.25)) Liter")
                     .font(.fredoka(12))
                     .foregroundStyle(.secondary)
             }
