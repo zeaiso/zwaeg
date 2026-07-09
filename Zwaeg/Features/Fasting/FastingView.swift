@@ -108,7 +108,7 @@ struct FastingView: View {
             Circle()
                 .trim(from: 0, to: progress)
                 .stroke(
-                    LinearGradient(colors: [Color(red: 1.0, green: 0.55, blue: 0.35), Theme.accent],
+                    LinearGradient(colors: [Theme.accentLight, Theme.accent],
                                    startPoint: .top, endPoint: .bottom),
                     style: StrokeStyle(lineWidth: 14, lineCap: .round))
                 .rotationEffect(.degrees(-90))
@@ -175,7 +175,7 @@ struct FastingView: View {
                 .background(activeSession == nil ? AnyShapeStyle(Theme.accent.gradient)
                                                  : AnyShapeStyle(Theme.ink),
                             in: Capsule())
-                .foregroundStyle(Theme.onAccent)
+                .foregroundStyle(activeSession == nil ? Theme.onAccent : Theme.onInk)
         }
         .buttonStyle(.plain)
     }

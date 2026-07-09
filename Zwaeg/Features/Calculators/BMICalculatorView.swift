@@ -55,7 +55,7 @@ struct BMICalculatorView: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 26)
         .background(
-            LinearGradient(colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+            LinearGradient(colors: [Theme.accentLight, Theme.accent],
                            startPoint: .topLeading, endPoint: .bottomTrailing),
             in: RoundedRectangle(cornerRadius: 26, style: .continuous))
         .shadow(color: Theme.accent.opacity(0.35), radius: 12, y: 5)

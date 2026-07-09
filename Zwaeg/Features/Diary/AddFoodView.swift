@@ -120,7 +120,7 @@ struct AddFoodView: View {
                             .padding(.horizontal, 16)
                             .padding(.vertical, 9)
                             .background(meal == type ? Theme.ink : Theme.card, in: Capsule())
-                            .foregroundStyle(meal == type ? Theme.onAccent : .secondary)
+                            .foregroundStyle(meal == type ? Theme.onInk : .secondary)
                     }
                     .buttonStyle(.plain)
                 }
@@ -155,7 +155,7 @@ struct AddFoodView: View {
             .foregroundStyle(.white)
             .padding(14)
             .background(
-                LinearGradient(colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                LinearGradient(colors: [Theme.accentLight, Theme.accent],
                                startPoint: .topLeading, endPoint: .bottomTrailing),
                 in: RoundedRectangle(cornerRadius: 20, style: .continuous))
             .shadow(color: Theme.accent.opacity(0.35), radius: 10, y: 4)

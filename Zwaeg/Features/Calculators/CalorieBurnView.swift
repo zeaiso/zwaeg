@@ -85,7 +85,7 @@ struct CalorieBurnView: View {
                             .padding(.vertical, 12)
                             .background(activity == item
                                         ? AnyShapeStyle(LinearGradient(
-                                            colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                                            colors: [Theme.accentLight, Theme.accent],
                                             startPoint: .topLeading, endPoint: .bottomTrailing))
                                         : AnyShapeStyle(Theme.field),
                                         in: RoundedRectangle(cornerRadius: 14, style: .continuous))

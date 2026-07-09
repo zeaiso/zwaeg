@@ -102,7 +102,7 @@ struct BuddyPoseView: View {
                 .opacity(animating ? 1 : 0.4)
             Image(systemName: "sparkle")
                 .font(.system(size: size * 0.20, weight: .bold))
-                .foregroundStyle(Color(red: 1.0, green: 0.55, blue: 0.35))
+                .foregroundStyle(Theme.accentLight)
                 .offset(x: size * 0.48, y: -size * 0.28)
                 .opacity(animating ? 0.5 : 1)
         case .neutral:

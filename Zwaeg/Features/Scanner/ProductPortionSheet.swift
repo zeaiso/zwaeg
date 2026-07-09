@@ -109,7 +109,7 @@ struct ProductPortionSheet: View {
             } label: {
                 Image(systemName: "plus")
                     .font(.fredoka(15, .semibold))
-                    .foregroundStyle(Theme.onAccent)
+                    .foregroundStyle(Theme.onInk)
                     .frame(width: 34, height: 34)
                     .background(Theme.ink, in: Circle())
             }
@@ -146,7 +146,7 @@ struct ProductPortionSheet: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 26)
         .background(
-            LinearGradient(colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+            LinearGradient(colors: [Theme.accentLight, Theme.accent],
                            startPoint: .topLeading, endPoint: .bottomTrailing),
             in: RoundedRectangle(cornerRadius: 26, style: .continuous))
         .shadow(color: Theme.accent.opacity(0.35), radius: 12, y: 5)
@@ -205,7 +205,7 @@ struct ProductPortionSheet: View {
                         .padding(.vertical, 8)
                         .frame(maxWidth: .infinity)
                         .background(meal == type ? Theme.ink : Theme.card, in: Capsule())
-                        .foregroundStyle(meal == type ? Theme.onAccent : .secondary)
+                        .foregroundStyle(meal == type ? Theme.onInk : .secondary)
                 }
                 .buttonStyle(.plain)
             }
@@ -223,7 +223,7 @@ struct ProductPortionSheet: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
                 .background(
-                    LinearGradient(colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                    LinearGradient(colors: [Theme.accentLight, Theme.accent],
                                    startPoint: .leading, endPoint: .trailing),
                     in: Capsule())
                 .foregroundStyle(Theme.onAccent)

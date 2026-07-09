@@ -97,7 +97,7 @@ struct BuddyPickerView: View {
                 .padding(.horizontal, 22)
                 .padding(.vertical, 8)
                 .background(isActive ? AnyShapeStyle(Theme.ink) : AnyShapeStyle(.clear), in: Capsule())
-                .foregroundStyle(isActive ? Theme.onAccent : .secondary)
+                .foregroundStyle(isActive ? Theme.onInk : .secondary)
         }
         .buttonStyle(.plain)
     }
@@ -109,20 +109,22 @@ struct BuddyPickerView: View {
             actionCard(symbol: "dice.fill", title: "Würfeln".loc,
                        subtitle: "Zufälliger Look".loc,
                        background: AnyShapeStyle(LinearGradient(
-                          colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                          colors: [Theme.accentLight, Theme.accent],
                           startPoint: .topLeading, endPoint: .bottomTrailing))) {
                 buddy = buddy.kind == "blob" ? .randomBlob() : .random(for: sex)
             }
             actionCard(symbol: "tshirt.fill", title: "Studio",
                        subtitle: "Selbst gestalten".loc,
-                       background: AnyShapeStyle(Theme.ink)) {
+                       background: AnyShapeStyle(Theme.ink),
+                       foreground: Theme.onInk) {
                 showStudio = true
             }
         }
     }
 
     private func actionCard(symbol: String, title: String, subtitle: String,
-                            background: AnyShapeStyle, action: @escaping () -> Void) -> some View {
+                            background: AnyShapeStyle, foreground: Color = .white,
+                            action: @escaping () -> Void) -> some View {
         Button {
             withAnimation(.snappy) { action() }
         } label: {
@@ -135,7 +137,7 @@ struct BuddyPickerView: View {
                     .font(.fredoka(12))
                     .opacity(0.85)
             }
-            .foregroundStyle(.white)
+            .foregroundStyle(foreground)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(16)
             .background(background, in: RoundedRectangle(cornerRadius: 22, style: .continuous))

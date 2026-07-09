@@ -118,23 +118,24 @@ struct ProgressScreen: View {
             statTile(value: "\(weeklyAverage)",
                      label: "kcal Ø / Tag".loc,
                      background: AnyShapeStyle(LinearGradient(
-                        colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                        colors: [Theme.accentLight, Theme.accent],
                         startPoint: .topLeading, endPoint: .bottomTrailing)))
             statTile(value: monthWeightDelta.map { String(format: "%+.1f", $0) } ?? "–",
                      label: "kg diesen Monat".loc,
-                     background: AnyShapeStyle(Theme.ink))
+                     background: AnyShapeStyle(Theme.ink), foreground: Theme.onInk)
         }
     }
 
-    private func statTile(value: String, label: String, background: AnyShapeStyle) -> some View {
+    private func statTile(value: String, label: String, background: AnyShapeStyle,
+                          foreground: Color = .white) -> some View {
         VStack(alignment: .leading, spacing: 3) {
             Text(value)
                 .font(.fredoka(27, .semibold))
-                .foregroundStyle(.white)
+                .foregroundStyle(foreground)
                 .contentTransition(.numericText())
             Text(label)
                 .font(.fredoka(12, .semibold))
-                .foregroundStyle(.white.opacity(0.85))
+                .foregroundStyle(foreground.opacity(0.85))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
@@ -173,7 +174,7 @@ struct ProgressScreen: View {
                                     if isToday && item.kcal > 0 {
                                         Text("\(Int((Double(item.kcal) / Double(target) * 100).rounded()))%")
                                             .font(.fredoka(10, .semibold))
-                                            .foregroundStyle(.white)
+                                            .foregroundStyle(Theme.onInk)
                                             .padding(.horizontal, 8)
                                             .padding(.vertical, 4)
                                             .background(Theme.ink, in: Capsule())
@@ -183,7 +184,7 @@ struct ProgressScreen: View {
                                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                                         .fill(isToday
                                               ? AnyShapeStyle(LinearGradient(
-                                                    colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                                                    colors: [Theme.accentLight, Theme.accent],
                                                     startPoint: .top, endPoint: .bottom))
                                               : AnyShapeStyle(Theme.accentSoft))
                                         .frame(height: max(16, geo.size.height * fraction))

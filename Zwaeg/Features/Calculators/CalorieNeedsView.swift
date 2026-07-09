@@ -77,23 +77,24 @@ struct CalorieNeedsView: View {
             resultTile(value: "\(Int(tdee.rounded()))",
                        label: "Gesamtumsatz".loc,
                        background: AnyShapeStyle(LinearGradient(
-                          colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                          colors: [Theme.accentLight, Theme.accent],
                           startPoint: .topLeading, endPoint: .bottomTrailing)))
             resultTile(value: "\(Int(bmr.rounded()))",
                        label: "Grundumsatz".loc,
-                       background: AnyShapeStyle(Theme.ink))
+                       background: AnyShapeStyle(Theme.ink), foreground: Theme.onInk)
         }
     }
 
-    private func resultTile(value: String, label: String, background: AnyShapeStyle) -> some View {
+    private func resultTile(value: String, label: String, background: AnyShapeStyle,
+                            foreground: Color = .white) -> some View {
         VStack(alignment: .leading, spacing: 3) {
             Text(value)
                 .font(.fredoka(27, .semibold))
-                .foregroundStyle(.white)
+                .foregroundStyle(foreground)
                 .contentTransition(.numericText())
             Text("%@ · kcal/Tag".loc(label))
                 .font(.fredoka(12, .semibold))
-                .foregroundStyle(.white.opacity(0.85))
+                .foregroundStyle(foreground.opacity(0.85))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)

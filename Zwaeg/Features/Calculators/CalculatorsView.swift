@@ -18,7 +18,7 @@ struct CalculatorsView: View {
                     calculatorCard(.bmi, title: "BMI-Rechner".loc,
                                    subtitle: "Body-Mass-Index & Einordnung".loc,
                                    symbol: "figure.arms.open",
-                                   colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent])
+                                   colors: [Theme.accentLight, Theme.accent])
                     calculatorCard(.ideal, title: "Idealgewicht".loc,
                                    subtitle: "Dein Zielbereich nach 4 Formeln".loc,
                                    symbol: "scalemass.fill",

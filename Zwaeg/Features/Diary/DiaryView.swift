@@ -233,7 +233,7 @@ struct DiaryView: View {
         }
         .padding(16)
         .background(
-            LinearGradient(colors: [Color(red: 1.0, green: 0.55, blue: 0.25), Theme.accent],
+            LinearGradient(colors: [Theme.accentLight, Theme.accent],
                            startPoint: .topLeading, endPoint: .bottomTrailing),
             in: RoundedRectangle(cornerRadius: 24, style: .continuous))
         .shadow(color: Theme.accent.opacity(0.35), radius: 12, y: 5)
@@ -376,7 +376,7 @@ struct DiaryView: View {
             Circle()
                 .trim(from: 0, to: progress)
                 .stroke(
-                    LinearGradient(colors: [Color(red: 1.0, green: 0.55, blue: 0.35), Theme.accent],
+                    LinearGradient(colors: [Theme.accentLight, Theme.accent],
                                    startPoint: .top, endPoint: .bottom),
                     style: StrokeStyle(lineWidth: 11, lineCap: .round))
                 .rotationEffect(.degrees(-90))

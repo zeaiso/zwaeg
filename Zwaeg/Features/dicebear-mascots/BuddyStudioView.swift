@@ -213,7 +213,7 @@ struct BuddyStudioView: View {
             .frame(maxWidth: .infinity)
             .padding(.vertical, 16)
             .background(
-                LinearGradient(colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
+                LinearGradient(colors: [Theme.accentLight, Theme.accent],
                                startPoint: .leading, endPoint: .trailing),
                 in: Capsule())
             .foregroundStyle(Theme.onAccent)
