@@ -78,10 +78,12 @@ struct RootView: View {
 }
 
 /// Shared tab selection so any screen (e.g. the add-food scan banner) can switch tabs.
+/// Detail pages with their own bottom actions can hide the floating tab bar.
 @Observable
 final class TabRouter {
     static let shared = TabRouter()
     var selection = LaunchArgs.initialTab
+    var tabBarHidden = false
 }
 
 struct MainTabView: View {
@@ -105,11 +107,15 @@ struct MainTabView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .safeAreaInset(edge: .bottom) {
-                Color.clear.frame(height: 66)
+                Color.clear.frame(height: router.tabBarHidden ? 0 : 66)
             }
 
-            ZwaegTabBar(router: router)
+            if !router.tabBarHidden {
+                ZwaegTabBar(router: router)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
         }
+        .animation(.snappy(duration: 0.25), value: router.tabBarHidden)
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .tint(.appAccent)
     }
