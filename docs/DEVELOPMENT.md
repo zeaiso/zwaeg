@@ -27,6 +27,8 @@ Useful for driving the app from the CLI or Xcode scheme arguments:
 | `-add-food <meal>` | Opens the add-food page (`breakfast`, `lunch`, `dinner`, `snack`) |
 | `-open-calc <name>` | Opens a calculator (`bmi`, `ideal`, `needs`, `burn`, combine with `-tab 3`) |
 | `-open-fasting` | Opens the fasting tab |
+| `-seed-fast` | Starts a 16:8 fast that began 13 hours ago (combine with `-open-fasting`) |
+| `-open-fasting-plans` | Opens the fasting plan catalog (combine with `-open-fasting`) |
 | `-open-recipe <id>` | Opens a recipe detail page, first recipe if the id is unknown (combine with `-tab 5`) |
 | `-open-shopping-list` | Opens the shopping list sheet, seeded with one recipe when empty (combine with `-tab 5`) |
 | `-open-calendar` | Opens the calendar sheet |
