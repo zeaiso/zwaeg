@@ -40,6 +40,12 @@ struct RootView: View {
                         context.insert(WeightEntry(date: date, weightKg: 78 + Double(week) * 0.45))
                     }
                 }
+                if let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: .now) {
+                    context.insert(FoodEntry(day: yesterday, meal: .breakfast, name: "Birchermüesli",
+                                             calories: 320, proteinG: 12, carbsG: 45, fatG: 9))
+                    context.insert(FoodEntry(day: yesterday, meal: .breakfast, name: "Kaffee mit Milch",
+                                             calories: 40, proteinG: 2, carbsG: 3, fatG: 2))
+                }
                 let start = Calendar.current.date(byAdding: .day, value: -3, to: .now) ?? .now
                 let end = Calendar.current.date(byAdding: .day, value: 3, to: .now) ?? .now
                 context.insert(Challenge(
