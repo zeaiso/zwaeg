@@ -334,7 +334,7 @@ struct AboutView: View {
             Text("Version 0.1 · Zwäg heisst: fit und wohl. Dein Schweizer Kalorien-Tracker.")
                 .font(.fredoka(13))
                 .foregroundStyle(.secondary)
-            Text("Nährwertdaten: Schweizer Nährwertdatenbank V7.0, Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV, sowie Open Food Facts. Avatare: Avataaars von Pablo Stanley via DiceBear. Alle persönlichen Daten bleiben auf deinem Gerät.")
+            Text("Nährwertdaten: Schweizer Nährwertdatenbank V7.0, Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV, sowie Open Food Facts. Avatare erstellt mit DiceBear (dicebear.com), Stile Thumbs (CC0) und Avataaars von Pablo Stanley. Schrift: Fredoka (SIL Open Font License). Alle persönlichen Daten bleiben auf deinem Gerät.")
                 .font(.fredoka(12))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -344,6 +344,9 @@ struct AboutView: View {
                 HStack(spacing: 16) {
                     Link("naehrwertdaten.ch", destination: blv)
                     Link("openfoodfacts.org", destination: off)
+                    if let dice = URL(string: "https://dicebear.com") {
+                        Link("dicebear.com", destination: dice)
+                    }
                 }
                 .font(.fredoka(12, .semibold))
                 .tint(Color.appAccent)
