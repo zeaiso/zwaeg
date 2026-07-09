@@ -48,19 +48,37 @@ enum NotificationService {
         if waterOn {
             for (index, minutes) in times.water.sorted().enumerated() {
                 schedule(id: "water-\(index)",
-                         title: "Wasser trinken",
-                         body: "Zeit für ein Glas! Dein Ziel: 2 Liter am Tag.",
+                         title: "Wasser trinken".loc,
+                         body: "Zeit für ein Glas! Dein Ziel: 2 Liter am Tag.".loc,
                          minutes: minutes)
             }
         }
         if mealsOn {
-            schedule(id: "meal-breakfast", title: "Frühstück loggen",
-                     body: "Kurz eintragen, was du gegessen hast.", minutes: times.breakfast)
-            schedule(id: "meal-lunch", title: "Mittagessen loggen",
-                     body: "Kurz eintragen, was du gegessen hast.", minutes: times.lunch)
-            schedule(id: "meal-dinner", title: "Abendessen loggen",
-                     body: "Kurz eintragen, was du gegessen hast.", minutes: times.dinner)
+            schedule(id: "meal-breakfast", title: "Frühstück loggen".loc,
+                     body: "Kurz eintragen, was du gegessen hast.".loc, minutes: times.breakfast)
+            schedule(id: "meal-lunch", title: "Mittagessen loggen".loc,
+                     body: "Kurz eintragen, was du gegessen hast.".loc, minutes: times.lunch)
+            schedule(id: "meal-dinner", title: "Abendessen loggen".loc,
+                     body: "Kurz eintragen, was du gegessen hast.".loc, minutes: times.dinner)
         }
+    }
+
+    /// One-shot notification when the fasting window completes.
+    /// The id is outside the water-/meal- prefixes, so reschedule() leaves it alone.
+    static func scheduleFastingEnd(at date: Date) {
+        let content = UNMutableNotificationContent()
+        content.title = "Fasten geschafft!".loc
+        content.body = "Dein Essensfenster ist offen. Guten Appetit!".loc
+        content.sound = .default
+        let trigger = UNTimeIntervalNotificationTrigger(
+            timeInterval: max(1, date.timeIntervalSinceNow), repeats: false)
+        UNUserNotificationCenter.current().add(
+            UNNotificationRequest(identifier: "fasting-end", content: content, trigger: trigger))
+    }
+
+    static func cancelFastingEnd() {
+        UNUserNotificationCenter.current()
+            .removePendingNotificationRequests(withIdentifiers: ["fasting-end"])
     }
 
     private static func schedule(id: String, title: String, body: String, minutes: Int) {
