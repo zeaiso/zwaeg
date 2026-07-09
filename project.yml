@@ -18,6 +18,7 @@ targets:
       - Zwaeg
     dependencies:
       - target: ZwaegWidgets
+      - target: ZwaegWatch
     info:
       path: Zwaeg/Info.plist
       properties:
@@ -80,3 +81,21 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.zwaeg.widgets
         SKIP_INSTALL: true
+  ZwaegWatch:
+    type: application
+    platform: watchOS
+    deploymentTarget: "10.0"
+    sources:
+      - ZwaegWatch
+      - Zwaeg/Shared/WatchDaySnapshot.swift
+    info:
+      path: ZwaegWatch/Info.plist
+      properties:
+        CFBundleDisplayName: Zwäg
+        WKApplication: true
+        WKCompanionAppBundleIdentifier: ch.emanuell.zwaeg
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.zwaeg.watchkitapp
+        SKIP_INSTALL: true
+        TARGETED_DEVICE_FAMILY: "4"
