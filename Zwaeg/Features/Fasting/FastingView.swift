@@ -227,7 +227,8 @@ struct FastingView: View {
                 .frame(width: 34, height: 34)
                 .background(Theme.field.opacity(0.6), in: Circle())
             VStack(alignment: .leading, spacing: 1) {
-                Text(session.start.formatted(.dateTime.weekday(.wide).day().month()))
+                Text(session.start.formatted(.dateTime.weekday(.wide).day().month()
+                    .locale(Lingo.shared.language.locale)))
                     .font(.fredoka(14, .medium))
                     .foregroundStyle(Theme.ink)
                 Text("%@ · %d Std. %d Min. gefastet".loc(session.plan.label, minutes / 60, minutes % 60))

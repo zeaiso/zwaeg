@@ -28,6 +28,18 @@ enum AppLanguage: String, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
+    /// Locale for date and number formatting; Swiss variants where they exist.
+    var locale: Locale {
+        switch self {
+        case .german, .swissGerman: return Locale(identifier: "de_CH")
+        case .french: return Locale(identifier: "fr_CH")
+        case .italian: return Locale(identifier: "it_CH")
+        case .romansh: return Locale(identifier: "rm_CH")
+        case .english: return Locale(identifier: "en_CH")
+        default: return Locale(identifier: rawValue)
+        }
+    }
+
     /// The national-language options shown in the picker's Swiss section.
     var isSwiss: Bool {
         switch self {

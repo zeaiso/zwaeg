@@ -28,6 +28,7 @@ struct RootView: View {
         }
         .preferredColorScheme(Theme.colorScheme)
         .grayscale(Theme.grayscale)
+        .environment(\.locale, Lingo.shared.language.locale)
         .onAppear {
             if LaunchArgs.seedProfile && BuddyCloset.load().isEmpty {
                 BuddyCloset.add(Buddy(kind: "m", index: 7))
