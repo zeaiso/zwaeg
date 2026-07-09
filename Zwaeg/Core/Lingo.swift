@@ -25,8 +25,15 @@ enum AppLanguage: String, CaseIterable, Identifiable {
     case bosnian = "bs"
     case ukrainian = "uk"
     case tamil = "ta"
+    case arabic = "ar"
+    case farsi = "fa"
 
     var id: String { rawValue }
+
+    /// Right-to-left scripts flip the whole layout.
+    var isRTL: Bool {
+        self == .arabic || self == .farsi
+    }
 
     /// Locale for date and number formatting; Swiss variants where they exist.
     var locale: Locale {
@@ -71,6 +78,8 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         case .bosnian: return "Bosanski"
         case .ukrainian: return "Українська"
         case .tamil: return "தமிழ்"
+        case .arabic: return "العربية"
+        case .farsi: return "فارسی"
         }
     }
 
@@ -96,6 +105,8 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         case .bosnian: return "Bosnisch"
         case .ukrainian: return "Ukrainisch"
         case .tamil: return "Tamilisch"
+        case .arabic: return "Arabisch"
+        case .farsi: return "Persisch"
         }
     }
 }

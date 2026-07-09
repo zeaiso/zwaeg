@@ -82,7 +82,7 @@ struct ScannerScreen: View {
                 Button {
                     TabRouter.shared.selection = 0
                 } label: {
-                    Image(systemName: "chevron.left")
+                    Image(systemName: "chevron.backward")
                         .font(.fredoka(15, .semibold))
                         .foregroundStyle(.white)
                         .frame(width: 38, height: 38)

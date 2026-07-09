@@ -135,7 +135,7 @@ struct BattlesScreen: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
-                    Image(systemName: "chevron.right")
+                    Image(systemName: "chevron.forward")
                         .font(.fredoka(13, .semibold))
                         .foregroundStyle(.tertiary)
                 }

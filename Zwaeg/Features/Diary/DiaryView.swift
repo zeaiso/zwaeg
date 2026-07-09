@@ -224,7 +224,7 @@ struct DiaryView: View {
                 Text("%d Tage am Stück!".loc(streak))
                     .font(.fredoka(17, .semibold))
                     .foregroundStyle(.white)
-                Text("Streak")
+                Text("Tage-Streak".loc)
                     .font(.fredoka(12))
                     .foregroundStyle(.white.opacity(0.85))
             }
@@ -324,7 +324,7 @@ struct DiaryView: View {
                     HStack(spacing: 3) {
                         Text("Details".loc)
                             .font(.fredoka(13, .semibold))
-                        Image(systemName: "chevron.right")
+                        Image(systemName: "chevron.forward")
                             .font(.fredoka(11, .semibold))
                     }
                     .foregroundStyle(Color.appAccent)
@@ -730,7 +730,7 @@ struct DiaryView: View {
                             .background(Theme.accent.gradient, in: Capsule())
                             .foregroundStyle(Theme.onAccent)
                     } else {
-                        Image(systemName: "chevron.right")
+                        Image(systemName: "chevron.forward")
                             .font(.fredoka(14, .semibold))
                             .foregroundStyle(.secondary)
                     }

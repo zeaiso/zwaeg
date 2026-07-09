@@ -61,7 +61,7 @@ struct ProgressScreen: View {
             Button {
                 dismiss()
             } label: {
-                Image(systemName: "chevron.left")
+                Image(systemName: "chevron.backward")
                     .font(.fredoka(15, .semibold))
                     .foregroundStyle(Theme.ink)
                     .frame(width: 38, height: 38)

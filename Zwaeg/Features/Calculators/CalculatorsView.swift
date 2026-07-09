@@ -95,7 +95,7 @@ struct CalculatorsView: View {
                             .foregroundStyle(.secondary)
                     }
                     Spacer()
-                    Image(systemName: "chevron.right")
+                    Image(systemName: "chevron.forward")
                         .font(.fredoka(13, .semibold))
                         .foregroundStyle(.tertiary)
                 }

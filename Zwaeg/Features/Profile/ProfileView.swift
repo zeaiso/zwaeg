@@ -217,7 +217,7 @@ struct ProfileView: View {
                     .font(.fredoka(15, .semibold))
                     .foregroundStyle(Theme.ink)
                 Spacer()
-                Image(systemName: "chevron.right")
+                Image(systemName: "chevron.forward")
                     .font(.fredoka(12, .semibold))
                     .foregroundStyle(.tertiary)
             }

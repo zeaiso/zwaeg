@@ -29,6 +29,7 @@ struct RootView: View {
         .preferredColorScheme(Theme.colorScheme)
         .grayscale(Theme.grayscale)
         .environment(\.locale, Lingo.shared.language.locale)
+        .environment(\.layoutDirection, Lingo.shared.language.isRTL ? .rightToLeft : .leftToRight)
         .onAppear {
             if LaunchArgs.seedProfile && BuddyCloset.load().isEmpty {
                 BuddyCloset.add(Buddy(kind: "m", index: 7))
