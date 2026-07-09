@@ -65,9 +65,9 @@ struct OnboardingView: View {
             Image(systemName: "fork.knife.circle.fill")
                 .font(.system(size: 90))
                 .foregroundStyle(Color.appAccent)
-            Text("Willkommen!")
+            Text("Willkommen!".loc)
                 .font(.fredoka(32, .semibold))
-            Text("Dein persönlicher Kalorien-Tracker.\nIn einer Minute eingerichtet.")
+            Text("Dein persönlicher Kalorien-Tracker.\nIn einer Minute eingerichtet.".loc)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
         }
@@ -75,8 +75,8 @@ struct OnboardingView: View {
 
     private var nameStep: some View {
         VStack(alignment: .leading, spacing: 16) {
-            stepTitle("Wie heisst du?")
-            TextField("Dein Name", text: $name)
+            stepTitle("Wie heißt du?".loc)
+            TextField("Dein Name".loc, text: $name)
                 .font(.title2)
                 .padding()
                 .background(Theme.card)
@@ -87,8 +87,8 @@ struct OnboardingView: View {
 
     private var sexStep: some View {
         VStack(alignment: .leading, spacing: 16) {
-            stepTitle("Dein Geschlecht")
-            Text("Wird für die Kalorienberechnung benötigt.")
+            stepTitle("Dein Geschlecht".loc)
+            Text("Wird für die Kalorienberechnung benötigt.".loc)
                 .foregroundStyle(.secondary)
             HStack(spacing: 12) {
                 ForEach(Sex.allCases) { s in
@@ -117,19 +117,19 @@ struct OnboardingView: View {
     }
 
     private var ageStep: some View {
-        questionStep("Wie alt bist du?") {
-            BigValueField(value: $age, range: 14...99, step: 1, unit: "Jahre")
+        questionStep("Wie alt bist du?".loc) {
+            BigValueField(value: $age, range: 14...99, step: 1, unit: "Jahre".loc)
         }
     }
 
     private var heightStep: some View {
-        questionStep("Wie gross bist du?") {
+        questionStep("Wie groß bist du?".loc) {
             BigValueField(value: $heightCm, range: 130...220, step: 1, unit: "cm")
         }
     }
 
     private var weightStep: some View {
-        questionStep("Wie viel wiegst du?") {
+        questionStep("Wie viel wiegst du?".loc) {
             BigValueField(value: $weightKg, range: 40...200, step: 0.5, unit: "kg", fractionDigits: 1)
         }
     }
@@ -146,7 +146,7 @@ struct OnboardingView: View {
 
     private var activityStep: some View {
         VStack(alignment: .leading, spacing: 16) {
-            stepTitle("Wie aktiv bist du?")
+            stepTitle("Wie aktiv bist du?".loc)
             ForEach(ActivityLevel.allCases) { level in
                 Button {
                     activity = level
@@ -175,7 +175,7 @@ struct OnboardingView: View {
 
     private var goalStep: some View {
         VStack(alignment: .leading, spacing: 16) {
-            stepTitle("Dein Ziel")
+            stepTitle("Dein Ziel".loc)
             ForEach(Goal.allCases) { g in
                 Button {
                     goal = g
@@ -205,9 +205,9 @@ struct OnboardingView: View {
     private var buddyStep: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 20) {
-                stepTitle("Wähle deinen Buddy")
+                stepTitle("Wähle deinen Buddy".loc)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text("Dein Begleiter für Battles und mehr.")
+                Text("Dein Begleiter für Battles und mehr.".loc)
                     .font(.fredoka(15))
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -223,18 +223,18 @@ struct OnboardingView: View {
 
     private var resultStep: some View {
         VStack(spacing: 24) {
-            Text(name.isEmpty ? "Dein Tagesziel" : "\(name), dein Tagesziel")
+            Text(name.isEmpty ? "Dein Tagesziel".loc : "%@, dein Tagesziel".loc(name))
                 .font(.fredoka(22, .semibold))
             ResultNumber(value: "\(target)", unit: "kcal")
             Card {
                 VStack(spacing: 12) {
                     resultRow("BMI", String(format: "%.1f", CalorieMath.bmi(weightKg: weightKg, heightCm: heightCm)))
                     Divider()
-                    resultRow("Grundumsatz", "\(Int(CalorieMath.bmr(sex: sex, weightKg: weightKg, heightCm: heightCm, age: Int(age)).rounded())) kcal")
+                    resultRow("Grundumsatz".loc, "\(Int(CalorieMath.bmr(sex: sex, weightKg: weightKg, heightCm: heightCm, age: Int(age)).rounded())) kcal")
                     Divider()
-                    resultRow("Gesamtumsatz", "\(Int(CalorieMath.tdee(sex: sex, weightKg: weightKg, heightCm: heightCm, age: Int(age), activity: activity).rounded())) kcal")
+                    resultRow("Gesamtumsatz".loc, "\(Int(CalorieMath.tdee(sex: sex, weightKg: weightKg, heightCm: heightCm, age: Int(age), activity: activity).rounded())) kcal")
                     Divider()
-                    resultRow("Ziel", goal.label)
+                    resultRow("Ziel".loc, goal.label)
                 }
             }
         }
@@ -257,7 +257,7 @@ struct OnboardingView: View {
     private var controls: some View {
         HStack {
             if step != .welcome {
-                Button("Zurück") {
+                Button("Zurück".loc) {
                     withAnimation { step = Step(rawValue: step.rawValue - 1) ?? .welcome }
                 }
                 .foregroundStyle(.secondary)
@@ -270,7 +270,7 @@ struct OnboardingView: View {
                     withAnimation { step = Step(rawValue: step.rawValue + 1) ?? .result }
                 }
             } label: {
-                Text(step == .result ? "Los geht's!" : "Weiter")
+                Text(step == .result ? "Los geht's!".loc : "Weiter".loc)
                     .font(.fredoka(17, .semibold))
                     .padding(.horizontal, 28)
                     .padding(.vertical, 14)

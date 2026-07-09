@@ -18,7 +18,7 @@ struct CalorieBurnView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                DetailHeader(title: "Kalorienverbrauch", subtitle: "Verbrauch pro Aktivität")
+                DetailHeader(title: "Kalorienverbrauch".loc, subtitle: "Verbrauch pro Aktivität".loc)
                 resultCard
                 inputCard
                 activityCard
@@ -36,10 +36,10 @@ struct CalorieBurnView: View {
                 .font(.fredoka(52, .semibold))
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
-            Text("kcal verbrannt")
+            Text("kcal verbrannt".loc)
                 .font(.fredoka(15, .semibold))
                 .foregroundStyle(.white.opacity(0.9))
-            Text("\(activity.name) · \(Int(minutes)) Min · \(String(format: "%.1f", weightKg)) kg")
+            Text("%@ · %d Min · %@ kg".loc(activity.name.loc, Int(minutes), String(format: "%.1f", weightKg)))
                 .font(.fredoka(12))
                 .foregroundStyle(.white.opacity(0.85))
         }
@@ -55,9 +55,9 @@ struct CalorieBurnView: View {
     private var inputCard: some View {
         Card {
             VStack(spacing: 14) {
-                ValueField(title: "Dauer", value: $minutes, range: 5...240, step: 5, unit: "Min")
+                ValueField(title: "Dauer".loc, value: $minutes, range: 5...240, step: 5, unit: "Min".loc)
                 Divider()
-                ValueField(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
+                ValueField(title: "Gewicht".loc, value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
             }
         }
     }
@@ -65,7 +65,7 @@ struct CalorieBurnView: View {
     private var activityCard: some View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
-                Text("Aktivität")
+                Text("Aktivität".loc)
                     .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                 LazyVGrid(columns: columns, spacing: 10) {
@@ -76,7 +76,7 @@ struct CalorieBurnView: View {
                             VStack(spacing: 6) {
                                 Image(systemName: item.symbol)
                                     .font(.title3)
-                                Text(item.name)
+                                Text(item.name.loc)
                                     .font(.fredoka(11, .semibold))
                                     .multilineTextAlignment(.center)
                                     .lineLimit(2, reservesSpace: true)

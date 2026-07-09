@@ -28,7 +28,7 @@ struct CalorieNeedsView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                DetailHeader(title: "Kalorienbedarf", subtitle: "Grund- & Gesamtumsatz pro Tag")
+                DetailHeader(title: "Kalorienbedarf".loc, subtitle: "Grund- & Gesamtumsatz pro Tag".loc)
                 inputCard
                 resultTiles
                 goalsCard
@@ -43,24 +43,24 @@ struct CalorieNeedsView: View {
     private var inputCard: some View {
         Card {
             VStack(spacing: 14) {
-                Picker("Geschlecht", selection: $sex) {
+                Picker("Geschlecht".loc, selection: $sex) {
                     ForEach(Sex.allCases) { s in
                         Text(s.label).tag(s)
                     }
                 }
                 .pickerStyle(.segmented)
-                ValueField(title: "Alter", value: $age, range: 14...99, step: 1, unit: "Jahre")
+                ValueField(title: "Alter".loc, value: $age, range: 14...99, step: 1, unit: "Jahre".loc)
                 Divider()
-                ValueField(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
+                ValueField(title: "Größe".loc, value: $heightCm, range: 130...220, step: 1, unit: "cm")
                 Divider()
-                ValueField(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
+                ValueField(title: "Gewicht".loc, value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
                 Divider()
                 HStack {
-                    Text("Aktivität")
+                    Text("Aktivität".loc)
                         .font(.fredoka(15))
                         .foregroundStyle(.secondary)
                     Spacer()
-                    Picker("Aktivität", selection: $activity) {
+                    Picker("Aktivität".loc, selection: $activity) {
                         ForEach(ActivityLevel.allCases) { level in
                             Text(level.label).tag(level)
                         }
@@ -75,12 +75,12 @@ struct CalorieNeedsView: View {
     private var resultTiles: some View {
         HStack(spacing: 12) {
             resultTile(value: "\(Int(tdee.rounded()))",
-                       label: "Gesamtumsatz",
+                       label: "Gesamtumsatz".loc,
                        background: AnyShapeStyle(LinearGradient(
                           colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent],
                           startPoint: .topLeading, endPoint: .bottomTrailing)))
             resultTile(value: "\(Int(bmr.rounded()))",
-                       label: "Grundumsatz",
+                       label: "Grundumsatz".loc,
                        background: AnyShapeStyle(Theme.ink))
         }
     }
@@ -91,7 +91,7 @@ struct CalorieNeedsView: View {
                 .font(.fredoka(27, .semibold))
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
-            Text("\(label) · kcal/Tag")
+            Text("%@ · kcal/Tag".loc(label))
                 .font(.fredoka(12, .semibold))
                 .foregroundStyle(.white.opacity(0.85))
         }
@@ -104,7 +104,7 @@ struct CalorieNeedsView: View {
     private var goalsCard: some View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
-                Text("Deine Empfehlung")
+                Text("Deine Empfehlung".loc)
                     .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                 HStack(spacing: 12) {
@@ -117,7 +117,7 @@ struct CalorieNeedsView: View {
                         Text(goal.label)
                             .font(.fredoka(15, .semibold))
                             .foregroundStyle(Theme.ink)
-                        Text("Dein Ziel")
+                        Text("Dein Ziel".loc)
                             .font(.fredoka(12))
                             .foregroundStyle(.secondary)
                     }
@@ -127,7 +127,7 @@ struct CalorieNeedsView: View {
                         .foregroundStyle(Color.appAccent)
                         .contentTransition(.numericText())
                 }
-                Text("Änderbar unter Profil, Ziele & Vorgaben.")
+                Text("Änderbar unter Profil, Ziele & Vorgaben.".loc)
                     .font(.fredoka(11))
                     .foregroundStyle(.secondary)
             }

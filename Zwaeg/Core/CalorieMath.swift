@@ -17,12 +17,12 @@ enum CalorieMath {
 
         var label: String {
             switch self {
-            case .underweight: return "Untergewicht"
-            case .normal: return "Normalgewicht"
-            case .overweight: return "Übergewicht"
-            case .obese1: return "Adipositas Grad I"
-            case .obese2: return "Adipositas Grad II"
-            case .obese3: return "Adipositas Grad III"
+            case .underweight: return "Untergewicht".loc
+            case .normal: return "Normalgewicht".loc
+            case .overweight: return "Übergewicht".loc
+            case .obese1: return "Adipositas Grad I".loc
+            case .obese2: return "Adipositas Grad II".loc
+            case .obese3: return "Adipositas Grad III".loc
             }
         }
 
@@ -119,13 +119,13 @@ enum CalorieMath {
         METActivity(name: "Wandern", symbol: "figure.hiking", met: 6.0),
         METActivity(name: "Joggen", symbol: "figure.run", met: 7.0),
         METActivity(name: "Laufen (schnell)", symbol: "figure.run.circle", met: 9.8),
-        METActivity(name: "Velofahren", symbol: "figure.outdoor.cycle", met: 6.8),
-        METActivity(name: "Velofahren (zügig)", symbol: "bicycle", met: 8.5),
+        METActivity(name: "Radfahren", symbol: "figure.outdoor.cycle", met: 6.8),
+        METActivity(name: "Radfahren (zügig)", symbol: "bicycle", met: 8.5),
         METActivity(name: "Schwimmen", symbol: "figure.pool.swim", met: 6.0),
         METActivity(name: "Krafttraining", symbol: "dumbbell.fill", met: 5.0),
         METActivity(name: "HIIT", symbol: "flame.fill", met: 8.0),
         METActivity(name: "Yoga", symbol: "figure.mind.and.body", met: 2.5),
-        METActivity(name: "Fussball", symbol: "soccerball", met: 7.0),
+        METActivity(name: "Fußball", symbol: "soccerball", met: 7.0),
         METActivity(name: "Tennis", symbol: "tennisball.fill", met: 7.3),
         METActivity(name: "Tanzen", symbol: "figure.dance", met: 4.5),
         METActivity(name: "Skifahren", symbol: "figure.skiing.downhill", met: 7.0),

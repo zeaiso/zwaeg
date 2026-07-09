@@ -16,7 +16,7 @@ struct BMICalculatorView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                DetailHeader(title: "BMI-Rechner", subtitle: "Body-Mass-Index & Einordnung")
+                DetailHeader(title: "BMI-Rechner".loc, subtitle: "Body-Mass-Index & Einordnung".loc)
                 inputCard
                 resultCard
                 scaleCard
@@ -32,9 +32,9 @@ struct BMICalculatorView: View {
     private var inputCard: some View {
         Card {
             VStack(spacing: 14) {
-                ValueField(title: "Gewicht", value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
+                ValueField(title: "Gewicht".loc, value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
                 Divider()
-                ValueField(title: "Grösse", value: $heightCm, range: 130...220, step: 1, unit: "cm")
+                ValueField(title: "Größe".loc, value: $heightCm, range: 130...220, step: 1, unit: "cm")
             }
         }
     }
@@ -64,11 +64,11 @@ struct BMICalculatorView: View {
     private var scaleCard: some View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
-                Text("Einordnung")
+                Text("Einordnung".loc)
                     .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                 BMIScaleView(bmi: bmi)
-                Text("Normalgewicht für deine Grösse: \(String(format: "%.0f", healthyRange.lowerBound)) bis \(String(format: "%.0f", healthyRange.upperBound)) kg")
+                Text("Normalgewicht für deine Größe: %@ bis %@ kg".loc(String(format: "%.0f", healthyRange.lowerBound), String(format: "%.0f", healthyRange.upperBound)))
                     .font(.fredoka(13))
                     .foregroundStyle(.secondary)
             }
@@ -86,21 +86,21 @@ struct BMICalculatorView: View {
                     Image(systemName: "checkmark.seal.fill")
                         .font(.title3)
                         .foregroundStyle(Color(red: 0.13, green: 0.66, blue: 0.42))
-                    Text("Alles im grünen Bereich. Weiter so!")
+                    Text("Alles im grünen Bereich. Weiter so!".loc)
                         .font(.fredoka(15, .medium))
                         .foregroundStyle(Theme.ink)
                 }
             }
         case .underweight:
             supportLinks(
-                intro: "Untergewicht kann viele Ursachen haben. Sprich mit deiner Hausärztin oder deinem Hausarzt, wenn es dich beschäftigt.",
+                intro: "Untergewicht kann viele Ursachen haben. Sprich mit deiner Hausärztin oder deinem Hausarzt, wenn es dich beschäftigt.".loc,
                 links: [
                     ("Arbeitsgemeinschaft Ess-Störungen AES", "https://www.aes.ch"),
                     ("BAG · Ernährung & Bewegung", "https://www.bag.admin.ch"),
                 ])
         case .overweight, .obese1, .obese2, .obese3:
             supportLinks(
-                intro: "Du bist nicht allein. Kleine Schritte zählen, und professionelle Unterstützung hilft. Deine Hausärztin oder dein Hausarzt ist eine gute erste Anlaufstelle.",
+                intro: "Du bist nicht allein. Kleine Schritte zählen, und professionelle Unterstützung hilft. Deine Hausärztin oder dein Hausarzt ist eine gute erste Anlaufstelle.".loc,
                 links: [
                     ("Schweizer Adipositas-Stiftung SAPS", "https://www.saps.ch"),
                     ("Ernährungsberatung SVDE", "https://www.svde-asdd.ch"),
@@ -112,7 +112,7 @@ struct BMICalculatorView: View {
     private func supportLinks(intro: String, links: [(String, String)]) -> some View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
-                Label("Unterstützung & Infos", systemImage: "heart.fill")
+                Label("Unterstützung & Infos".loc, systemImage: "heart.fill")
                     .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                 Text(intro)

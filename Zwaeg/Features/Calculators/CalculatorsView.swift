@@ -15,20 +15,20 @@ struct CalculatorsView: View {
             ScrollView {
                 VStack(spacing: 14) {
                     header
-                    calculatorCard(.bmi, title: "BMI-Rechner",
-                                   subtitle: "Body-Mass-Index & Einordnung",
+                    calculatorCard(.bmi, title: "BMI-Rechner".loc,
+                                   subtitle: "Body-Mass-Index & Einordnung".loc,
                                    symbol: "figure.arms.open",
                                    colors: [Color(red: 1.0, green: 0.47, blue: 0.30), Theme.accent])
-                    calculatorCard(.ideal, title: "Idealgewicht",
-                                   subtitle: "Dein Zielbereich nach 4 Formeln",
+                    calculatorCard(.ideal, title: "Idealgewicht".loc,
+                                   subtitle: "Dein Zielbereich nach 4 Formeln".loc,
                                    symbol: "scalemass.fill",
                                    colors: [Color(red: 0.52, green: 0.48, blue: 0.95), Color(red: 0.68, green: 0.6, blue: 0.98)])
-                    calculatorCard(.needs, title: "Kalorienbedarf",
-                                   subtitle: "Grund- & Gesamtumsatz pro Tag",
+                    calculatorCard(.needs, title: "Kalorienbedarf".loc,
+                                   subtitle: "Grund- & Gesamtumsatz pro Tag".loc,
                                    symbol: "flame.fill",
                                    colors: [Color(red: 1.0, green: 0.72, blue: 0.25), Color(red: 1.0, green: 0.82, blue: 0.45)])
-                    calculatorCard(.burn, title: "Kalorienverbrauch",
-                                   subtitle: "Verbrauch pro Aktivität",
+                    calculatorCard(.burn, title: "Kalorienverbrauch".loc,
+                                   subtitle: "Verbrauch pro Aktivität".loc,
                                    symbol: "figure.run",
                                    colors: [Color(red: 0.35, green: 0.75, blue: 0.5), Color(red: 0.55, green: 0.85, blue: 0.6)])
                 }
@@ -61,10 +61,10 @@ struct CalculatorsView: View {
     private var header: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
-                Text("Rechner")
+                Text("Rechner".loc)
                     .font(.fredoka(27, .semibold))
                     .foregroundStyle(Theme.ink)
-                Text("Deine Gesundheits-Tools")
+                Text("Deine Gesundheits-Tools".loc)
                     .font(.fredoka(15))
                     .foregroundStyle(.secondary)
             }
