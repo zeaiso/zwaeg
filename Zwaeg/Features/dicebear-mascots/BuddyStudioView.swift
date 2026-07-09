@@ -98,7 +98,7 @@ struct BuddyStudioView: View {
         .frame(width: 168, height: 168)
         .background(Theme.card)
         .clipShape(RoundedRectangle(cornerRadius: 50, style: .continuous))
-        .shadow(color: Theme.ink.opacity(0.08), radius: 12, y: 5)
+        .shadow(color: Theme.shadow.opacity(0.08), radius: 12, y: 5)
         .frame(maxWidth: .infinity)
         .id(traits)
     }

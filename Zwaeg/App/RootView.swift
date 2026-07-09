@@ -26,6 +26,8 @@ struct RootView: View {
                 OnboardingView()
             }
         }
+        .preferredColorScheme(Theme.colorScheme)
+        .grayscale(Theme.grayscale)
         .onAppear {
             if LaunchArgs.seedProfile && BuddyCloset.load().isEmpty {
                 BuddyCloset.add(Buddy(kind: "m", index: 7))
@@ -121,7 +123,7 @@ struct ZwaegTabBar: View {
         .padding(.horizontal, 14)
         .padding(.vertical, 9)
         .background(Theme.card, in: Capsule())
-        .shadow(color: Theme.ink.opacity(0.10), radius: 16, y: 6)
+        .shadow(color: Theme.shadow.opacity(0.10), radius: 16, y: 6)
         .padding(.horizontal, 24)
         .padding(.bottom, 4)
     }
@@ -151,7 +153,7 @@ struct ZwaegTabBar: View {
                 .foregroundStyle(router.selection == 2 ? Theme.onAccent : Color.appAccent)
                 .frame(width: 56, height: 56)
                 .background(Theme.ink, in: Circle())
-                .shadow(color: Theme.ink.opacity(0.3), radius: 8, y: 3)
+                .shadow(color: Theme.shadow.opacity(0.3), radius: 8, y: 3)
         }
         .buttonStyle(.plain)
         .offset(y: -16)

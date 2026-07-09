@@ -117,7 +117,7 @@ struct ProductPortionSheet: View {
         }
         .padding(16)
         .background(Theme.card, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: Theme.ink.opacity(0.04), radius: 8, y: 3)
+        .shadow(color: Theme.shadow.opacity(0.04), radius: 8, y: 3)
     }
 
     private var servingsLabel: String {
@@ -182,7 +182,7 @@ struct ProductPortionSheet: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 14)
         .background(Theme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-        .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+        .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
     }
 
     private func formatGrams(_ value: Double) -> String {

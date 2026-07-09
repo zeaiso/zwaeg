@@ -8,6 +8,7 @@ struct ProfileView: View {
     @State private var showProgress = false
     @State private var showBuddyEdit = false
     @State private var showLanguage = false
+    @State private var showLook = false
 
     var body: some View {
         NavigationStack {
@@ -32,6 +33,9 @@ struct ProfileView: View {
             .navigationDestination(isPresented: $showLanguage) {
                 LanguageView()
             }
+            .navigationDestination(isPresented: $showLook) {
+                LookView()
+            }
             .onAppear {
                 if CommandLine.arguments.contains("-open-progress") {
                     showProgress = true
@@ -41,6 +45,9 @@ struct ProfileView: View {
                 }
                 if CommandLine.arguments.contains("-open-language") {
                     showLanguage = true
+                }
+                if CommandLine.arguments.contains("-open-look") {
+                    showLook = true
                 }
             }
         }
@@ -60,7 +67,7 @@ struct ProfileView: View {
                     .foregroundStyle(Theme.ink)
                     .frame(width: 40, height: 40)
                     .background(Theme.card, in: Circle())
-                    .shadow(color: Theme.ink.opacity(0.05), radius: 6, y: 2)
+                    .shadow(color: Theme.shadow.opacity(0.05), radius: 6, y: 2)
             }
             .buttonStyle(.plain)
         }
@@ -156,7 +163,7 @@ struct ProfileView: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 18)
         .background(Theme.card, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+        .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
     }
 
     // MARK: - Account list (one card per row)
@@ -184,6 +191,9 @@ struct ProfileView: View {
             }
             accountRow("Sprache".loc, symbol: "globe", color: Color(red: 0.2, green: 0.68, blue: 0.62)) {
                 LanguageView()
+            }
+            accountRow("Aussehen".loc, symbol: "paintpalette.fill", color: Color(red: 0.78, green: 0.4, blue: 0.85)) {
+                LookView()
             }
             accountRow("Hilfe & Support".loc, symbol: "questionmark.circle.fill", color: Color(red: 1.0, green: 0.63, blue: 0.14)) {
                 AboutView()
@@ -214,7 +224,7 @@ struct ProfileView: View {
             }
             .padding(14)
             .background(Theme.card, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+            .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
         }
         .buttonStyle(.plain)
     }
@@ -282,7 +292,71 @@ struct LanguageView: View {
             .background(Theme.card, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
             .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .stroke(isSelected ? Color.appAccent : .clear, lineWidth: 1.5))
-            .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+            .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+// MARK: - Look
+
+struct LookView: View {
+    @State private var themer = Themer.shared
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Wähle den Look der App.".loc)
+                    .font(.fredoka(13))
+                    .foregroundStyle(.secondary)
+                    .padding(.leading, 6)
+                ForEach(AppLook.allCases) { look in
+                    lookRow(look)
+                }
+            }
+            .padding(16)
+        }
+        .background(Theme.background)
+        .navigationTitle("Aussehen".loc)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private func lookRow(_ look: AppLook) -> some View {
+        let isSelected = themer.look == look
+        return Button {
+            withAnimation(.snappy) {
+                themer.look = look
+            }
+        } label: {
+            HStack(spacing: 12) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 13, style: .continuous)
+                        .fill(look.previewBackground)
+                    Circle()
+                        .fill(look.previewAccent)
+                        .frame(width: 17, height: 17)
+                }
+                .frame(width: 44, height: 44)
+                .overlay(RoundedRectangle(cornerRadius: 13, style: .continuous)
+                    .stroke(Color(.systemGray4), lineWidth: 1))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(look.label)
+                        .font(.fredoka(16, .semibold))
+                        .foregroundStyle(Theme.ink)
+                    Text(look.detail)
+                        .font(.fredoka(12))
+                        .foregroundStyle(.secondary)
+                }
+                Spacer()
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .font(.fredoka(19, .semibold))
+                    .foregroundStyle(isSelected ? Color.appAccent : Color(.systemGray3))
+            }
+            .padding(14)
+            .background(Theme.card, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .stroke(isSelected ? Color.appAccent : .clear, lineWidth: 1.5))
+            .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
         }
         .buttonStyle(.plain)
     }

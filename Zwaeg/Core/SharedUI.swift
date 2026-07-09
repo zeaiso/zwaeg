@@ -11,7 +11,7 @@ struct Card<Content: View>: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Theme.card)
             .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-            .shadow(color: Theme.ink.opacity(0.05), radius: 10, y: 4)
+            .shadow(color: Theme.shadow.opacity(0.05), radius: 10, y: 4)
     }
 }
 
@@ -34,7 +34,7 @@ struct DetailHeader: View {
                     .foregroundStyle(Theme.ink)
                     .frame(width: 38, height: 38)
                     .background(Theme.card, in: Circle())
-                    .shadow(color: Theme.ink.opacity(0.05), radius: 5, y: 2)
+                    .shadow(color: Theme.shadow.opacity(0.05), radius: 5, y: 2)
             }
             .buttonStyle(.plain)
             VStack(alignment: .leading, spacing: 1) {

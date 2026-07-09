@@ -66,7 +66,7 @@ struct BuddyPickerView: View {
                     .foregroundStyle(saved.contains(buddy) ? Color.appAccent : Theme.ink)
                     .frame(width: 40, height: 40)
                     .background(Theme.card, in: Circle())
-                    .shadow(color: Theme.ink.opacity(0.08), radius: 6, y: 2)
+                    .shadow(color: Theme.shadow.opacity(0.08), radius: 6, y: 2)
             }
             .buttonStyle(.plain)
         }
@@ -85,7 +85,7 @@ struct BuddyPickerView: View {
         }
         .padding(4)
         .background(Theme.card, in: Capsule())
-        .shadow(color: Theme.ink.opacity(0.05), radius: 6, y: 2)
+        .shadow(color: Theme.shadow.opacity(0.05), radius: 6, y: 2)
     }
 
     private func poolSegment(_ label: String, isActive: Bool, action: @escaping () -> Void) -> some View {
@@ -139,7 +139,7 @@ struct BuddyPickerView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(16)
             .background(background, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-            .shadow(color: Theme.ink.opacity(0.12), radius: 10, y: 4)
+            .shadow(color: Theme.shadow.opacity(0.12), radius: 10, y: 4)
         }
         .buttonStyle(.plain)
     }
@@ -191,7 +191,7 @@ struct BuddyPickerView: View {
             }
             .padding(16)
             .background(Theme.card, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
-            .shadow(color: Theme.ink.opacity(0.05), radius: 8, y: 3)
+            .shadow(color: Theme.shadow.opacity(0.05), radius: 8, y: 3)
         }
     }
 }

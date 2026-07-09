@@ -98,7 +98,7 @@ struct CalorieNeedsView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(16)
         .background(background, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
-        .shadow(color: Theme.ink.opacity(0.10), radius: 10, y: 4)
+        .shadow(color: Theme.shadow.opacity(0.10), radius: 10, y: 4)
     }
 
     private var goalsCard: some View {

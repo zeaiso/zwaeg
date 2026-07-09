@@ -78,7 +78,7 @@ struct AddFoodView: View {
                     .foregroundStyle(Theme.ink)
                     .frame(width: 38, height: 38)
                     .background(Theme.card, in: Circle())
-                    .shadow(color: Theme.ink.opacity(0.05), radius: 5, y: 2)
+                    .shadow(color: Theme.shadow.opacity(0.05), radius: 5, y: 2)
             }
             .buttonStyle(.plain)
             Text("Essen hinzufügen".loc)
@@ -105,7 +105,7 @@ struct AddFoodView: View {
         }
         .padding(14)
         .background(Theme.card, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+        .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
     }
 
     private var mealChips: some View {
@@ -202,7 +202,7 @@ struct AddFoodView: View {
                 }
                 .padding(12)
                 .background(Theme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-                .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+                .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
             }
             .buttonStyle(.plain)
         }
@@ -253,7 +253,7 @@ struct AddFoodView: View {
                 }
                 .padding(12)
                 .background(Theme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-                .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+                .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
             }
         }
     }
@@ -316,7 +316,7 @@ struct AddFoodView: View {
         }
         .padding(12)
         .background(Theme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-        .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+        .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
     }
 
     private func productRow(_ product: FoodProduct) -> some View {
@@ -367,7 +367,7 @@ struct AddFoodView: View {
                 }
                 .padding(14)
                 .background(Theme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-                .shadow(color: Theme.ink.opacity(0.04), radius: 6, y: 2)
+                .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
             }
         } else {
             Button {
