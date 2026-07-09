@@ -6,11 +6,12 @@ struct RecipeDetailView: View {
     let recipe: Recipe
 
     @State private var showPortionSheet = false
+    @State private var favorites = RecipeFavorites.shared
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                RecipeHero(recipe: recipe, height: 170, symbolSize: 58)
+                RecipeHero(recipe: recipe, height: 170, emojiSize: 72)
                     .clipShape(RoundedRectangle(cornerRadius: 22))
 
                 VStack(alignment: .leading, spacing: 6) {
@@ -19,7 +20,9 @@ struct RecipeDetailView: View {
                     HStack(spacing: 14) {
                         Label("\(recipe.minutes) \("Min".loc)", systemImage: "clock")
                         Label("\(recipe.servings)", systemImage: "person.2")
-                        if recipe.vegetarian {
+                        if recipe.vegan {
+                            Label("Vegan".loc, systemImage: "leaf.fill")
+                        } else if recipe.vegetarian {
                             Label("Vegetarisch".loc, systemImage: "leaf")
                         }
                     }
@@ -36,6 +39,18 @@ struct RecipeDetailView: View {
         }
         .background(Theme.background)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    withAnimation(.snappy(duration: 0.2)) {
+                        favorites.toggle(recipe.id)
+                    }
+                } label: {
+                    Image(systemName: favorites.contains(recipe.id) ? "heart.fill" : "heart")
+                        .foregroundStyle(Color.appAccent)
+                }
+            }
+        }
         .safeAreaInset(edge: .bottom) {
             addButton
         }
