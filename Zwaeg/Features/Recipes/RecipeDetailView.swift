@@ -14,7 +14,9 @@ struct RecipeDetailView: View {
                 RecipeHero(recipe: recipe, height: 170, emojiSize: 72)
                     .clipShape(RoundedRectangle(cornerRadius: 22))
                 if let credit = RecipeCredits.byId[recipe.id] {
-                    Text("Foto: \(credit.artist) · \(credit.license) · Wikimedia Commons")
+                    Text(credit.license == "Pexels License"
+                         ? "Foto: \(credit.artist) · Pexels"
+                         : "Foto: \(credit.artist) · \(credit.license) · Wikimedia Commons")
                         .font(.fredoka(10))
                         .foregroundStyle(.tertiary)
                         .padding(.top, -8)
