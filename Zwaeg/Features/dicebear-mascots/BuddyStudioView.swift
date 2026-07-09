@@ -1,28 +1,88 @@
 import SwiftData
 import SwiftUI
 
+/// DiceBear throttles bursts (style rack plus preview load together),
+/// so failed loads retry with a growing delay instead of giving up.
+struct StudioAsyncImage: View {
+    let url: URL?
+
+    @State private var attempt = 0
+
+    var body: some View {
+        AsyncImage(url: retryURL) { phase in
+            switch phase {
+            case .success(let image):
+                image.resizable().scaledToFit()
+            case .failure:
+                if attempt < 4 {
+                    ProgressView().tint(Color.appAccent)
+                        .task {
+                            try? await Task.sleep(for: .seconds(Double(attempt) * 0.8 + 0.6))
+                            attempt += 1
+                        }
+                } else {
+                    VStack(spacing: 6) {
+                        Image(systemName: "wifi.slash")
+                            .foregroundStyle(.secondary)
+                        Text("Vorschau braucht Internet".loc)
+                            .font(.fredoka(12))
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                }
+            default:
+                ProgressView().tint(Color.appAccent)
+            }
+        }
+    }
+
+    private var retryURL: URL? {
+        guard let url, attempt > 0 else { return url }
+        return url.appending(queryItems: [URLQueryItem(name: "r", value: "\(attempt)")])
+    }
+}
+
 /// The wardrobe: pick hair, colors, outfit, glasses and beard piece by
 /// piece with a live preview. Saving downloads the final image once,
 /// so the custom buddy works offline afterwards.
 struct BuddyStudioView: View {
     let sex: Sex
     let initialTraits: AvatarTraits?
+    let initialStyled: StyledTraits?
     let onSave: (Buddy) -> Void
+
+    /// The bespoke avataaars editor with bundled thumbnails.
+    private static let classicStyle = "avataaars"
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
     @Query private var profiles: [UserProfile]
     @State private var traits: AvatarTraits
+    @State private var selectedStyle: String
+    @State private var styleTraits: [String: StyledTraits] = [:]
     @State private var isSaving = false
     @State private var errorMessage: String?
     @State private var points = 0
     @State private var lockHint: Int?
 
-    init(sex: Sex, initialTraits: AvatarTraits?, onSave: @escaping (Buddy) -> Void) {
+    init(sex: Sex, initialTraits: AvatarTraits?, initialStyled: StyledTraits? = nil,
+         onSave: @escaping (Buddy) -> Void) {
         self.sex = sex
         self.initialTraits = initialTraits
+        self.initialStyled = initialStyled
         self.onSave = onSave
         _traits = State(initialValue: initialTraits ?? .starter(for: sex))
+        _selectedStyle = State(initialValue: initialStyled?.style ?? Self.classicStyle)
+        if let initialStyled {
+            _styleTraits = State(initialValue: [initialStyled.style: initialStyled])
+        }
+    }
+
+    /// Working traits for the selected catalog style.
+    private var currentStyled: StyledTraits? {
+        guard selectedStyle != Self.classicStyle,
+              let spec = StyleCatalog.style(selectedStyle) else { return nil }
+        return styleTraits[selectedStyle] ?? .starter(for: spec)
     }
 
     /// Fun one-tap looks; some unlock with challenge points.
@@ -52,6 +112,158 @@ struct BuddyStudioView: View {
             header
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 22) {
+                    styleRack
+                    if let styled = currentStyled, let spec = StyleCatalog.style(selectedStyle) {
+                        styledSections(styled: styled, spec: spec)
+                    } else {
+                        classicSections
+                    }
+                }
+                .padding(20)
+            }
+            saveButton
+        }
+        .background(Theme.background)
+        .onAppear {
+            if let profile = profiles.first {
+                points = ChallengeEngine.points(in: context, profile: profile)
+            }
+            if let flagIndex = CommandLine.arguments.firstIndex(of: "-studio-style"),
+               CommandLine.arguments.indices.contains(flagIndex + 1),
+               let spec = StyleCatalog.style(CommandLine.arguments[flagIndex + 1]) {
+                selectedStyle = spec.id
+                if styleTraits[spec.id] == nil {
+                    styleTraits[spec.id] = .starter(for: spec)
+                }
+            }
+        }
+    }
+
+    // MARK: - Style rack
+
+    private var styleRack: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            sectionLabel("Stil".loc)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    styleThumb(id: Self.classicStyle, name: "Klassisch".loc,
+                               url: AvatarTraits.starter(for: sex).previewURL)
+                    ForEach(StyleCatalog.styles) { style in
+                        styleThumb(id: style.id, name: style.name,
+                                   url: StyledTraits.starter(for: style).previewURL)
+                    }
+                }
+            }
+        }
+    }
+
+    private func styleThumb(id: String, name: String, url: URL?) -> some View {
+        Button {
+            withAnimation(.snappy) {
+                selectedStyle = id
+                if id != Self.classicStyle, styleTraits[id] == nil,
+                   let spec = StyleCatalog.style(id) {
+                    styleTraits[id] = .starter(for: spec)
+                }
+            }
+        } label: {
+            VStack(spacing: 5) {
+                StudioAsyncImage(url: url)
+                    .frame(width: 58, height: 58)
+                .background(Theme.card)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(selectedStyle == id ? Theme.ink : .clear, lineWidth: 2.5))
+                Text(name)
+                    .font(.fredoka(11, .medium))
+                    .foregroundStyle(selectedStyle == id ? Theme.ink : .secondary)
+            }
+        }
+        .buttonStyle(.plain)
+    }
+
+    // MARK: - Catalog style sections
+
+    @ViewBuilder
+    private func styledSections(styled: StyledTraits, spec: AvatarStyle) -> some View {
+        styledPreview(styled: styled)
+        Text(spec.credit)
+            .font(.fredoka(11))
+            .foregroundStyle(.tertiary)
+            .frame(maxWidth: .infinity)
+        ForEach(spec.colors) { color in
+            colorSection(color.title, options: color.presets,
+                         selected: styled.colors[color.param] ?? color.presets.first ?? "") { hex in
+                update(styled) { $0.colors[color.param] = hex }
+            }
+        }
+        ForEach(spec.options) { option in
+            valueChipSection(option, styled: styled)
+        }
+    }
+
+    private func styledPreview(styled: StyledTraits) -> some View {
+        StudioAsyncImage(url: styled.previewURL)
+            .frame(width: 168, height: 168)
+        .background(Theme.card)
+        .clipShape(RoundedRectangle(cornerRadius: 50, style: .continuous))
+        .shadow(color: Theme.shadow.opacity(0.08), radius: 12, y: 5)
+        .frame(maxWidth: .infinity)
+        .id(styled)
+    }
+
+    private func valueChipSection(_ option: StyleOption, styled: StyledTraits) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            sectionLabel(option.title)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 10) {
+                    if option.optional {
+                        valueChip("–", isSelected: styled.variants[option.param] == nil) {
+                            update(styled) { $0.variants.removeValue(forKey: option.param) }
+                        }
+                    }
+                    ForEach(option.values, id: \.self) { value in
+                        valueChip(chipLabel(value), isSelected: styled.variants[option.param] == value) {
+                            update(styled) { $0.variants[option.param] = value }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private func valueChip(_ label: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
+        Button {
+            withAnimation(.snappy) { action() }
+        } label: {
+            Text(label)
+                .font(.fredoka(13, .medium))
+                .foregroundStyle(Theme.ink)
+                .padding(.horizontal, 13)
+                .padding(.vertical, 9)
+                .background(Theme.card, in: Capsule())
+                .overlay(Capsule().stroke(isSelected ? Theme.ink : .clear, lineWidth: 2.5))
+        }
+        .buttonStyle(.plain)
+    }
+
+    /// "variant07" reads nicer as just "7".
+    private func chipLabel(_ value: String) -> String {
+        if value.hasPrefix("variant"), let number = Int(value.dropFirst("variant".count)) {
+            return "\(number)"
+        }
+        return value
+    }
+
+    private func update(_ styled: StyledTraits, _ change: (inout StyledTraits) -> Void) {
+        var copy = styled
+        change(&copy)
+        styleTraits[selectedStyle] = copy
+    }
+
+    // MARK: - Classic avataaars sections
+
+    @ViewBuilder
+    private var classicSections: some View {
                     preview
                     presetSection
                     thumbSection("Frisur".loc, options: AvatarTraits.tops, prefix: "wardrobe-top",
@@ -85,17 +297,6 @@ struct BuddyStudioView: View {
                             .font(.fredoka(13))
                             .foregroundStyle(.secondary)
                     }
-                }
-                .padding(20)
-            }
-            saveButton
-        }
-        .background(Theme.background)
-        .onAppear {
-            if let profile = profiles.first {
-                points = ChallengeEngine.points(in: context, profile: profile)
-            }
-        }
     }
 
     // MARK: - Unlocks
@@ -140,23 +341,8 @@ struct BuddyStudioView: View {
     }
 
     private var preview: some View {
-        AsyncImage(url: traits.previewURL) { phase in
-            switch phase {
-            case .success(let image):
-                image.resizable().scaledToFit()
-            case .failure:
-                VStack(spacing: 6) {
-                    Image(systemName: "wifi.slash")
-                        .foregroundStyle(.secondary)
-                    Text("Vorschau braucht Internet".loc)
-                        .font(.fredoka(12))
-                        .foregroundStyle(.secondary)
-                }
-            default:
-                ProgressView().tint(Color.appAccent)
-            }
-        }
-        .frame(width: 168, height: 168)
+        StudioAsyncImage(url: traits.previewURL)
+            .frame(width: 168, height: 168)
         .background(Theme.card)
         .clipShape(RoundedRectangle(cornerRadius: 50, style: .continuous))
         .shadow(color: Theme.shadow.opacity(0.08), radius: 12, y: 5)
@@ -416,7 +602,8 @@ struct BuddyStudioView: View {
     }
 
     private func save() {
-        guard let url = traits.previewURL else { return }
+        let styled = currentStyled
+        guard let url = styled?.previewURL ?? traits.previewURL else { return }
         isSaving = true
         errorMessage = nil
         Task {
@@ -431,7 +618,11 @@ struct BuddyStudioView: View {
                                                          in: .userDomainMask,
                                                          appropriateFor: nil, create: true)
                 try data.write(to: folder.appendingPathComponent(filename))
-                onSave(Buddy.custom(traits: traits, file: filename))
+                if let styled {
+                    onSave(Buddy.styled(traits: styled, file: filename))
+                } else {
+                    onSave(Buddy.custom(traits: traits, file: filename))
+                }
                 dismiss()
             } catch {
                 errorMessage = "Zum Speichern brauchst du kurz Internet. Bitte nochmals versuchen.".loc
