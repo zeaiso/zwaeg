@@ -129,14 +129,6 @@ enum StyleCatalog {
             StyleColorOption(param: "hairColor", title: "Haarfarbe".loc, presets: ["f9c9b6", "d2eff3", "000000", "e0ddff", "f4d150", "ac6651", "9287ff", "ffeba4", "fc909f", "ffedef", "6bd9e9", "77311d", "ffffff"]),
             StyleColorOption(param: "shirtColor", title: "Outfit-Farbe".loc, presets: ["f9c9b6", "d2eff3", "000000", "e0ddff", "f4d150", "ac6651", "9287ff", "ffeba4", "fc909f", "ffedef", "6bd9e9", "77311d", "ffffff"]),
         ]),
-        AvatarStyle(id: "bottts", name: "Monster", credit: "Pablo Stanley · Free", options: [
-            StyleOption(param: "eyes", title: "Augen".loc, values: ["bulging", "dizzy", "eva", "frame1", "frame2", "glow", "happy", "hearts", "robocop", "round", "roundFrame01", "roundFrame02", "sensor", "shade01"], optional: false),
-            StyleOption(param: "mouth", title: "Mund".loc, values: ["bite", "diagram", "grill01", "grill02", "grill03", "smile01", "smile02", "square01", "square02"], optional: true),
-            StyleOption(param: "top", title: "Oben".loc, values: ["antenna", "antennaCrooked", "bulb01", "glowingBulb01", "glowingBulb02", "horns", "lights", "pyramid", "radar"], optional: true),
-            StyleOption(param: "sides", title: "Seiten".loc, values: ["antenna01", "antenna02", "cables01", "cables02", "round", "square", "squareAssymetric"], optional: true),
-        ], colors: [
-            StyleColorOption(param: "baseColor", title: "Basisfarbe".loc, presets: ["ff5c5c", "fe9441", "ffd23e", "9bcc4f", "3fbf7f", "62c1da", "5199e4", "9583f5", "fe61de", "fe538e", "8d99ae", "525a63"]),
-        ]),
     ]
 
     static func style(_ id: String) -> AvatarStyle? {
@@ -191,5 +183,108 @@ struct StyledTraits: Codable, Equatable, Hashable {
         }
         components?.queryItems = items
         return components?.url
+    }
+}
+
+/// Human-readable, localized labels for raw DiceBear option values like
+/// "wavePointLongArms" or "short07".
+enum StyleValueNames {
+    private static let numberedPrefixes: [(String, String)] = [
+        ("variant", ""), ("short", "Kurz"), ("long", "Lang"), ("happy", "Froh"),
+        ("sad", "Traurig"), ("light", "Hell"), ("dark", "Dunkel"),
+    ]
+
+    /// Whole-value overrides where word-by-word translation reads badly.
+    private static let phrases: [String: String] = [
+        "hand": "Hand", "handPhone": "Handy", "ok": "OK", "okLongArm": "OK",
+        "point": "Zeigen", "pointLongArm": "Zeigen", "waveLongArm": "Winken",
+        "waveLongArms": "Winken", "waveOkLongArms": "Winken & OK",
+        "wavePointLongArms": "Winken & Zeigen", "mrT": "Irokese", "mrClean": "Glatze",
+        "fonze": "Tolle", "dougFunny": "Wuschel", "dannyPhantom": "Scheitel",
+        "sailormoonCrown": "Krone", "angryWithFang": "Wütend", "eatingHappy": "Genüsslich",
+        "lovingGrin1": "Verliebt 1", "lovingGrin2": "Verliebt 2", "soulPatch": "Soul Patch",
+        "tound": "Rund", "noHair": "Glatze",
+    ]
+
+    /// Word tokens with German labels; empty string drops filler words.
+    /// Unknown tokens (Afro, Mohawk, Hijab, ...) stay as loanwords.
+    private static let words: [String: String] = [
+        "hair": "", "head": "", "with": "", "out": "", "very": "sehr",
+        "angry": "Wütend", "arm": "", "arms": "", "awe": "Staunend", "awkward": "Verlegen",
+        "bald": "Glatze", "balding": "Halbglatze", "bangs": "Pony", "bantu": "Bantu",
+        "beanie": "Beanie", "bear": "Bär", "beard": "Bart", "big": "Gross",
+        "birthmark": "Muttermal", "blank": "Neutral", "blush": "Rouge", "bowl": "Topf",
+        "braces": "Zahnspange", "braids": "Zöpfe", "bun": "Dutt", "buns": "Duttli",
+        "buzzcut": "Buzzcut", "calm": "Ruhig", "cap": "Cap", "cat": "Katzen",
+        "checkered": "Kariert", "cheeky": "Frech", "cheery": "Fröhlich", "chin": "Kinn",
+        "chops": "Koteletten", "clean": "Sauber", "close": "Zu", "closed": "Geschlossen",
+        "clown": "Clown", "collared": "Kragen", "combover": "Seitenscheitel",
+        "concerned": "Besorgt", "confused": "Verwirrt", "contempt": "Skeptisch",
+        "cornrows": "Cornrows", "crew": "Rundhals", "crown": "Krone", "crying": "Weinend",
+        "curly": "Locken", "curve": "Geschwungen", "cut": "", "cute": "Süss",
+        "cyclops": "Zyklop", "down": "Unten", "dreads": "Dreads", "drip": "Sabber",
+        "driven": "Motiviert", "drop": "Träne", "ears": "Ohren", "eating": "Essend",
+        "explaining": "Erklärend", "extra": "Extra", "eyelashes": "Wimpern",
+        "eyepatch": "Augenklappe", "eyes": "Augen", "face": "Gesicht", "fade": "Fade",
+        "fang": "Zahn", "fear": "Ängstlich", "flat": "Flach", "freckles": "Sommersprossen",
+        "fro": "Afro", "frown": "Runzeln", "full": "Voll", "gap": "Zahnlücke",
+        "glasses": "Brille", "goatee": "Spitzbart", "gray": "Grau", "grin": "Grinsen",
+        "half": "Halb", "hat": "Hut", "heart": "Herz", "hectic": "Hektisch",
+        "high": "Hoch", "hijab": "Hijab", "hip": "Hip", "hoop": "Ring",
+        "kiss": "Kuss", "knots": "Knoten", "laughing": "Lachend", "lil": "Klein",
+        "lips": "Lippen", "lol": "LOL", "love": "Verliebt", "loving": "Verliebt",
+        "mask": "Maske", "medium": "Mittel", "mohawk": "Irokese", "monster": "Monster",
+        "moustache": "Schnauz", "mustache": "Schnauz", "nervous": "Nervös",
+        "no": "Ohne", "normal": "Normal", "nose": "Nase", "old": "Alt",
+        "open": "Offen", "opened": "Offen", "pacifier": "Nuggi", "patch": "",
+        "phantom": "", "pigtails": "Zöpfe", "pissed": "Sauer", "pixie": "Pixie",
+        "plain": "Schlicht", "pointed": "Spitz", "pomp": "Tolle", "pucker": "Kussmund",
+        "pyramid": "Pyramide", "rage": "Wut", "round": "Rund", "rounded": "Rund",
+        "scruff": "Stoppeln", "serious": "Ernst", "shades": "Sonnenbrille",
+        "shadow": "Schatten", "shave": "Rasiert", "shaved": "Rasiert",
+        "shout": "Schreiend", "shy": "Schüchtern", "sick": "Krank", "side": "Seitlich",
+        "sleep": "Schlafend", "sleepy": "Schläfrig", "small": "Klein",
+        "smile": "Lächeln", "smiling": "Lächelnd", "smirk": "Schmunzeln",
+        "solemn": "Ernst", "soul": "Soul", "square": "Eckig", "squared": "Eckig",
+        "stars": "Sterne", "starstruck": "Sterne", "straight": "Glatt", "stud": "Stecker",
+        "sunglasses": "Sonnenbrille", "surprise": "Überrascht", "surprised": "Überrascht",
+        "suspicious": "Skeptisch", "tear": "Träne", "teeth": "Zähne", "tired": "Müde",
+        "tongue": "Zunge", "top": "Oben", "turban": "Turban", "twists": "Twists",
+        "undercut": "Undercut", "unimpressed": "Unbeeindruckt", "up": "Oben",
+        "walrus": "Walross", "wave": "Winken", "wavy": "Wellig", "wide": "Breit",
+        "wink": "Zwinkern", "winking": "Zwinkernd", "wrinkles": "Falten",
+    ]
+
+    static func label(_ value: String) -> String {
+        for (prefix, name) in numberedPrefixes where value.hasPrefix(prefix) {
+            if let number = Int(value.dropFirst(prefix.count)) {
+                return name.isEmpty ? "\(number)" : "\(name.loc) \(number)"
+            }
+        }
+        if let phrase = phrases[value] {
+            return phrase.loc
+        }
+        let tokens = split(value)
+        let mapped = tokens.compactMap { token -> String? in
+            if Int(token) != nil { return token }
+            guard let german = words[token.lowercased()] else { return token.capitalized }
+            return german.isEmpty ? nil : german.loc
+        }
+        return mapped.isEmpty ? value : mapped.joined(separator: " ")
+    }
+
+    private static func split(_ value: String) -> [String] {
+        var tokens: [String] = []
+        var current = ""
+        for char in value {
+            if char.isUppercase || (char.isNumber && !(current.last?.isNumber ?? false)) {
+                if !current.isEmpty { tokens.append(current) }
+                current = String(char)
+            } else {
+                current.append(char)
+            }
+        }
+        if !current.isEmpty { tokens.append(current) }
+        return tokens
     }
 }

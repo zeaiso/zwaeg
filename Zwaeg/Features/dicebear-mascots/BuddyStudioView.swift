@@ -110,6 +110,7 @@ struct BuddyStudioView: View {
     var body: some View {
         VStack(spacing: 0) {
             header
+            pinnedPreview
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 22) {
                     styleRack
@@ -137,6 +138,26 @@ struct BuddyStudioView: View {
                 }
             }
         }
+    }
+
+    /// The avatar stays visible above the racks, so every pick shows
+    /// its effect without scrolling back up.
+    private var pinnedPreview: some View {
+        VStack(spacing: 3) {
+            StudioAsyncImage(url: currentStyled?.previewURL ?? traits.previewURL)
+                .frame(width: 132, height: 132)
+                .background(Theme.card)
+                .clipShape(RoundedRectangle(cornerRadius: 40, style: .continuous))
+                .shadow(color: Theme.shadow.opacity(0.08), radius: 12, y: 5)
+                .id(currentStyled?.previewURL?.absoluteString ?? traits.previewURL?.absoluteString ?? "")
+            if let spec = StyleCatalog.style(selectedStyle) {
+                Text(spec.credit)
+                    .font(.fredoka(10))
+                    .foregroundStyle(.tertiary)
+            }
+        }
+        .padding(.top, 12)
+        .padding(.bottom, 8)
     }
 
     // MARK: - Style rack
@@ -185,11 +206,6 @@ struct BuddyStudioView: View {
 
     @ViewBuilder
     private func styledSections(styled: StyledTraits, spec: AvatarStyle) -> some View {
-        styledPreview(styled: styled)
-        Text(spec.credit)
-            .font(.fredoka(11))
-            .foregroundStyle(.tertiary)
-            .frame(maxWidth: .infinity)
         ForEach(spec.colors) { color in
             colorSection(color.title, options: color.presets,
                          selected: styled.colors[color.param] ?? color.presets.first ?? "") { hex in
@@ -199,16 +215,6 @@ struct BuddyStudioView: View {
         ForEach(spec.options) { option in
             valueChipSection(option, styled: styled)
         }
-    }
-
-    private func styledPreview(styled: StyledTraits) -> some View {
-        StudioAsyncImage(url: styled.previewURL)
-            .frame(width: 168, height: 168)
-        .background(Theme.card)
-        .clipShape(RoundedRectangle(cornerRadius: 50, style: .continuous))
-        .shadow(color: Theme.shadow.opacity(0.08), radius: 12, y: 5)
-        .frame(maxWidth: .infinity)
-        .id(styled)
     }
 
     private func valueChipSection(_ option: StyleOption, styled: StyledTraits) -> some View {
@@ -246,12 +252,9 @@ struct BuddyStudioView: View {
         .buttonStyle(.plain)
     }
 
-    /// "variant07" reads nicer as just "7".
+    /// Raw API values become readable, localized labels.
     private func chipLabel(_ value: String) -> String {
-        if value.hasPrefix("variant"), let number = Int(value.dropFirst("variant".count)) {
-            return "\(number)"
-        }
-        return value
+        StyleValueNames.label(value)
     }
 
     private func update(_ styled: StyledTraits, _ change: (inout StyledTraits) -> Void) {
@@ -264,7 +267,6 @@ struct BuddyStudioView: View {
 
     @ViewBuilder
     private var classicSections: some View {
-                    preview
                     presetSection
                     thumbSection("Frisur".loc, options: AvatarTraits.tops, prefix: "wardrobe-top",
                                  selected: traits.top, allowsNone: true) { traits.top = $0 ?? "" }
@@ -340,15 +342,6 @@ struct BuddyStudioView: View {
         .padding(.top, 14)
     }
 
-    private var preview: some View {
-        StudioAsyncImage(url: traits.previewURL)
-            .frame(width: 168, height: 168)
-        .background(Theme.card)
-        .clipShape(RoundedRectangle(cornerRadius: 50, style: .continuous))
-        .shadow(color: Theme.shadow.opacity(0.08), radius: 12, y: 5)
-        .frame(maxWidth: .infinity)
-        .id(traits)
-    }
 
     // MARK: - Sections
 
