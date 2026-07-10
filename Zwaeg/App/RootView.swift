@@ -52,6 +52,12 @@ struct RootView: View {
                         context.insert(WeightEntry(date: date, weightKg: 78 + Double(week) * 0.45))
                     }
                 }
+                // Daily entries so the 7-day weight chart has a line too.
+                for day in 1...6 {
+                    if let date = Calendar.current.date(byAdding: .day, value: -day, to: .now) {
+                        context.insert(WeightEntry(date: date, weightKg: 78 + Double(day) * 0.12))
+                    }
+                }
                 if let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: .now) {
                     context.insert(FoodEntry(day: yesterday, meal: .breakfast, name: "Birchermüesli",
                                              calories: 320, proteinG: 12, carbsG: 45, fatG: 9))
