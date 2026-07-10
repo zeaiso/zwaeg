@@ -20,7 +20,6 @@ enum UnlockSet: Int {
     case specialExtras = 60
     case piratLook = 80
     case ninjaLook = 100
-    case monsterSpecials = 150
 
     var requiredPoints: Int { rawValue }
 }
@@ -78,7 +77,7 @@ enum ChallengeEngine {
             "water": waterDays.filter { $0.glasses >= profile.waterGoalGlasses }.count,
             "weight": weights.count,
             "mood": notes.count,
-            "buddy": ["custom", "monster", "styled"].contains(profile.buddy.kind) ? 1 : 0,
+            "buddy": ["custom", "styled", "photo"].contains(profile.buddy.kind) ? 1 : 0,
         ]
 
         var states: [ChallengeState] = []

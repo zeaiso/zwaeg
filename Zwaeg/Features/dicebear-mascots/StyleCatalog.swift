@@ -178,9 +178,6 @@ struct StyledTraits: Codable, Equatable, Hashable {
                 items.append(URLQueryItem(name: color.param, value: hex))
             }
         }
-        if style == "bottts" {
-            items.append(URLQueryItem(name: "textureProbability", value: "0"))
-        }
         components?.queryItems = items
         return components?.url
     }

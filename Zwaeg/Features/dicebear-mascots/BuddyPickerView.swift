@@ -41,7 +41,7 @@ struct BuddyPickerView: View {
         }
         .sheet(isPresented: $showStudio) {
             BuddyStudioView(sex: sex, initialTraits: buddy.traits,
-                            initialStyled: buddy.styledTraits) { custom in
+                            initialStyled: buddy.styled) { custom in
                 buddy = custom
                 BuddyCloset.add(custom)
                 saved = BuddyCloset.load()

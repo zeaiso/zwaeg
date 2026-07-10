@@ -5,13 +5,11 @@ import SwiftUI
 /// DiceBear avataaars, free for commercial use).
 /// Deterministic seeding gives battle opponents stable faces.
 struct Buddy: Codable, Equatable, Hashable {
-    /// "blob", "m", "f", "custom", "styled", "photo" or the legacy "monster".
+    /// "blob", "m", "f", "custom", "styled" or "photo".
     var kind: String
     var index: Int
     /// Wardrobe traits and cached image file for kind "custom".
     var traits: AvatarTraits?
-    /// Legacy monster traits (pre style catalog); shares the cached file field.
-    var monster: MonsterTraits?
     /// Catalog style traits for kind "styled".
     var styled: StyledTraits?
     var file: String?
@@ -35,7 +33,7 @@ struct Buddy: Codable, Equatable, Hashable {
 
     var assetName: String {
         switch kind {
-        case "custom", "monster", "styled", "photo":
+        case "custom", "styled", "photo":
             return ""
         case "m", "f":
             return "\(kind)-\(index % Self.avatarCount)"
@@ -80,20 +78,9 @@ struct Buddy: Codable, Equatable, Hashable {
 
     /// Absolute path of the cached rendered image, if any.
     var customImagePath: String? {
-        guard ["custom", "monster", "styled", "photo"].contains(kind), let file else { return nil }
+        guard ["custom", "styled", "photo"].contains(kind), let file else { return nil }
         let folder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
         return folder?.appendingPathComponent(file).path
-    }
-
-    /// Catalog traits for the studio, mapping legacy monsters to bottts.
-    var styledTraits: StyledTraits? {
-        if let styled { return styled }
-        guard let monster else { return nil }
-        var variants = ["eyes": monster.eyes, "mouth": monster.mouth]
-        variants["top"] = monster.top
-        variants["sides"] = monster.sides
-        return StyledTraits(style: "bottts", variants: variants,
-                            colors: ["baseColor": monster.baseColor])
     }
 
     /// Stable buddy for a seed string (bot names, participant ids).
@@ -125,7 +112,6 @@ struct Buddy: Codable, Equatable, Hashable {
             self.kind = kind
             self.index = index
             traits = try container.decodeIfPresent(AvatarTraits.self, forKey: .traits)
-            monster = try container.decodeIfPresent(MonsterTraits.self, forKey: .monster)
             styled = try container.decodeIfPresent(StyledTraits.self, forKey: .styled)
             file = try container.decodeIfPresent(String.self, forKey: .file)
             return
@@ -159,15 +145,4 @@ struct Buddy: Codable, Equatable, Hashable {
         guard !raw.isEmpty, let data = raw.data(using: .utf8) else { return nil }
         return try? JSONDecoder().decode(Buddy.self, from: data)
     }
-}
-
-/// Legacy monster traits from the short-lived separate monster studio;
-/// kept so saved buddies keep decoding. The studio now maps these to
-/// the bottts entry in the style catalog.
-struct MonsterTraits: Codable, Equatable, Hashable {
-    var baseColor: String
-    var eyes: String
-    var mouth: String
-    var top: String?
-    var sides: String?
 }
