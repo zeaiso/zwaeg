@@ -143,6 +143,7 @@ struct ChallengesView: View {
     @Query private var waterDays: [WaterDay]
     @Query private var weights: [WeightEntry]
     @Query private var notes: [DayNote]
+    @State private var showDone = false
 
     var body: some View {
         let challenges = ChallengeEngine.evaluate(entries: entries, fasts: fasts,
@@ -154,15 +155,16 @@ struct ChallengesView: View {
             VStack(alignment: .leading, spacing: 16) {
                 DetailHeader(title: "Challenges", subtitle: "Damit schaltest du neue Styles im Studio frei".loc)
                 pointsCard(total: ChallengeEngine.totalPoints(challenges))
-                ForEach(open) { challenge in
-                    challengeRow(challenge)
-                }
-                if !done.isEmpty {
-                    Text("Erledigt".loc)
-                        .font(.fredoka(17, .semibold))
-                        .foregroundStyle(Theme.ink)
-                        .padding(.top, 8)
+                tabSwitch(openCount: open.count, doneCount: done.count)
+                if showDone {
+                    if done.isEmpty {
+                        emptyDone
+                    }
                     ForEach(done.reversed()) { challenge in
+                        challengeRow(challenge)
+                    }
+                } else {
+                    ForEach(open) { challenge in
                         challengeRow(challenge)
                     }
                 }
@@ -172,6 +174,42 @@ struct ChallengesView: View {
         }
         .background(Theme.background)
         .toolbar(.hidden, for: .navigationBar)
+    }
+
+    private func tabSwitch(openCount: Int, doneCount: Int) -> some View {
+        HStack(spacing: 4) {
+            tabSegment("\("Jetzt".loc) · \(openCount)", isActive: !showDone) { showDone = false }
+            tabSegment("\("Erledigt".loc) · \(doneCount)", isActive: showDone) { showDone = true }
+        }
+        .padding(4)
+        .background(Theme.card, in: Capsule())
+        .shadow(color: Theme.shadow.opacity(0.05), radius: 6, y: 2)
+        .frame(maxWidth: .infinity)
+    }
+
+    private func tabSegment(_ label: String, isActive: Bool, action: @escaping () -> Void) -> some View {
+        Button {
+            withAnimation(.snappy(duration: 0.2)) { action() }
+        } label: {
+            Text(label)
+                .font(.fredoka(14, .semibold))
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 9)
+                .background(isActive ? AnyShapeStyle(Theme.ink) : AnyShapeStyle(.clear), in: Capsule())
+                .foregroundStyle(isActive ? Theme.onInk : .secondary)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var emptyDone: some View {
+        VStack(spacing: 8) {
+            EmojiOrSymbol(emoji: "🏆", symbol: "trophy", size: 36)
+            Text("Noch nichts geschafft? Bleib dran!".loc)
+                .font(.fredoka(14))
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 40)
     }
 
     private func pointsCard(total: Int) -> some View {
