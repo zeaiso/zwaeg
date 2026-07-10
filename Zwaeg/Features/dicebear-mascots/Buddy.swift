@@ -5,7 +5,7 @@ import SwiftUI
 /// DiceBear avataaars, free for commercial use).
 /// Deterministic seeding gives battle opponents stable faces.
 struct Buddy: Codable, Equatable, Hashable {
-    /// "blob", "m", "f", "custom", "styled" or the legacy "monster".
+    /// "blob", "m", "f", "custom", "styled", "photo" or the legacy "monster".
     var kind: String
     var index: Int
     /// Wardrobe traits and cached image file for kind "custom".
@@ -35,7 +35,7 @@ struct Buddy: Codable, Equatable, Hashable {
 
     var assetName: String {
         switch kind {
-        case "custom", "monster", "styled":
+        case "custom", "monster", "styled", "photo":
             return ""
         case "m", "f":
             return "\(kind)-\(index % Self.avatarCount)"
@@ -65,6 +65,12 @@ struct Buddy: Codable, Equatable, Hashable {
         return buddy
     }
 
+    static func photo(file: String) -> Buddy {
+        var buddy = Buddy(kind: "photo", index: 0)
+        buddy.file = file
+        return buddy
+    }
+
     static func styled(traits: StyledTraits, file: String) -> Buddy {
         var buddy = Buddy(kind: "styled", index: 0)
         buddy.styled = traits
@@ -74,7 +80,7 @@ struct Buddy: Codable, Equatable, Hashable {
 
     /// Absolute path of the cached rendered image, if any.
     var customImagePath: String? {
-        guard ["custom", "monster", "styled"].contains(kind), let file else { return nil }
+        guard ["custom", "monster", "styled", "photo"].contains(kind), let file else { return nil }
         let folder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
         return folder?.appendingPathComponent(file).path
     }

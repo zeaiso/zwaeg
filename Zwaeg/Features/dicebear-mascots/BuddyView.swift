@@ -12,7 +12,7 @@ struct BuddyView: View {
             if let path = buddy.customImagePath, let image = UIImage(contentsOfFile: path) {
                 Image(uiImage: image)
                     .resizable()
-                    .scaledToFit()
+                    .aspectRatio(contentMode: buddy.kind == "photo" ? .fill : .fit)
             } else if let image = UIImage(named: buddy.assetName) {
                 Image(uiImage: image)
                     .resizable()

@@ -1,4 +1,5 @@
 import SwiftUI
+import PhotosUI
 
 /// Buddy picker: hero preview, pool switch, dice and studio actions,
 /// and the closet of saved looks with visible delete badges.
@@ -7,6 +8,8 @@ struct BuddyPickerView: View {
     var sex: Sex
 
     @State private var showStudio = false
+    @State private var showPhotoPicker = false
+    @State private var photoItem: PhotosPickerItem?
     @State private var saved: [Buddy] = BuddyCloset.load()
 
     private var debugOpensStudio: Bool {
@@ -29,6 +32,12 @@ struct BuddyPickerView: View {
                     showStudio = true
                 }
             }
+        }
+        .photosPicker(isPresented: $showPhotoPicker, selection: $photoItem, matching: .images)
+        .onChange(of: photoItem) {
+            guard let item = photoItem else { return }
+            photoItem = nil
+            Task { await applyPhoto(item) }
         }
         .sheet(isPresented: $showStudio) {
             BuddyStudioView(sex: sex, initialTraits: buddy.traits,
@@ -120,6 +129,43 @@ struct BuddyPickerView: View {
                        foreground: Theme.onInk) {
                 showStudio = true
             }
+            actionCard(symbol: "photo.fill", title: "Foto".loc,
+                       subtitle: "Eigenes Bild".loc,
+                       background: AnyShapeStyle(Theme.card),
+                       foreground: Theme.ink) {
+                showPhotoPicker = true
+            }
+        }
+    }
+
+    /// Saves a square, downscaled copy of the picked photo and wears it.
+    private func applyPhoto(_ item: PhotosPickerItem) async {
+        guard let data = try? await item.loadTransferable(type: Data.self),
+              let image = UIImage(data: data) else { return }
+        let side = min(image.size.width, image.size.height)
+        let crop = CGRect(x: (image.size.width - side) / 2,
+                          y: (image.size.height - side) / 2,
+                          width: side, height: side)
+        let target: CGFloat = 512
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        let scaled = UIGraphicsImageRenderer(size: CGSize(width: target, height: target), format: format)
+            .image { _ in
+                let scale = target / side
+                image.draw(in: CGRect(x: -crop.minX * scale, y: -crop.minY * scale,
+                                      width: image.size.width * scale,
+                                      height: image.size.height * scale))
+            }
+        guard let jpeg = scaled.jpegData(compressionQuality: 0.85),
+              let folder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        else { return }
+        let file = "photo-\(UUID().uuidString).jpg"
+        try? jpeg.write(to: folder.appendingPathComponent(file))
+        withAnimation(.snappy) {
+            let look = Buddy.photo(file: file)
+            buddy = look
+            BuddyCloset.add(look)
+            saved = BuddyCloset.load()
         }
     }
 

@@ -33,7 +33,7 @@ enum BuddyCloset {
         buddies.removeAll { $0 == buddy }
         persist(buddies)
         // Clean up the cached image unless the look is still being worn.
-        if buddy.kind == "custom", buddy != current,
+        if ["custom", "photo"].contains(buddy.kind), buddy != current,
            let path = buddy.customImagePath {
             try? FileManager.default.removeItem(atPath: path)
         }
