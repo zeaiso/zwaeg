@@ -162,7 +162,7 @@ struct DiaryView: View {
                 Text(greeting)
                     .font(.fredoka(13))
                     .foregroundStyle(.secondary)
-                Text(profile.name.isEmpty ? "Hallo!".loc : "\("Hallo".loc) \(profile.name)")
+                Text(profile.name.isEmpty ? "Hallo!".loc : profile.name)
                     .font(.fredoka(19, .semibold))
                     .foregroundStyle(Theme.ink)
             }
