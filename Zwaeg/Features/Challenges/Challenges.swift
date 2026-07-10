@@ -26,67 +26,76 @@ enum UnlockSet: Int {
 }
 
 /// Computes challenges and points live from the logged data, so they are
-/// always consistent and never need separate persistence.
+/// always consistent and never need separate persistence. Challenges are
+/// endless ladders: finishing a tier reveals the next one.
 enum ChallengeEngine {
+    private struct Ladder {
+        let id: String
+        let emoji: String
+        let symbol: String
+        let title: (Int) -> String
+        let tiers: [(target: Int, points: Int)]
+    }
+
+    private static let ladders: [Ladder] = [
+        Ladder(id: "entries", emoji: "📝", symbol: "list.bullet",
+               title: { $0 == 1 ? "Ersten Eintrag loggen".loc : "%d Einträge loggen".loc($0) },
+               tiers: [(1, 10), (50, 25), (200, 50), (500, 100), (1000, 150),
+                       (2500, 250), (5000, 400), (10000, 600)]),
+        Ladder(id: "streak", emoji: "🔥", symbol: "flame.fill",
+               title: { "%d-Tage-Streak".loc($0) },
+               tiers: [(3, 15), (7, 25), (14, 40), (30, 75), (50, 100),
+                       (100, 150), (200, 250), (365, 400)]),
+        Ladder(id: "fast", emoji: "⏱️", symbol: "timer",
+               title: { $0 == 1 ? "Erstes Fasten schaffen".loc : "%d Fasten schaffen".loc($0) },
+               tiers: [(1, 20), (5, 40), (20, 80), (50, 150), (100, 250), (250, 400)]),
+        Ladder(id: "water", emoji: "💧", symbol: "drop.fill",
+               title: { "%d× Wasserziel erreichen".loc($0) },
+               tiers: [(10, 30), (25, 50), (50, 100), (100, 150), (250, 250), (500, 400)]),
+        Ladder(id: "weight", emoji: "⚖️", symbol: "scalemass.fill",
+               title: { "%d× Gewicht loggen".loc($0) },
+               tiers: [(10, 25), (25, 50), (50, 100), (100, 150), (250, 250)]),
+        Ladder(id: "mood", emoji: "😊", symbol: "face.smiling.inverse",
+               title: { "%d× Stimmung festhalten".loc($0) },
+               tiers: [(7, 20), (30, 50), (100, 100), (365, 250)]),
+        Ladder(id: "buddy", emoji: "🎨", symbol: "paintbrush.fill",
+               title: { _ in "Eigenen Buddy gestalten".loc },
+               tiers: [(1, 15)]),
+    ]
+
+    /// Every completed tier plus the first open tier of each ladder.
     static func evaluate(entries: [FoodEntry], fasts: [FastingSession],
                          waterDays: [WaterDay], weights: [WeightEntry],
                          notes: [DayNote], profile: UserProfile) -> [ChallengeState] {
-        let streak = longestStreak(entries: entries)
-        let entryCount = entries.count
         let goodFasts = fasts.filter { session in
             guard let end = session.endedAt else { return false }
             return end >= session.goalEnd
         }.count
-        let waterGoalDays = waterDays.filter { $0.glasses >= profile.waterGoalGlasses }.count
-        let customBuddy = ["custom", "monster"].contains(profile.buddy.kind) ? 1 : 0
-
-        return [
-            ChallengeState(id: "first-entry", emoji: "🎉", symbol: "fork.knife",
-                           title: "Ersten Eintrag loggen".loc, points: 10,
-                           progress: min(entryCount, 1), target: 1),
-            ChallengeState(id: "entries-50", emoji: "📝", symbol: "list.bullet",
-                           title: "%d Einträge loggen".loc(50), points: 25,
-                           progress: entryCount, target: 50),
-            ChallengeState(id: "entries-200", emoji: "🗂️", symbol: "tray.full.fill",
-                           title: "%d Einträge loggen".loc(200), points: 50,
-                           progress: entryCount, target: 200),
-            ChallengeState(id: "entries-500", emoji: "💪", symbol: "trophy.fill",
-                           title: "%d Einträge loggen".loc(500), points: 100,
-                           progress: entryCount, target: 500),
-            ChallengeState(id: "streak-3", emoji: "🔥", symbol: "flame.fill",
-                           title: "%d-Tage-Streak".loc(3), points: 15,
-                           progress: streak, target: 3),
-            ChallengeState(id: "streak-7", emoji: "🔥", symbol: "flame.fill",
-                           title: "%d-Tage-Streak".loc(7), points: 25,
-                           progress: streak, target: 7),
-            ChallengeState(id: "streak-30", emoji: "🔥", symbol: "flame.fill",
-                           title: "%d-Tage-Streak".loc(30), points: 75,
-                           progress: streak, target: 30),
-            ChallengeState(id: "streak-100", emoji: "🏆", symbol: "crown.fill",
-                           title: "%d-Tage-Streak".loc(100), points: 150,
-                           progress: streak, target: 100),
-            ChallengeState(id: "fast-1", emoji: "⏱️", symbol: "timer",
-                           title: "Erstes Fasten schaffen".loc, points: 20,
-                           progress: goodFasts, target: 1),
-            ChallengeState(id: "fast-5", emoji: "🦊", symbol: "timer",
-                           title: "%d Fasten schaffen".loc(5), points: 40,
-                           progress: goodFasts, target: 5),
-            ChallengeState(id: "fast-20", emoji: "🧘", symbol: "timer",
-                           title: "%d Fasten schaffen".loc(20), points: 80,
-                           progress: goodFasts, target: 20),
-            ChallengeState(id: "water-10", emoji: "💧", symbol: "drop.fill",
-                           title: "%d× Wasserziel erreichen".loc(10), points: 30,
-                           progress: waterGoalDays, target: 10),
-            ChallengeState(id: "weight-10", emoji: "⚖️", symbol: "scalemass.fill",
-                           title: "%d× Gewicht loggen".loc(10), points: 25,
-                           progress: weights.count, target: 10),
-            ChallengeState(id: "mood-7", emoji: "😊", symbol: "face.smiling.inverse",
-                           title: "%d× Stimmung festhalten".loc(7), points: 20,
-                           progress: notes.count, target: 7),
-            ChallengeState(id: "buddy-custom", emoji: "🎨", symbol: "paintbrush.fill",
-                           title: "Eigenen Buddy gestalten".loc, points: 15,
-                           progress: customBuddy, target: 1),
+        let progressByLadder: [String: Int] = [
+            "entries": entries.count,
+            "streak": longestStreak(entries: entries),
+            "fast": goodFasts,
+            "water": waterDays.filter { $0.glasses >= profile.waterGoalGlasses }.count,
+            "weight": weights.count,
+            "mood": notes.count,
+            "buddy": ["custom", "monster", "styled"].contains(profile.buddy.kind) ? 1 : 0,
         ]
+
+        var states: [ChallengeState] = []
+        for ladder in ladders {
+            let progress = progressByLadder[ladder.id] ?? 0
+            for tier in ladder.tiers {
+                states.append(ChallengeState(id: "\(ladder.id)-\(tier.target)",
+                                             emoji: ladder.emoji, symbol: ladder.symbol,
+                                             title: ladder.title(tier.target),
+                                             points: tier.points,
+                                             progress: progress, target: tier.target))
+                if progress < tier.target {
+                    break
+                }
+            }
+        }
+        return states
     }
 
     static func totalPoints(_ challenges: [ChallengeState]) -> Int {
@@ -139,12 +148,23 @@ struct ChallengesView: View {
         let challenges = ChallengeEngine.evaluate(entries: entries, fasts: fasts,
                                                   waterDays: waterDays, weights: weights,
                                                   notes: notes, profile: profile)
-        ScrollView {
+        let open = challenges.filter { !$0.done }
+        let done = challenges.filter(\.done)
+        return ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 DetailHeader(title: "Challenges", subtitle: "Damit schaltest du neue Styles im Studio frei".loc)
                 pointsCard(total: ChallengeEngine.totalPoints(challenges))
-                ForEach(challenges) { challenge in
+                ForEach(open) { challenge in
                     challengeRow(challenge)
+                }
+                if !done.isEmpty {
+                    Text("Erledigt".loc)
+                        .font(.fredoka(17, .semibold))
+                        .foregroundStyle(Theme.ink)
+                        .padding(.top, 8)
+                    ForEach(done.reversed()) { challenge in
+                        challengeRow(challenge)
+                    }
                 }
             }
             .padding(.horizontal, 16)
