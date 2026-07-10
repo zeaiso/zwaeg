@@ -43,7 +43,7 @@ enum ActivityLevel: String, Codable, CaseIterable, Identifiable {
         switch self {
         case .sedentary: return "Kaum aktiv".loc
         case .light: return "Leicht aktiv".loc
-        case .moderate: return "Mäßig aktiv".loc
+        case .moderate: return "Mässig aktiv".loc
         case .active: return "Sehr aktiv".loc
         case .veryActive: return "Extrem aktiv".loc
         }
@@ -53,7 +53,7 @@ enum ActivityLevel: String, Codable, CaseIterable, Identifiable {
         switch self {
         case .sedentary: return "Bürojob, wenig Bewegung".loc
         case .light: return "Leichte Bewegung, 1-2× Sport pro Woche".loc
-        case .moderate: return "Regelmäßig aktiv, 3-5× Sport pro Woche".loc
+        case .moderate: return "Regelmässig aktiv, 3-5× Sport pro Woche".loc
         case .active: return "Täglich Sport oder körperliche Arbeit".loc
         case .veryActive: return "Harte körperliche Arbeit und intensiver Sport".loc
         }
@@ -146,7 +146,7 @@ enum Mood: String, Codable, CaseIterable, Identifiable {
         case .great: return "Super".loc
         case .good: return "Gut".loc
         case .okay: return "Okay".loc
-        case .low: return "Mäßig".loc
+        case .low: return "Mässig".loc
         case .bad: return "Mies".loc
         }
     }

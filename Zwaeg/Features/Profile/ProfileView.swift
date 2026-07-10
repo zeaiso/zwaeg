@@ -462,7 +462,7 @@ struct PersonalDetailsView: View {
                     ForEach(Sex.allCases) { s in Text(s.label).tag(s) }
                 }
                 Stepper("Alter: %d".loc(profile.age), value: $profile.age, in: 14...99)
-                Stepper("Größe: %d cm".loc(Int(profile.heightCm)), value: $profile.heightCm, in: 130...220, step: 1)
+                Stepper("Grösse: %d cm".loc(Int(profile.heightCm)), value: $profile.heightCm, in: 130...220, step: 1)
             }
 
             Section("Neues Gewicht eintragen".loc) {
@@ -725,7 +725,7 @@ struct AboutView: View {
                 .foregroundStyle(Color.appAccent)
             Text("Zwäg")
                 .font(.fredoka(22, .semibold))
-            Text("Version 0.1 · Zwäg heißt: fit und wohl. Dein Schweizer Kalorien-Tracker.".loc)
+            Text("Version 0.1 · Zwäg heisst: fit und wohl. Dein Schweizer Kalorien-Tracker.".loc)
                 .font(.fredoka(13))
                 .foregroundStyle(.secondary)
             Text("Nährwertdaten: Schweizer Nährwertdatenbank V7.0, Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV, sowie Open Food Facts. Avatare erstellt mit DiceBear (dicebear.com), Stile Thumbs (CC0) und Avataaars von Pablo Stanley. Schrift: Fredoka (SIL Open Font License). Alle persönlichen Daten bleiben auf deinem Gerät.")

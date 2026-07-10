@@ -125,7 +125,7 @@ enum CalorieMath {
         METActivity(name: "Krafttraining", symbol: "dumbbell.fill", met: 5.0),
         METActivity(name: "HIIT", symbol: "flame.fill", met: 8.0),
         METActivity(name: "Yoga", symbol: "figure.mind.and.body", met: 2.5),
-        METActivity(name: "Fußball", symbol: "soccerball", met: 7.0),
+        METActivity(name: "Fussball", symbol: "soccerball", met: 7.0),
         METActivity(name: "Tennis", symbol: "tennisball.fill", met: 7.3),
         METActivity(name: "Tanzen", symbol: "figure.dance", met: 4.5),
         METActivity(name: "Skifahren", symbol: "figure.skiing.downhill", met: 7.0),

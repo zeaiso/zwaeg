@@ -233,7 +233,7 @@ struct ProgressScreen: View {
                 }
 
                 if filteredWeights.count < 2 {
-                    Text("Trage regelmäßig dein Gewicht im Profil ein, um den Verlauf zu sehen.".loc)
+                    Text("Trage regelmässig dein Gewicht im Profil ein, um den Verlauf zu sehen.".loc)
                         .font(.fredoka(13))
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, minHeight: 80)

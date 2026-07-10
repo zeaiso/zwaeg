@@ -51,7 +51,7 @@ struct CalorieNeedsView: View {
                 .pickerStyle(.segmented)
                 ValueField(title: "Alter".loc, value: $age, range: 14...99, step: 1, unit: "Jahre".loc)
                 Divider()
-                ValueField(title: "Größe".loc, value: $heightCm, range: 130...220, step: 1, unit: "cm")
+                ValueField(title: "Grösse".loc, value: $heightCm, range: 130...220, step: 1, unit: "cm")
                 Divider()
                 ValueField(title: "Gewicht".loc, value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
                 Divider()

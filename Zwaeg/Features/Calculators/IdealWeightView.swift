@@ -37,7 +37,7 @@ struct IdealWeightView: View {
                     }
                 }
                 .pickerStyle(.segmented)
-                ValueField(title: "Größe".loc, value: $heightCm, range: 130...220, step: 1, unit: "cm")
+                ValueField(title: "Grösse".loc, value: $heightCm, range: 130...220, step: 1, unit: "cm")
             }
         }
     }

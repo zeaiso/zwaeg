@@ -34,7 +34,7 @@ struct BMICalculatorView: View {
             VStack(spacing: 14) {
                 ValueField(title: "Gewicht".loc, value: $weightKg, range: 40...200, step: 0.5, unit: "kg", format: "%.1f")
                 Divider()
-                ValueField(title: "Größe".loc, value: $heightCm, range: 130...220, step: 1, unit: "cm")
+                ValueField(title: "Grösse".loc, value: $heightCm, range: 130...220, step: 1, unit: "cm")
             }
         }
     }
@@ -68,7 +68,7 @@ struct BMICalculatorView: View {
                     .font(.fredoka(17, .semibold))
                     .foregroundStyle(Theme.ink)
                 BMIScaleView(bmi: bmi)
-                Text("Normalgewicht für deine Größe: %@ bis %@ kg".loc(String(format: "%.0f", healthyRange.lowerBound), String(format: "%.0f", healthyRange.upperBound)))
+                Text("Normalgewicht für deine Grösse: %@ bis %@ kg".loc(String(format: "%.0f", healthyRange.lowerBound), String(format: "%.0f", healthyRange.upperBound)))
                     .font(.fredoka(13))
                     .foregroundStyle(.secondary)
             }
