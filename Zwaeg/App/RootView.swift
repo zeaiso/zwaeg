@@ -45,7 +45,7 @@ struct RootView: View {
                 BuddyCloset.add(Buddy(kind: "blob", index: 4))
             }
             if profiles.isEmpty && LaunchArgs.seedProfile {
-                context.insert(UserProfile(name: "Test", sex: .male, age: 30, heightCm: 178,
+                context.insert(UserProfile(name: "Livia", sex: .female, age: 30, heightCm: 178,
                                            weightKg: 78, activity: .moderate, goal: .lose))
                 for week in 0..<9 {
                     if let date = Calendar.current.date(byAdding: .weekOfYear, value: -week, to: .now) {
@@ -75,7 +75,7 @@ struct RootView: View {
                     code: "DEMO42", name: "Wochenbattle", metric: .steps,
                     startDay: start, endDay: end,
                     participants: [
-                        ParticipantScore(id: PlayerIdentity.myID, name: "Test", isMe: true,
+                        ParticipantScore(id: PlayerIdentity.myID, name: "Livia", isMe: true,
                                          scores: ["seed": 24500]),
                         ParticipantScore(id: "bot-Luca", name: "Luca", isMe: false, scores: [:]),
                         ParticipantScore(id: "bot-Mia", name: "Mia", isMe: false, scores: [:]),
