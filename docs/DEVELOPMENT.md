@@ -17,7 +17,7 @@ Useful for driving the app from the CLI or Xcode scheme arguments:
 
 | Argument | Effect |
 |---|---|
-| `-seed-profile` | Creates a test profile with weight history, three days of meals, water and a demo battle when no profile exists |
+| `-seed-profile` | Creates a test profile with weight history, three days of meals, water and a demo battle when no profile exists (debug builds only) |
 | `-tab <0-6>` | Opens a specific tab (0 diary, 1 battles, 2 scanner, 3 calculators, 4 profile, 5 recipes, 6 fasting) |
 | `-lang <code>` | Forces an app language (`de`, `gsw`, `fr`, `it`, `rm`, `en`, `ar`, `ti`, ...) |
 | `-look <name>` | Forces a look (`munch`, `midnight`, `mono`) |
@@ -27,7 +27,7 @@ Useful for driving the app from the CLI or Xcode scheme arguments:
 | `-add-food <meal>` | Opens the add-food page (`breakfast`, `lunch`, `dinner`, `snack`) |
 | `-open-calc <name>` | Opens a calculator (`bmi`, `ideal`, `needs`, `burn`, combine with `-tab 3`) |
 | `-open-fasting` | Opens the fasting tab |
-| `-seed-fast` | Starts a 16:8 fast that began 13 hours ago (combine with `-open-fasting`) |
+| `-seed-fast` | Starts a 16:8 fast that began 13 hours ago (combine with `-open-fasting`, debug builds only) |
 | `-open-fasting-plans` | Opens the fasting plan catalog (combine with `-open-fasting`) |
 | `-open-recipe <id>` | Opens a recipe detail page, first recipe if the id is unknown (combine with `-tab 5`) |
 | `-open-shopping-list` | Opens the shopping list sheet, seeded with one recipe when empty (combine with `-tab 5`) |

@@ -32,13 +32,14 @@ final class PhoneWatchLink: NSObject, WCSessionDelegate {
     }
 
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
-        guard let add = message["addWater"] as? Int else { return }
+        // Clamped so a misbehaving counterpart cannot inject absurd values.
+        guard let add = message["addWater"] as? Int, (-5...5).contains(add) else { return }
         Task { @MainActor in
             let context = AppModel.container.mainContext
             let today = Calendar.current.startOfDay(for: .now)
             let days = (try? context.fetch(FetchDescriptor<WaterDay>())) ?? []
             if let entry = days.first(where: { $0.day == today }) {
-                entry.glasses = max(0, entry.glasses + add)
+                entry.glasses = min(99, max(0, entry.glasses + add))
             } else if add > 0 {
                 context.insert(WaterDay(day: today, glasses: add))
             }

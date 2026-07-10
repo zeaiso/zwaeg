@@ -105,14 +105,22 @@ struct CloudKitChallengeService: ChallengeSyncService {
                   let dayKey = record["dayKey"] as? String,
                   let value = record["value"] as? Double else { continue }
 
+            // The public database is untrusted: cap name length, drop
+            // control characters and clamp scores to plausible ranges.
+            let cleanName = String(participantName.unicodeScalars
+                .filter { !CharacterSet.controlCharacters.contains($0) }
+                .prefix(40))
+            let cleanValue = min(500_000, max(0, value))
+            guard !cleanName.isEmpty, participantID.count <= 64, dayKey.count <= 16 else { continue }
+
             if let index = participants.firstIndex(where: { $0.id == participantID }) {
                 if !participants[index].isMe {
-                    participants[index].scores[dayKey] = value
+                    participants[index].scores[dayKey] = cleanValue
                 }
             } else {
                 participants.append(ParticipantScore(
-                    id: participantID, name: participantName, isMe: false,
-                    scores: [dayKey: value]))
+                    id: participantID, name: cleanName, isMe: false,
+                    scores: [dayKey: cleanValue]))
             }
         }
         challenge.participants = participants

@@ -56,6 +56,12 @@ struct JoinChallengeSheet: View {
 
     private func join() {
         let trimmed = code.trimmingCharacters(in: .whitespaces).uppercased()
+        // Codes are strictly A-Z/0-9 before they reach CloudKit record names.
+        guard trimmed.count == 6,
+              trimmed.allSatisfy({ $0.isLetter && $0.isASCII || $0.isNumber }) else {
+            errorMessage = "Challenge %@ nicht gefunden.".loc(trimmed)
+            return
+        }
         isLoading = true
         Task {
             defer { isLoading = false }

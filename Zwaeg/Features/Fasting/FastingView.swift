@@ -57,10 +57,12 @@ struct FastingView: View {
             editStartSheet
         }
         .onAppear {
+            #if DEBUG
             if CommandLine.arguments.contains("-seed-fast"), activeSession == nil {
                 context.insert(FastingSession(start: .now.addingTimeInterval(-13 * 3600),
                                               plan: .sixteenEight))
             }
+            #endif
             if CommandLine.arguments.contains("-open-fasting-plans") {
                 showCatalog = true
             }

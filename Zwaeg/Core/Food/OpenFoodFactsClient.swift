@@ -50,14 +50,19 @@ enum OpenFoodFactsClient {
             ?? nutriments.flatMap { $0.energyKj100g.map { kj in kj / 4.184 } }
             ?? 0
 
+        // Crowd-sourced values get clamped to physically plausible ranges.
+        func clamped(_ value: Double?, max maxValue: Double) -> Double {
+            min(maxValue, Swift.max(0, value ?? 0))
+        }
+
         return FoodProduct(
             id: "off-\(digits)",
-            name: name,
+            name: String(name.prefix(120)),
             brand: product.brands?.components(separatedBy: ",").first?.trimmingCharacters(in: .whitespaces),
-            kcalPer100g: kcal,
-            proteinPer100g: nutriments?.proteins100g ?? 0,
-            carbsPer100g: nutriments?.carbohydrates100g ?? 0,
-            fatPer100g: nutriments?.fat100g ?? 0,
+            kcalPer100g: clamped(kcal, max: 900),
+            proteinPer100g: clamped(nutriments?.proteins100g, max: 100),
+            carbsPer100g: clamped(nutriments?.carbohydrates100g, max: 100),
+            fatPer100g: clamped(nutriments?.fat100g, max: 100),
             barcode: digits,
             source: .openFoodFacts,
             servingGrams: product.servingQuantity.flatMap { $0 > 0 ? $0 : nil })

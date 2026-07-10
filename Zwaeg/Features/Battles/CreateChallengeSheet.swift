@@ -77,7 +77,7 @@ struct CreateChallengeSheet: View {
     private func create() {
         let start = Calendar.current.startOfDay(for: .now)
         let end = Calendar.current.date(byAdding: .day, value: durationDays - 1, to: start) ?? start
-        let trimmedName = name.trimmingCharacters(in: .whitespaces)
+        let trimmedName = String(name.trimmingCharacters(in: .whitespaces).prefix(40))
 
         var participants = [ParticipantScore(
             id: PlayerIdentity.myID,
