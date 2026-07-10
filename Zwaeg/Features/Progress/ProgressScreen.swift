@@ -47,6 +47,7 @@ struct ProgressScreen: View {
                 statTiles
                 caloriesCard
                 weightCard
+                buddyCard
             }
             .padding(16)
         }
@@ -80,6 +81,49 @@ struct ProgressScreen: View {
             Spacer()
         }
         .padding(.top, 8)
+    }
+
+    // MARK: - Body buddy
+
+    /// 0 = slim at BMI 21 and below, 1 = maximally round at BMI 35 and up.
+    private var bodyFactor: Double {
+        let currentKg = weights.last?.weightKg ?? profile.weightKg
+        let bmi = CalorieMath.bmi(weightKg: currentKg, heightCm: profile.heightCm)
+        return min(max((bmi - 21) / 14, 0), 1)
+    }
+
+    private var lostKg: Double {
+        guard let first = weights.first?.weightKg, let last = weights.last?.weightKg else { return 0 }
+        return first - last
+    }
+
+    @State private var animatedFactor: Double = 1
+
+    private var buddyCard: some View {
+        VStack(spacing: 10) {
+            HStack {
+                Text("Dein Buddy macht mit".loc)
+                    .font(.fredoka(16, .semibold))
+                    .foregroundStyle(Theme.ink)
+                Spacer()
+            }
+            BodyBuddyView(factor: animatedFactor, size: 150)
+                .padding(.vertical, 2)
+            Text(lostKg >= 0.3
+                 ? "Schon %@ kg leichter!".loc(lostKg.formatted(.number.precision(.fractionLength(0...1))))
+                 : "Ihr zieht das zusammen durch.".loc)
+                .font(.fredoka(13))
+                .foregroundStyle(.secondary)
+        }
+        .padding(18)
+        .frame(maxWidth: .infinity)
+        .background(Theme.card, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .shadow(color: Theme.shadow.opacity(0.05), radius: 8, y: 3)
+        .onAppear {
+            withAnimation(.spring(duration: 1.4, bounce: 0.35).delay(0.4)) {
+                animatedFactor = bodyFactor
+            }
+        }
     }
 
     // MARK: - Stat tiles
