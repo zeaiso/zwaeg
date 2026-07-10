@@ -139,7 +139,18 @@ final class Lingo {
             return
         }
         let raw = UserDefaults.standard.string(forKey: Self.storageKey) ?? ""
-        language = AppLanguage(rawValue: raw) ?? .german
+        language = AppLanguage(rawValue: raw) ?? Self.deviceDefault()
+    }
+
+    /// Best supported match for the device language, German as fallback.
+    private static func deviceDefault() -> AppLanguage {
+        for preferred in Locale.preferredLanguages {
+            let code = String(preferred.prefix(while: { $0 != "-" }))
+            if let match = AppLanguage(rawValue: code == "no" ? "nb" : code) {
+                return match
+            }
+        }
+        return .german
     }
 
     func localized(_ german: String) -> String {

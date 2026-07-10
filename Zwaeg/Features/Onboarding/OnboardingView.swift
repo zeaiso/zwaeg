@@ -5,13 +5,13 @@ struct OnboardingView: View {
     @Environment(\.modelContext) private var context
 
     private enum Step: Int, CaseIterable {
-        case welcome, name, sex, age, height, weight, activity, goal, buddy, result
+        case language, welcome, name, sex, age, height, weight, activity, goal, buddy, result
     }
 
     @State private var step: Step = {
         if CommandLine.arguments.contains("-onboarding-buddy") { return .buddy }
         if CommandLine.arguments.contains("-onboarding-body") { return .age }
-        return .welcome
+        return .language
     }()
     @State private var name = ""
     @State private var sex: Sex = .male
@@ -29,8 +29,8 @@ struct OnboardingView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            if step != .welcome {
-                ProgressView(value: Double(step.rawValue), total: Double(Step.allCases.count - 1))
+            if step.rawValue >= Step.name.rawValue {
+                ProgressView(value: Double(step.rawValue - 1), total: Double(Step.allCases.count - 2))
                     .tint(.appAccent)
                     .padding(.horizontal, 24)
                     .padding(.top, 8)
@@ -38,6 +38,7 @@ struct OnboardingView: View {
 
             Group {
                 switch step {
+                case .language: languageStep
                 case .welcome: welcome
                 case .name: nameStep
                 case .sex: sexStep
@@ -59,6 +60,53 @@ struct OnboardingView: View {
     }
 
     // MARK: - Steps
+
+    /// Language first, so everything after reads right away in the
+    /// user's language. Swiss languages on top, the rest alphabetical.
+    private var languageStep: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            stepTitle("Sprache".loc)
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 8) {
+                    ForEach(languageChoices) { option in
+                        Button {
+                            withAnimation(.snappy(duration: 0.2)) {
+                                Lingo.shared.language = option
+                            }
+                        } label: {
+                            HStack(spacing: 12) {
+                                VStack(alignment: .leading, spacing: 1) {
+                                    Text(option.label)
+                                        .font(.fredoka(16, .semibold))
+                                        .foregroundStyle(Theme.ink)
+                                    Text(option.detail)
+                                        .font(.fredoka(12))
+                                        .foregroundStyle(.secondary)
+                                }
+                                Spacer()
+                                Image(systemName: Lingo.shared.language == option
+                                      ? "checkmark.circle.fill" : "circle")
+                                    .font(.system(size: 22))
+                                    .foregroundStyle(Lingo.shared.language == option
+                                                     ? Color.appAccent : Color(.systemGray3))
+                            }
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 11)
+                            .background(Theme.card, in: RoundedRectangle(cornerRadius: 16))
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .padding(.bottom, 8)
+            }
+        }
+    }
+
+    private var languageChoices: [AppLanguage] {
+        AppLanguage.allCases.filter(\.isSwiss)
+            + AppLanguage.allCases.filter { !$0.isSwiss }
+                .sorted { $0.label.localizedCompare($1.label) == .orderedAscending }
+    }
 
     @State private var welcomeBounced = false
 
@@ -304,9 +352,9 @@ struct OnboardingView: View {
 
     private var controls: some View {
         HStack {
-            if step != .welcome {
+            if step != .language {
                 Button("Zurück".loc) {
-                    withAnimation { step = Step(rawValue: step.rawValue - 1) ?? .welcome }
+                    withAnimation { step = Step(rawValue: step.rawValue - 1) ?? .language }
                 }
                 .foregroundStyle(.secondary)
             }
