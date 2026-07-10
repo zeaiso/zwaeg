@@ -132,9 +132,9 @@ final class Lingo {
 
     private init() {
         // Debug: -lang <code> forces a language for simulator screenshots.
-        if let flagIndex = CommandLine.arguments.firstIndex(of: "-lang"),
-           CommandLine.arguments.indices.contains(flagIndex + 1),
-           let forced = AppLanguage(rawValue: CommandLine.arguments[flagIndex + 1]) {
+        if let flagIndex = LaunchArgs.all.firstIndex(of: "-lang"),
+           LaunchArgs.all.indices.contains(flagIndex + 1),
+           let forced = AppLanguage(rawValue: LaunchArgs.all[flagIndex + 1]) {
             language = forced
             return
         }

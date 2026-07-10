@@ -4,20 +4,25 @@ import SwiftData
 /// Debug-only launch arguments used to drive the app from the command line
 /// (e.g. simulator screenshots): -seed-profile, -tab <index>.
 enum LaunchArgs {
-    /// Data-creating debug seeds never run in release builds.
-    static var seedProfile: Bool {
+    /// All debug launch arguments; empty in release builds so none of the
+    /// development shortcuts (seeds, deep links, style overrides) exist there.
+    static let all: [String] = {
         #if DEBUG
-        CommandLine.arguments.contains("-seed-profile")
+        CommandLine.arguments
         #else
-        false
+        []
         #endif
+    }()
+
+    static var seedProfile: Bool {
+        all.contains("-seed-profile")
     }
 
     static var initialTab: Int {
-        if CommandLine.arguments.contains("-open-fasting") { return 6 }
-        guard let flagIndex = CommandLine.arguments.firstIndex(of: "-tab"),
-              CommandLine.arguments.indices.contains(flagIndex + 1),
-              let tab = Int(CommandLine.arguments[flagIndex + 1]) else { return 0 }
+        if all.contains("-open-fasting") { return 6 }
+        guard let flagIndex = all.firstIndex(of: "-tab"),
+              all.indices.contains(flagIndex + 1),
+              let tab = Int(all[flagIndex + 1]) else { return 0 }
         return tab
     }
 }

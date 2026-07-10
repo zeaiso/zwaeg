@@ -63,7 +63,7 @@ struct DiaryView: View {
                 .padding(.horizontal, 16)
                 .padding(.bottom, 24)
             }
-            .defaultScrollAnchor(CommandLine.arguments.contains("-scroll-bottom") ? .bottom : .top)
+            .defaultScrollAnchor(LaunchArgs.all.contains("-scroll-bottom") ? .bottom : .top)
             .background(Theme.background)
             .overlay {
                 ConfettiBurst(trigger: confettiTrigger)
@@ -96,27 +96,27 @@ struct DiaryView: View {
                 syncLiveActivity()
             }
             .onAppear {
-                if let flagIndex = CommandLine.arguments.firstIndex(of: "-add-food") {
-                    let next = CommandLine.arguments.indices.contains(flagIndex + 1)
-                        ? CommandLine.arguments[flagIndex + 1] : ""
+                if let flagIndex = LaunchArgs.all.firstIndex(of: "-add-food") {
+                    let next = LaunchArgs.all.indices.contains(flagIndex + 1)
+                        ? LaunchArgs.all[flagIndex + 1] : ""
                     Task {
                         try? await Task.sleep(for: .milliseconds(500))
                         route = .meal(MealType(rawValue: next) ?? .breakfast)
                     }
                 }
-                if CommandLine.arguments.contains("-open-challenges") {
+                if LaunchArgs.all.contains("-open-challenges") {
                     Task {
                         try? await Task.sleep(for: .milliseconds(500))
                         route = .challenges
                     }
                 }
-                if CommandLine.arguments.contains("-open-calendar") {
+                if LaunchArgs.all.contains("-open-calendar") {
                     Task {
                         try? await Task.sleep(for: .milliseconds(500))
                         showCalendar = true
                     }
                 }
-                if CommandLine.arguments.contains("-open-details") {
+                if LaunchArgs.all.contains("-open-details") {
                     Task {
                         try? await Task.sleep(for: .milliseconds(500))
                         route = .details

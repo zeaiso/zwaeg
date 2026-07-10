@@ -9,8 +9,8 @@ struct OnboardingView: View {
     }
 
     @State private var step: Step = {
-        if CommandLine.arguments.contains("-onboarding-buddy") { return .buddy }
-        if CommandLine.arguments.contains("-onboarding-body") { return .age }
+        if LaunchArgs.all.contains("-onboarding-buddy") { return .buddy }
+        if LaunchArgs.all.contains("-onboarding-body") { return .age }
         return .language
     }()
     @State private var name = ""

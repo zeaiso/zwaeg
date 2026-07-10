@@ -129,9 +129,9 @@ struct BuddyStudioView: View {
             if let profile = profiles.first {
                 points = ChallengeEngine.points(in: context, profile: profile)
             }
-            if let flagIndex = CommandLine.arguments.firstIndex(of: "-studio-style"),
-               CommandLine.arguments.indices.contains(flagIndex + 1),
-               let spec = StyleCatalog.style(CommandLine.arguments[flagIndex + 1]) {
+            if let flagIndex = LaunchArgs.all.firstIndex(of: "-studio-style"),
+               LaunchArgs.all.indices.contains(flagIndex + 1),
+               let spec = StyleCatalog.style(LaunchArgs.all[flagIndex + 1]) {
                 selectedStyle = spec.id
                 if styleTraits[spec.id] == nil {
                     styleTraits[spec.id] = .starter(for: spec)

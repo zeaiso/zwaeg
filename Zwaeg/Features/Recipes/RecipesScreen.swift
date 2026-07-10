@@ -87,15 +87,15 @@ struct RecipesScreen: View {
                 }
             }
             .onAppear {
-                if CommandLine.arguments.contains("-open-shopping-list") {
+                if LaunchArgs.all.contains("-open-shopping-list") {
                     if ShoppingList.shared.items.isEmpty, let recipe = RecipeStore.all.first {
                         ShoppingList.shared.add(recipe.ingredients)
                     }
                     showShoppingList = true
                 }
-                if let flagIndex = CommandLine.arguments.firstIndex(of: "-open-recipe") {
-                    let id = CommandLine.arguments.indices.contains(flagIndex + 1)
-                        ? CommandLine.arguments[flagIndex + 1] : ""
+                if let flagIndex = LaunchArgs.all.firstIndex(of: "-open-recipe") {
+                    let id = LaunchArgs.all.indices.contains(flagIndex + 1)
+                        ? LaunchArgs.all[flagIndex + 1] : ""
                     if let recipe = RecipeStore.all.first(where: { $0.id == id }) ?? RecipeStore.all.first {
                         path = [.detail(recipe)]
                     }

@@ -42,16 +42,16 @@ struct ProfileView: View {
                 }
             }
             .onAppear {
-                if CommandLine.arguments.contains("-open-progress") {
+                if LaunchArgs.all.contains("-open-progress") {
                     route = .progress
                 }
-                if CommandLine.arguments.contains("-open-buddy") {
+                if LaunchArgs.all.contains("-open-buddy") {
                     route = .buddy
                 }
-                if CommandLine.arguments.contains("-open-language") {
+                if LaunchArgs.all.contains("-open-language") {
                     route = .language
                 }
-                if CommandLine.arguments.contains("-open-look") {
+                if LaunchArgs.all.contains("-open-look") {
                     route = .look
                 }
             }

@@ -46,9 +46,9 @@ struct CalculatorsView: View {
                 }
             }
             .onAppear {
-                if let flagIndex = CommandLine.arguments.firstIndex(of: "-open-calc"),
-                   CommandLine.arguments.indices.contains(flagIndex + 1),
-                   let target = CalcRoute(rawValue: CommandLine.arguments[flagIndex + 1]) {
+                if let flagIndex = LaunchArgs.all.firstIndex(of: "-open-calc"),
+                   LaunchArgs.all.indices.contains(flagIndex + 1),
+                   let target = CalcRoute(rawValue: LaunchArgs.all[flagIndex + 1]) {
                     Task {
                         try? await Task.sleep(for: .milliseconds(500))
                         route = target

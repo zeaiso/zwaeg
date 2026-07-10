@@ -64,7 +64,7 @@ struct BattlesScreen: View {
             }
             .task {
                 await refreshAll()
-                if CommandLine.arguments.contains("-open-battle") {
+                if LaunchArgs.all.contains("-open-battle") {
                     debugOpenedChallenge = active.first
                 }
             }

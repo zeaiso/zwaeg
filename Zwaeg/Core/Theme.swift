@@ -70,17 +70,17 @@ final class Themer {
     private init() {
         // Debug: -look munch|midnight|mono and -accent RRGGBB for screenshots.
         var initialAccent: Color?
-        if let flagIndex = CommandLine.arguments.firstIndex(of: "-accent"),
-           CommandLine.arguments.indices.contains(flagIndex + 1) {
-            initialAccent = Color(hex: CommandLine.arguments[flagIndex + 1])
+        if let flagIndex = LaunchArgs.all.firstIndex(of: "-accent"),
+           LaunchArgs.all.indices.contains(flagIndex + 1) {
+            initialAccent = Color(hex: LaunchArgs.all[flagIndex + 1])
         } else if let hex = UserDefaults.standard.string(forKey: Self.accentKey) {
             initialAccent = Color(hex: hex)
         }
         accent = initialAccent
 
-        if let flagIndex = CommandLine.arguments.firstIndex(of: "-look"),
-           CommandLine.arguments.indices.contains(flagIndex + 1),
-           let forced = AppLook(rawValue: CommandLine.arguments[flagIndex + 1]) {
+        if let flagIndex = LaunchArgs.all.firstIndex(of: "-look"),
+           LaunchArgs.all.indices.contains(flagIndex + 1),
+           let forced = AppLook(rawValue: LaunchArgs.all[flagIndex + 1]) {
             look = forced
             return
         }

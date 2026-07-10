@@ -47,7 +47,7 @@ struct ScannerScreen: View {
         }
         .onAppear {
             scanLinePulse = true
-            if CommandLine.arguments.contains("-demo-product") {
+            if LaunchArgs.all.contains("-demo-product") {
                 scannedProduct = FoodProduct(
                     id: "demo", name: "Avocado-Toast", brand: "Zwäg",
                     kcalPer100g: 320, proteinPer100g: 9, carbsPer100g: 32, fatPer100g: 18,

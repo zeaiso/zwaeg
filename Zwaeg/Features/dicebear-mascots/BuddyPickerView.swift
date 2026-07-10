@@ -13,7 +13,7 @@ struct BuddyPickerView: View {
     @State private var saved: [Buddy] = BuddyCloset.load()
 
     private var debugOpensStudio: Bool {
-        CommandLine.arguments.contains("-open-studio")
+        LaunchArgs.all.contains("-open-studio")
     }
 
     private let closetColumns = [GridItem(.adaptive(minimum: 68), spacing: 12)]

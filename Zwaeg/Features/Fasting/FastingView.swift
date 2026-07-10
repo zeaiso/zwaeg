@@ -58,12 +58,12 @@ struct FastingView: View {
         }
         .onAppear {
             #if DEBUG
-            if CommandLine.arguments.contains("-seed-fast"), activeSession == nil {
+            if LaunchArgs.all.contains("-seed-fast"), activeSession == nil {
                 context.insert(FastingSession(start: .now.addingTimeInterval(-13 * 3600),
                                               plan: .sixteenEight))
             }
             #endif
-            if CommandLine.arguments.contains("-open-fasting-plans") {
+            if LaunchArgs.all.contains("-open-fasting-plans") {
                 showCatalog = true
             }
         }
