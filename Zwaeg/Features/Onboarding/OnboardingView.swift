@@ -60,22 +60,70 @@ struct OnboardingView: View {
 
     // MARK: - Steps
 
+    @State private var welcomeBounced = false
+
     private var welcome: some View {
-        VStack(spacing: 20) {
-            Image(systemName: "fork.knife.circle.fill")
-                .font(.system(size: 90))
-                .foregroundStyle(Color.appAccent)
-            Text("Willkommen!".loc)
-                .font(.fredoka(32, .semibold))
-            Text("Dein persönlicher Kalorien-Tracker.\nIn einer Minute eingerichtet.".loc)
-                .multilineTextAlignment(.center)
-                .foregroundStyle(.secondary)
+        VStack(spacing: 26) {
+            ZStack {
+                Circle()
+                    .fill(Theme.accentSoft)
+                    .frame(width: 230, height: 230)
+                Circle()
+                    .fill(Theme.card)
+                    .frame(width: 196, height: 196)
+                Circle()
+                    .fill(Theme.decorSoft)
+                    .frame(width: 56, height: 56)
+                    .offset(x: -118, y: -76)
+                Circle()
+                    .fill(Theme.accentSoft)
+                    .frame(width: 30, height: 30)
+                    .offset(x: 122, y: 66)
+                BuddyView(buddy: Buddy(kind: "blob", index: 0), size: 148)
+                    .shadow(color: Color.appAccent.opacity(0.3), radius: 18, y: 10)
+            }
+            .scaleEffect(welcomeBounced ? 1 : 0.6)
+            .rotationEffect(.degrees(welcomeBounced ? 0 : -10))
+            .onAppear {
+                withAnimation(.spring(response: 0.6, dampingFraction: 0.55).delay(0.1)) {
+                    welcomeBounced = true
+                }
+            }
+            VStack(spacing: 8) {
+                Text("Zwäg")
+                    .font(.fredoka(44, .semibold))
+                    .foregroundStyle(Theme.ink)
+                Text("Dein persönlicher Kalorien-Tracker.\nIn einer Minute eingerichtet.".loc)
+                    .font(.fredoka(16))
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.secondary)
+            }
+            HStack(spacing: 10) {
+                welcomeChip(symbol: "fork.knife", label: "Rezepte".loc)
+                welcomeChip(symbol: "timer", label: "Fasten".loc)
+                welcomeChip(symbol: "flame.fill", label: "Challenges")
+            }
         }
+    }
+
+    private func welcomeChip(symbol: String, label: String) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: symbol)
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(Color.appAccent)
+            Text(label)
+                .font(.fredoka(13, .medium))
+                .foregroundStyle(Theme.ink)
+        }
+        .padding(.horizontal, 13)
+        .padding(.vertical, 9)
+        .background(Theme.card, in: Capsule())
+        .shadow(color: Theme.shadow.opacity(0.05), radius: 6, y: 2)
     }
 
     private var nameStep: some View {
         VStack(alignment: .leading, spacing: 16) {
-            stepTitle("Wie heißt du?".loc)
+            stepTitle("Wie heisst du?".loc)
             TextField("Dein Name".loc, text: $name)
                 .font(.title2)
                 .padding()
@@ -123,7 +171,7 @@ struct OnboardingView: View {
     }
 
     private var heightStep: some View {
-        questionStep("Wie groß bist du?".loc) {
+        questionStep("Wie gross bist du?".loc) {
             BigValueField(value: $heightCm, range: 130...220, step: 1, unit: "cm")
         }
     }
@@ -283,7 +331,7 @@ struct OnboardingView: View {
     }
 
     private func finish() {
-        let profile = UserProfile(name: name.trimmingCharacters(in: .whitespaces),
+        let profile = UserProfile(name: String(name.trimmingCharacters(in: .whitespaces).prefix(40)),
                                   sex: sex, age: Int(age), heightCm: heightCm,
                                   weightKg: weightKg, activity: activity, goal: goal)
         profile.buddy = buddy
