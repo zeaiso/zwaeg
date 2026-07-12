@@ -5,6 +5,7 @@ enum AppModel {
     static let container: ModelContainer = {
         // swiftlint:disable:next force_try
         try! ModelContainer(for: UserProfile.self, FoodEntry.self, WeightEntry.self,
-                            Challenge.self, WaterDay.self, DayNote.self, FastingSession.self)
+                            Challenge.self, WaterDay.self, DayNote.self, FastingSession.self,
+                            CustomFood.self)
     }()
 }

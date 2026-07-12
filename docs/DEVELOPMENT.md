@@ -41,6 +41,9 @@ Useful for driving the app from the CLI or Xcode scheme arguments. All of them w
 | `-open-language` | Opens the language picker (combine with `-tab 4`) |
 | `-open-look` | Opens the look picker (combine with `-tab 4`) |
 | `-demo-product` | Opens the meal detail sheet with a sample product (combine with `-tab 2`) |
+| `-demo-scan <code>` | Runs a barcode lookup as if scanned (combine with `-tab 2`) |
+| `-seed-custom-food` | Creates a demo custom food with barcode `4041234567890` when none exists |
+| `-open-custom-form` | Opens the custom food form with a prefilled barcode (combine with `-tab 2`) |
 | `-scroll-bottom` | Opens the diary scrolled to the bottom |
 
 Example:

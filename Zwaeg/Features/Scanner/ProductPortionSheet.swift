@@ -76,7 +76,11 @@ struct ProductPortionSheet: View {
         if let brand = product.brand, !brand.isEmpty {
             parts.append(brand)
         }
-        parts.append(product.source == .openFoodFacts ? "Open Food Facts" : "Schweizer Lebensmittel".loc)
+        switch product.source {
+        case .openFoodFacts: parts.append("Open Food Facts")
+        case .swissDatabase: parts.append("Schweizer Lebensmittel".loc)
+        case .custom: parts.append("Eigenes Lebensmittel".loc)
+        }
         parts.append("1 Portion = %d g".loc(Int(servingGrams.rounded())))
         return parts.joined(separator: " · ")
     }

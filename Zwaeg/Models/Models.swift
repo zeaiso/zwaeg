@@ -389,6 +389,43 @@ final class FoodEntry {
 }
 
 @Model
+final class CustomFood {
+    var uid: String
+    var name: String
+    var brand: String
+    var kcalPer100g: Double
+    var proteinPer100g: Double
+    var carbsPer100g: Double
+    var fatPer100g: Double
+    var barcode: String?
+    var servingGrams: Double?
+    var createdAt: Date
+
+    init(name: String, brand: String = "", kcalPer100g: Double,
+         proteinPer100g: Double = 0, carbsPer100g: Double = 0, fatPer100g: Double = 0,
+         barcode: String? = nil, servingGrams: Double? = nil) {
+        self.uid = UUID().uuidString
+        self.name = name
+        self.brand = brand
+        self.kcalPer100g = kcalPer100g
+        self.proteinPer100g = proteinPer100g
+        self.carbsPer100g = carbsPer100g
+        self.fatPer100g = fatPer100g
+        self.barcode = barcode
+        self.servingGrams = servingGrams
+        self.createdAt = .now
+    }
+
+    var asProduct: FoodProduct {
+        FoodProduct(id: "custom-\(uid)", name: name,
+                    brand: brand.isEmpty ? nil : brand,
+                    kcalPer100g: kcalPer100g, proteinPer100g: proteinPer100g,
+                    carbsPer100g: carbsPer100g, fatPer100g: fatPer100g,
+                    barcode: barcode, source: .custom, servingGrams: servingGrams)
+    }
+}
+
+@Model
 final class WaterDay {
     @Attribute(.unique) var day: Date
     var glasses: Int

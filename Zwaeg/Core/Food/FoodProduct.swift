@@ -5,6 +5,7 @@ struct FoodProduct: Identifiable, Hashable {
     enum Source: String {
         case openFoodFacts
         case swissDatabase
+        case custom
     }
 
     let id: String

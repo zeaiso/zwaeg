@@ -10,6 +10,7 @@ the Apple developer account approval.
 ### Diary and food
 - Diary with daily calorie budget, calorie ring, macro bars, four meals and offline Swiss food search
 - Barcode scanner (VisionKit) with Open Food Facts lookup and manual entry fallback
+- Custom foods with values per 100 g and optional barcode, reusable in search and found by the scanner offline
 - Official Swiss Food Composition Database V7.0 (BLV) bundled for offline search, 1220 foods with synonyms
 - Meal detail sheet with portion chips, macro tiles and per-meal add button
 - "Like yesterday" quick copy for empty meals, favorites and recently logged products

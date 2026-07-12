@@ -10,11 +10,14 @@ struct AddFoodView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \FoodEntry.createdAt, order: .reverse) private var allEntries: [FoodEntry]
+    @Query(sort: \CustomFood.createdAt, order: .reverse) private var customFoods: [CustomFood]
 
     @State private var meal: MealType
     @State private var query = ""
     @State private var justAdded: String?
     @State private var showManual = false
+    @State private var showCustomForm = false
+    @State private var pendingProduct: FoodProduct?
     @State private var detailProduct: FoodProduct?
 
     @State private var manualName = ""
@@ -27,6 +30,17 @@ struct AddFoodView: View {
 
     private var searchResults: [FoodProduct] {
         Array(SwissFoodDatabase.shared.search(query).prefix(8))
+    }
+
+    /// Own products matching the query; listed before the database results.
+    private var customMatches: [FoodProduct] {
+        let trimmed = query.trimmingCharacters(in: .whitespaces)
+        guard trimmed.count >= 2 else { return [] }
+        let options: String.CompareOptions = [.caseInsensitive, .diacriticInsensitive]
+        return customFoods
+            .filter { $0.name.range(of: trimmed, options: options) != nil }
+            .prefix(4)
+            .map(\.asProduct)
     }
 
     /// Entries already logged for this day and the selected meal.
@@ -45,16 +59,19 @@ struct AddFoodView: View {
                 loggedSection
                 if query.trimmingCharacters(in: .whitespaces).count >= 2 {
                     sectionLabel("ERGEBNISSE".loc)
-                    if searchResults.isEmpty {
+                    if searchResults.isEmpty, customMatches.isEmpty {
                         Text("Nichts gefunden. Scanne den Barcode oder trage es als eigenes Lebensmittel ein.".loc)
                             .font(.fredoka(13))
                             .foregroundStyle(.secondary)
                     }
-                    ForEach(searchResults) { product in
+                    ForEach(customMatches + searchResults) { product in
                         productRow(product)
                     }
+                } else {
+                    myFoodsSection
                 }
                 manualFallback
+                customFoodButton
             }
             .padding(20)
         }
@@ -64,6 +81,47 @@ struct AddFoodView: View {
             ProductPortionSheet(product: product, day: day, initialMeal: meal)
                 .presentationDetents([.large])
         }
+        .sheet(isPresented: $showCustomForm, onDismiss: {
+            if let product = pendingProduct {
+                pendingProduct = nil
+                detailProduct = product
+            }
+        }) {
+            CustomFoodForm(barcode: nil) { pendingProduct = $0 }
+                .presentationDetents([.large])
+        }
+    }
+
+    // MARK: - Own products (reusable, created via CustomFoodForm)
+
+    @ViewBuilder
+    private var myFoodsSection: some View {
+        if !customFoods.isEmpty {
+            sectionLabel("MEINE LEBENSMITTEL".loc)
+            ForEach(customFoods.prefix(4)) { food in
+                productRow(food.asProduct)
+                    .contextMenu {
+                        Button(role: .destructive) {
+                            withAnimation(.snappy) { context.delete(food) }
+                        } label: {
+                            Label("Löschen".loc, systemImage: "trash")
+                        }
+                    }
+            }
+        }
+    }
+
+    private var customFoodButton: some View {
+        Button {
+            showCustomForm = true
+        } label: {
+            Text("Eigenes Produkt erstellen".loc)
+                .font(.fredoka(13, .medium))
+                .foregroundStyle(Color.appAccent)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: - Header & search

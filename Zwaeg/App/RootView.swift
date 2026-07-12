@@ -49,6 +49,13 @@ struct RootView: View {
                 BuddyCloset.add(Buddy(kind: "f", index: 42))
                 BuddyCloset.add(Buddy(kind: "blob", index: 4))
             }
+            if LaunchArgs.all.contains("-seed-custom-food"),
+               (try? context.fetchCount(FetchDescriptor<CustomFood>())) == 0 {
+                context.insert(CustomFood(name: "Proteinriegel Choco", brand: "Zwäg",
+                                          kcalPer100g: 380, proteinPer100g: 30,
+                                          carbsPer100g: 40, fatPer100g: 12,
+                                          barcode: "4041234567890", servingGrams: 45))
+            }
             if profiles.isEmpty && LaunchArgs.seedProfile {
                 context.insert(UserProfile(name: "Livia", sex: .female, age: 30, heightCm: 178,
                                            weightKg: 78, activity: .moderate, goal: .lose))

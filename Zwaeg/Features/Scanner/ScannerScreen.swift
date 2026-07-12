@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 import AVFoundation
 
 /// Full-screen dark scanner in the Munch style: coral viewfinder brackets,
@@ -6,10 +7,16 @@ import AVFoundation
 struct ScannerScreen: View {
     let profile: UserProfile
 
+    @Environment(\.modelContext) private var context
+
     @State private var manualBarcode = ""
     @State private var isLoading = false
     @State private var scannedProduct: FoodProduct?
     @State private var statusMessage: String?
+    /// Barcode of the last lookup that came back empty; enables creating an own product.
+    @State private var unknownBarcode: String?
+    @State private var showCustomForm = false
+    @State private var pendingProduct: FoodProduct?
     @State private var showManual = false
     @State private var torchOn = false
     @State private var scanLinePulse = false
@@ -29,6 +36,10 @@ struct ScannerScreen: View {
                 viewfinder
                 statusChip
                     .padding(.top, 22)
+                if unknownBarcode != nil {
+                    createCustomButton
+                        .padding(.top, 12)
+                }
                 Spacer()
                 if showManual {
                     manualEntry
@@ -45,8 +56,28 @@ struct ScannerScreen: View {
             ProductPortionSheet(product: product)
                 .presentationDetents([.large])
         }
+        .sheet(isPresented: $showCustomForm, onDismiss: {
+            if let product = pendingProduct {
+                pendingProduct = nil
+                unknownBarcode = nil
+                scannedProduct = product
+            } else {
+                isBusy = false
+            }
+        }) {
+            CustomFoodForm(barcode: unknownBarcode) { pendingProduct = $0 }
+                .presentationDetents([.large])
+        }
         .onAppear {
             scanLinePulse = true
+            if let flagIndex = LaunchArgs.all.firstIndex(of: "-demo-scan"),
+               LaunchArgs.all.indices.contains(flagIndex + 1) {
+                lookup(LaunchArgs.all[flagIndex + 1])
+            }
+            if LaunchArgs.all.contains("-open-custom-form") {
+                unknownBarcode = "4041234567890"
+                showCustomForm = true
+            }
             if LaunchArgs.all.contains("-demo-product") {
                 scannedProduct = FoodProduct(
                     id: "demo", name: "Avocado-Toast", brand: "Zwäg",
@@ -233,10 +264,25 @@ struct ScannerScreen: View {
 
     // MARK: - Actions
 
+    private var createCustomButton: some View {
+        Button {
+            showCustomForm = true
+        } label: {
+            Label("Eigenes Produkt erstellen".loc, systemImage: "plus")
+                .font(.fredoka(14, .semibold))
+                .foregroundStyle(Theme.onAccent)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 10)
+                .background(Theme.accent, in: Capsule())
+        }
+        .buttonStyle(.plain)
+    }
+
     private func resetScanner() {
         statusMessage = nil
         isBusy = false
         manualBarcode = ""
+        unknownBarcode = nil
     }
 
     private func toggleTorch() {
@@ -256,6 +302,18 @@ struct ScannerScreen: View {
         isBusy = true
         isLoading = true
         statusMessage = nil
+        unknownBarcode = nil
+
+        // Own products win over the network lookup.
+        let digits = barcode.filter(\.isNumber)
+        let predicate = #Predicate<CustomFood> { $0.barcode == digits }
+        if let match = try? context.fetch(FetchDescriptor(predicate: predicate)).first {
+            isLoading = false
+            scannedProduct = match.asProduct
+            manualBarcode = ""
+            return
+        }
+
         Task {
             defer { isLoading = false }
             do {
@@ -264,6 +322,7 @@ struct ScannerScreen: View {
                     manualBarcode = ""
                 } else {
                     statusMessage = "Produkt nicht gefunden. Trage es im Tagebuch manuell ein.".loc
+                    unknownBarcode = digits
                     isBusy = false
                 }
             } catch {
