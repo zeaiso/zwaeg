@@ -399,8 +399,25 @@ struct RecipeHero: View {
                                 .fill(.white.opacity(0.10))
                                 .frame(width: height * 0.9)
                                 .offset(x: height * 1.1, y: -height * 0.4)
-                            EmojiOrSymbol(emoji: recipe.emoji, symbol: recipe.category.symbol,
-                                          size: emojiSize, symbolColor: .white)
+                            VStack(spacing: 8) {
+                                EmojiOrSymbol(emoji: recipe.emoji, symbol: recipe.category.symbol,
+                                              size: emojiSize, symbolColor: .white)
+                                if !compact {
+                                    // Community photos: recipes without a picture invite one.
+                                    Link(destination: recipe.photoSubmitURL) {
+                                        HStack(spacing: 5) {
+                                            Image(systemName: "camera.fill")
+                                                .font(.system(size: 10, weight: .semibold))
+                                            Text("Dein Foto könnte hier sein".loc)
+                                                .font(.fredoka(12, .medium))
+                                        }
+                                        .foregroundStyle(.white)
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 6)
+                                        .background(.black.opacity(0.22), in: Capsule())
+                                    }
+                                }
+                            }
                         }
                     }
             }

@@ -189,9 +189,17 @@ struct Recipe: Codable, Identifiable, Hashable {
 }
 
 extension Recipe {
-    /// Bundled Wikimedia Commons photo, if one was fetched for this recipe.
+    /// Bundled photo; community submissions land here as recipe-<id>.jpg.
     var photo: UIImage? {
         UIImage(named: "recipe-\(id).jpg")
+    }
+
+    /// This recipe's page on the website, where a photo can be submitted.
+    var photoSubmitURL: URL {
+        let slug = id.replacingOccurrences(of: "ä", with: "ae")
+            .replacingOccurrences(of: "ö", with: "oe")
+            .replacingOccurrences(of: "ü", with: "ue")
+        return URL(string: "https://zwaeg.app/rezepte/\(slug)/")!
     }
 }
 
