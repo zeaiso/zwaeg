@@ -95,9 +95,6 @@ struct BuddyPickerView: View {
             poolSegment("Funky", isActive: !["blob", "person"].contains(buddy.kind)) {
                 buddy = .random(for: sex)
             }
-            poolSegment("Person", isActive: buddy.kind == "person") {
-                buddy = .randomPerson()
-            }
             poolSegment("Blob", isActive: buddy.kind == "blob") {
                 buddy = .randomBlob()
             }

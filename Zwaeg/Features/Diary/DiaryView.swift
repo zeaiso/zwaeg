@@ -123,8 +123,14 @@ struct DiaryView: View {
                         route = .details
                     }
                 }
-                if LaunchArgs.all.contains("-person-buddy"), profile.buddy.kind != "person" {
-                    profile.buddy = .randomPerson()
+                if LaunchArgs.all.contains("-person-buddy"), profile.buddy.personLook == nil {
+                    var traits = AvatarTraits.starter(for: .female)
+                    traits.top = "bun"
+                    traits.accessory = "round"
+                    traits.clothesColor = "5199e4"
+                    var studioBuddy = Buddy(kind: "custom", index: 0)
+                    studioBuddy.traits = traits
+                    profile.buddy = studioBuddy
                 }
                 celebrateStreakIfNeeded()
             }
@@ -153,7 +159,7 @@ struct DiaryView: View {
         HStack(spacing: 12) {
             ZStack(alignment: .bottomTrailing) {
                 BuddyPoseView(buddy: profile.buddy,
-                              size: profile.buddy.kind == "person" ? 58 : 46,
+                              size: profile.buddy.personLook != nil ? 58 : 46,
                               pose: buddyPose,
                               bodyFactor: buddyBodyFactor,
                               energetic: activity.steps >= 8000)

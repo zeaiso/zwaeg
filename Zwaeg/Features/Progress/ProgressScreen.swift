@@ -117,11 +117,10 @@ struct ProgressScreen: View {
                     .foregroundStyle(Theme.ink)
                 Spacer()
             }
-            if profile.buddy.kind == "person" {
+            if let look = profile.buddy.personLook {
                 HStack(alignment: .bottom, spacing: 18) {
                     if lostKg >= 0.3 {
-                        BuddyCharacterView(traits: profile.buddy.person ?? PersonTraits(),
-                                           factor: startFactor)
+                        BuddyCharacterView(look: look, factor: startFactor)
                             .frame(height: 128)
                             .opacity(0.22)
                             .grayscale(0.6)
@@ -130,8 +129,7 @@ struct ProgressScreen: View {
                             .foregroundStyle(.secondary)
                             .padding(.bottom, 56)
                     }
-                    BuddyCharacterView(traits: profile.buddy.person ?? PersonTraits(),
-                                       factor: animatedFactor, pose: .happy)
+                    BuddyCharacterView(look: look, factor: animatedFactor, pose: .happy)
                         .frame(height: 158)
                 }
                 .padding(.vertical, 2)

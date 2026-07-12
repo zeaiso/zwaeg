@@ -1,14 +1,98 @@
 import SwiftUI
 
-/// The "Person" buddy: a whole cartoon person drawn in code, so the body can
-/// smoothly follow the user's weight. Factor 0 is slim, 1 is maximally round.
+/// Concrete look of the drawn person, derived either from PersonTraits
+/// (palette indices) or from a studio buddy's AvatarTraits (exact colors,
+/// hair style, facial hair and glasses), so the whole-body character reads
+/// as the same figure the user designed.
+struct PersonLook: Equatable {
+    enum Glasses { case none, clear, sun }
+
+    var skin: Color
+    var skinShade: Color
+    var hair: Color
+    var shirt: Color
+    var style: Int          // 0 short, 1 long, 2 bun, 3 bald
+    var mustache = false
+    var beard = false
+    var glasses: Glasses = .none
+
+    init(traits: PersonTraits) {
+        let pair = BuddyCharacterView.skins[traits.skin % BuddyCharacterView.skins.count]
+        skin = pair.0
+        skinShade = pair.1
+        hair = BuddyCharacterView.hairColors[traits.hair % BuddyCharacterView.hairColors.count]
+        shirt = Buddy.palette[traits.shirt % Buddy.palette.count]
+        style = traits.style
+    }
+
+    init(avatar: AvatarTraits) {
+        skin = Color(hex: avatar.skinColor)
+        skinShade = Color(hex: avatar.skinColor).opacity(0.75)
+        hair = Color(hex: avatar.hairColor)
+        shirt = Color(hex: avatar.clothesColor)
+        let top = avatar.top
+        if top.isEmpty || top.hasPrefix("winterHat") || ["hat", "turban"].contains(top) {
+            style = 3
+        } else if top == "bun" {
+            style = 2
+        } else if ["bigHair", "bob", "curly", "curvy", "dreads", "frida", "fro", "froBand",
+                   "hijab", "longButNotTooLong", "miaWallace", "shaggy", "shaggyMullet",
+                   "straight01", "straight02", "straightAndStrand"].contains(top) {
+            style = 1
+        } else {
+            style = 0
+        }
+        if let facial = avatar.facialHair {
+            mustache = facial.hasPrefix("moustache")
+            beard = facial.hasPrefix("beard")
+        }
+        if let accessory = avatar.accessory {
+            glasses = ["sunglasses", "wayfarers", "eyepatch"].contains(accessory) ? .sun : .clear
+        }
+    }
+}
+
+extension Buddy {
+    /// The look driving the whole-body weight character, when one can be
+    /// derived: studio buddies use their exact wardrobe colors, the drawn
+    /// person kind its palette. Image-only kinds return nil and stay chips.
+    var personLook: PersonLook? {
+        switch kind {
+        case "person":
+            return PersonLook(traits: person ?? PersonTraits())
+        case "custom":
+            guard let traits else { return nil }
+            return PersonLook(avatar: traits)
+        default:
+            return nil
+        }
+    }
+}
+
+/// A whole cartoon person drawn in code, so the body can smoothly follow
+/// the user's weight. Factor 0 is slim, 1 is maximally round.
 /// headOnly renders just the face for small chip contexts.
 struct BuddyCharacterView: View {
-    var traits: PersonTraits
+    var look: PersonLook
     var factor: Double = 0.35
     var pose: BuddyPose = .neutral
     var energetic: Bool = false
     var headOnly: Bool = false
+
+    init(look: PersonLook, factor: Double = 0.35, pose: BuddyPose = .neutral,
+         energetic: Bool = false, headOnly: Bool = false) {
+        self.look = look
+        self.factor = factor
+        self.pose = pose
+        self.energetic = energetic
+        self.headOnly = headOnly
+    }
+
+    init(traits: PersonTraits, factor: Double = 0.35, pose: BuddyPose = .neutral,
+         energetic: Bool = false, headOnly: Bool = false) {
+        self.init(look: PersonLook(traits: traits), factor: factor, pose: pose,
+                  energetic: energetic, headOnly: headOnly)
+    }
 
     static let skins: [(Color, Color)] = [
         (Color(red: 0.99, green: 0.87, blue: 0.75), Color(red: 0.93, green: 0.76, blue: 0.61)),
@@ -35,9 +119,9 @@ struct BuddyCharacterView: View {
             let f = min(max(factor, 0), 1)
             let designW = 300.0
             let u = size.width / designW
-            let skin = Self.skins[traits.skin % Self.skins.count]
-            let hairColor = Self.hairColors[traits.hair % Self.hairColors.count]
-            let shirt = Buddy.palette[traits.shirt % Buddy.palette.count]
+            let skin = (look.skin, look.skinShade)
+            let hairColor = look.hair
+            let shirt = look.shirt
             let ink = Color(red: 0.13, green: 0.11, blue: 0.10)
             let pants = Color(red: 0.20, green: 0.18, blue: 0.24)
             let shoes = Color(red: 0.98, green: 0.95, blue: 0.92)
@@ -148,7 +232,7 @@ struct BuddyCharacterView: View {
             }
 
             // long hair falls behind the ears down the sides
-            if traits.style == 1 {
+            if look.style == 1 {
                 var mane = Path()
                 mane.addRoundedRect(in: rect(headCX - hw / 2 - 8, headCY - headH / 2 + 10,
                                              hw + 16, headH * 0.94),
@@ -162,7 +246,7 @@ struct BuddyCharacterView: View {
             }
 
             // hair cap (styles 0 short, 1 long, 2 bun; 3 is bald)
-            if traits.style != 3 {
+            if look.style != 3 {
                 var hairPath = Path()
                 hairPath.move(to: pt(headCX - hw / 2 + 2, headCY - 8))
                 hairPath.addQuadCurve(to: pt(headCX, headCY - headH / 2 - 8),
@@ -179,10 +263,19 @@ struct BuddyCharacterView: View {
                 ctx.fill(hairPath, with: .color(hairColor))
             }
 
-            if traits.style == 2 {
+            if look.style == 2 {
                 var bun = Path()
                 bun.addEllipse(in: rect(headCX - 22, headCY - headH / 2 - 26, 44, 36))
                 ctx.fill(bun, with: .color(hairColor))
+            }
+
+            if look.beard {
+                var beardPath = Path()
+                beardPath.move(to: pt(headCX - hw / 2 + 20, headCY + 20))
+                beardPath.addQuadCurve(to: pt(headCX + hw / 2 - 20, headCY + 20),
+                                       control: pt(headCX, headCY + headH / 2 + 16))
+                ctx.stroke(beardPath, with: .color(hairColor),
+                           style: StrokeStyle(lineWidth: 20 * u, lineCap: .round))
             }
 
             // ---- face by pose ----
@@ -233,8 +326,36 @@ struct BuddyCharacterView: View {
                            style: StrokeStyle(lineWidth: 5.5 * u, lineCap: .round))
             }
 
+            if look.glasses != .none {
+                for side in [-1.0, 1.0] {
+                    var lens = Path()
+                    lens.addEllipse(in: rect(headCX + side * 30 - 15, headCY - 5, 30, 30))
+                    if look.glasses == .sun {
+                        ctx.fill(lens, with: .color(ink.opacity(0.85)))
+                    }
+                    ctx.stroke(lens, with: .color(ink),
+                               style: StrokeStyle(lineWidth: 4 * u))
+                }
+                var bridge = Path()
+                bridge.move(to: pt(headCX - 15, headCY + 8))
+                bridge.addLine(to: pt(headCX + 15, headCY + 8))
+                ctx.stroke(bridge, with: .color(ink),
+                           style: StrokeStyle(lineWidth: 4 * u, lineCap: .round))
+            }
+
+            if look.mustache {
+                for side in [-1.0, 1.0] {
+                    var whisker = Path()
+                    whisker.move(to: pt(headCX + side * 2, headCY + 27))
+                    whisker.addQuadCurve(to: pt(headCX + side * 18, headCY + 22),
+                                         control: pt(headCX + side * 11, headCY + 30))
+                    ctx.stroke(whisker, with: .color(hairColor),
+                               style: StrokeStyle(lineWidth: 6 * u, lineCap: .round))
+                }
+            }
+
             let blush = Color(red: 1.0, green: 0.62, blue: 0.52).opacity(0.55)
-            for side in [-1.0, 1.0] {
+            for side in [-1.0, 1.0] where !look.beard {
                 var cheekDot = Path()
                 cheekDot.addEllipse(in: rect(headCX + side * 48 - 9, headCY + 26, 18, 12))
                 ctx.fill(cheekDot, with: .color(blush))
