@@ -306,10 +306,19 @@ struct ScannerScreen: View {
 
         // Own products win over the network lookup.
         let digits = barcode.filter(\.isNumber)
-        let predicate = #Predicate<CustomFood> { $0.barcode == digits }
-        if let match = try? context.fetch(FetchDescriptor(predicate: predicate)).first {
+        let customPredicate = #Predicate<CustomFood> { $0.barcode == digits }
+        if let match = try? context.fetch(FetchDescriptor(predicate: customPredicate)).first {
             isLoading = false
             scannedProduct = match.asProduct
+            manualBarcode = ""
+            return
+        }
+
+        // Then products this phone has scanned before; instant and offline.
+        let cachePredicate = #Predicate<CachedProduct> { $0.barcode == digits }
+        if let cached = try? context.fetch(FetchDescriptor(predicate: cachePredicate)).first {
+            isLoading = false
+            scannedProduct = cached.asProduct
             manualBarcode = ""
             return
         }
@@ -318,6 +327,7 @@ struct ScannerScreen: View {
             defer { isLoading = false }
             do {
                 if let product = try await OpenFoodFactsClient.fetchProduct(barcode: barcode) {
+                    context.insert(CachedProduct(product: product, barcode: digits))
                     scannedProduct = product
                     manualBarcode = ""
                 } else {

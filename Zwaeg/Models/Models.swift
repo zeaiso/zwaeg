@@ -425,6 +425,41 @@ final class CustomFood {
     }
 }
 
+/// Successful Open Food Facts lookup, kept locally so repeat scans of the
+/// same product are instant and work offline.
+@Model
+final class CachedProduct {
+    @Attribute(.unique) var barcode: String
+    var name: String
+    var brand: String?
+    var kcalPer100g: Double
+    var proteinPer100g: Double
+    var carbsPer100g: Double
+    var fatPer100g: Double
+    var servingGrams: Double?
+    var fetchedAt: Date
+
+    init(product: FoodProduct, barcode: String) {
+        self.barcode = barcode
+        self.name = product.name
+        self.brand = product.brand
+        self.kcalPer100g = product.kcalPer100g
+        self.proteinPer100g = product.proteinPer100g
+        self.carbsPer100g = product.carbsPer100g
+        self.fatPer100g = product.fatPer100g
+        self.servingGrams = product.servingGrams
+        self.fetchedAt = .now
+    }
+
+    var asProduct: FoodProduct {
+        FoodProduct(id: "off-\(barcode)", name: name, brand: brand,
+                    kcalPer100g: kcalPer100g, proteinPer100g: proteinPer100g,
+                    carbsPer100g: carbsPer100g, fatPer100g: fatPer100g,
+                    barcode: barcode, source: .openFoodFacts,
+                    servingGrams: servingGrams)
+    }
+}
+
 @Model
 final class WaterDay {
     @Attribute(.unique) var day: Date

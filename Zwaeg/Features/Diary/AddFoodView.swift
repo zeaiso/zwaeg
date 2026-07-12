@@ -11,6 +11,7 @@ struct AddFoodView: View {
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \FoodEntry.createdAt, order: .reverse) private var allEntries: [FoodEntry]
     @Query(sort: \CustomFood.createdAt, order: .reverse) private var customFoods: [CustomFood]
+    @Query(sort: \CachedProduct.fetchedAt, order: .reverse) private var cachedProducts: [CachedProduct]
 
     @State private var meal: MealType
     @State private var query = ""
@@ -43,6 +44,17 @@ struct AddFoodView: View {
             .map(\.asProduct)
     }
 
+    /// Previously scanned products; searchable like the database.
+    private var cachedMatches: [FoodProduct] {
+        let trimmed = query.trimmingCharacters(in: .whitespaces)
+        guard trimmed.count >= 2 else { return [] }
+        let options: String.CompareOptions = [.caseInsensitive, .diacriticInsensitive]
+        return cachedProducts
+            .filter { $0.name.range(of: trimmed, options: options) != nil }
+            .prefix(4)
+            .map(\.asProduct)
+    }
+
     /// Entries already logged for this day and the selected meal.
     private var mealEntries: [FoodEntry] {
         allEntries.filter { $0.day == day && $0.meal == meal }
@@ -59,12 +71,12 @@ struct AddFoodView: View {
                 loggedSection
                 if query.trimmingCharacters(in: .whitespaces).count >= 2 {
                     sectionLabel("ERGEBNISSE".loc)
-                    if searchResults.isEmpty, customMatches.isEmpty {
+                    if searchResults.isEmpty, customMatches.isEmpty, cachedMatches.isEmpty {
                         Text("Nichts gefunden. Scanne den Barcode oder trage es als eigenes Lebensmittel ein.".loc)
                             .font(.fredoka(13))
                             .foregroundStyle(.secondary)
                     }
-                    ForEach(customMatches + searchResults) { product in
+                    ForEach(customMatches + cachedMatches + searchResults) { product in
                         productRow(product)
                     }
                 } else {
