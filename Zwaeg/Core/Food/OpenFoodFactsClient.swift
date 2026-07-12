@@ -65,7 +65,10 @@ enum OpenFoodFactsClient {
             fatPer100g: clamped(nutriments?.fat100g, max: 100),
             barcode: digits,
             source: .openFoodFacts,
-            servingGrams: product.servingQuantity.flatMap { $0 > 0 ? $0 : nil })
+            servingGrams: product.servingQuantity.flatMap { $0 > 0 ? $0 : nil },
+            sugarPer100g: nutriments?.sugars100g.map { min(100, Swift.max(0, $0)) },
+            saltPer100g: nutriments?.salt100g.map { min(100, Swift.max(0, $0)) },
+            fiberPer100g: nutriments?.fiber100g.map { min(100, Swift.max(0, $0)) })
     }
 
     // MARK: - Response types
@@ -112,6 +115,9 @@ enum OpenFoodFactsClient {
         let proteins100g: Double?
         let carbohydrates100g: Double?
         let fat100g: Double?
+        let sugars100g: Double?
+        let salt100g: Double?
+        let fiber100g: Double?
 
         enum CodingKeys: String, CodingKey {
             case energyKcal100g = "energy-kcal_100g"
@@ -119,6 +125,9 @@ enum OpenFoodFactsClient {
             case proteins100g = "proteins_100g"
             case carbohydrates100g = "carbohydrates_100g"
             case fat100g = "fat_100g"
+            case sugars100g = "sugars_100g"
+            case salt100g = "salt_100g"
+            case fiber100g = "fiber_100g"
         }
 
         init(from decoder: Decoder) throws {
@@ -128,6 +137,9 @@ enum OpenFoodFactsClient {
             proteins100g = Self.flexibleDouble(container, .proteins100g)
             carbohydrates100g = Self.flexibleDouble(container, .carbohydrates100g)
             fat100g = Self.flexibleDouble(container, .fat100g)
+            sugars100g = Self.flexibleDouble(container, .sugars100g)
+            salt100g = Self.flexibleDouble(container, .salt100g)
+            fiber100g = Self.flexibleDouble(container, .fiber100g)
         }
 
         /// Open Food Facts sometimes returns numbers as strings.

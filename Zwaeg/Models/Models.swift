@@ -368,10 +368,15 @@ final class FoodEntry {
     var proteinG: Double
     var carbsG: Double
     var fatG: Double
+    /// Only set when the source provides them (Open Food Facts).
+    var sugarG: Double?
+    var saltG: Double?
+    var fiberG: Double?
     var createdAt: Date
 
     init(day: Date, meal: MealType, name: String, calories: Int,
-         proteinG: Double = 0, carbsG: Double = 0, fatG: Double = 0) {
+         proteinG: Double = 0, carbsG: Double = 0, fatG: Double = 0,
+         sugarG: Double? = nil, saltG: Double? = nil, fiberG: Double? = nil) {
         self.day = Calendar.current.startOfDay(for: day)
         self.mealRaw = meal.rawValue
         self.name = name
@@ -379,6 +384,9 @@ final class FoodEntry {
         self.proteinG = proteinG
         self.carbsG = carbsG
         self.fatG = fatG
+        self.sugarG = sugarG
+        self.saltG = saltG
+        self.fiberG = fiberG
         self.createdAt = .now
     }
 
@@ -437,6 +445,9 @@ final class CachedProduct {
     var carbsPer100g: Double
     var fatPer100g: Double
     var servingGrams: Double?
+    var sugarPer100g: Double?
+    var saltPer100g: Double?
+    var fiberPer100g: Double?
     var fetchedAt: Date
 
     init(product: FoodProduct, barcode: String) {
@@ -448,6 +459,9 @@ final class CachedProduct {
         self.carbsPer100g = product.carbsPer100g
         self.fatPer100g = product.fatPer100g
         self.servingGrams = product.servingGrams
+        self.sugarPer100g = product.sugarPer100g
+        self.saltPer100g = product.saltPer100g
+        self.fiberPer100g = product.fiberPer100g
         self.fetchedAt = .now
     }
 
@@ -456,7 +470,9 @@ final class CachedProduct {
                     kcalPer100g: kcalPer100g, proteinPer100g: proteinPer100g,
                     carbsPer100g: carbsPer100g, fatPer100g: fatPer100g,
                     barcode: barcode, source: .openFoodFacts,
-                    servingGrams: servingGrams)
+                    servingGrams: servingGrams,
+                    sugarPer100g: sugarPer100g, saltPer100g: saltPer100g,
+                    fiberPer100g: fiberPer100g)
     }
 }
 

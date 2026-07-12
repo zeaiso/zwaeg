@@ -41,6 +41,7 @@ struct ProductPortionSheet: View {
                     servingsRow
                     calorieCard
                     macroTiles
+                    extrasRow
                     mealChips
                 }
                 .padding(20)
@@ -166,6 +167,23 @@ struct ProductPortionSheet: View {
         }
     }
 
+    /// Sugar, salt and fiber for the chosen amount when the source provides them.
+    @ViewBuilder
+    private var extrasRow: some View {
+        let parts: [String] = [
+            product.sugar(for: totalGrams).map { "\("Zucker".loc) \(formatGrams($0)) g" },
+            product.salt(for: totalGrams).map { "\("Salz".loc) \(formatGrams($0)) g" },
+            product.fiber(for: totalGrams).map { "\("Ballaststoffe".loc) \(formatGrams($0)) g" },
+        ].compactMap { $0 }
+        if !parts.isEmpty {
+            Text(parts.joined(separator: " · "))
+                .font(.fredoka(12))
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity)
+                .contentTransition(.numericText())
+        }
+    }
+
     private func macroTile(_ grams: Double, _ label: String, _ color: Color) -> some View {
         VStack(spacing: 8) {
             Circle()
@@ -247,7 +265,10 @@ struct ProductPortionSheet: View {
             calories: product.kcal(for: totalGrams),
             proteinG: product.protein(for: totalGrams),
             carbsG: product.carbs(for: totalGrams),
-            fatG: product.fat(for: totalGrams))
+            fatG: product.fat(for: totalGrams),
+            sugarG: product.sugar(for: totalGrams),
+            saltG: product.salt(for: totalGrams),
+            fiberG: product.fiber(for: totalGrams))
         context.insert(entry)
         dismiss()
     }

@@ -189,6 +189,7 @@ struct DayDetailView: View {
                 Divider()
                 factRow("Fett".loc, gram(fat))
                 Divider()
+                extraFactRows
                 factRow("Wasser".loc, String(format: "%.2f l", Double(glasses) * 0.25))
                 Divider()
                 factRow("Tagesziel".loc, "\(profile.dailyCalorieTarget) kcal")
@@ -198,6 +199,26 @@ struct DayDetailView: View {
 
     private func gram(_ value: Double) -> String {
         String(format: "%.1f g", value)
+    }
+
+    /// Sugar, salt and fiber rows; only entries from Open Food Facts carry them.
+    @ViewBuilder
+    private var extraFactRows: some View {
+        let sugar = entries.compactMap(\.sugarG)
+        let salt = entries.compactMap(\.saltG)
+        let fiber = entries.compactMap(\.fiberG)
+        if !sugar.isEmpty {
+            factRow("Zucker".loc, gram(sugar.reduce(0, +)))
+            Divider()
+        }
+        if !salt.isEmpty {
+            factRow("Salz".loc, gram(salt.reduce(0, +)))
+            Divider()
+        }
+        if !fiber.isEmpty {
+            factRow("Ballaststoffe".loc, gram(fiber.reduce(0, +)))
+            Divider()
+        }
     }
 
     private func factRow(_ title: String, _ value: String) -> some View {

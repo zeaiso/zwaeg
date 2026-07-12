@@ -526,5 +526,8 @@
   "Nährwerte pro 100 g": "Nutrition per 100 g",
   "Portion (g, optional)": "Serving (g, optional)",
   "MEINE LEBENSMITTEL": "MY FOODS",
-  "Löschen": "Delete"
+  "Löschen": "Delete",
+  "Zucker": "Sugar",
+  "Salz": "Salt",
+  "Ballaststoffe": "Fiber"
 }

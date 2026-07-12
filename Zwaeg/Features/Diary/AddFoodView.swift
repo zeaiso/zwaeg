@@ -283,7 +283,9 @@ struct AddFoodView: View {
             for entry in yesterdayEntries {
                 context.insert(FoodEntry(day: day, meal: meal, name: entry.name,
                                          calories: entry.calories, proteinG: entry.proteinG,
-                                         carbsG: entry.carbsG, fatG: entry.fatG))
+                                         carbsG: entry.carbsG, fatG: entry.fatG,
+                                         sugarG: entry.sugarG, saltG: entry.saltG,
+                                         fiberG: entry.fiberG))
             }
         }
     }
