@@ -171,6 +171,20 @@ struct RecipesScreen: View {
             }
             .scrollClipDisabled()
         }
+        section("Nach Küche".loc) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 10) {
+                    ForEach(Recipe.Cuisine.allCases) { cuisine in
+                        let recipes = RecipeStore.all.filter { $0.cuisine == cuisine }
+                        if !recipes.isEmpty {
+                            emojiTile(cuisine.emoji, symbol: cuisine.symbol, label: cuisine.label,
+                                      route: .list(cuisine.label, recipes))
+                        }
+                    }
+                }
+            }
+            .scrollClipDisabled()
+        }
         section("Nach Kalorien".loc) {
             tileShelf(kcalRanges.map { range in
                 (range.emoji, range.symbol, range.label,

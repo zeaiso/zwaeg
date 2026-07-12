@@ -71,6 +71,88 @@ struct Recipe: Codable, Identifiable, Hashable {
         }
     }
 
+    enum Cuisine: String, Codable, CaseIterable, Identifiable {
+        case italian
+        case balkan
+        case greek
+        case turkish
+        case levante
+        case french
+        case spanish
+        case mexican
+        case latin
+        case american
+        case indian
+        case thai
+        case vietnamese
+        case chinese
+        case japanese
+        case korean
+        case african
+
+        var id: String { rawValue }
+
+        var label: String {
+            switch self {
+            case .italian: return "Italienisch".loc
+            case .balkan: return "Balkan".loc
+            case .greek: return "Griechisch".loc
+            case .turkish: return "Türkisch".loc
+            case .levante: return "Orientalisch".loc
+            case .french: return "Französisch".loc
+            case .spanish: return "Spanisch".loc
+            case .mexican: return "Mexikanisch".loc
+            case .latin: return "Lateinamerikanisch".loc
+            case .american: return "Amerikanisch".loc
+            case .indian: return "Indisch".loc
+            case .thai: return "Thailändisch".loc
+            case .vietnamese: return "Vietnamesisch".loc
+            case .chinese: return "Chinesisch".loc
+            case .japanese: return "Japanisch".loc
+            case .korean: return "Koreanisch".loc
+            case .african: return "Afrikanisch".loc
+            }
+        }
+
+        var emoji: String {
+            switch self {
+            case .italian: return "🇮🇹"
+            case .balkan: return "🫓"
+            case .greek: return "🇬🇷"
+            case .turkish: return "🇹🇷"
+            case .levante: return "🧆"
+            case .french: return "🇫🇷"
+            case .spanish: return "🇪🇸"
+            case .mexican: return "🇲🇽"
+            case .latin: return "🫔"
+            case .american: return "🇺🇸"
+            case .indian: return "🇮🇳"
+            case .thai: return "🇹🇭"
+            case .vietnamese: return "🇻🇳"
+            case .chinese: return "🇨🇳"
+            case .japanese: return "🇯🇵"
+            case .korean: return "🇰🇷"
+            case .african: return "🥘"
+            }
+        }
+
+        /// SF Symbol stand-in for runtimes without the emoji font.
+        var symbol: String {
+            switch self {
+            case .italian, .balkan, .greek, .turkish, .french, .spanish:
+                return "globe.europe.africa.fill"
+            case .levante, .indian:
+                return "globe.central.south.asia.fill"
+            case .mexican, .latin, .american:
+                return "globe.americas.fill"
+            case .thai, .vietnamese, .chinese, .japanese, .korean:
+                return "globe.asia.australia.fill"
+            case .african:
+                return "globe.europe.africa"
+            }
+        }
+    }
+
     let id: String
     let name: String
     let category: Category
@@ -84,6 +166,8 @@ struct Recipe: Codable, Identifiable, Hashable {
     let vegetarian: Bool
     let vegan: Bool
     let swiss: Bool
+    /// World cuisine of the dish; nil for the original Swiss and everyday collection.
+    let cuisine: Cuisine?
     let emoji: String
     let ingredients: [String]
     let steps: [String]
@@ -133,6 +217,7 @@ enum RecipeStore {
     private static let files = ["recipes-breakfast", "recipes-soups", "recipes-salads",
                                 "recipes-mains-1", "recipes-mains-2", "recipes-snacks",
                                 "recipes-sweets"]
+        + Recipe.Cuisine.allCases.map { "recipes-intl-\($0.rawValue)" }
 
     static let all: [Recipe] = files.flatMap { file -> [Recipe] in
         guard let url = Bundle.main.url(forResource: file, withExtension: "json"),
