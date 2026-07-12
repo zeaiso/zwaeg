@@ -529,5 +529,9 @@
   "Löschen": "Delete",
   "Zucker": "Sugar",
   "Salz": "Salt",
-  "Ballaststoffe": "Fiber"
+  "Ballaststoffe": "Fiber",
+  "Wochenbilanz": "Week balance",
+  "Tage im Ziel": "Days on target",
+  "Wasser Ø / Tag": "Water Ø / day",
+  "Protein Ø / Tag": "Protein Ø / day"
 }

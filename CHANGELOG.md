@@ -45,6 +45,7 @@ the Apple developer account approval.
 ### Everyday tracking
 - Water goal (2 liters as 8 glasses, configurable) with glass grid and reminders
 - Weight quick log with automatic calorie target recalculation and 7-day chart
+- Week balance card on the activity screen: days on target, calorie balance, water and protein averages
 - Daily mood with history
 - Reminders for meals and water at custom times
 - Calculators: BMI, ideal weight, calorie needs, calorie burn

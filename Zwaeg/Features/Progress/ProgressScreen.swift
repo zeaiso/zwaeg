@@ -10,6 +10,7 @@ struct ProgressScreen: View {
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \WeightEntry.date) private var weights: [WeightEntry]
     @Query private var foodEntries: [FoodEntry]
+    @Query private var waterDays: [WaterDay]
 
     @State private var range: RangeOption = .week
 
@@ -46,6 +47,7 @@ struct ProgressScreen: View {
                 header
                 statTiles
                 caloriesCard
+                weekCard
                 weightCard
                 buddyCard
             }
@@ -242,6 +244,54 @@ struct ProgressScreen: View {
                 }
                 .frame(height: 170)
             }
+        }
+    }
+
+    // MARK: - Week balance
+
+    private var weekCard: some View {
+        let days = last7Days
+        let logged = days.filter { $0.kcal > 0 }
+        let target = max(1, profile.dailyCalorieTarget)
+        let onTarget = logged.filter { $0.kcal <= target }.count
+        let balance = logged.reduce(0) { $0 + $1.kcal - target }
+        let weekGlasses = days.reduce(0) { sum, item in
+            sum + (waterDays.first { $0.day == item.day }?.glasses ?? 0)
+        }
+        let weekProtein = foodEntries
+            .filter { entry in days.contains { $0.day == entry.day } }
+            .reduce(0.0) { $0 + $1.proteinG }
+
+        return Card {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Wochenbilanz".loc)
+                    .font(.fredoka(17, .semibold))
+                    .foregroundStyle(Theme.ink)
+                weekRow("Tage im Ziel".loc,
+                        logged.isEmpty ? "–" : "\(onTarget)/\(logged.count)")
+                Divider()
+                weekRow("Bilanz".loc,
+                        logged.isEmpty ? "–" : String(format: "%+d kcal", balance),
+                        highlight: balance > 0 && !logged.isEmpty)
+                Divider()
+                weekRow("Wasser Ø / Tag".loc,
+                        String(format: "%.2f l", Double(weekGlasses) * 0.25 / 7))
+                Divider()
+                weekRow("Protein Ø / Tag".loc,
+                        logged.isEmpty ? "–" : String(format: "%.0f g", weekProtein / Double(logged.count)))
+            }
+        }
+    }
+
+    private func weekRow(_ title: String, _ value: String, highlight: Bool = false) -> some View {
+        HStack {
+            Text(title)
+                .font(.fredoka(15))
+                .foregroundStyle(Theme.ink)
+            Spacer()
+            Text(value)
+                .font(.fredoka(15, .semibold))
+                .foregroundStyle(highlight ? Color.appAccent : Theme.ink)
         }
     }
 
