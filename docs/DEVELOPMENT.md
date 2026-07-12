@@ -44,6 +44,7 @@ Useful for driving the app from the CLI or Xcode scheme arguments. All of them w
 | `-demo-scan <code>` | Runs a barcode lookup as if scanned (combine with `-tab 2`) |
 | `-seed-custom-food` | Creates a demo custom food with barcode `4041234567890` when none exists |
 | `-open-custom-form` | Opens the custom food form with a prefilled barcode (combine with `-tab 2`) |
+| `-demo-label` | Runs the nutrition label parser on sample OCR lines and opens the prefilled form (combine with `-tab 2`) |
 | `-scroll-bottom` | Opens the diary scrolled to the bottom |
 
 Example:

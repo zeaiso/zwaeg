@@ -6,6 +6,8 @@ import SwiftData
 /// the created product flows straight into the portion sheet.
 struct CustomFoodForm: View {
     var barcode: String?
+    /// Values read off a nutrition label by the scanner; prefilled once.
+    var prefill: NutritionFacts? = nil
     var onCreated: (FoodProduct) -> Void
 
     @Environment(\.modelContext) private var context
@@ -62,6 +64,19 @@ struct CustomFoodForm: View {
             saveButton
         }
         .background(Theme.background)
+        .onAppear {
+            guard let prefill, kcal.isEmpty else { return }
+            kcal = Self.fieldText(prefill.kcal)
+            protein = Self.fieldText(prefill.protein)
+            carbs = Self.fieldText(prefill.carbs)
+            fat = Self.fieldText(prefill.fat)
+        }
+    }
+
+    private static func fieldText(_ value: Double?) -> String {
+        guard let value else { return "" }
+        return value.truncatingRemainder(dividingBy: 1) == 0
+            ? String(Int(value)) : String(value)
     }
 
     private var header: some View {

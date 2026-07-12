@@ -22,6 +22,14 @@ struct ScannerScreen: View {
     @State private var scanLinePulse = false
     /// Ignores repeat scan callbacks while a lookup or the portion sheet is active.
     @State private var isBusy = false
+    @State private var mode: ScanMode = .barcode
+    @State private var camera = ScannerCamera()
+    /// Values read off a nutrition table; prefill the custom food form.
+    @State private var labelFacts: NutritionFacts?
+
+    enum ScanMode {
+        case barcode, label
+    }
 
     private let bracketColor = Color(red: 1.0, green: 0.54, blue: 0.36)
 
@@ -57,6 +65,7 @@ struct ScannerScreen: View {
                 .presentationDetents([.large])
         }
         .sheet(isPresented: $showCustomForm, onDismiss: {
+            labelFacts = nil
             if let product = pendingProduct {
                 pendingProduct = nil
                 unknownBarcode = nil
@@ -65,7 +74,7 @@ struct ScannerScreen: View {
                 isBusy = false
             }
         }) {
-            CustomFoodForm(barcode: unknownBarcode) { pendingProduct = $0 }
+            CustomFoodForm(barcode: unknownBarcode, prefill: labelFacts) { pendingProduct = $0 }
                 .presentationDetents([.large])
         }
         .onAppear {
@@ -76,6 +85,16 @@ struct ScannerScreen: View {
             }
             if LaunchArgs.all.contains("-open-custom-form") {
                 unknownBarcode = "4041234567890"
+                showCustomForm = true
+            }
+            if LaunchArgs.all.contains("-demo-label") {
+                mode = .label
+                labelFacts = NutritionLabelParser.parse(lines: [
+                    "Nährwerte pro 100 g", "Energie 1520 kJ / 364 kcal",
+                    "Fett 12,5 g", "davon gesättigte Fettsäuren 5,2 g",
+                    "Kohlenhydrate 48 g", "davon Zucker 22 g",
+                    "Eiweiß 9,8 g", "Salz 0,4 g",
+                ])
                 showCustomForm = true
             }
             if LaunchArgs.all.contains("-demo-product") {
@@ -92,7 +111,8 @@ struct ScannerScreen: View {
     @ViewBuilder
     private var cameraBackground: some View {
         if BarcodeScannerView.isSupported {
-            BarcodeScannerView { barcode in
+            BarcodeScannerView(camera: camera) { barcode in
+                guard mode == .barcode else { return }
                 lookup(barcode)
             }
         } else {
@@ -168,25 +188,38 @@ struct ScannerScreen: View {
     }
 
     private var chipText: String {
-        if isLoading { return "Suche Produkt...".loc }
+        if isLoading {
+            return mode == .label ? "Lese Nährwerte...".loc : "Suche Produkt...".loc
+        }
         if let statusMessage { return statusMessage }
-        if BarcodeScannerView.isSupported { return "Richte die Kamera auf einen Barcode".loc }
-        return "Kamera nur auf dem iPhone. Barcode manuell eingeben.".loc
+        guard BarcodeScannerView.isSupported else {
+            return "Kamera nur auf dem iPhone. Barcode manuell eingeben.".loc
+        }
+        return mode == .label
+            ? "Richte die Kamera auf die Nährwerttabelle".loc
+            : "Richte die Kamera auf einen Barcode".loc
     }
 
     // MARK: - Mode tabs
 
     private var modeTabs: some View {
         HStack(spacing: 26) {
-            Text("Foto".loc)
-                .foregroundStyle(.white.opacity(0.45))
-            Text("Barcode")
-                .foregroundStyle(bracketColor)
-                .fontWeight(.bold)
-            Text("Label".loc)
-                .foregroundStyle(.white.opacity(0.45))
+            modeTab("Barcode", target: .barcode)
+            modeTab("Label".loc, target: .label)
         }
         .font(.fredoka(15, .semibold))
+    }
+
+    private func modeTab(_ title: String, target: ScanMode) -> some View {
+        Button {
+            withAnimation(.snappy) { mode = target }
+            resetScanner()
+        } label: {
+            Text(title)
+                .foregroundStyle(mode == target ? bracketColor : .white.opacity(0.45))
+                .fontWeight(mode == target ? .bold : .semibold)
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: - Controls
@@ -198,7 +231,9 @@ struct ScannerScreen: View {
             }
             Spacer()
             Button {
-                if BarcodeScannerView.isSupported {
+                if mode == .label {
+                    captureLabel()
+                } else if BarcodeScannerView.isSupported {
                     resetScanner()
                 } else {
                     withAnimation(.snappy) { showManual = true }
@@ -283,6 +318,29 @@ struct ScannerScreen: View {
         isBusy = false
         manualBarcode = ""
         unknownBarcode = nil
+    }
+
+    /// Label mode: photograph the nutrition table, OCR it on device and
+    /// open the custom food form prefilled with the recognized values.
+    private func captureLabel() {
+        guard !isBusy, !isLoading else { return }
+        isLoading = true
+        statusMessage = nil
+        Task {
+            defer { isLoading = false }
+            guard let image = await camera.capturePhoto() else {
+                statusMessage = "Keine Nährwerte erkannt. Geh näher ran.".loc
+                return
+            }
+            let lines = await NutritionLabelParser.recognizeLines(in: image)
+            let facts = NutritionLabelParser.parse(lines: lines)
+            if facts.isUsable {
+                labelFacts = facts
+                showCustomForm = true
+            } else {
+                statusMessage = "Keine Nährwerte erkannt. Geh näher ran.".loc
+            }
+        }
     }
 
     private func toggleTorch() {
