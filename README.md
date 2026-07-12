@@ -25,13 +25,16 @@ Zwäg (Swiss German for feeling fit and well) tracks your calories, macros, step
 
 ## Features
 
-- **Diary**: log meals with a daily calorie budget, macros, week strip, steps from Apple Health and a water counter
-- **Recipes**: 200+ healthy recipes with Swiss classics, browsable by category, calories and diet, one tap logs a portion to the diary
-- **Barcode scanner**: live EAN scanning (VisionKit) with product lookup on Open Food Facts, plus the official Swiss Food Composition Database (BLV, 1220 foods) bundled for offline search
-- **Calculators**: BMI, ideal weight, daily calorie needs (Mifflin-St Jeor) and calorie burn (MET based)
-- **Progress**: weight trend chart, weekly calorie bars, monthly stats
+- **Diary**: meals with calorie budgets and macros, water, weight, steps, mood, streaks and a reactive buddy mascot
+- **Recipes**: 890 recipes across Swiss classics and 17 international cuisines, one tap logs a portion
+- **Scanner**: live EAN scanning with Open Food Facts, offline cache, a label mode that reads nutrition tables with on device OCR, and the Swiss Food Composition Database (BLV, 1220 foods) bundled offline
+- **Fasting**: 16:8, 14:10 and 12:12 with a Live Activity on the lock screen
 - **Battles**: challenge friends over steps, active calories or calorie deficit with join codes (CloudKit ready, currently local demo opponents)
-- **Apple Health**: reads steps and active energy, writes logged weight
+- **Calculators**: BMI, ideal weight, daily calorie needs (Mifflin-St Jeor) and calorie burn (MET based)
+- **Apple**: HealthKit, home screen widget, Apple Watch app with complications, Siri Shortcuts
+- **Personal**: 23 languages with RTL support, three looks, custom accent color
+
+The full tour with details per screen: [FEATURES](docs/FEATURES.md)
 
 ## Getting started
 
@@ -43,17 +46,18 @@ xcodegen generate
 open Zwaeg.xcodeproj
 ```
 
-The `.xcodeproj`, `Info.plist` and entitlements are generated from `project.yml` and not checked in. See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for build commands, debug launch arguments and simulator tips.
+The `.xcodeproj`, `Info.plist` and entitlements are generated from `project.yml` and not checked in. See [DEVELOPMENT](docs/DEVELOPMENT.md) for build commands, debug launch arguments and simulator tips.
 
 ## Documentation
 
+- [Features](docs/FEATURES.md): the full tour, screen by screen
 - [Architecture](docs/ARCHITECTURE.md): modules, data flow and design decisions
 - [Development](docs/DEVELOPMENT.md): building, testing and debug tooling
 
 ## Credits
 
 - Nutrition data: [Swiss Food Composition Database](https://naehrwertdaten.ch) (BLV) and [Open Food Facts](https://ch.openfoodfacts.org)
-- Recipe photos: [Pexels](https://www.pexels.com) (Pexels License) and [Wikimedia Commons](https://commons.wikimedia.org) (CC BY, CC BY-SA, CC0 or public domain); every image with author and license in [docs/IMAGE-CREDITS.md](docs/IMAGE-CREDITS.md) and shown in the app on the recipe page
+- Recipe photos: community contributed; every published photo is credited in [IMAGE-CREDITS](docs/IMAGE-CREDITS.md) and in the app on the recipe page
 - Avatars: generated with [DiceBear](https://dicebear.com). Styles: Avataaars and Bottts by [Pablo Stanley](https://avataaars.com) (free for personal and commercial use), Notionists by Zoish (CC0), Adventurer and Lorelei by Lisa Wischofsky (CC BY 4.0 / CC0), Big Smile by Ashley Seo (CC BY 4.0), Open Peeps by Pablo Stanley (CC0), Personas by Draftbit (CC BY 4.0), Pixel Art and Thumbs by DiceBear (CC0), Fun Emoji by Davis Uche (CC BY 4.0), Micah by Micah Lanier (CC BY 4.0)
 - Font: [Fredoka](https://fonts.google.com/specimen/Fredoka) (SIL Open Font License)
 
