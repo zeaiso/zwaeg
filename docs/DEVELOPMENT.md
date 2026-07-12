@@ -46,6 +46,7 @@ Useful for driving the app from the CLI or Xcode scheme arguments. All of them w
 | `-open-custom-form` | Opens the custom food form with a prefilled barcode (combine with `-tab 2`) |
 | `-demo-label` | Runs the nutrition label parser on sample OCR lines and opens the prefilled form (combine with `-tab 2`) |
 | `-scroll-bottom` | Opens the diary scrolled to the bottom |
+| `-person-buddy` | Puts a random person buddy on the profile (code drawn, body follows weight) |
 
 Example:
 

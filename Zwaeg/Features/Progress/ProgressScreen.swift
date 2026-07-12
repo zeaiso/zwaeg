@@ -99,6 +99,14 @@ struct ProgressScreen: View {
         return first - last
     }
 
+    /// Body factor at the very first weight entry, for the faded
+    /// "when you started" person next to the current one.
+    private var startFactor: Double {
+        let startKg = weights.first?.weightKg ?? profile.weightKg
+        let bmi = CalorieMath.bmi(weightKg: startKg, heightCm: profile.heightCm)
+        return min(max((bmi - 21) / 14, 0), 1)
+    }
+
     @State private var animatedFactor: Double = 1
 
     private var buddyCard: some View {
@@ -109,8 +117,28 @@ struct ProgressScreen: View {
                     .foregroundStyle(Theme.ink)
                 Spacer()
             }
-            BodyBuddyView(factor: animatedFactor, size: 150)
+            if profile.buddy.kind == "person" {
+                HStack(alignment: .bottom, spacing: 18) {
+                    if lostKg >= 0.3 {
+                        BuddyCharacterView(traits: profile.buddy.person ?? PersonTraits(),
+                                           factor: startFactor)
+                            .frame(height: 128)
+                            .opacity(0.22)
+                            .grayscale(0.6)
+                        Image(systemName: "arrow.forward")
+                            .font(.fredoka(16, .semibold))
+                            .foregroundStyle(.secondary)
+                            .padding(.bottom, 56)
+                    }
+                    BuddyCharacterView(traits: profile.buddy.person ?? PersonTraits(),
+                                       factor: animatedFactor, pose: .happy)
+                        .frame(height: 158)
+                }
                 .padding(.vertical, 2)
+            } else {
+                BodyBuddyView(factor: animatedFactor, size: 150)
+                    .padding(.vertical, 2)
+            }
             Text(lostKg >= 0.3
                  ? "Schon %@ kg leichter!".loc(lostKg.formatted(.number.precision(.fractionLength(0...1))))
                  : "Ihr zieht das zusammen durch.".loc)

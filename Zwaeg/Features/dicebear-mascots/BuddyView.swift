@@ -9,7 +9,10 @@ struct BuddyView: View {
 
     var body: some View {
         Group {
-            if let path = buddy.customImagePath, let image = UIImage(contentsOfFile: path) {
+            if buddy.kind == "person" {
+                BuddyCharacterView(traits: buddy.person ?? PersonTraits(), headOnly: true)
+                    .padding(size * 0.04)
+            } else if let path = buddy.customImagePath, let image = UIImage(contentsOfFile: path) {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: buddy.kind == "photo" ? .fill : .fit)

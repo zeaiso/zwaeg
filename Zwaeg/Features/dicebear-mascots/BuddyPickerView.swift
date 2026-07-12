@@ -60,8 +60,14 @@ struct BuddyPickerView: View {
                 Circle()
                     .fill(Theme.card)
                     .frame(width: 192, height: 192)
-                BuddyView(buddy: buddy, size: 164)
-                    .shadow(color: buddy.bodyColor.opacity(0.35), radius: 16, y: 8)
+                if buddy.kind == "person" {
+                    BuddyCharacterView(traits: buddy.person ?? PersonTraits(), factor: 0.35)
+                        .frame(height: 172)
+                        .shadow(color: buddy.bodyColor.opacity(0.35), radius: 16, y: 8)
+                } else {
+                    BuddyView(buddy: buddy, size: 164)
+                        .shadow(color: buddy.bodyColor.opacity(0.35), radius: 16, y: 8)
+                }
             }
             .animation(.snappy, value: buddy)
 
@@ -86,8 +92,11 @@ struct BuddyPickerView: View {
 
     private var poolSwitch: some View {
         HStack(spacing: 4) {
-            poolSegment("Funky", isActive: buddy.kind != "blob") {
+            poolSegment("Funky", isActive: !["blob", "person"].contains(buddy.kind)) {
                 buddy = .random(for: sex)
+            }
+            poolSegment("Person", isActive: buddy.kind == "person") {
+                buddy = .randomPerson()
             }
             poolSegment("Blob", isActive: buddy.kind == "blob") {
                 buddy = .randomBlob()
@@ -121,7 +130,11 @@ struct BuddyPickerView: View {
                        background: AnyShapeStyle(LinearGradient(
                           colors: [Theme.accentLight, Theme.accent],
                           startPoint: .topLeading, endPoint: .bottomTrailing))) {
-                buddy = buddy.kind == "blob" ? .randomBlob() : .random(for: sex)
+                switch buddy.kind {
+                case "blob": buddy = .randomBlob()
+                case "person": buddy = .randomPerson()
+                default: buddy = .random(for: sex)
+                }
             }
             actionCard(symbol: "tshirt.fill", title: "Studio",
                        subtitle: "Selbst gestalten".loc,

@@ -1,17 +1,35 @@
 import SwiftUI
 
+/// Look of the code-drawn "person" buddy (BuddyCharacterView).
+struct PersonTraits: Codable, Equatable, Hashable {
+    var skin = 1
+    var hair = 0
+    var style = 0
+    var shirt = 0
+
+    static func random() -> PersonTraits {
+        PersonTraits(skin: Int.random(in: 0..<BuddyCharacterView.skins.count),
+                     hair: Int.random(in: 0..<BuddyCharacterView.hairColors.count),
+                     style: Int.random(in: 0..<BuddyCharacterView.styleCount),
+                     shirt: Int.random(in: 0..<BuddyCharacterView.shirtCount))
+    }
+}
+
 /// A user's personal mascot. Three pools: the Zwäg blob set (18, asset
 /// catalog) and 250 funky avatar characters per gender (bundled PNGs,
-/// DiceBear avataaars, free for commercial use).
+/// DiceBear avataaars, free for commercial use), plus the code-drawn
+/// "person" whose body follows the user's weight.
 /// Deterministic seeding gives battle opponents stable faces.
 struct Buddy: Codable, Equatable, Hashable {
-    /// "blob", "m", "f", "custom", "styled" or "photo".
+    /// "blob", "m", "f", "custom", "styled", "photo" or "person".
     var kind: String
     var index: Int
     /// Wardrobe traits and cached image file for kind "custom".
     var traits: AvatarTraits?
     /// Catalog style traits for kind "styled".
     var styled: StyledTraits?
+    /// Look of the code-drawn person for kind "person".
+    var person: PersonTraits?
     var file: String?
 
     static let blobColorCount = 6
@@ -33,7 +51,7 @@ struct Buddy: Codable, Equatable, Hashable {
 
     var assetName: String {
         switch kind {
-        case "custom", "styled", "photo":
+        case "custom", "styled", "photo", "person":
             return ""
         case "m", "f":
             return "\(kind)-\(index % Self.avatarCount)"
@@ -54,6 +72,12 @@ struct Buddy: Codable, Equatable, Hashable {
 
     static func randomBlob() -> Buddy {
         Buddy(kind: "blob", index: Int.random(in: 0..<blobCount))
+    }
+
+    static func randomPerson() -> Buddy {
+        var buddy = Buddy(kind: "person", index: 0)
+        buddy.person = .random()
+        return buddy
     }
 
     static func custom(traits: AvatarTraits, file: String) -> Buddy {
@@ -113,6 +137,7 @@ struct Buddy: Codable, Equatable, Hashable {
             self.index = index
             traits = try container.decodeIfPresent(AvatarTraits.self, forKey: .traits)
             styled = try container.decodeIfPresent(StyledTraits.self, forKey: .styled)
+            person = try container.decodeIfPresent(PersonTraits.self, forKey: .person)
             file = try container.decodeIfPresent(String.self, forKey: .file)
             return
         }

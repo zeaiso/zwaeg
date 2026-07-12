@@ -123,6 +123,9 @@ struct DiaryView: View {
                         route = .details
                     }
                 }
+                if LaunchArgs.all.contains("-person-buddy"), profile.buddy.kind != "person" {
+                    profile.buddy = .randomPerson()
+                }
                 celebrateStreakIfNeeded()
             }
         }
@@ -138,10 +141,22 @@ struct DiaryView: View {
         }
     }
 
+    /// 0 = slim at BMI 21 and below, 1 = maximally round at BMI 35 and up.
+    /// Follows the latest logged weight, so the person buddy slims down live.
+    private var buddyBodyFactor: Double {
+        let currentKg = weights.last?.weightKg ?? profile.weightKg
+        let bmi = CalorieMath.bmi(weightKg: currentKg, heightCm: profile.heightCm)
+        return min(max((bmi - 21) / 14, 0), 1)
+    }
+
     private var header: some View {
         HStack(spacing: 12) {
             ZStack(alignment: .bottomTrailing) {
-                BuddyPoseView(buddy: profile.buddy, size: 46, pose: buddyPose)
+                BuddyPoseView(buddy: profile.buddy,
+                              size: profile.buddy.kind == "person" ? 58 : 46,
+                              pose: buddyPose,
+                              bodyFactor: buddyBodyFactor,
+                              energetic: activity.steps >= 8000)
                 if let mood = buddyMood {
                     Image(systemName: mood.symbol)
                         .font(.system(size: 9, weight: .bold))
