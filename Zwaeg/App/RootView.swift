@@ -128,14 +128,11 @@ struct MainTabView: View {
                 case 3: CalculatorsView(profile: profile)
                 case 4: ProfileView(profile: profile)
                 case 5: RecipesScreen(profile: profile)
-                case 6: NavigationStack { FastingView(profile: profile) }
+                case 6: NavigationStack { FastingView(profile: profile).tabBarClearance() }
                 default: DiaryView(profile: profile)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .safeAreaInset(edge: .bottom) {
-                Color.clear.frame(height: router.tabBarHidden ? 0 : 66)
-            }
 
             if !router.tabBarHidden {
                 ZwaegTabBar(router: router)
@@ -148,8 +145,59 @@ struct MainTabView: View {
     }
 }
 
+extension View {
+    /// Reserves space for the floating tab bar. Apply inside each tab's
+    /// NavigationStack root: SwiftUI's safeAreaInset cannot cross the UIKit
+    /// container boundary, so scroll content would end up behind the bar.
+    func tabBarClearance() -> some View {
+        background(TabBarSafeArea(inset: TabRouter.shared.tabBarHidden ? 0 : ZwaegTabBar.clearance))
+    }
+}
+
+/// Sets the floating tab bar's height as additionalSafeAreaInsets on the
+/// enclosing UINavigationController, so every pushed view and scroll view
+/// inherits the clearance the same way they would from a system tab bar.
+private struct TabBarSafeArea: UIViewRepresentable {
+    var inset: CGFloat
+
+    func makeUIView(context: Context) -> InsetApplier { InsetApplier() }
+
+    func updateUIView(_ view: InsetApplier, context: Context) {
+        view.inset = inset
+    }
+
+    final class InsetApplier: UIView {
+        var inset: CGFloat = 0 { didSet { apply() } }
+
+        override func didMoveToWindow() {
+            super.didMoveToWindow()
+            apply()
+        }
+
+        private func apply() {
+            guard window != nil else { return }
+            var responder: UIResponder? = self
+            while let current = responder {
+                if let nav = (current as? UIViewController)?.navigationController
+                            ?? current as? UINavigationController {
+                    if nav.additionalSafeAreaInsets.bottom != inset {
+                        nav.additionalSafeAreaInsets.bottom = inset
+                    }
+                    return
+                }
+                responder = current.next
+            }
+        }
+    }
+}
+
 /// Floating pill tab bar, icon only: active tab in a coral circle, dark scan button.
 struct ZwaegTabBar: View {
+    /// Height the bar occupies above the bottom safe area: capsule (56pt row
+    /// + 2x9 padding) + 4pt bottom padding. The raised scan button may overlap
+    /// content slightly by design.
+    static let clearance: CGFloat = 78
+
     @Bindable var router: TabRouter
 
     var body: some View {

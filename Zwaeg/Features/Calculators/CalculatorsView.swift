@@ -36,6 +36,7 @@ struct CalculatorsView: View {
                 .padding(.bottom, 24)
             }
             .background(Theme.background)
+            .tabBarClearance()
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(item: $route) { route in
                 switch route {

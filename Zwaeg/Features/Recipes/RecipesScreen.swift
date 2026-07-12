@@ -55,6 +55,7 @@ struct RecipesScreen: View {
                 .padding(16)
             }
             .background(Theme.background)
+            .tabBarClearance()
             .navigationTitle("Rezepte".loc)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

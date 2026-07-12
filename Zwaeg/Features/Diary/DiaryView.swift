@@ -65,6 +65,7 @@ struct DiaryView: View {
             }
             .defaultScrollAnchor(LaunchArgs.all.contains("-scroll-bottom") ? .bottom : .top)
             .background(Theme.background)
+            .tabBarClearance()
             .overlay {
                 ConfettiBurst(trigger: confettiTrigger)
                     .allowsHitTesting(false)

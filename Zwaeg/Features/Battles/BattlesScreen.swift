@@ -38,6 +38,7 @@ struct BattlesScreen: View {
                 .padding(16)
             }
             .background(Theme.background)
+            .tabBarClearance()
             .navigationTitle("Battles")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
