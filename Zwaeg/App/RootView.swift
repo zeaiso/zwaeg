@@ -134,7 +134,9 @@ struct MainTabView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-            if !router.tabBarHidden {
+            // The scanner is full-screen camera with its own back button,
+            // so the floating bar stays away there.
+            if !router.tabBarHidden && selection != 2 {
                 ZwaegTabBar(router: router)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
