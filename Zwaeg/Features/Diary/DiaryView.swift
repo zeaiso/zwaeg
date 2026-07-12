@@ -370,6 +370,9 @@ struct DiaryView: View {
                     .offset(x: -230, y: 150)
             }
             .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+            // clipShape only clips drawing, not hit testing: the circle overflowing
+            // the card top would otherwise swallow taps on the header buttons above.
+            .allowsHitTesting(false)
         }
     }
 
