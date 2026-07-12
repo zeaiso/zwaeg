@@ -1,0 +1,9 @@
+# The app has zero package dependencies; keep the GitHub Actions fresh.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    labels:
+      - ci
