@@ -23,6 +23,13 @@ final class HealthKitService {
         isConnected = UserDefaults.standard.bool(forKey: Self.connectedKey)
     }
 
+    /// Forgets the connection (data wipe); the HealthKit permissions
+    /// themselves stay managed by iOS.
+    func disconnect() {
+        UserDefaults.standard.removeObject(forKey: Self.connectedKey)
+        isConnected = false
+    }
+
     func requestAuthorization() async {
         do {
             try await store.requestAuthorization(

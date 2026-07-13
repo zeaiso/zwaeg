@@ -4,6 +4,9 @@ import SwiftData
 struct ProfileView: View {
     @Bindable var profile: UserProfile
     @Query private var foodEntries: [FoodEntry]
+    @Environment(\.modelContext) private var context
+
+    @State private var showDeleteConfirm = false
 
     /// One destination for the debug-arg navigation; stacked
     /// navigationDestination modifiers broke touch delivery on iOS 17.
@@ -27,6 +30,7 @@ struct ProfileView: View {
                 .padding(.horizontal, 16)
                 .padding(.bottom, 24)
             }
+            .defaultScrollAnchor(LaunchArgs.all.contains("-scroll-bottom") ? .bottom : .top)
             .background(Theme.background)
             .tabBarClearance()
             .toolbar(.hidden, for: .navigationBar)
@@ -54,6 +58,9 @@ struct ProfileView: View {
                 }
                 if LaunchArgs.all.contains("-open-look") {
                     route = .look
+                }
+                if LaunchArgs.all.contains("-wipe-data") {
+                    DataReset.wipeAll(context: context)
                 }
             }
         }
@@ -203,6 +210,43 @@ struct ProfileView: View {
             accountRow("Hilfe & Support".loc, symbol: "questionmark.circle.fill", color: Color(red: 1.0, green: 0.63, blue: 0.14)) {
                 AboutView()
             }
+            deleteRow
+        }
+    }
+
+    // MARK: - Delete all data
+
+    /// Everything is local, so this is the one place the user can start
+    /// over: SwiftData, preferences, cached files, reminders.
+    private var deleteRow: some View {
+        Button {
+            showDeleteConfirm = true
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "trash.fill")
+                    .font(.fredoka(13, .semibold))
+                    .foregroundStyle(.red)
+                    .frame(width: 36, height: 36)
+                    .background(.red.opacity(0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                Text("Alle Daten löschen".loc)
+                    .font(.fredoka(15, .semibold))
+                    .foregroundStyle(.red)
+                Spacer()
+            }
+            .padding(14)
+            .background(Theme.card, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
+        }
+        .buttonStyle(.plain)
+        .confirmationDialog("Alle Daten löschen".loc,
+                            isPresented: $showDeleteConfirm,
+                            titleVisibility: .visible) {
+            Button("Ja, alles löschen".loc, role: .destructive) {
+                DataReset.wipeAll(context: context)
+            }
+            Button("Abbrechen".loc, role: .cancel) {}
+        } message: {
+            Text("Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.".loc)
         }
     }
 
