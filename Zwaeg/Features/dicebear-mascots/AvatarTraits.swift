@@ -89,12 +89,17 @@ struct AvatarTraits: Codable, Equatable, Hashable {
     }
 
     /// Live preview through the DiceBear 10.x API.
-    var previewURL: URL? {
+    var previewURL: URL? { renderURL(background: "F3ECE7") }
+
+    /// Transparent render used as the head of the whole-body figure,
+    /// so no background tile sits on the drawn body.
+    var headURL: URL? { renderURL(background: nil) }
+
+    private func renderURL(background: String?) -> URL? {
         var components = URLComponents(string: "https://api.dicebear.com/10.x/avataaars/png")
         var items = [
             URLQueryItem(name: "seed", value: "zwaeg"),
             URLQueryItem(name: "size", value: "256"),
-            URLQueryItem(name: "backgroundColor", value: "F3ECE7"),
             URLQueryItem(name: "hairColor", value: hairColor),
             URLQueryItem(name: "skinColor", value: skinColor),
             URLQueryItem(name: "clothesVariant", value: clothes),
@@ -124,6 +129,9 @@ struct AvatarTraits: Codable, Equatable, Hashable {
             items.append(URLQueryItem(name: "facialHairColor", value: hairColor))
         } else {
             items.append(URLQueryItem(name: "facialHairProbability", value: "0"))
+        }
+        if let background {
+            items.append(URLQueryItem(name: "backgroundColor", value: background))
         }
         components?.queryItems = items
         return components?.url

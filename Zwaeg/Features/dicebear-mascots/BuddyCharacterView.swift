@@ -137,6 +137,42 @@ struct PersonLook: Equatable {
 }
 
 extension Buddy {
+    /// Transparent studio render (no background tile) used as the head of
+    /// the whole-body weight character, so the figure carries the exact
+    /// face the user designed and still reads as one drawn person.
+    var headRenderURL: URL? {
+        switch kind {
+        case "custom": return traits?.headURL
+        case "styled": return styled?.headURL
+        default: return nil
+        }
+    }
+
+    /// Cache location for the transparent head render, keyed by the render
+    /// URL so a new studio look fetches a new file.
+    private var headCacheURL: URL? {
+        guard let url = headRenderURL,
+              let folder = FileManager.default.urls(for: .documentDirectory,
+                                                    in: .userDomainMask).first else { return nil }
+        var hash: UInt64 = 5381
+        for byte in url.absoluteString.utf8 {
+            hash = hash &* 33 &+ UInt64(byte)
+        }
+        return folder.appendingPathComponent("buddy-head-\(hash).png")
+    }
+
+    /// The cached transparent head, downloading it once per look. Returns
+    /// nil (drawn face fallback) when offline and not yet cached.
+    func loadHeadImage() async -> UIImage? {
+        guard let cache = headCacheURL else { return nil }
+        if let image = UIImage(contentsOfFile: cache.path) { return image }
+        guard let url = headRenderURL,
+              let (data, _) = try? await URLSession.shared.data(from: url),
+              let image = UIImage(data: data) else { return nil }
+        try? data.write(to: cache)
+        return image
+    }
+
     /// The look driving the whole-body weight character, when one can be
     /// derived: studio buddies use their exact wardrobe colors, the drawn
     /// person kind its palette. Image-only kinds return nil and stay chips.
@@ -156,6 +192,28 @@ extension Buddy {
     }
 }
 
+/// Whole-body weight figure for a buddy: the drawn body plus, for studio
+/// buddies, the transparent studio render as the head. Falls back to the
+/// drawn approximation until the head is cached.
+struct PersonFigureView: View {
+    let buddy: Buddy
+    var factor: Double
+    var pose: BuddyPose = .neutral
+    var energetic: Bool = false
+
+    @State private var headImage: UIImage?
+
+    var body: some View {
+        if let look = buddy.personLook {
+            BuddyCharacterView(look: look, factor: factor, pose: pose,
+                               energetic: energetic, headImage: headImage)
+                .task(id: buddy) {
+                    headImage = await buddy.loadHeadImage()
+                }
+        }
+    }
+}
+
 /// A whole cartoon person drawn in code, so the body can smoothly follow
 /// the user's weight. Factor 0 is slim, 1 is maximally round.
 /// headOnly renders just the face for small chip contexts.
@@ -165,14 +223,18 @@ struct BuddyCharacterView: View {
     var pose: BuddyPose = .neutral
     var energetic: Bool = false
     var headOnly: Bool = false
+    /// Exact studio render replacing the drawn head, so the figure keeps
+    /// the face the user designed. The body is still drawn from `look`.
+    var headImage: UIImage? = nil
 
     init(look: PersonLook, factor: Double = 0.35, pose: BuddyPose = .neutral,
-         energetic: Bool = false, headOnly: Bool = false) {
+         energetic: Bool = false, headOnly: Bool = false, headImage: UIImage? = nil) {
         self.look = look
         self.factor = factor
         self.pose = pose
         self.energetic = energetic
         self.headOnly = headOnly
+        self.headImage = headImage
     }
 
     init(traits: PersonTraits, factor: Double = 0.35, pose: BuddyPose = .neutral,
@@ -270,12 +332,17 @@ struct BuddyCharacterView: View {
                 torso.addQuadCurve(to: pt(150 - shoulderHalf, shoulderY + 14),
                                    control: pt(150 - shoulderHalf, shoulderY - 8))
                 torso.closeSubpath()
-                ctx.fill(torso, with: .linearGradient(
-                    Gradient(colors: [shirt.opacity(0.85), shirt]),
-                    startPoint: pt(90, shoulderY), endPoint: pt(210, hemY)))
+                // flat fill under a studio head render, so the bust's shirt
+                // and the drawn torso merge without a visible edge
+                ctx.fill(torso, with: headImage != nil
+                    ? .color(shirt)
+                    : .linearGradient(
+                        Gradient(colors: [shirt.opacity(0.85), shirt]),
+                        startPoint: pt(90, shoulderY), endPoint: pt(210, hemY)))
 
-                // outfit details on the torso
-                switch look.clothes {
+                // outfit details on the torso (the studio bust brings its
+                // own collar and outfit top, so skip them under a render)
+                switch headImage == nil ? look.clothes : .plain {
                 case .hoodie:
                     var hood = Path()
                     hood.addEllipse(in: rect(150 - 34, shoulderY - 8, 68, 30))
@@ -351,6 +418,16 @@ struct BuddyCharacterView: View {
                 neck.addRoundedRect(in: rect(150 - 15, 150, 30, 50),
                                     cornerSize: CGSize(width: 10 * u, height: 10 * u))
                 ctx.fill(neck, with: .color(skin.1))
+            }
+
+            // studio buddies: the transparent render is the head, exactly
+            // as designed — hair, face and all. Its bust bottoms out right
+            // on the drawn shoulders so both halves read as one person.
+            if let headImage {
+                let side = 185.0
+                ctx.draw(Image(uiImage: headImage),
+                         in: rect(headCX - side / 2, 210 - side, side, side))
+                return
             }
 
             // long hair: strands behind the head falling to shoulder height,

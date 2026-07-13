@@ -155,14 +155,22 @@ struct StyledTraits: Codable, Equatable, Hashable {
     }
 
     /// Live preview through the DiceBear 10.x API.
-    var previewURL: URL? {
+    var previewURL: URL? { renderURL(background: "F3ECE7") }
+
+    /// Transparent render used as the head of the whole-body figure,
+    /// so no background tile sits on the drawn body.
+    var headURL: URL? { renderURL(background: nil) }
+
+    private func renderURL(background: String?) -> URL? {
         guard let spec = StyleCatalog.style(style) else { return nil }
         var components = URLComponents(string: "https://api.dicebear.com/10.x/\(style)/png")
         var items = [
             URLQueryItem(name: "seed", value: "zwaeg"),
             URLQueryItem(name: "size", value: "256"),
-            URLQueryItem(name: "backgroundColor", value: "F3ECE7"),
         ]
+        if let background {
+            items.append(URLQueryItem(name: "backgroundColor", value: background))
+        }
         for option in spec.options {
             if let value = variants[option.param] {
                 items.append(URLQueryItem(name: "\(option.param)Variant", value: value))

@@ -130,6 +130,15 @@ struct DiaryView: View {
                     traits.clothesColor = "5199e4"
                     var studioBuddy = Buddy(kind: "custom", index: 0)
                     studioBuddy.traits = traits
+                    // A pre-seeded render (dropped into Documents before
+                    // launch) lets screenshots show the real studio head.
+                    let testFile = "custom-buddy-test.png"
+                    if let folder = FileManager.default.urls(for: .documentDirectory,
+                                                             in: .userDomainMask).first,
+                       FileManager.default.fileExists(
+                           atPath: folder.appendingPathComponent(testFile).path) {
+                        studioBuddy.file = testFile
+                    }
                     profile.buddy = studioBuddy
                 }
                 celebrateStreakIfNeeded()

@@ -25,9 +25,9 @@ struct BuddyPoseView: View {
     var body: some View {
         ZStack {
             Group {
-                if let look = buddy.personLook, let bodyFactor {
-                    BuddyCharacterView(look: look, factor: bodyFactor, pose: pose,
-                                       energetic: energetic)
+                if buddy.personLook != nil, let bodyFactor {
+                    PersonFigureView(buddy: buddy, factor: bodyFactor, pose: pose,
+                                     energetic: energetic)
                         .frame(height: size)
                 } else {
                     BuddyView(buddy: buddy, size: size)
