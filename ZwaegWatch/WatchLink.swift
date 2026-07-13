@@ -22,7 +22,13 @@ final class WatchLink: NSObject, WCSessionDelegate {
     func addWater() {
         snapshot?.glasses += 1
         guard WCSession.default.activationState == .activated else { return }
-        WCSession.default.sendMessage(["addWater": 1], replyHandler: nil)
+        if WCSession.default.isReachable {
+            WCSession.default.sendMessage(["addWater": 1], replyHandler: nil)
+        } else {
+            // Queued delivery, so wrist taps survive the phone app not
+            // running; applied via didReceiveUserInfo on the next launch.
+            WCSession.default.transferUserInfo(["addWater": 1])
+        }
     }
 
     private func readContext(_ context: [String: Any]) {

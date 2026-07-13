@@ -199,7 +199,9 @@ extension Recipe {
         let slug = id.replacingOccurrences(of: "ä", with: "ae")
             .replacingOccurrences(of: "ö", with: "oe")
             .replacingOccurrences(of: "ü", with: "ue")
-        return URL(string: "https://zwaeg.app/rezepte/\(slug)/")!
+            .addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        return URL(string: "https://zwaeg.app/rezepte/\(slug)/")
+            ?? URL(string: "https://zwaeg.app/rezepte/")!
     }
 }
 

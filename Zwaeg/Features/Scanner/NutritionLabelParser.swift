@@ -26,10 +26,19 @@ enum NutritionLabelParser {
         guard let cgImage = image.cgImage else { return [] }
         let orientation = CGImagePropertyOrientation(image.imageOrientation)
         return await withCheckedContinuation { continuation in
+            // perform() can throw after the completion handler already ran;
+            // both paths execute on the same queue, so a flag suffices to
+            // keep the continuation from resuming twice.
+            var resumed = false
+            func finish(_ lines: [String]) {
+                guard !resumed else { return }
+                resumed = true
+                continuation.resume(returning: lines)
+            }
             let request = VNRecognizeTextRequest { request, _ in
                 let lines = (request.results as? [VNRecognizedTextObservation])?
                     .compactMap { $0.topCandidates(1).first?.string } ?? []
-                continuation.resume(returning: lines)
+                finish(lines)
             }
             request.recognitionLevel = .accurate
             request.usesLanguageCorrection = false
@@ -39,7 +48,7 @@ enum NutritionLabelParser {
                 do {
                     try handler.perform([request])
                 } catch {
-                    continuation.resume(returning: [])
+                    finish([])
                 }
             }
         }

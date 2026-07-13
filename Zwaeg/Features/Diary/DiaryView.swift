@@ -645,7 +645,10 @@ struct DiaryView: View {
                 context.insert(WaterDay(day: selectedDay, glasses: glasses))
             }
         }
-        syncLiveActivity()
+        // A freshly inserted WaterDay is not in the @Query array yet, so
+        // pass today's count along instead of re-reading it.
+        let isToday = selectedDay == Calendar.current.startOfDay(for: .now)
+        syncLiveActivity(todayGlasses: isToday ? max(0, glasses) : nil)
     }
 
     // MARK: - Meals
@@ -898,14 +901,14 @@ struct DiaryView: View {
     }
 
     /// Mirrors today's numbers onto the lock screen / Dynamic Island.
-    private func syncLiveActivity() {
+    private func syncLiveActivity(todayGlasses: Int? = nil) {
         let today = Calendar.current.startOfDay(for: .now)
         let todayEntries = allEntries.filter { $0.day == today }
         DayActivityController.sync(
             consumed: todayEntries.reduce(0) { $0 + $1.calories },
             target: profile.dailyCalorieTarget,
             burned: selectedDay == today ? activity.activeKcal : 0,
-            glasses: waterDays.first { $0.day == today }?.glasses ?? 0,
+            glasses: todayGlasses ?? waterDays.first { $0.day == today }?.glasses ?? 0,
             waterGoal: profile.waterGoalGlasses,
             fastingEnd: fastingSessions.first { $0.isActive }?.goalEnd)
     }

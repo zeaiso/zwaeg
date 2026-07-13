@@ -33,9 +33,32 @@ enum BuddyCloset {
         buddies.removeAll { $0 == buddy }
         persist(buddies)
         // Clean up the cached image unless the look is still being worn.
-        if ["custom", "photo"].contains(buddy.kind), buddy != current,
+        if ["custom", "styled", "photo"].contains(buddy.kind), buddy != current,
            let path = buddy.customImagePath {
             try? FileManager.default.removeItem(atPath: path)
+        }
+    }
+
+    /// Deletes cached buddy images that no saved or worn look references
+    /// anymore: renders orphaned by studio re-saves, looks trimmed by the
+    /// capacity cap, and stale transparent heads. Runs once per launch.
+    static func sweepOrphanedFiles(worn: Buddy) {
+        let manager = FileManager.default
+        guard let documents = manager.urls(for: .documentDirectory, in: .userDomainMask).first,
+              let files = try? manager.contentsOfDirectory(atPath: documents.path) else { return }
+        var referenced = Set<String>()
+        for buddy in load() + [worn] {
+            if let file = buddy.file {
+                referenced.insert(file)
+            }
+            if let head = buddy.headCacheURL?.lastPathComponent {
+                referenced.insert(head)
+            }
+        }
+        for file in files
+        where (file.hasPrefix("custom-buddy-") || file.hasPrefix("photo-")
+               || file.hasPrefix("buddy-head-")) && !referenced.contains(file) {
+            try? manager.removeItem(at: documents.appendingPathComponent(file))
         }
     }
 

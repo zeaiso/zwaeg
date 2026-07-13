@@ -16,7 +16,7 @@ struct BuddyView: View {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: buddy.kind == "photo" ? .fill : .fit)
-            } else if let image = UIImage(named: buddy.assetName) {
+            } else if !buddy.assetName.isEmpty, let image = UIImage(named: buddy.assetName) {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()

@@ -630,15 +630,19 @@ struct RemindersView: View {
                     Divider()
                     ForEach(times.water.indices, id: \.self) { index in
                         HStack {
+                            // Bounds-checked: rows animating out after a
+                            // removal re-evaluate against the shorter array.
                             DatePicker("", selection: minuteBinding(
-                                get: { times.water[index] },
-                                set: { times.water[index] = $0 }),
+                                get: { times.water.indices.contains(index) ? times.water[index] : 12 * 60 },
+                                set: { if times.water.indices.contains(index) { times.water[index] = $0 } }),
                                 displayedComponents: .hourAndMinute)
                                 .labelsHidden()
                             Spacer()
                             Button {
                                 withAnimation(.snappy) {
-                                    _ = times.water.remove(at: index)
+                                    if times.water.indices.contains(index) {
+                                        _ = times.water.remove(at: index)
+                                    }
                                 }
                             } label: {
                                 Image(systemName: "xmark")

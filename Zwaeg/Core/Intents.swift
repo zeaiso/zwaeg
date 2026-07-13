@@ -22,7 +22,7 @@ struct LogWaterIntent: AppIntent {
             context.insert(WaterDay(day: today, glasses: glasses))
             total = glasses
         }
-        try? context.save()
+        try context.save()
         DayActivityController.syncFromStore()
         return .result(dialog: IntentDialog(stringLiteral:
             "Wasser geloggt. Heute insgesamt: %d Gläser.".loc(total)))

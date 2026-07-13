@@ -150,7 +150,7 @@ extension Buddy {
 
     /// Cache location for the transparent head render, keyed by the render
     /// URL so a new studio look fetches a new file.
-    private var headCacheURL: URL? {
+    var headCacheURL: URL? {
         guard let url = headRenderURL,
               let folder = FileManager.default.urls(for: .documentDirectory,
                                                     in: .userDomainMask).first else { return nil }

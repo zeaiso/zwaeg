@@ -32,6 +32,15 @@ final class PhoneWatchLink: NSObject, WCSessionDelegate {
     }
 
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
+        applyWater(message)
+    }
+
+    /// Queued wrist taps sent while the phone app wasn't reachable.
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
+        applyWater(userInfo)
+    }
+
+    private func applyWater(_ message: [String: Any]) {
         // Clamped so a misbehaving counterpart cannot inject absurd values.
         guard let add = message["addWater"] as? Int, (-5...5).contains(add) else { return }
         Task { @MainActor in

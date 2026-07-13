@@ -21,6 +21,7 @@ struct OnboardingView: View {
     @State private var activity: ActivityLevel = .moderate
     @State private var goal: Goal = .lose
     @State private var buddy = Buddy(kind: "", index: 0)
+    @State private var finished = false
 
     private var target: Int {
         CalorieMath.dailyTarget(sex: sex, weightKg: weightKg, heightCm: heightCm,
@@ -379,6 +380,11 @@ struct OnboardingView: View {
     }
 
     private func finish() {
+        // A fast double-tap on the finish button must not insert a second
+        // profile; everything downstream keys off profiles.first.
+        guard !finished,
+              (try? context.fetchCount(FetchDescriptor<UserProfile>())) ?? 0 == 0 else { return }
+        finished = true
         let profile = UserProfile(name: String(name.trimmingCharacters(in: .whitespaces).prefix(40)),
                                   sex: sex, age: Int(age), heightCm: heightCm,
                                   weightKg: weightKg, activity: activity, goal: goal)

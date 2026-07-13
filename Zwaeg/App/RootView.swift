@@ -44,6 +44,9 @@ struct RootView: View {
         .environment(\.locale, Lingo.shared.language.locale)
         .environment(\.layoutDirection, Lingo.shared.language.isRTL ? .rightToLeft : .leftToRight)
         .onAppear {
+            if let profile = profiles.first {
+                BuddyCloset.sweepOrphanedFiles(worn: profile.buddy)
+            }
             if LaunchArgs.seedProfile && BuddyCloset.load().isEmpty {
                 BuddyCloset.add(Buddy(kind: "m", index: 7))
                 BuddyCloset.add(Buddy(kind: "f", index: 42))

@@ -1,6 +1,7 @@
 import SwiftData
 import SwiftUI
 import UserNotifications
+import WidgetKit
 
 /// Wipes every piece of local data: the SwiftData store, preferences
 /// (including the watch snapshot suite), cached buddy renders and photos,
@@ -47,6 +48,8 @@ enum DataReset {
         if UIApplication.shared.alternateIconName != nil {
             UIApplication.shared.setAlternateIconName(nil)
         }
+        // Widgets would otherwise keep showing the last day snapshot.
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     private static func wipe(_ defaults: UserDefaults) {
