@@ -197,6 +197,15 @@ struct ChallengeSyncService {
         }
     }
 
+    /// Hard cap on participants pulled from the public database. Real battles
+    /// are a handful of friends; the cap stops a hostile code holder from
+    /// writing tens of thousands of score records under distinct participant
+    /// IDs, which would otherwise be decoded, merged, re-encoded into SwiftData
+    /// on the main actor and rendered row by row until the app runs out of
+    /// memory. Once the roster is full, only scores for already-known
+    /// participants are applied and pagination stops.
+    static let maxParticipants = 50
+
     @MainActor
     private func pullAllScores(_ challenge: Challenge) async throws {
         let query = CKQuery(recordType: "Score",
@@ -231,13 +240,15 @@ struct ChallengeSyncService {
                         participants[index].scores[entry.dayKey] = entry.value
                         participants[index].name = entry.name
                     }
-                } else {
+                } else if participants.count < Self.maxParticipants {
                     participants.append(ParticipantScore(
                         id: entry.participantID, name: entry.name, isMe: false,
                         scores: [entry.dayKey: entry.value]))
                 }
             }
-            cursor = page.queryCursor
+            // Stop paging once the roster is full: further pages can only add
+            // participants we are now refusing anyway.
+            cursor = participants.count < Self.maxParticipants ? page.queryCursor : nil
         } while cursor != nil
 
         challenge.participants = participants

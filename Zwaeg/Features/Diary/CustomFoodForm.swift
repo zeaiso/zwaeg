@@ -145,7 +145,9 @@ struct CustomFoodForm: View {
             carbsPer100g: clamped(carbs, max: 100),
             fatPer100g: clamped(fat, max: 100),
             barcode: barcode,
-            servingGrams: Self.number(portionGrams).flatMap { $0 > 0 ? $0 : nil })
+            servingGrams: Self.number(portionGrams).flatMap {
+                $0.isFinite && $0 > 0 ? min($0, FoodProduct.maxServingGrams) : nil
+            })
         context.insert(food)
         onCreated(food.asProduct)
         dismiss()

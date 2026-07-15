@@ -31,14 +31,27 @@ struct FoodProduct: Identifiable, Hashable {
         return name
     }
 
-    func kcal(for grams: Double) -> Int {
-        Int((kcalPer100g * grams / 100).rounded())
+    /// Largest portion any source may claim. Guards the Int conversions below:
+    /// nutrition values are already clamped per 100 g, but an unbounded serving
+    /// size (a malformed Open Food Facts serving_quantity, or a very long number
+    /// typed into the custom-food form) would otherwise reach Int() as a
+    /// non-finite or out-of-range Double and crash.
+    static let maxServingGrams: Double = 10_000
+
+    /// A grams amount safe to multiply and cast to Int.
+    private func safeGrams(_ grams: Double) -> Double {
+        guard grams.isFinite, grams > 0 else { return 0 }
+        return min(grams, Self.maxServingGrams)
     }
 
-    func protein(for grams: Double) -> Double { proteinPer100g * grams / 100 }
-    func carbs(for grams: Double) -> Double { carbsPer100g * grams / 100 }
-    func fat(for grams: Double) -> Double { fatPer100g * grams / 100 }
-    func sugar(for grams: Double) -> Double? { sugarPer100g.map { $0 * grams / 100 } }
-    func salt(for grams: Double) -> Double? { saltPer100g.map { $0 * grams / 100 } }
-    func fiber(for grams: Double) -> Double? { fiberPer100g.map { $0 * grams / 100 } }
+    func kcal(for grams: Double) -> Int {
+        Int((kcalPer100g * safeGrams(grams) / 100).rounded())
+    }
+
+    func protein(for grams: Double) -> Double { proteinPer100g * safeGrams(grams) / 100 }
+    func carbs(for grams: Double) -> Double { carbsPer100g * safeGrams(grams) / 100 }
+    func fat(for grams: Double) -> Double { fatPer100g * safeGrams(grams) / 100 }
+    func sugar(for grams: Double) -> Double? { sugarPer100g.map { $0 * safeGrams(grams) / 100 } }
+    func salt(for grams: Double) -> Double? { saltPer100g.map { $0 * safeGrams(grams) / 100 } }
+    func fiber(for grams: Double) -> Double? { fiberPer100g.map { $0 * safeGrams(grams) / 100 } }
 }

@@ -68,7 +68,9 @@ enum OpenFoodFactsClient {
             fatPer100g: clamped(nutriments?.fat100g, max: 100),
             barcode: digits,
             source: .openFoodFacts,
-            servingGrams: product.servingQuantity.flatMap { $0 > 0 ? $0 : nil },
+            servingGrams: product.servingQuantity.flatMap {
+                $0.isFinite && $0 > 0 ? min($0, FoodProduct.maxServingGrams) : nil
+            },
             sugarPer100g: nutriments?.sugars100g.map { min(100, Swift.max(0, $0)) },
             saltPer100g: nutriments?.salt100g.map { min(100, Swift.max(0, $0)) },
             fiberPer100g: nutriments?.fiber100g.map { min(100, Swift.max(0, $0)) })
