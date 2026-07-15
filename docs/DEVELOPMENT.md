@@ -48,6 +48,7 @@ Useful for driving the app from the CLI or Xcode scheme arguments. All of them w
 | `-open-custom-form` | Opens the custom food form with a prefilled barcode (combine with `-tab 2`) |
 | `-demo-label` | Runs the nutrition label parser on sample OCR lines and opens the prefilled form (combine with `-tab 2`) |
 | `-scroll-bottom` | Opens the diary scrolled to the bottom |
+| `-seed-snapshot` | Watch app only: fakes a synced day snapshot, since no paired iPhone exists on a simulator |
 | `-person-buddy` | Puts a random person buddy on the profile (code drawn, body follows weight) |
 
 Example:

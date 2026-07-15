@@ -13,6 +13,16 @@ final class WatchLink: NSObject, WCSessionDelegate {
 
     override private init() {
         super.init()
+        #if DEBUG
+        // Simulator screenshots: no paired iPhone ever syncs a snapshot there,
+        // so -seed-snapshot fakes a lived-in day. Debug builds only.
+        if CommandLine.arguments.contains("-seed-snapshot") {
+            snapshot = WatchDaySnapshot(
+                consumed: 980, target: 1950, burned: 320, glasses: 4, waterGoal: 8,
+                remainingLabel: "kcal übrig", fastingEnd: .now.addingTimeInterval(3 * 3600))
+            return
+        }
+        #endif
         guard WCSession.isSupported() else { return }
         WCSession.default.delegate = self
         WCSession.default.activate()
