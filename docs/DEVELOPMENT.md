@@ -34,6 +34,7 @@ Useful for driving the app from the CLI or Xcode scheme arguments. All of them w
 | `-open-calendar` | Opens the calendar sheet |
 | `-open-details` | Opens the day details page |
 | `-open-progress` | Opens the progress screen (combine with `-tab 4`) |
+| `-create-battle` | Publishes a real challenge to CloudKit via the production create path; smoke-tests the round trip on a simulator signed into iCloud (combine with `-tab 1`; needs a `ZWAEG_BATTLES` build) |
 | `-open-battle` | Opens the first active battle (combine with `-tab 1`; needs a `ZWAEG_BATTLES` build) |
 | `-open-create` | Opens the new-challenge sheet (combine with `-tab 1`; needs a `ZWAEG_BATTLES` build) |
 | `-open-join` | Opens the join-by-code sheet (combine with `-tab 1`; needs a `ZWAEG_BATTLES` build) |

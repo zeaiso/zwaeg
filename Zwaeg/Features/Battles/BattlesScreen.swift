@@ -77,6 +77,23 @@ struct BattlesScreen: View {
                     .presentationDetents([.medium])
             }
             .task {
+                // Debug: exercises the real create path (publish to CloudKit,
+                // store only on success) without UI driving; used to bootstrap
+                // the CloudKit schema and to smoke-test the round trip from the
+                // command line. LaunchArgs is empty in release builds.
+                if LaunchArgs.all.contains("-create-battle"),
+                   !challenges.contains(where: { $0.code != Challenge.demoCode }) {
+                    do {
+                        let start = Calendar.current.startOfDay(for: .now)
+                        let end = Calendar.current.date(byAdding: .day, value: 6, to: start) ?? start
+                        let code = try await ChallengeSyncService.shared.publishNewChallenge(
+                            name: "CloudKit-Test", metric: .steps, start: start, end: end)
+                        context.insert(Challenge.mine(code: code, name: "CloudKit-Test", metric: .steps,
+                                                      startDay: start, endDay: end, profile: profile))
+                    } catch {
+                        syncError = BattleSyncError.message(for: error)
+                    }
+                }
                 await refreshAll()
                 // Set-only: an unconditional write here would dismiss a sheet
                 // the user opened while refreshAll was still awaiting.
