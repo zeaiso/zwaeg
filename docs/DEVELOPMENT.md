@@ -35,6 +35,8 @@ Useful for driving the app from the CLI or Xcode scheme arguments. All of them w
 | `-open-details` | Opens the day details page |
 | `-open-progress` | Opens the progress screen (combine with `-tab 4`) |
 | `-open-battle` | Opens the first active battle (combine with `-tab 1`) |
+| `-open-create` | Opens the new-challenge sheet (combine with `-tab 1`) |
+| `-open-join` | Opens the join-by-code sheet (combine with `-tab 1`) |
 | `-open-buddy` | Opens the buddy editor (combine with `-tab 4`) |
 | `-studio-style <id>` | Preselects a DiceBear style in the studio, e.g. `notionists` (combine with `-open-studio`) |
 | `-open-challenges` | Opens the challenges page |
@@ -54,9 +56,30 @@ Example:
 xcrun simctl launch "iPhone 17 Pro" ch.emanuell.zwaeg -seed-profile -tab 2 -demo-product
 ```
 
+## CloudKit setup for battles
+
+Battles are the only feature that leaves the device. They use the **public** database of the container `iCloud.ch.emanuell.zwaeg` (see `ChallengeSyncService`), declared in `project.yml` and required for the app to sync scores at all. Everything else stays local: `AppModel` pins `cloudKitDatabase: .none` so SwiftData never mirrors the store.
+
+One-time setup with a paid Apple Developer account:
+
+1. **Developer portal**: register the App ID `ch.emanuell.zwaeg`, enable the iCloud capability, and create the container `iCloud.ch.emanuell.zwaeg`.
+2. **CloudKit Console** (Development environment), create two record types:
+
+   | Record type | Fields |
+   |---|---|
+   | `Challenge` | `code` (String), `name` (String), `metric` (String), `startDay` (Date/Time), `endDay` (Date/Time) |
+   | `Score` | `challengeCode` (String), `participantID` (String), `participantName` (String), `dayKey` (String), `value` (Double) |
+
+3. **Mark `Score.challengeCode` as Queryable.** Pulling a leaderboard queries on it; without the index the query fails and the battles screen shows a generic error. Record names are queryable by default, which is all `Challenge` needs.
+4. **Security roles**: `_world` needs read and write on both types. Anyone holding a join code is an untrusted writer by design, so `ChallengeSyncService` sanitizes every field it reads back.
+5. **Deploy Schema to Production** before shipping a release build. A build signed for production talks to the production environment, which starts out empty.
+
+Testing on a simulator or device needs an iCloud account signed in under Settings. Without one the app still runs and shows the "sign in to iCloud" notice on the battles screen, which is worth checking too.
+
 ## Simulator notes
 
 - The simulator has no camera; the scanner shows a manual barcode entry fallback. Verified test barcode: `7610036010305` (Villars chocolate).
+- Battles need an iCloud account in the simulator's Settings app; without one you get the sign-in notice instead of a leaderboard.
 - The Health store is empty in the simulator; steps and active energy read 0. Add samples in the simulator Health app to test the flow.
 - Downloaded simulator runtimes may lack the color emoji font. The UI uses SF Symbols for anything meaningful.
 - Screenshots: `xcrun simctl io "iPhone 17 Pro" screenshot out.png`

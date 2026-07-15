@@ -10,7 +10,8 @@ struct CreateChallengeSheet: View {
     @State private var name = ""
     @State private var metric: BattleMetric = .steps
     @State private var durationDays = 7
-    @State private var botCount = 2
+    @State private var errorMessage: String?
+    @State private var isCreating = false
 
     var body: some View {
         NavigationStack {
@@ -55,9 +56,13 @@ struct CreateChallengeSheet: View {
                 }
 
                 Section {
-                    Stepper("Demo-Gegner: %d".loc(botCount), value: $botCount, in: 1...3)
+                    if let errorMessage {
+                        Text(errorMessage)
+                            .font(.fredoka(13))
+                            .foregroundStyle(.red)
+                    }
                 } footer: {
-                    Text("Solange iCloud noch nicht aktiviert ist, trittst du gegen Demo-Gegner an. Echte Battles mit Freunden folgen mit dem Apple Developer Konto.".loc)
+                    Text("Du bekommst einen Code zum Teilen. Wer ihn eingibt, tritt gegen dich an.".loc)
                 }
             }
             .navigationTitle("Neue Challenge".loc)
@@ -67,43 +72,51 @@ struct CreateChallengeSheet: View {
                     Button("Abbrechen".loc) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Starten".loc) { create() }
+                    if isCreating {
+                        ProgressView()
+                    } else {
+                        Button("Starten".loc) {
+                            Task { await create() }
+                        }
                         .fontWeight(.semibold)
+                    }
                 }
             }
         }
     }
 
-    private func create() {
+    /// Publishes first and only stores the challenge once CloudKit has accepted
+    /// it: a challenge that exists on this device but not in iCloud would hand
+    /// out a join code that nobody can ever redeem.
+    private func create() async {
+        isCreating = true
+        defer { isCreating = false }
+        errorMessage = nil
+
         let start = Calendar.current.startOfDay(for: .now)
         let end = Calendar.current.date(byAdding: .day, value: durationDays - 1, to: start) ?? start
         let trimmedName = String(name.trimmingCharacters(in: .whitespaces).prefix(40))
+        let finalName = trimmedName.isEmpty ? "%@-Battle".loc(metric.label) : trimmedName
 
-        var participants = [ParticipantScore(
-            id: PlayerIdentity.myID,
-            name: profile.name.isEmpty ? "Du".loc : profile.name,
-            isMe: true,
-            scores: [:])]
-        for bot in BattleScoreEngine.botNames.prefix(botCount) {
-            participants.append(ParticipantScore(id: "bot-\(bot)", name: bot, isMe: false, scores: [:]))
+        do {
+            let code = try await ChallengeSyncService.shared.publishNewChallenge(
+                name: finalName, metric: metric, start: start, end: end)
+            let challenge = Challenge(
+                code: code,
+                name: finalName,
+                metric: metric,
+                startDay: start,
+                endDay: end,
+                participants: [ParticipantScore(
+                    id: PlayerIdentity.myID,
+                    name: profile.battleName,
+                    isMe: true,
+                    scores: [:])])
+            context.insert(challenge)
+            dismiss()
+        } catch {
+            errorMessage = (error as? BattleSyncError ?? .failed).errorDescription
         }
-
-        let challenge = Challenge(
-            code: BattleScoreEngine.makeCode(),
-            name: trimmedName.isEmpty ? "%@-Battle".loc(metric.label) : trimmedName,
-            metric: metric,
-            startDay: start,
-            endDay: end,
-            participants: participants)
-        context.insert(challenge)
-
-        Task {
-            await ChallengeSync.live.refresh(challenge)
-            if AppConfig.cloudKitEnabled {
-                try? await CloudKitChallengeService().publish(challenge)
-            }
-        }
-        dismiss()
     }
 }
 

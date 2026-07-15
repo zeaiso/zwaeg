@@ -351,6 +351,14 @@ final class UserProfile {
         set { buddyRaw = newValue.encoded }
     }
 
+    /// The name other players see on a battle leaderboard. The profile name is
+    /// optional, and the usual "Du" fallback only makes sense on my own screen,
+    /// so unnamed profiles get a neutral stand-in instead.
+    var battleName: String {
+        let trimmed = name.trimmingCharacters(in: .whitespaces)
+        return trimmed.isEmpty ? "Anonym".loc : String(trimmed.prefix(40))
+    }
+
     func recalculateTarget() {
         dailyCalorieTarget = CalorieMath.dailyTarget(
             sex: sex, weightKg: weightKg, heightCm: heightCm, age: age,

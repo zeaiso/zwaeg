@@ -1,5 +1,13 @@
 SIMULATOR := iPhone 17 Pro
 BUNDLE_ID := ch.emanuell.zwaeg
+DESTINATION := platform=iOS Simulator,name=$(SIMULATOR)
+
+# Ask xcodebuild where it put the app instead of globbing DerivedData: a second
+# build directory (from an older checkout or a renamed folder) makes `find | head`
+# install a stale binary that looks convincingly like the current one.
+app_path = $(shell xcodebuild -project Zwaeg.xcodeproj -scheme Zwaeg \
+	-destination '$(DESTINATION)' -showBuildSettings 2>/dev/null \
+	| awk -F' = ' '/ TARGET_BUILD_DIR =/{d=$$2} / FULL_PRODUCT_NAME =/{n=$$2} END{print d"/"n}')
 
 .PHONY: generate build run clean format lint
 
@@ -8,13 +16,12 @@ generate:
 
 build: generate
 	xcodebuild -project Zwaeg.xcodeproj -scheme Zwaeg \
-		-destination 'platform=iOS Simulator,name=$(SIMULATOR)' build
+		-destination '$(DESTINATION)' build
 
 run: build
 	xcrun simctl boot "$(SIMULATOR)" 2>/dev/null || true
 	open -a Simulator
-	xcrun simctl install "$(SIMULATOR)" "$$(find ~/Library/Developer/Xcode/DerivedData \
-		-name 'Zwaeg.app' -path '*iphonesimulator*' -not -path '*Index.noindex*' | head -1)"
+	xcrun simctl install "$(SIMULATOR)" "$(app_path)"
 	xcrun simctl launch "$(SIMULATOR)" $(BUNDLE_ID)
 
 clean:

@@ -49,6 +49,10 @@ targets:
       path: Zwaeg/Zwaeg.entitlements
       properties:
         com.apple.developer.healthkit: true
+        com.apple.developer.icloud-services:
+          - CloudKit
+        com.apple.developer.icloud-container-identifiers:
+          - iCloud.ch.emanuell.zwaeg
         com.apple.security.application-groups:
           - group.ch.emanuell.zwaeg
     settings:

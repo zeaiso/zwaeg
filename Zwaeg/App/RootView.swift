@@ -92,14 +92,20 @@ struct RootView: View {
                 context.insert(WaterDay(day: .now, glasses: 3))
                 let start = Calendar.current.date(byAdding: .day, value: -3, to: .now) ?? .now
                 let end = Calendar.current.date(byAdding: .day, value: 3, to: .now) ?? .now
+                // Real battles fill opponents in from CloudKit, which needs an
+                // account the simulator doesn't have, so the seeded rivals carry
+                // fixed totals. The "seed" day key is deliberate: it is not a
+                // real date, so the score refresh leaves these numbers alone.
                 context.insert(Challenge(
                     code: "DEMO42", name: "Wochenbattle", metric: .steps,
                     startDay: start, endDay: end,
                     participants: [
                         ParticipantScore(id: PlayerIdentity.myID, name: "Livia", isMe: true,
                                          scores: ["seed": 24500]),
-                        ParticipantScore(id: "bot-Luca", name: "Luca", isMe: false, scores: [:]),
-                        ParticipantScore(id: "bot-Mia", name: "Mia", isMe: false, scores: [:]),
+                        ParticipantScore(id: "demo-luca", name: "Luca", isMe: false,
+                                         scores: ["seed": 21000]),
+                        ParticipantScore(id: "demo-mia", name: "Mia", isMe: false,
+                                         scores: ["seed": 18400]),
                     ]))
             }
         }

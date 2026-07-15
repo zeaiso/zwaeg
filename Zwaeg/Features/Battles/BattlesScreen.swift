@@ -11,6 +11,8 @@ struct BattlesScreen: View {
     @State private var showCreate = false
     @State private var showJoin = false
     @State private var debugOpenedChallenge: Challenge?
+    @State private var iCloudAvailable = true
+    @State private var syncError: String?
 
     private var active: [Challenge] { challenges.filter(\.isActive) }
     private var finished: [Challenge] { challenges.filter { !$0.isActive } }
@@ -19,6 +21,12 @@ struct BattlesScreen: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
+                    if !iCloudAvailable {
+                        noticeCard(icon: "icloud.slash",
+                                   text: BattleSyncError.noAccount.errorDescription ?? "")
+                    } else if let syncError {
+                        noticeCard(icon: "exclamationmark.triangle", text: syncError)
+                    }
                     if challenges.isEmpty {
                         emptyState
                     }
@@ -60,7 +68,7 @@ struct BattlesScreen: View {
                 CreateChallengeSheet(profile: profile)
             }
             .sheet(isPresented: $showJoin) {
-                JoinChallengeSheet()
+                JoinChallengeSheet(profile: profile)
                     .presentationDetents([.medium])
             }
             .task {
@@ -68,6 +76,8 @@ struct BattlesScreen: View {
                 if LaunchArgs.all.contains("-open-battle") {
                     debugOpenedChallenge = active.first
                 }
+                showCreate = LaunchArgs.all.contains("-open-create")
+                showJoin = LaunchArgs.all.contains("-open-join")
             }
             .refreshable {
                 await refreshAll()
@@ -75,6 +85,20 @@ struct BattlesScreen: View {
             .navigationDestination(item: $debugOpenedChallenge) { challenge in
                 ChallengeDetailView(challenge: challenge, profile: profile)
             }
+        }
+    }
+
+    private func noticeCard(icon: String, text: String) -> some View {
+        Card {
+            Label {
+                Text(text)
+                    .font(.fredoka(13))
+                    .foregroundStyle(.secondary)
+            } icon: {
+                Image(systemName: icon)
+                    .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 
@@ -146,13 +170,28 @@ struct BattlesScreen: View {
     }
 
     private func refreshAll() async {
+        // My own score comes from the diary and Apple Health, so it stays
+        // current even with no iCloud account; only sharing it needs the network.
         for challenge in active {
             await updateMyScores(challenge)
-            await ChallengeSync.live.refresh(challenge)
+        }
+
+        syncError = nil
+        iCloudAvailable = await ChallengeSyncService.shared.isAvailable()
+        guard iCloudAvailable else { return }
+
+        for challenge in active {
+            do {
+                try await ChallengeSyncService.shared.refresh(challenge)
+            } catch {
+                // One bad challenge shouldn't stop the others from syncing.
+                syncError = (error as? BattleSyncError ?? .failed).errorDescription
+            }
         }
     }
 
     /// Recomputes my score for every elapsed challenge day from diary and Health data.
+    @MainActor
     private func updateMyScores(_ challenge: Challenge) async {
         var participants = challenge.participants
         guard let myIndex = participants.firstIndex(where: \.isMe) else { return }

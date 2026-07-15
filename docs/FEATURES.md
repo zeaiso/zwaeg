@@ -59,7 +59,7 @@ Everything Zwäg can do, in one place. All personal data stays on the device: th
 
 - Challenge friends over steps, active calories or calorie deficit
 - Six character join codes, live leaderboard, medals for the podium
-- CloudKit ready: currently runs locally against demo opponents until the App Store release
+- Scores sync over CloudKit's public database, linked only by the join code. Your own score is computed from the diary and Apple Health and stays up to date even without iCloud; only comparing it with friends needs an account
 
 ## Calculators
 

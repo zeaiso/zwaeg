@@ -2,12 +2,26 @@ import SwiftUI
 import SwiftData
 
 struct JoinChallengeSheet: View {
+    let profile: UserProfile
+
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+
+    @Query private var challenges: [Challenge]
 
     @State private var code = ""
     @State private var errorMessage: String?
     @State private var isLoading = false
+
+    private var trimmedCode: String {
+        code.trimmingCharacters(in: .whitespaces).uppercased()
+    }
+
+    /// Codes become CloudKit record names, so keep them to the strict A–Z/0–9
+    /// alphabet they are generated from.
+    private var isCodeValid: Bool {
+        trimmedCode.count == 6 && trimmedCode.allSatisfy { $0.isASCII && ($0.isLetter || $0.isNumber) }
+    }
 
     var body: some View {
         NavigationStack {
@@ -17,17 +31,6 @@ struct JoinChallengeSheet: View {
                         .textInputAutocapitalization(.characters)
                         .autocorrectionDisabled()
                         .font(.system(.title3, design: .monospaced))
-                }
-                if !AppConfig.cloudKitEnabled {
-                    Section {
-                        Label {
-                            Text("Battles mit echten Freunden brauchen iCloud und kommen mit dem Apple Developer Konto. Bis dahin kannst du Challenges gegen Demo-Gegner starten.".loc)
-                        } icon: {
-                            Image(systemName: "icloud.slash")
-                                .foregroundStyle(.secondary)
-                        }
-                        .font(.fredoka(13))
-                    }
                 }
                 if let errorMessage {
                     Text(errorMessage)
@@ -45,39 +48,48 @@ struct JoinChallengeSheet: View {
                     if isLoading {
                         ProgressView()
                     } else {
-                        Button("Beitreten".loc) { join() }
-                            .fontWeight(.semibold)
-                            .disabled(code.trimmingCharacters(in: .whitespaces).count != 6 || !AppConfig.cloudKitEnabled)
+                        Button("Beitreten".loc) {
+                            Task { await join() }
+                        }
+                        .fontWeight(.semibold)
+                        .disabled(!isCodeValid)
                     }
                 }
             }
         }
     }
 
-    private func join() {
-        let trimmed = code.trimmingCharacters(in: .whitespaces).uppercased()
-        // Codes are strictly A-Z/0-9 before they reach CloudKit record names.
-        guard trimmed.count == 6,
-              trimmed.allSatisfy({ $0.isLetter && $0.isASCII || $0.isNumber }) else {
-            errorMessage = "Challenge %@ nicht gefunden.".loc(trimmed)
+    private func join() async {
+        let joinCode = trimmedCode
+        guard isCodeValid else {
+            errorMessage = BattleSyncError.challengeNotFound(joinCode).errorDescription
             return
         }
+        // Challenge.code is unique, so re-inserting would quietly overwrite the
+        // local row and wipe my recorded scores for it.
+        guard !challenges.contains(where: { $0.code == joinCode }) else {
+            errorMessage = "Bei dieser Challenge machst du schon mit.".loc
+            return
+        }
+
         isLoading = true
-        Task {
-            defer { isLoading = false }
-            let service = CloudKitChallengeService()
-            guard let found = try? await service.fetchChallenge(code: trimmed) else {
-                errorMessage = "Challenge %@ nicht gefunden.".loc(trimmed)
-                return
-            }
+        defer { isLoading = false }
+        errorMessage = nil
+
+        do {
+            let found = try await ChallengeSyncService.shared.fetchChallenge(code: joinCode)
             let challenge = Challenge(
-                code: trimmed, name: found.name, metric: found.metric,
+                code: joinCode, name: found.name, metric: found.metric,
                 startDay: found.start, endDay: found.end,
                 participants: [ParticipantScore(
-                    id: PlayerIdentity.myID, name: "Du".loc, isMe: true, scores: [:])])
+                    id: PlayerIdentity.myID, name: profile.battleName, isMe: true, scores: [:])])
             context.insert(challenge)
-            await service.refresh(challenge)
+            // Best effort: the challenge is already joined, and the next refresh
+            // on the battles screen will fill in everyone's scores anyway.
+            try? await ChallengeSyncService.shared.refresh(challenge)
             dismiss()
+        } catch {
+            errorMessage = (error as? BattleSyncError ?? .failed).errorDescription
         }
     }
 }

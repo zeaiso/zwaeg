@@ -29,7 +29,7 @@ Zwäg (Swiss German for feeling fit and well) tracks your calories, macros, step
 - **Recipes**: 890 recipes across Swiss classics and 17 international cuisines, one tap logs a portion
 - **Scanner**: live EAN scanning with Open Food Facts, offline cache, a label mode that reads nutrition tables with on device OCR, and the Swiss Food Composition Database (BLV, 1220 foods) bundled offline
 - **Fasting**: 16:8, 14:10 and 12:12 with a Live Activity on the lock screen
-- **Battles**: challenge friends over steps, active calories or calorie deficit with join codes (CloudKit ready, currently local demo opponents)
+- **Battles**: challenge friends over steps, active calories or calorie deficit; share a 6-character join code, scores sync over CloudKit
 - **Calculators**: BMI, ideal weight, daily calorie needs (Mifflin-St Jeor) and calorie burn (MET based)
 - **Apple**: HealthKit, home screen widget, Apple Watch app with complications, Siri Shortcuts
 - **Personal**: 23 languages with RTL support, three looks, custom accent color
