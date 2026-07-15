@@ -56,11 +56,24 @@ Example:
 xcrun simctl launch "iPhone 17 Pro" ch.emanuell.zwaeg -seed-profile -tab 2 -demo-product
 ```
 
+## Build configuration
+
+Two switches live outside the committed spec, both optional and neither secret:
+
+| What | Where | Effect |
+|---|---|---|
+| `ZWAEG_BATTLES` | `.env` (see `.env.example`), read by `make generate` | `true` merges `Config/Battles.yml`: iCloud entitlement plus the `ZWAEG_BATTLES` compilation condition. Unset counts as false, so a plain `xcodegen generate` compiles battles out entirely: no CloudKit linked, no Battles tab. |
+| `DEVELOPMENT_TEAM` | `Config/Local.xcconfig` (see the `.example`) | Signs builds for a real device or the App Store. Simulator builds need no team. `Config/Signing.xcconfig` pulls it in with an optional `#include?`, so a fresh clone still generates a working project. |
+
+Toggling `ZWAEG_BATTLES` rewrites `Zwaeg/Zwaeg.entitlements`, and Xcode rejects an entitlements file that changed under an incremental build. Run `make clean` after switching.
+
+CI builds both settings, so the battles code stays compiled even though it is off by default.
+
 ## CloudKit setup for battles
 
-Battles are the only feature that leaves the device. They use the **public** database of the container `iCloud.ch.emanuell.zwaeg` (see `ChallengeSyncService`), declared in `project.yml` and required for the app to sync scores at all. Everything else stays local: `AppModel` pins `cloudKitDatabase: .none` so SwiftData never mirrors the store.
+Battles are the only feature that leaves the device. They use the **public** database of the container `iCloud.ch.emanuell.zwaeg` (see `ChallengeSyncService`). Everything else stays local: `AppModel` pins `cloudKitDatabase: .none` so SwiftData never mirrors the store.
 
-One-time setup with a paid Apple Developer account:
+Building battles for the simulator needs no Apple account: simulators do not enforce entitlements, so the UI and the no-iCloud paths can be developed for free. Running a real battle, on a device or through the App Store, needs a paid Apple Developer account and this one-time setup:
 
 1. **Developer portal**: register the App ID `ch.emanuell.zwaeg`, enable the iCloud capability, and create the container `iCloud.ch.emanuell.zwaeg`.
 2. **CloudKit Console** (Development environment), create two record types:

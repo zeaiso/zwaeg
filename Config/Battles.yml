@@ -1,0 +1,19 @@
+# Merged into project.yml only when ZWAEG_BATTLES=true (see .env.example).
+#
+# Battles are the one feature that leaves the device, and CloudKit needs a paid
+# Apple Developer account plus the container set up per docs/DEVELOPMENT.md.
+# Keeping the entitlement out of the base spec means a fresh clone still builds
+# and runs on a free Apple ID, just without battles.
+targets:
+  Zwaeg:
+    entitlements:
+      properties:
+        com.apple.developer.icloud-services:
+          - CloudKit
+        com.apple.developer.icloud-container-identifiers:
+          - iCloud.ch.emanuell.zwaeg
+    settings:
+      base:
+        # $(inherited) matters: Xcode puts DEBUG in here for the debug
+        # configuration, and every debug launch argument keys off #if DEBUG.
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: $(inherited) ZWAEG_BATTLES

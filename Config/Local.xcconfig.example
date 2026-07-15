@@ -1,0 +1,5 @@
+// Copy to Local.xcconfig (gitignored) and fill in to sign builds for a real
+// device or for the App Store. Simulator builds need none of this.
+//
+// Your Team ID: developer.apple.com > Account > Membership > Team ID.
+DEVELOPMENT_TEAM = YOURTEAMID

@@ -1,3 +1,7 @@
+// Battles are opt-in at build time: they need CloudKit and therefore a paid
+// Apple Developer account. See Config/Battles.yml and docs/DEVELOPMENT.md.
+#if ZWAEG_BATTLES
+
 import SwiftUI
 
 /// Medal for ranks 1-3, plain number for the rest.
@@ -24,3 +28,5 @@ struct RankBadge: View {
         }
     }
 }
+
+#endif

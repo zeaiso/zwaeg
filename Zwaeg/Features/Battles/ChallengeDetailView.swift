@@ -1,3 +1,7 @@
+// Battles are opt-in at build time: they need CloudKit and therefore a paid
+// Apple Developer account. See Config/Battles.yml and docs/DEVELOPMENT.md.
+#if ZWAEG_BATTLES
+
 import SwiftUI
 import SwiftData
 
@@ -135,3 +139,5 @@ struct ChallengeDetailView: View {
             .trimmingCharacters(in: .whitespaces)
     }
 }
+
+#endif

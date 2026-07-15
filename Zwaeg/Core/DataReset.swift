@@ -17,7 +17,9 @@ enum DataReset {
         try? context.delete(model: FastingSession.self)
         try? context.delete(model: CustomFood.self)
         try? context.delete(model: CachedProduct.self)
+        #if ZWAEG_BATTLES
         try? context.delete(model: Challenge.self)
+        #endif
         try? context.delete(model: UserProfile.self)
         try? context.save()
 

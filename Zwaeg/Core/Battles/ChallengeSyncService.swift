@@ -1,3 +1,7 @@
+// Battles are opt-in at build time: they need CloudKit and therefore a paid
+// Apple Developer account. See Config/Battles.yml and docs/DEVELOPMENT.md.
+#if ZWAEG_BATTLES
+
 import Foundation
 import CloudKit
 
@@ -227,3 +231,5 @@ private struct SanitizedScore {
         self.value = min(500_000, max(-500_000, rawValue))
     }
 }
+
+#endif

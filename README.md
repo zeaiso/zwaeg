@@ -29,7 +29,7 @@ Zwäg (Swiss German for feeling fit and well) tracks your calories, macros, step
 - **Recipes**: 890 recipes across Swiss classics and 17 international cuisines, one tap logs a portion
 - **Scanner**: live EAN scanning with Open Food Facts, offline cache, a label mode that reads nutrition tables with on device OCR, and the Swiss Food Composition Database (BLV, 1220 foods) bundled offline
 - **Fasting**: 16:8, 14:10 and 12:12 with a Live Activity on the lock screen
-- **Battles**: challenge friends over steps, active calories or calorie deficit; share a 6-character join code, scores sync over CloudKit
+- **Battles**: challenge friends over steps, active calories or calorie deficit; share a 6-character join code, scores sync over CloudKit. Opt-in at build time, see [Getting started](#getting-started)
 - **Calculators**: BMI, ideal weight, daily calorie needs (Mifflin-St Jeor) and calorie burn (MET based)
 - **Apple**: HealthKit, home screen widget, Apple Watch app with complications, Siri Shortcuts
 - **Personal**: 23 languages with RTL support, three looks, custom accent color
@@ -37,6 +37,8 @@ Zwäg (Swiss German for feeling fit and well) tracks your calories, macros, step
 The full tour with details per screen: [FEATURES](docs/FEATURES.md)
 
 ## Getting started
+
+Zwäg is on the App Store, and it also builds from source: the repository is the whole app, with no private components.
 
 Requirements: Xcode 26+, [XcodeGen](https://github.com/yonaskolb/XcodeGen)
 
@@ -46,7 +48,18 @@ xcodegen generate
 open Zwaeg.xcodeproj
 ```
 
-The `.xcodeproj`, `Info.plist` and entitlements are generated from `project.yml` and not checked in. See [DEVELOPMENT](docs/DEVELOPMENT.md) for build commands, debug launch arguments and simulator tips.
+That gives you every feature except battles, and needs no Apple Developer account for the simulator.
+
+**Battles** are opt-in, because they are the one feature with a server side: they sync over a CloudKit container that only its owner can write to. Building them for the simulator works with no account, but running them for real needs a paid Apple Developer account and your own container:
+
+```sh
+cp .env.example .env          # set ZWAEG_BATTLES=true
+make generate
+```
+
+Signing for a real device or the App Store also needs your Team ID in `Config/Local.xcconfig` (copy `Config/Local.xcconfig.example`). Both files are gitignored: they are personal to a checkout, not secret.
+
+The `.xcodeproj`, `Info.plist` and entitlements are generated from `project.yml` and not checked in. See [DEVELOPMENT](docs/DEVELOPMENT.md) for build commands, the CloudKit setup, debug launch arguments and simulator tips.
 
 ## Documentation
 

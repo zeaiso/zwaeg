@@ -1,0 +1,14 @@
+// Build settings shared by every target.
+//
+// DEVELOPMENT_TEAM is deliberately not committed. It identifies one signing
+// account, a fork should use its own, and simulator builds do not need it at
+// all. For a device or App Store build, create Config/Local.xcconfig with:
+//
+//   DEVELOPMENT_TEAM = YOURTEAMID
+//
+// The ID is under developer.apple.com > Account > Membership. Local.xcconfig is
+// gitignored; Local.xcconfig.example is the template.
+//
+// The "?" makes the include optional, so a plain `xcodegen generate` on a fresh
+// clone still produces a project that builds for the simulator.
+#include? "Local.xcconfig"

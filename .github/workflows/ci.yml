@@ -7,8 +7,16 @@ on:
 
 jobs:
   build:
-    name: Build (iOS Simulator)
+    # Both build switches: without battles (what a fresh clone gets) and with
+    # them. Simulator builds do not enforce entitlements, so the battles build
+    # needs no Apple Developer account here, and the code stays compiled and
+    # type-checked either way.
+    name: Build (iOS Simulator, battles=${{ matrix.battles }})
     runs-on: macos-26
+    strategy:
+      fail-fast: false
+      matrix:
+        battles: [false, true]
     steps:
       - uses: actions/checkout@v7
 
@@ -20,6 +28,8 @@ jobs:
 
       - name: Generate project
         run: xcodegen generate
+        env:
+          ZWAEG_BATTLES: ${{ matrix.battles }}
 
       - name: Build
         run: |

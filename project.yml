@@ -1,4 +1,15 @@
 name: Zwaeg
+include:
+  # Battles talk to CloudKit, which needs a paid Apple Developer account and the
+  # container from docs/DEVELOPMENT.md. An unset variable counts as false, so a
+  # plain `xcodegen generate` yields an app that builds and runs on a free Apple
+  # ID with battles compiled out. Turn them on with ZWAEG_BATTLES=true, or put it
+  # in .env and use `make generate` (see .env.example).
+  - path: Config/Battles.yml
+    enable: ${ZWAEG_BATTLES}
+configFiles:
+  Debug: Config/Signing.xcconfig
+  Release: Config/Signing.xcconfig
 options:
   bundleIdPrefix: ch.emanuell
   deploymentTarget:
@@ -49,10 +60,6 @@ targets:
       path: Zwaeg/Zwaeg.entitlements
       properties:
         com.apple.developer.healthkit: true
-        com.apple.developer.icloud-services:
-          - CloudKit
-        com.apple.developer.icloud-container-identifiers:
-          - iCloud.ch.emanuell.zwaeg
         com.apple.security.application-groups:
           - group.ch.emanuell.zwaeg
     settings:

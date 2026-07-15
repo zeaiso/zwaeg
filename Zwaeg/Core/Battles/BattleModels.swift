@@ -1,3 +1,7 @@
+// Battles are opt-in at build time: they need CloudKit and therefore a paid
+// Apple Developer account. See Config/Battles.yml and docs/DEVELOPMENT.md.
+#if ZWAEG_BATTLES
+
 import Foundation
 import SwiftData
 
@@ -133,3 +137,5 @@ enum BattleDay {
         formatter.date(from: key).map { Calendar.current.startOfDay(for: $0) }
     }
 }
+
+#endif

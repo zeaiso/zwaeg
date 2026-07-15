@@ -1,3 +1,7 @@
+// Battles are opt-in at build time: they need CloudKit and therefore a paid
+// Apple Developer account. See Config/Battles.yml and docs/DEVELOPMENT.md.
+#if ZWAEG_BATTLES
+
 import Foundation
 
 /// Computes my daily battle score from diary and Apple Health data.
@@ -26,3 +30,5 @@ enum BattleScoreEngine {
         return String((0..<6).compactMap { _ in alphabet.randomElement() })
     }
 }
+
+#endif

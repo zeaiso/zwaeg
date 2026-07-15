@@ -90,6 +90,7 @@ struct RootView: View {
                 context.insert(FoodEntry(day: .now, meal: .lunch, name: "Älplermagronen",
                                          calories: 620, proteinG: 22, carbsG: 68, fatG: 28))
                 context.insert(WaterDay(day: .now, glasses: 3))
+                #if ZWAEG_BATTLES
                 let start = Calendar.current.date(byAdding: .day, value: -3, to: .now) ?? .now
                 let end = Calendar.current.date(byAdding: .day, value: 3, to: .now) ?? .now
                 // Real battles fill opponents in from CloudKit, which needs an
@@ -107,6 +108,7 @@ struct RootView: View {
                         ParticipantScore(id: "demo-mia", name: "Mia", isMe: false,
                                          scores: ["seed": 18400]),
                     ]))
+                #endif
             }
         }
     }
@@ -132,7 +134,9 @@ struct MainTabView: View {
         ZStack(alignment: .bottom) {
             Group {
                 switch selection {
+                #if ZWAEG_BATTLES
                 case 1: BattlesScreen(profile: profile)
+                #endif
                 case 2: ScannerScreen(profile: profile)
                 case 3: CalculatorsView(profile: profile)
                 case 4: ProfileView(profile: profile)
@@ -217,7 +221,9 @@ struct ZwaegTabBar: View {
             tabButton(5, symbol: "book.fill")
             tabButton(6, symbol: "timer")
             scanButton
+            #if ZWAEG_BATTLES
             tabButton(1, symbol: "flame.fill")
+            #endif
             tabButton(3, symbol: "chart.bar.fill")
             tabButton(4, symbol: "person.fill")
         }

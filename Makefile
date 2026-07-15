@@ -9,6 +9,11 @@ app_path = $(shell xcodebuild -project Zwaeg.xcodeproj -scheme Zwaeg \
 	-destination '$(DESTINATION)' -showBuildSettings 2>/dev/null \
 	| awk -F' = ' '/ TARGET_BUILD_DIR =/{d=$$2} / FULL_PRODUCT_NAME =/{n=$$2} END{print d"/"n}')
 
+# Local build switches (ZWAEG_BATTLES). Optional: without a .env the defaults
+# below apply and battles are compiled out, which is what a fresh clone wants.
+-include .env
+export
+
 .PHONY: generate build run clean format lint
 
 generate:

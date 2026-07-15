@@ -14,10 +14,14 @@ enum AppModel {
         // attributes without defaults. `groupContainer` stays automatic so the
         // store keeps living in the shared app group the widget reads from.
         let configuration = ModelConfiguration(cloudKitDatabase: .none)
+        var schema: [any PersistentModel.Type] = [
+            UserProfile.self, FoodEntry.self, WeightEntry.self, WaterDay.self,
+            DayNote.self, FastingSession.self, CustomFood.self, CachedProduct.self,
+        ]
+        #if ZWAEG_BATTLES
+        schema.append(Challenge.self)
+        #endif
         // swiftlint:disable:next force_try
-        return try! ModelContainer(for: UserProfile.self, FoodEntry.self, WeightEntry.self,
-                                   Challenge.self, WaterDay.self, DayNote.self, FastingSession.self,
-                                   CustomFood.self, CachedProduct.self,
-                                   configurations: configuration)
+        return try! ModelContainer(for: Schema(schema), configurations: configuration)
     }()
 }
