@@ -11,20 +11,12 @@ struct JoinChallengeSheet: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
 
-    @Query private var challenges: [Challenge]
-
     @State private var code = ""
     @State private var errorMessage: String?
     @State private var isLoading = false
 
     private var trimmedCode: String {
         code.trimmingCharacters(in: .whitespaces).uppercased()
-    }
-
-    /// Codes become CloudKit record names, so keep them to the strict A–Z/0–9
-    /// alphabet they are generated from.
-    private var isCodeValid: Bool {
-        trimmedCode.count == 6 && trimmedCode.allSatisfy { $0.isASCII && ($0.isLetter || $0.isNumber) }
     }
 
     var body: some View {
@@ -56,7 +48,7 @@ struct JoinChallengeSheet: View {
                             Task { await join() }
                         }
                         .fontWeight(.semibold)
-                        .disabled(!isCodeValid)
+                        .disabled(!BattleScoreEngine.isValidCode(trimmedCode))
                     }
                 }
             }
@@ -65,13 +57,15 @@ struct JoinChallengeSheet: View {
 
     private func join() async {
         let joinCode = trimmedCode
-        guard isCodeValid else {
+        guard BattleScoreEngine.isValidCode(joinCode) else {
             errorMessage = BattleSyncError.challengeNotFound(joinCode).errorDescription
             return
         }
         // Challenge.code is unique, so re-inserting would quietly overwrite the
         // local row and wipe my recorded scores for it.
-        guard !challenges.contains(where: { $0.code == joinCode }) else {
+        let duplicates = try? context.fetchCount(FetchDescriptor<Challenge>(
+            predicate: #Predicate { $0.code == joinCode }))
+        guard (duplicates ?? 0) == 0 else {
             errorMessage = "Bei dieser Challenge machst du schon mit.".loc
             return
         }
@@ -82,18 +76,20 @@ struct JoinChallengeSheet: View {
 
         do {
             let found = try await ChallengeSyncService.shared.fetchChallenge(code: joinCode)
-            let challenge = Challenge(
-                code: joinCode, name: found.name, metric: found.metric,
-                startDay: found.start, endDay: found.end,
-                participants: [ParticipantScore(
-                    id: PlayerIdentity.myID, name: profile.battleName, isMe: true, scores: [:])])
+            let challenge = Challenge.mine(code: joinCode, name: found.name, metric: found.metric,
+                                           startDay: found.start, endDay: found.end, profile: profile)
             context.insert(challenge)
-            // Best effort: the challenge is already joined, and the next refresh
-            // on the battles screen will fill in everyone's scores anyway.
+            // Compute and push my scores right away: the whole point of joining
+            // is that the creator sees me appear on their next refresh. Best
+            // effort past this point; the battles screen retries on refresh.
+            let entries = (try? context.fetch(FetchDescriptor<FoodEntry>())) ?? []
+            await BattleScoreEngine.updateMyScores(
+                for: challenge, profile: profile,
+                caloriesByDay: BattleScoreEngine.caloriesByDay(entries))
             try? await ChallengeSyncService.shared.refresh(challenge)
             dismiss()
         } catch {
-            errorMessage = (error as? BattleSyncError ?? .failed).errorDescription
+            errorMessage = BattleSyncError.message(for: error)
         }
     }
 }

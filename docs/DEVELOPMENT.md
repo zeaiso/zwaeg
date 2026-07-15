@@ -18,7 +18,7 @@ Useful for driving the app from the CLI or Xcode scheme arguments. All of them w
 | Argument | Effect |
 |---|---|
 | `-seed-profile` | Creates a test profile with weight history, three days of meals, water and a demo battle when no profile exists |
-| `-tab <0-6>` | Opens a specific tab (0 diary, 1 battles, 2 scanner, 3 calculators, 4 profile, 5 recipes, 6 fasting) |
+| `-tab <0-6>` | Opens a specific tab (0 diary, 1 battles, 2 scanner, 3 calculators, 4 profile, 5 recipes, 6 fasting; tab 1 exists only in `ZWAEG_BATTLES` builds) |
 | `-lang <code>` | Forces an app language (`de`, `gsw`, `fr`, `it`, `rm`, `en`, `ar`, `ti`, ...) |
 | `-look <name>` | Forces a look (`munch`, `midnight`, `mono`) |
 | `-accent <RRGGBB>` | Forces an accent color for this launch without persisting it |
@@ -34,9 +34,9 @@ Useful for driving the app from the CLI or Xcode scheme arguments. All of them w
 | `-open-calendar` | Opens the calendar sheet |
 | `-open-details` | Opens the day details page |
 | `-open-progress` | Opens the progress screen (combine with `-tab 4`) |
-| `-open-battle` | Opens the first active battle (combine with `-tab 1`) |
-| `-open-create` | Opens the new-challenge sheet (combine with `-tab 1`) |
-| `-open-join` | Opens the join-by-code sheet (combine with `-tab 1`) |
+| `-open-battle` | Opens the first active battle (combine with `-tab 1`; needs a `ZWAEG_BATTLES` build) |
+| `-open-create` | Opens the new-challenge sheet (combine with `-tab 1`; needs a `ZWAEG_BATTLES` build) |
+| `-open-join` | Opens the join-by-code sheet (combine with `-tab 1`; needs a `ZWAEG_BATTLES` build) |
 | `-open-buddy` | Opens the buddy editor (combine with `-tab 4`) |
 | `-studio-style <id>` | Preselects a DiceBear style in the studio, e.g. `notionists` (combine with `-open-studio`) |
 | `-open-challenges` | Opens the challenges page |

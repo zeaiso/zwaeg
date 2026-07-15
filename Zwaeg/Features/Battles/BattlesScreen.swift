@@ -15,8 +15,9 @@ struct BattlesScreen: View {
     @State private var showCreate = false
     @State private var showJoin = false
     @State private var debugOpenedChallenge: Challenge?
-    @State private var iCloudAvailable = true
+    @State private var availabilityError: BattleSyncError?
     @State private var syncError: String?
+    @State private var isRefreshing = false
 
     private var active: [Challenge] { challenges.filter(\.isActive) }
     private var finished: [Challenge] { challenges.filter { !$0.isActive } }
@@ -25,9 +26,9 @@ struct BattlesScreen: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
-                    if !iCloudAvailable {
+                    if let availabilityError {
                         noticeCard(icon: "icloud.slash",
-                                   text: BattleSyncError.noAccount.errorDescription ?? "")
+                                   text: availabilityError.errorDescription ?? "")
                     } else if let syncError {
                         noticeCard(icon: "exclamationmark.triangle", text: syncError)
                     }
@@ -77,11 +78,17 @@ struct BattlesScreen: View {
             }
             .task {
                 await refreshAll()
+                // Set-only: an unconditional write here would dismiss a sheet
+                // the user opened while refreshAll was still awaiting.
                 if LaunchArgs.all.contains("-open-battle") {
                     debugOpenedChallenge = active.first
                 }
-                showCreate = LaunchArgs.all.contains("-open-create")
-                showJoin = LaunchArgs.all.contains("-open-join")
+                if LaunchArgs.all.contains("-open-create") {
+                    showCreate = true
+                }
+                if LaunchArgs.all.contains("-open-join") {
+                    showJoin = true
+                }
             }
             .refreshable {
                 await refreshAll()
@@ -174,44 +181,34 @@ struct BattlesScreen: View {
     }
 
     private func refreshAll() async {
+        // Concurrent runs (the .task plus a pull-to-refresh) would interleave
+        // read-modify-write cycles on challenge.participants and lose writes.
+        guard !isRefreshing else { return }
+        isRefreshing = true
+        defer { isRefreshing = false }
+
         // My own score comes from the diary and Apple Health, so it stays
         // current even with no iCloud account; only sharing it needs the network.
+        let calories = BattleScoreEngine.caloriesByDay(foodEntries)
         for challenge in active {
-            await updateMyScores(challenge)
+            await BattleScoreEngine.updateMyScores(for: challenge, profile: profile,
+                                                   caloriesByDay: calories)
         }
 
         syncError = nil
-        iCloudAvailable = await ChallengeSyncService.shared.isAvailable()
-        guard iCloudAvailable else { return }
+        availabilityError = await ChallengeSyncService.shared.availability()
+        guard availabilityError == nil else { return }
 
-        for challenge in active {
+        // The seeded demo battle shares its code with every seeded install and
+        // must never touch the real database.
+        for challenge in active where challenge.code != Challenge.demoCode {
             do {
                 try await ChallengeSyncService.shared.refresh(challenge)
             } catch {
                 // One bad challenge shouldn't stop the others from syncing.
-                syncError = (error as? BattleSyncError ?? .failed).errorDescription
+                syncError = BattleSyncError.message(for: error)
             }
         }
-    }
-
-    /// Recomputes my score for every elapsed challenge day from diary and Health data.
-    @MainActor
-    private func updateMyScores(_ challenge: Challenge) async {
-        var participants = challenge.participants
-        guard let myIndex = participants.firstIndex(where: \.isMe) else { return }
-        for dayKey in challenge.elapsedDayKeys {
-            guard let day = BattleDay.date(for: dayKey) else { continue }
-            let consumed = foodEntries
-                .filter { $0.day == day }
-                .reduce(0) { $0 + $1.calories }
-            let activity = HealthKitService.shared.isConnected
-                ? await HealthKitService.shared.activity(for: day)
-                : HealthKitService.DayActivity()
-            participants[myIndex].scores[dayKey] = BattleScoreEngine.myScore(
-                metric: challenge.metric, profile: profile,
-                consumedKcal: consumed, activity: activity)
-        }
-        challenge.participants = participants
     }
 }
 

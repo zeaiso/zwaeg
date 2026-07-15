@@ -5,7 +5,7 @@
 import Foundation
 import CloudKit
 
-enum BattleSyncError: LocalizedError, Equatable {
+enum BattleSyncError: LocalizedError {
     case noAccount
     case restricted
     case network
@@ -45,6 +45,12 @@ enum BattleSyncError: LocalizedError, Equatable {
             return "Das hat nicht geklappt. Versuch es später nochmal.".loc
         }
     }
+
+    /// The user-facing text for any error a battle operation throws; the one
+    /// place that decides how a non-BattleSyncError leaking through is worded.
+    static func message(for error: Error) -> String {
+        ((error as? BattleSyncError) ?? .failed).errorDescription ?? ""
+    }
 }
 
 /// Pushes my scores and pulls the other participants' scores for a challenge.
@@ -74,9 +80,20 @@ struct ChallengeSyncService {
 
     /// iCloud is optional: the rest of the app works fine without it, so callers
     /// use this to explain why battles are unavailable instead of failing blind.
-    func isAvailable() async -> Bool {
-        let status = try? await container.accountStatus()
-        return status == .available
+    /// Returns nil when the account is usable, otherwise the error to show. The
+    /// distinction matters: a restricted account (Screen Time, MDM) must not be
+    /// told to "sign in", which it cannot do.
+    func availability() async -> BattleSyncError? {
+        switch try? await container.accountStatus() {
+        case .available:
+            return nil
+        case .restricted:
+            return .restricted
+        case .noAccount:
+            return .noAccount
+        default:
+            return .network
+        }
     }
 
     func refresh(_ challenge: Challenge) async throws {
@@ -111,6 +128,13 @@ struct ChallengeSyncService {
         throw BattleSyncError.failed
     }
 
+    /// Longest challenge the app ever creates is 14 days; anything beyond this
+    /// cap in a fetched record is hostile or corrupt. The cap is load bearing:
+    /// elapsedDayKeys enumerates every day of the challenge, and each day costs
+    /// a HealthKit query and a CloudKit record, so an unchecked startDay decades
+    /// in the past would turn one join into thousands of queries.
+    private static let maxChallengeDays = 31
+
     func fetchChallenge(code: String) async throws -> (name: String, metric: BattleMetric, start: Date, end: Date) {
         let recordID = CKRecord.ID(recordName: "challenge-\(code)")
         let record: CKRecord
@@ -121,14 +145,20 @@ struct ChallengeSyncService {
         } catch {
             throw BattleSyncError(error)
         }
-        guard let name = record["name"] as? String,
+        // Challenge records come from the same world-writable database as
+        // scores, so a record that fails validation is treated as not found.
+        guard let rawName = record["name"] as? String,
+              let name = sanitizedDisplayName(rawName),
               let metricRaw = record["metric"] as? String,
               let metric = BattleMetric(rawValue: metricRaw),
               let start = record["startDay"] as? Date,
-              let end = record["endDay"] as? Date else {
+              let end = record["endDay"] as? Date,
+              start <= end,
+              let span = Calendar.current.dateComponents([.day], from: start, to: end).day,
+              span < Self.maxChallengeDays else {
             throw BattleSyncError.challengeNotFound(code)
         }
-        return (String(name.prefix(40)), metric, start, end)
+        return (name, metric, start, end)
     }
 
     // MARK: - Sync
@@ -151,8 +181,16 @@ struct ChallengeSyncService {
             return record
         }
         do {
-            _ = try await database.modifyRecords(saving: records, deleting: [],
-                                                 savePolicy: .allKeys, atomically: false)
+            let (saveResults, _) = try await database.modifyRecords(
+                saving: records, deleting: [], savePolicy: .allKeys, atomically: false)
+            // With atomically:false a per-record failure does not throw; it
+            // arrives as a Result inside saveResults. Swallowing it here would
+            // mean scores silently never reach opponents, so surface the first.
+            for (_, result) in saveResults {
+                if case .failure(let recordError) = result {
+                    throw BattleSyncError(recordError)
+                }
+            }
         } catch {
             throw BattleSyncError(error)
         }
@@ -177,9 +215,13 @@ struct ChallengeSyncService {
                 throw BattleSyncError(error)
             }
 
+            // Only the deficit metric can legitimately go negative (eating more
+            // than you burn); a negative step or calorie count from the public
+            // database is an attack or corruption, not a score.
+            let allowsNegative = challenge.metric == .deficit
             for (_, result) in page.matchResults {
                 guard let record = try? result.get(),
-                      let entry = SanitizedScore(record) else { continue }
+                      let entry = SanitizedScore(record, allowsNegative: allowsNegative) else { continue }
 
                 if let index = participants.firstIndex(where: { $0.id == entry.participantID }) {
                     // My own rows are authoritative locally; never let the
@@ -201,6 +243,18 @@ struct ChallengeSyncService {
     }
 }
 
+/// Strips control characters, trims, and caps a display name from the public
+/// database; nil when nothing legible remains. Both challenge names and
+/// participant names pass through here, so hostile records cannot inject
+/// newlines or BiDi overrides into the leaderboard, nav title, or share text.
+private func sanitizedDisplayName(_ raw: String) -> String? {
+    let cleaned = String(raw.unicodeScalars
+        .filter { !CharacterSet.controlCharacters.contains($0) }
+        .prefix(40))
+        .trimmingCharacters(in: .whitespaces)
+    return cleaned.isEmpty ? nil : cleaned
+}
+
 /// The public database is writable by anyone with the join code, so every field
 /// is treated as untrusted input: names are stripped of control characters and
 /// capped, ids and day keys are length-checked, scores clamped to a plausible range.
@@ -210,25 +264,21 @@ private struct SanitizedScore {
     let dayKey: String
     let value: Double
 
-    init?(_ record: CKRecord) {
+    init?(_ record: CKRecord, allowsNegative: Bool) {
         guard let participantID = record["participantID"] as? String,
               let rawName = record["participantName"] as? String,
               let dayKey = record["dayKey"] as? String,
               let rawValue = record["value"] as? Double else { return nil }
 
-        let name = String(rawName.unicodeScalars
-            .filter { !CharacterSet.controlCharacters.contains($0) }
-            .prefix(40))
-
-        guard !name.trimmingCharacters(in: .whitespaces).isEmpty,
+        guard let name = sanitizedDisplayName(rawName),
               !participantID.isEmpty, participantID.count <= 64,
               BattleDay.date(for: dayKey) != nil,
               rawValue.isFinite else { return nil }
 
         self.participantID = participantID
-        self.name = String(name)
+        self.name = name
         self.dayKey = dayKey
-        self.value = min(500_000, max(-500_000, rawValue))
+        self.value = min(500_000, max(allowsNegative ? -500_000 : 0, rawValue))
     }
 }
 

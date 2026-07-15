@@ -97,8 +97,9 @@ struct RootView: View {
                 // account the simulator doesn't have, so the seeded rivals carry
                 // fixed totals. The "seed" day key is deliberate: it is not a
                 // real date, so the score refresh leaves these numbers alone.
+                // Challenge.demoCode also opts this battle out of CloudKit sync.
                 context.insert(Challenge(
-                    code: "DEMO42", name: "Wochenbattle", metric: .steps,
+                    code: Challenge.demoCode, name: "Wochenbattle", metric: .steps,
                     startDay: start, endDay: end,
                     participants: [
                         ParticipantScore(id: PlayerIdentity.myID, name: "Livia", isMe: true,

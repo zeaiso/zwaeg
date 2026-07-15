@@ -105,36 +105,12 @@ struct CreateChallengeSheet: View {
         do {
             let code = try await ChallengeSyncService.shared.publishNewChallenge(
                 name: finalName, metric: metric, start: start, end: end)
-            let challenge = Challenge(
-                code: code,
-                name: finalName,
-                metric: metric,
-                startDay: start,
-                endDay: end,
-                participants: [ParticipantScore(
-                    id: PlayerIdentity.myID,
-                    name: profile.battleName,
-                    isMe: true,
-                    scores: [:])])
-            context.insert(challenge)
+            context.insert(Challenge.mine(code: code, name: finalName, metric: metric,
+                                          startDay: start, endDay: end, profile: profile))
             dismiss()
         } catch {
-            errorMessage = (error as? BattleSyncError ?? .failed).errorDescription
+            errorMessage = BattleSyncError.message(for: error)
         }
-    }
-}
-
-enum PlayerIdentity {
-    private static let key = "playerIdentity"
-
-    /// Stable anonymous id for score records, created once per install.
-    static var myID: String {
-        if let existing = UserDefaults.standard.string(forKey: key) {
-            return existing
-        }
-        let fresh = UUID().uuidString
-        UserDefaults.standard.set(fresh, forKey: key)
-        return fresh
     }
 }
 

@@ -2,31 +2,37 @@ SIMULATOR := iPhone 17 Pro
 BUNDLE_ID := ch.emanuell.zwaeg
 DESTINATION := platform=iOS Simulator,name=$(SIMULATOR)
 
-# Ask xcodebuild where it put the app instead of globbing DerivedData: a second
-# build directory (from an older checkout or a renamed folder) makes `find | head`
-# install a stale binary that looks convincingly like the current one.
-app_path = $(shell xcodebuild -project Zwaeg.xcodeproj -scheme Zwaeg \
-	-destination '$(DESTINATION)' -showBuildSettings 2>/dev/null \
-	| awk -F' = ' '/ TARGET_BUILD_DIR =/{d=$$2} / FULL_PRODUCT_NAME =/{n=$$2} END{print d"/"n}')
-
 # Local build switches (ZWAEG_BATTLES). Optional: without a .env the defaults
-# below apply and battles are compiled out, which is what a fresh clone wants.
+# apply and battles are compiled out, which is what a fresh clone wants.
 -include .env
 export
 
 .PHONY: generate build run clean format lint
 
 generate:
+	@case "$(ZWAEG_BATTLES)" in \
+		""|true|false|yes|no|TRUE|FALSE|YES|NO|1|0) ;; \
+		*) echo "warning: ZWAEG_BATTLES='$(ZWAEG_BATTLES)' is not plain true/false;" \
+		   "xcodegen silently treats it as false. Remove any quotes in .env." ;; \
+	esac
 	xcodegen generate
 
 build: generate
 	xcodebuild -project Zwaeg.xcodeproj -scheme Zwaeg \
 		-destination '$(DESTINATION)' build
 
+# The app path is resolved inside the recipe, not in a global $(shell ...)
+# variable: with `export` above, make would expand a global variable (and run
+# the multi-second xcodebuild) for every target, even ones that never use it.
+# Asking xcodebuild beats globbing DerivedData, where a second build directory
+# from an older checkout makes `find | head -1` install a stale binary.
 run: build
 	xcrun simctl boot "$(SIMULATOR)" 2>/dev/null || true
 	open -a Simulator
-	xcrun simctl install "$(SIMULATOR)" "$(app_path)"
+	APP="$$(xcodebuild -project Zwaeg.xcodeproj -scheme Zwaeg \
+		-destination '$(DESTINATION)' -showBuildSettings 2>/dev/null \
+		| awk -F' = ' '/ TARGET_BUILD_DIR =/{d=$$2} / FULL_PRODUCT_NAME =/{n=$$2} END{print d"/"n}')" \
+	&& xcrun simctl install "$(SIMULATOR)" "$$APP"
 	xcrun simctl launch "$(SIMULATOR)" $(BUNDLE_ID)
 
 clean:

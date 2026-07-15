@@ -1,6 +1,8 @@
-// Battles are opt-in at build time: they need CloudKit and therefore a paid
-// Apple Developer account. See Config/Battles.yml and docs/DEVELOPMENT.md.
-#if ZWAEG_BATTLES
+// The battles FEATURE is opt-in at build time (see Config/Battles.yml), but the
+// models here compile in every configuration on purpose: if Challenge left the
+// SwiftData schema whenever ZWAEG_BATTLES is off, opening an existing store with
+// a battles-off build would migrate the entity away and destroy local battle
+// data. Only the CloudKit sync and the UI are behind the flag.
 
 import Foundation
 import SwiftData
@@ -138,4 +140,41 @@ enum BattleDay {
     }
 }
 
-#endif
+extension Challenge {
+    /// Join code of the -seed-profile demo battle. Challenges with this code
+    /// never touch CloudKit (BattlesScreen skips them during sync): the code is
+    /// shared by every seeded install, so syncing it would merge all testers
+    /// into one leaderboard on the real public database.
+    static let demoCode = "DEMO42"
+
+    /// A freshly created or joined challenge containing only me. Create and
+    /// join build the identical participant; keeping the shape here stops the
+    /// two sheets drifting apart (join once shipped a literal "Du" as the name
+    /// every opponent saw).
+    static func mine(code: String, name: String, metric: BattleMetric,
+                     startDay: Date, endDay: Date, profile: UserProfile) -> Challenge {
+        Challenge(code: code, name: name, metric: metric,
+                  startDay: startDay, endDay: endDay,
+                  participants: [ParticipantScore(
+                      id: PlayerIdentity.myID,
+                      name: profile.battleName,
+                      isMe: true,
+                      scores: [:])])
+    }
+}
+
+enum PlayerIdentity {
+    private static let key = "playerIdentity"
+
+    /// Stable anonymous id keying every CloudKit score record, created once per
+    /// install. Deliberately not tied to any Apple Account: battles know
+    /// players only by this UUID and their chosen display name.
+    static var myID: String {
+        if let existing = UserDefaults.standard.string(forKey: key) {
+            return existing
+        }
+        let fresh = UUID().uuidString
+        UserDefaults.standard.set(fresh, forKey: key)
+        return fresh
+    }
+}

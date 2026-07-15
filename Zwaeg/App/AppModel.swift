@@ -9,19 +9,20 @@ enum AppModel {
         //
         // This must stay `.none`. SwiftData defaults to `.automatic`, which turns
         // on private-database mirroring as soon as the app carries an iCloud
-        // entitlement — that would upload every meal, weight and note, and it
+        // entitlement: that would upload every meal, weight and note, and it
         // refuses to load the store at all because the models have non-optional
         // attributes without defaults. `groupContainer` stays automatic so the
         // store keeps living in the shared app group the widget reads from.
+        //
+        // Challenge is registered in every build configuration, battles flag or
+        // not: dropping an entity from the schema migrates its table away, so a
+        // battles-off build would destroy battle data recorded by a battles-on
+        // build sharing the same store.
         let configuration = ModelConfiguration(cloudKitDatabase: .none)
-        var schema: [any PersistentModel.Type] = [
-            UserProfile.self, FoodEntry.self, WeightEntry.self, WaterDay.self,
-            DayNote.self, FastingSession.self, CustomFood.self, CachedProduct.self,
-        ]
-        #if ZWAEG_BATTLES
-        schema.append(Challenge.self)
-        #endif
         // swiftlint:disable:next force_try
-        return try! ModelContainer(for: Schema(schema), configurations: configuration)
+        return try! ModelContainer(for: UserProfile.self, FoodEntry.self, WeightEntry.self,
+                                   Challenge.self, WaterDay.self, DayNote.self, FastingSession.self,
+                                   CustomFood.self, CachedProduct.self,
+                                   configurations: configuration)
     }()
 }
