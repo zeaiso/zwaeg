@@ -18,7 +18,7 @@ settings:
   base:
     SWIFT_VERSION: "5.0"
     TARGETED_DEVICE_FAMILY: "1"
-    CURRENT_PROJECT_VERSION: "1"
+    CURRENT_PROJECT_VERSION: "2"
     MARKETING_VERSION: "1.0.0"
 # Every identifier derives from ZWAEG_BUNDLE_ID_PREFIX (Config/Signing.xcconfig,
 # overridable in the gitignored Config/Local.xcconfig). Xcode expands $(...) in
