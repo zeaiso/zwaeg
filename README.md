@@ -36,9 +36,19 @@ Zwäg (Swiss German for feeling fit and well) tracks your calories, macros, step
 
 The full tour with details per screen: [FEATURES](docs/FEATURES.md)
 
-## Getting started
+## Get Zwäg
 
-Zwäg is on the App Store, and it also builds from source: the repository is the whole app, with no private components.
+**The easy way is the App Store.** The published app is built from exactly this repository, nothing added, nothing private. The code is public on purpose: an app that promises your health data never leaves the device should let you check that promise instead of asking you to trust it.
+
+**The other way is building it yourself.** The whole app is here under the MIT license, and what you need depends on how far you want to take it:
+
+| You want | You need | What you get |
+|---|---|---|
+| Try it in the simulator | A Mac with Xcode, nothing else | Every feature except battles, no Apple account at all |
+| Zwäg on your own iPhone | A free Apple ID | Xcode signs it for your device; free-account installs expire after 7 days, then you build and install again |
+| Everything, including battles | A paid Apple Developer membership | Battles sync over CloudKit, which Apple only grants to paid accounts, using your own container that only you control |
+
+### Building
 
 Requirements: Xcode 26+, [XcodeGen](https://github.com/yonaskolb/XcodeGen)
 
@@ -48,18 +58,20 @@ xcodegen generate
 open Zwaeg.xcodeproj
 ```
 
-That gives you every feature except battles, and needs no Apple Developer account for the simulator.
+Hit Run and you have the simulator tier. For your own iPhone, copy `Config/Local.xcconfig.example` to `Config/Local.xcconfig`, put in your Team ID (Xcode shows it under Settings > Accounts), select your device and hit Run again.
 
-**Battles** are opt-in, because they are the one feature with a server side: they sync over a CloudKit container that only its owner can write to. Building them for the simulator works with no account, but running them for real needs a paid Apple Developer account and your own container:
+### Battles on your own container
+
+Battles are opt-in at build time because they are the one feature with a server side: scores sync over a CloudKit container that only its owner can write to. You cannot ship to my container, and I cannot read yours, so a fork runs its own:
 
 ```sh
-cp .env.example .env          # set ZWAEG_BATTLES=true
+cp .env.example .env          # set ZWAEG_BATTLES=true, no quotes
 make generate
 ```
 
-Signing for a real device or the App Store also needs your Team ID in `Config/Local.xcconfig` (copy `Config/Local.xcconfig.example`). Both files are gitignored: they are personal to a checkout, not secret.
+Then follow the CloudKit setup in [DEVELOPMENT](docs/DEVELOPMENT.md): one prefix in `Config/Local.xcconfig` rebrands every identifier (bundle IDs, app group, container), and the console needs about two minutes of one-time setup.
 
-The `.xcodeproj`, `Info.plist` and entitlements are generated from `project.yml` and not checked in. See [DEVELOPMENT](docs/DEVELOPMENT.md) for build commands, the CloudKit setup, debug launch arguments and simulator tips.
+`Local.xcconfig` and `.env` are gitignored because they are personal to a checkout, not because they are secret; a Team ID ships inside every app on the store. The `.xcodeproj`, `Info.plist` and entitlements are generated from `project.yml` and not checked in. See [DEVELOPMENT](docs/DEVELOPMENT.md) for build commands, debug launch arguments and simulator tips.
 
 ## Documentation
 
