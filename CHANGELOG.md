@@ -1,11 +1,30 @@
 # Changelog
 
-All notable changes to Zwäg are documented here.
+All notable changes to Zwäg are documented here. This project follows
+[semantic versioning](https://semver.org): patch releases fix bugs, minor
+releases add features, and anything that changes behaviour is noted.
 
-## 0.0.1 (unreleased)
+## Work in progress
 
-The first public release. Everything below ships together, waiting only for
-the Apple developer account approval.
+Changes committed since 1.0.0 but not yet released. They become the next
+version's notes when a release is cut. So far it is all hardening: no new
+features, every entry came out of a security and correctness audit of the
+shipped 1.0.0 code.
+
+### Security
+- Cap the battle leaderboard at 50 participants and stop paging once it is full. The scores live in a shared CloudKit database that anyone with the join code can write to, so an unbounded roster let a hostile code holder flood a challenge with fake participants until the app ran out of memory.
+
+### Fixed
+- Fix a crash when a food's serving size was not a normal number. Calorie and macro values were already clamped, but the serving size was not: a malformed Open Food Facts `serving_quantity`, or a very large number typed into the custom-food portion field, could reach the calorie calculation as an infinite or out-of-range value and crash the app. Serving size is now bounded at every source and at the point of use.
+
+### Changed
+- Open Food Facts attribution now names its licence (Open Database License, ODbL), and the lookup request identifies the app version and a contact URL, as the Open Food Facts terms ask.
+- The privacy manifest now also declares the anonymous per-install ID and user-typed challenge names shared by battles, so it lists the same data types as the App Store privacy label.
+
+## 1.0.0 (2026-07-15)
+
+The first public release on the App Store. Local first: all personal data
+stays on the device.
 
 ### Diary and food
 - Diary with daily calorie budget, calorie ring, macro bars, four meals and offline Swiss food search
@@ -19,7 +38,7 @@ the Apple developer account approval.
 - Streak card with milestone banners and confetti
 
 ### Recipes
-- 200+ healthy recipes with real photos, Swiss classics in light versions included
+- 890 recipes across Swiss classics and international cuisines, with real photos
 - Discover page with categories, calorie ranges and diet filters
 - Recipe pages with nutrition facts per serving and a servings stepper that scales ingredients
 - Shopping list with one-tap ingredient import and check-off
@@ -38,7 +57,8 @@ the Apple developer account approval.
 - Reactive poses in the diary header and fasting ring
 
 ### Battles and challenges
-- Battles with friends via 6-character join codes, live leaderboard, CloudKit sync layer prepared
+- Battles with friends over steps, active calories or calorie deficit; share a 6-character join code, scores sync over CloudKit's public database, linked only by the code
+- Battles are opt-in at build time; the App Store build ships with them on
 - Endless challenge ladders with "now" and "done" tabs
 - Points unlock studio looks (neon hair, extras, pirate and ninja sets)
 
@@ -52,6 +72,7 @@ the Apple developer account approval.
 - Apple Health integration: steps, active energy, weight sync
 
 ### Platform
+- Universal app: iPhone and iPad
 - Apple Watch app with day ring, water logging and complications
 - Home screen and lock screen widgets
 - Siri shortcuts for logging water and asking for remaining calories
@@ -65,4 +86,5 @@ the Apple developer account approval.
 
 ### Privacy
 - Local first: all personal data stays on the device, no account, no ads, no subscription
+- SwiftData never mirrors to iCloud; only battles leave the device, and only a display name and daily totals, keyed to a random per-install ID
 - Debug launch arguments compiled out of release builds
