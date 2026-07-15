@@ -778,7 +778,7 @@ struct AboutView: View {
                 .loc(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"))
                 .font(.fredoka(13))
                 .foregroundStyle(.secondary)
-            Text("Nährwertdaten: Schweizer Nährwertdatenbank V7.0, Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV, sowie Open Food Facts. Avatare erstellt mit DiceBear (dicebear.com), Stile Thumbs (CC0) und Avataaars von Pablo Stanley. Schrift: Fredoka (SIL Open Font License). Alle persönlichen Daten bleiben auf deinem Gerät.")
+            Text("Nährwertdaten: Schweizer Nährwertdatenbank V7.0, Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV, sowie Open Food Facts (Open Database License, ODbL). Avatare erstellt mit DiceBear (dicebear.com), Stile Thumbs (CC0) und Avataaars von Pablo Stanley. Schrift: Fredoka (SIL Open Font License). Alle persönlichen Daten bleiben auf deinem Gerät.")
                 .font(.fredoka(12))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)

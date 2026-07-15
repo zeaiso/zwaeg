@@ -26,7 +26,10 @@ enum OpenFoodFactsClient {
         }
 
         var request = URLRequest(url: url)
-        request.setValue("Zwaeg iOS/0.1 (personal use)", forHTTPHeaderField: "User-Agent")
+        // Open Food Facts asks API users to identify themselves with a
+        // descriptive User-Agent including a contact point.
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"
+        request.setValue("Zwaeg iOS/\(version) (https://zwaeg.app)", forHTTPHeaderField: "User-Agent")
 
         let data: Data
         do {
