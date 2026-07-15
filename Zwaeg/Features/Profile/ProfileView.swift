@@ -774,7 +774,8 @@ struct AboutView: View {
                 .foregroundStyle(Color.appAccent)
             Text("Zwäg")
                 .font(.fredoka(22, .semibold))
-            Text("Version 0.1 · Zwäg heisst: fit und wohl. Dein Schweizer Kalorien-Tracker.".loc)
+            Text("Version %@ · Zwäg heisst: fit und wohl. Dein Schweizer Kalorien-Tracker."
+                .loc(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"))
                 .font(.fredoka(13))
                 .foregroundStyle(.secondary)
             Text("Nährwertdaten: Schweizer Nährwertdatenbank V7.0, Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV, sowie Open Food Facts. Avatare erstellt mit DiceBear (dicebear.com), Stile Thumbs (CC0) und Avataaars von Pablo Stanley. Schrift: Fredoka (SIL Open Font License). Alle persönlichen Daten bleiben auf deinem Gerät.")

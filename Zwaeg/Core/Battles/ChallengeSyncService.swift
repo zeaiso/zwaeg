@@ -68,7 +68,8 @@ enum BattleSyncError: LocalizedError {
 struct ChallengeSyncService {
     static let shared = ChallengeSyncService()
 
-    static let containerID = "iCloud.ch.emanuell.zwaeg"
+    /// iCloud.<prefix>.zwaeg, derived from ZWAEG_BUNDLE_ID_PREFIX at build time.
+    static let containerID = AppIdentifiers.infoString("ZwaegCloudKitContainer")
 
     private var container: CKContainer {
         CKContainer(identifier: Self.containerID)

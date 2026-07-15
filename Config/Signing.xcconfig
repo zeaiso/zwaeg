@@ -1,5 +1,13 @@
 // Build settings shared by every target.
 //
+// ZWAEG_BUNDLE_ID_PREFIX is the single source for every identifier the app
+// carries: bundle IDs ($(prefix).zwaeg and friends), the app group
+// (group.$(prefix).zwaeg) and the iCloud container (iCloud.$(prefix).zwaeg).
+// The Swift code reads the derived values from Info.plist at runtime, so
+// changing the prefix here re-brands a fork completely; nothing is a secret,
+// identifiers ship inside every distributed app.
+ZWAEG_BUNDLE_ID_PREFIX = ch.emanuell
+
 // DEVELOPMENT_TEAM is deliberately not committed. It identifies one signing
 // account, a fork should use its own, and simulator builds do not need it at
 // all. For a device or App Store build, create Config/Local.xcconfig with:

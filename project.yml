@@ -11,7 +11,6 @@ configFiles:
   Debug: Config/Signing.xcconfig
   Release: Config/Signing.xcconfig
 options:
-  bundleIdPrefix: ch.emanuell
   deploymentTarget:
     iOS: "17.0"
   createIntermediateGroups: true
@@ -20,7 +19,12 @@ settings:
     SWIFT_VERSION: "5.0"
     TARGETED_DEVICE_FAMILY: "1"
     CURRENT_PROJECT_VERSION: "1"
-    MARKETING_VERSION: "0.0.1"
+    MARKETING_VERSION: "1.0.0"
+# Every identifier derives from ZWAEG_BUNDLE_ID_PREFIX (Config/Signing.xcconfig,
+# overridable in the gitignored Config/Local.xcconfig). Xcode expands $(...) in
+# build settings, Info.plist values and entitlements at build time, and the app
+# reads the derived group/container names back from Info.plist at runtime, so
+# no identifier is hardcoded twice.
 targets:
   Zwaeg:
     type: application
@@ -34,6 +38,7 @@ targets:
       path: Zwaeg/Info.plist
       properties:
         CFBundleDisplayName: Zwäg
+        CFBundleShortVersionString: $(MARKETING_VERSION)
         UILaunchScreen: {}
         NSCameraUsageDescription: Zwäg benötigt die Kamera zum Scannen von Barcodes.
         UISupportedInterfaceOrientations:
@@ -42,6 +47,8 @@ targets:
         NSHealthShareUsageDescription: Zwäg liest Schritte und Aktivenergie, um deinen Tagesverbrauch anzuzeigen.
         NSHealthUpdateUsageDescription: Zwäg speichert dein geloggtes Gewicht in Apple Health.
         NSSupportsLiveActivities: true
+        ZwaegAppGroup: group.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
+        ZwaegCloudKitContainer: iCloud.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
         UIAppFonts:
           - Fredoka-Regular.ttf
           - Fredoka-Medium.ttf
@@ -61,10 +68,10 @@ targets:
       properties:
         com.apple.developer.healthkit: true
         com.apple.security.application-groups:
-          - group.ch.emanuell.zwaeg
+          - group.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.zwaeg
+        PRODUCT_BUNDLE_IDENTIFIER: $(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
   ZwaegWidgets:
     type: app-extension
     platform: iOS
@@ -77,8 +84,10 @@ targets:
       path: ZwaegWidgets/Info.plist
       properties:
         CFBundleDisplayName: Zwäg
+        CFBundleShortVersionString: $(MARKETING_VERSION)
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
+        ZwaegAppGroup: group.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
         UIAppFonts:
           - Fredoka-Regular.ttf
           - Fredoka-Medium.ttf
@@ -87,10 +96,10 @@ targets:
       path: ZwaegWidgets/ZwaegWidgets.entitlements
       properties:
         com.apple.security.application-groups:
-          - group.ch.emanuell.zwaeg
+          - group.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.zwaeg.widgets
+        PRODUCT_BUNDLE_IDENTIFIER: $(ZWAEG_BUNDLE_ID_PREFIX).zwaeg.widgets
         SKIP_INSTALL: true
   ZwaegWatch:
     type: application
@@ -105,16 +114,18 @@ targets:
       path: ZwaegWatch/Info.plist
       properties:
         CFBundleDisplayName: Zwäg
+        CFBundleShortVersionString: $(MARKETING_VERSION)
         WKApplication: true
-        WKCompanionAppBundleIdentifier: ch.emanuell.zwaeg
+        WKCompanionAppBundleIdentifier: $(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
+        ZwaegAppGroup: group.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
     entitlements:
       path: ZwaegWatch/ZwaegWatch.entitlements
       properties:
         com.apple.security.application-groups:
-          - group.ch.emanuell.zwaeg
+          - group.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.zwaeg.watchkitapp
+        PRODUCT_BUNDLE_IDENTIFIER: $(ZWAEG_BUNDLE_ID_PREFIX).zwaeg.watchkitapp
         SKIP_INSTALL: true
         TARGETED_DEVICE_FAMILY: "4"
   ZwaegWatchWidgets:
@@ -128,15 +139,17 @@ targets:
       path: ZwaegWatchWidgets/Info.plist
       properties:
         CFBundleDisplayName: Zwäg
+        CFBundleShortVersionString: $(MARKETING_VERSION)
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
+        ZwaegAppGroup: group.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
     entitlements:
       path: ZwaegWatchWidgets/ZwaegWatchWidgets.entitlements
       properties:
         com.apple.security.application-groups:
-          - group.ch.emanuell.zwaeg
+          - group.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ch.emanuell.zwaeg.watchkitapp.widgets
+        PRODUCT_BUNDLE_IDENTIFIER: $(ZWAEG_BUNDLE_ID_PREFIX).zwaeg.watchkitapp.widgets
         SKIP_INSTALL: true
         TARGETED_DEVICE_FAMILY: "4"

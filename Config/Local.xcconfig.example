@@ -3,3 +3,7 @@
 //
 // Your Team ID: developer.apple.com > Account > Membership > Team ID.
 DEVELOPMENT_TEAM = YOURTEAMID
+
+// Forks: override the identifier prefix so bundle IDs, the app group and the
+// iCloud container derive from YOUR reverse-domain instead of the upstream one.
+// ZWAEG_BUNDLE_ID_PREFIX = com.example

@@ -5,7 +5,7 @@ import Foundation
 /// diary shown on the lock screen and in the Dynamic Island.
 /// App-group store so the home screen widget can read today's numbers.
 enum DaySnapshotStore {
-    static let suiteName = "group.ch.emanuell.zwaeg"
+    static let suiteName = AppIdentifiers.appGroup
     private static let key = "daySnapshot"
 
     static func save(_ state: DayActivityAttributes.ContentState) {

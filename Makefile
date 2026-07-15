@@ -1,5 +1,4 @@
 SIMULATOR := iPhone 17 Pro
-BUNDLE_ID := ch.emanuell.zwaeg
 DESTINATION := platform=iOS Simulator,name=$(SIMULATOR)
 
 # Local build switches (ZWAEG_BATTLES). Optional: without a .env the defaults
@@ -29,11 +28,12 @@ build: generate
 run: build
 	xcrun simctl boot "$(SIMULATOR)" 2>/dev/null || true
 	open -a Simulator
-	APP="$$(xcodebuild -project Zwaeg.xcodeproj -scheme Zwaeg \
-		-destination '$(DESTINATION)' -showBuildSettings 2>/dev/null \
-		| awk -F' = ' '/ TARGET_BUILD_DIR =/{d=$$2} / FULL_PRODUCT_NAME =/{n=$$2} END{print d"/"n}')" \
-	&& xcrun simctl install "$(SIMULATOR)" "$$APP"
-	xcrun simctl launch "$(SIMULATOR)" $(BUNDLE_ID)
+	SETTINGS="$$(xcodebuild -project Zwaeg.xcodeproj -scheme Zwaeg \
+		-destination '$(DESTINATION)' -showBuildSettings 2>/dev/null)" \
+	&& APP="$$(echo "$$SETTINGS" | awk -F' = ' '/ TARGET_BUILD_DIR =/{d=$$2} / FULL_PRODUCT_NAME =/{n=$$2} END{print d"/"n}')" \
+	&& BUNDLE="$$(echo "$$SETTINGS" | awk -F' = ' '/ PRODUCT_BUNDLE_IDENTIFIER =/{print $$2; exit}')" \
+	&& xcrun simctl install "$(SIMULATOR)" "$$APP" \
+	&& xcrun simctl launch "$(SIMULATOR)" "$$BUNDLE"
 
 clean:
 	xcodebuild -project Zwaeg.xcodeproj -scheme Zwaeg clean 2>/dev/null || true

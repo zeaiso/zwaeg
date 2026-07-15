@@ -11,7 +11,7 @@ targets:
         com.apple.developer.icloud-services:
           - CloudKit
         com.apple.developer.icloud-container-identifiers:
-          - iCloud.ch.emanuell.zwaeg
+          - iCloud.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
     settings:
       base:
         # $(inherited) matters: Xcode puts DEBUG in here for the debug
