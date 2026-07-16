@@ -32,10 +32,14 @@ struct CalorieNeedsView: View {
                 inputCard
                 resultTiles
                 goalsCard
+                SourcesCard(
+                    intro: "Grundumsatz nach Mifflin-St Jeor (1990), Aktivitätsfaktoren (PAL) nach FAO/WHO/UNU (2004).".loc,
+                    sources: CalculationSources.calorieNeeds)
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 24)
         }
+        .defaultScrollAnchor(LaunchArgs.all.contains("-scroll-bottom") ? .bottom : .top)
         .background(Theme.background)
         .toolbar(.hidden, for: .navigationBar)
     }

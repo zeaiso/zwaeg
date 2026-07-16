@@ -545,5 +545,14 @@
   "Keine Nährwerte erkannt. Geh näher ran.": "መኣዛታት ኣይተረኽበን። ቀሪብካ ፈትን።",
   "Alle Daten löschen": "ኩሉ ውሂብ ደምስስ",
   "Ja, alles löschen": "እወ፣ ኩሉ ደምስስ",
-  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "መለለዪ፣ መዝገብ፣ ክብደታት፣ ውድድራትን ቅንብራትን ካብዚ መሳርሒ ንሓዋሩ ክድምሰሱ እዮም።"
+  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "መለለዪ፣ መዝገብ፣ ክብደታት፣ ውድድራትን ቅንብራትን ካብዚ መሳርሒ ንሓዋሩ ክድምሰሱ እዮም።",
+  "Quellen": "ምንጭታት",
+  "Richtwerte für gesunde Erwachsene – keine medizinische Beratung.": "ንጥዑያት ዓበይቲ መምርሒ ዋጋታት – ሕክምናዊ ምኽሪ ኣይኮነን።",
+  "Formel und Einordnung nach der Klassifikation der Weltgesundheitsorganisation (WHO).": "ቀመርን ምድብን ብመሰረት ውድብ ጥዕና ዓለም (WHO)።",
+  "Grundumsatz nach Mifflin-St Jeor (1990), Aktivitätsfaktoren (PAL) nach FAO/WHO/UNU (2004).": "መሰረታዊ ዕደጋ ጸዓት ብ Mifflin-St Jeor (1990)፣ ረቛሒታት ንጥፈት (PAL) ብ FAO/WHO/UNU (2004)።",
+  "Formeln nach Devine (1974), Robinson (1983), Miller (1983) und Broca.": "ቀመራት ብ Devine (1974)፣ Robinson (1983)፣ Miller (1983)ን Broca ን።",
+  "MET-Werte nach dem Compendium of Physical Activities (2011).": "ዋጋታት MET ብ Compendium of Physical Activities (2011)።",
+  "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "ብ Mifflin-St Jeor (1990)ን ምድብ WHOን እተቘጽረ – መምርሒ ዋጋታት፣ ሕክምናዊ ምኽሪ ኣይኮነን።",
+  "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "ምድብ BMI ብ WHO፣ ድሌት ካሎሪ ብ Mifflin-St Jeor ን FAO/WHO/UNU ን፣ ብቑዕ ክብደት ብ Devine፣ Robinson፣ Miller ን Broca ን፣ ወጻኢ ንጥፈት ብ Compendium of Physical Activities።",
+  "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "ዕለታዊ ዕላማ ብ Mifflin-St Jeor (1990)ን FAO/WHO/UNU (2004)ን፣ ምድብ BMI ብ WHO።"
 }

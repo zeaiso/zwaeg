@@ -545,5 +545,14 @@
   "Keine Nährwerte erkannt. Geh näher ran.": "Значення не розпізнано. Піднеси ближче.",
   "Alle Daten löschen": "Видалити всі дані",
   "Ja, alles löschen": "Так, видалити все",
-  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Профіль, щоденник, вага, челенджі та налаштування будуть назавжди видалені з цього пристрою."
+  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Профіль, щоденник, вага, челенджі та налаштування будуть назавжди видалені з цього пристрою.",
+  "Quellen": "Джерела",
+  "Richtwerte für gesunde Erwachsene – keine medizinische Beratung.": "Орієнтовні значення для здорових дорослих – не є медичною порадою.",
+  "Formel und Einordnung nach der Klassifikation der Weltgesundheitsorganisation (WHO).": "Формула та класифікація за Всесвітньою організацією охорони здоров'я (ВООЗ).",
+  "Grundumsatz nach Mifflin-St Jeor (1990), Aktivitätsfaktoren (PAL) nach FAO/WHO/UNU (2004).": "Базальний метаболізм за Mifflin-St Jeor (1990), коефіцієнти активності (PAL) за FAO/ВООЗ/UNU (2004).",
+  "Formeln nach Devine (1974), Robinson (1983), Miller (1983) und Broca.": "Формули Devine (1974), Robinson (1983), Miller (1983) та Broca.",
+  "MET-Werte nach dem Compendium of Physical Activities (2011).": "Значення MET за Compendium of Physical Activities (2011).",
+  "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Розраховано за Mifflin-St Jeor (1990) та класифікацією ВООЗ – орієнтовні значення, не медична порада.",
+  "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "Класифікація ІМТ за ВООЗ, потреба в калоріях за Mifflin-St Jeor і FAO/ВООЗ/UNU, ідеальна вага за Devine, Robinson, Miller і Broca, витрати на активність за Compendium of Physical Activities.",
+  "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Денна ціль за Mifflin-St Jeor (1990) і FAO/ВООЗ/UNU (2004), класифікація ІМТ за ВООЗ."
 }

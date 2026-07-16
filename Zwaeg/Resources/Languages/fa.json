@@ -545,5 +545,14 @@
   "Keine Nährwerte erkannt. Geh näher ran.": "مقداری شناسایی نشد. نزدیک‌تر شو.",
   "Alle Daten löschen": "حذف همه داده‌ها",
   "Ja, alles löschen": "بله، همه را حذف کن",
-  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "نمایه، دفترچه، وزن‌ها، چالش‌ها و تنظیمات برای همیشه از این دستگاه حذف خواهند شد."
+  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "نمایه، دفترچه، وزن‌ها، چالش‌ها و تنظیمات برای همیشه از این دستگاه حذف خواهند شد.",
+  "Quellen": "منابع",
+  "Richtwerte für gesunde Erwachsene – keine medizinische Beratung.": "مقادیر راهنما برای بزرگسالان سالم – توصیه پزشکی نیست.",
+  "Formel und Einordnung nach der Klassifikation der Weltgesundheitsorganisation (WHO).": "فرمول و طبقه‌بندی بر اساس سازمان جهانی بهداشت (WHO).",
+  "Grundumsatz nach Mifflin-St Jeor (1990), Aktivitätsfaktoren (PAL) nach FAO/WHO/UNU (2004).": "متابولیسم پایه بر اساس Mifflin-St Jeor (1990)، ضرایب فعالیت (PAL) بر اساس FAO/WHO/UNU (2004).",
+  "Formeln nach Devine (1974), Robinson (1983), Miller (1983) und Broca.": "فرمول‌های Devine (1974)، Robinson (1983)، Miller (1983) و Broca.",
+  "MET-Werte nach dem Compendium of Physical Activities (2011).": "مقادیر MET بر اساس Compendium of Physical Activities (2011).",
+  "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "محاسبه‌شده بر اساس Mifflin-St Jeor (1990) و طبقه‌بندی WHO – مقادیر راهنما، نه توصیه پزشکی.",
+  "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "طبقه‌بندی BMI بر اساس WHO، نیاز کالری بر اساس Mifflin-St Jeor و FAO/WHO/UNU، وزن ایده‌آل بر اساس Devine، Robinson، Miller و Broca، مصرف فعالیت بر اساس Compendium of Physical Activities.",
+  "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "هدف روزانه بر اساس Mifflin-St Jeor (1990) و FAO/WHO/UNU (2004)، طبقه‌بندی BMI بر اساس WHO."
 }

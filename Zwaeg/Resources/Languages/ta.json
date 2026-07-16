@@ -545,5 +545,14 @@
   "Keine Nährwerte erkannt. Geh näher ran.": "மதிப்புகள் கண்டறியப்படவில்லை. அருகில் செல்லவும்.",
   "Alle Daten löschen": "எல்லா தரவையும் நீக்கு",
   "Ja, alles löschen": "ஆம், அனைத்தையும் நீக்கு",
-  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "சுயவிவரம், நாட்குறிப்பு, எடைகள், சவால்கள் மற்றும் அமைப்புகள் இந்தச் சாதனத்திலிருந்து நிரந்தரமாக நீக்கப்படும்."
+  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "சுயவிவரம், நாட்குறிப்பு, எடைகள், சவால்கள் மற்றும் அமைப்புகள் இந்தச் சாதனத்திலிருந்து நிரந்தரமாக நீக்கப்படும்.",
+  "Quellen": "ஆதாரங்கள்",
+  "Richtwerte für gesunde Erwachsene – keine medizinische Beratung.": "ஆரோக்கியமான பெரியவர்களுக்கான வழிகாட்டி மதிப்புகள் – மருத்துவ ஆலோசனை அல்ல.",
+  "Formel und Einordnung nach der Klassifikation der Weltgesundheitsorganisation (WHO).": "உலக சுகாதார நிறுவனத்தின் (WHO) வகைப்பாட்டின்படி சூத்திரமும் வகைப்படுத்தலும்.",
+  "Grundumsatz nach Mifflin-St Jeor (1990), Aktivitätsfaktoren (PAL) nach FAO/WHO/UNU (2004).": "அடிப்படை ஆற்றல் தேவை Mifflin-St Jeor (1990) படி, செயல்பாட்டு காரணிகள் (PAL) FAO/WHO/UNU (2004) படி.",
+  "Formeln nach Devine (1974), Robinson (1983), Miller (1983) und Broca.": "Devine (1974), Robinson (1983), Miller (1983) மற்றும் Broca சூத்திரங்கள்.",
+  "MET-Werte nach dem Compendium of Physical Activities (2011).": "MET மதிப்புகள் Compendium of Physical Activities (2011) படி.",
+  "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Mifflin-St Jeor (1990) மற்றும் WHO வகைப்பாட்டின்படி கணக்கிடப்பட்டது – வழிகாட்டி மதிப்புகள், மருத்துவ ஆலோசனை அல்ல.",
+  "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "BMI வகைப்படுத்தல் WHO படி, கலோரி தேவை Mifflin-St Jeor மற்றும் FAO/WHO/UNU படி, சிறந்த எடை Devine, Robinson, Miller மற்றும் Broca படி, செயல்பாட்டு எரிப்பு Compendium of Physical Activities படி.",
+  "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "தினசரி இலக்கு Mifflin-St Jeor (1990) மற்றும் FAO/WHO/UNU (2004) படி, BMI வகைப்படுத்தல் WHO படி."
 }

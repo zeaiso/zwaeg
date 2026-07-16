@@ -545,5 +545,14 @@
   "Keine Nährwerte erkannt. Geh näher ran.": "Nessun valore rilevato. Avvicinati.",
   "Alle Daten löschen": "Elimina tutti i dati",
   "Ja, alles löschen": "Sì, elimina tutto",
-  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Profilo, diario, pesi, sfide e impostazioni verranno rimossi definitivamente da questo dispositivo."
+  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Profilo, diario, pesi, sfide e impostazioni verranno rimossi definitivamente da questo dispositivo.",
+  "Quellen": "Fonti",
+  "Richtwerte für gesunde Erwachsene – keine medizinische Beratung.": "Valori indicativi per adulti sani – non sostituiscono un parere medico.",
+  "Formel und Einordnung nach der Klassifikation der Weltgesundheitsorganisation (WHO).": "Formula e classificazione secondo l'Organizzazione Mondiale della Sanità (OMS).",
+  "Grundumsatz nach Mifflin-St Jeor (1990), Aktivitätsfaktoren (PAL) nach FAO/WHO/UNU (2004).": "Metabolismo basale secondo Mifflin-St Jeor (1990), fattori di attività (PAL) secondo FAO/OMS/UNU (2004).",
+  "Formeln nach Devine (1974), Robinson (1983), Miller (1983) und Broca.": "Formule di Devine (1974), Robinson (1983), Miller (1983) e Broca.",
+  "MET-Werte nach dem Compendium of Physical Activities (2011).": "Valori MET secondo il Compendium of Physical Activities (2011).",
+  "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Calcolato secondo Mifflin-St Jeor (1990) e la classificazione OMS – valori indicativi, non un parere medico.",
+  "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "Classificazione BMI secondo l'OMS, fabbisogno calorico secondo Mifflin-St Jeor e FAO/OMS/UNU, peso ideale secondo Devine, Robinson, Miller e Broca, consumo per attività secondo il Compendium of Physical Activities.",
+  "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Obiettivo giornaliero secondo Mifflin-St Jeor (1990) e FAO/OMS/UNU (2004), classificazione BMI secondo l'OMS."
 }

@@ -545,5 +545,14 @@
   "Keine Nährwerte erkannt. Geh näher ran.": "Nie rozpoznano wartości. Podejdź bliżej.",
   "Alle Daten löschen": "Usuń wszystkie dane",
   "Ja, alles löschen": "Tak, usuń wszystko",
-  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Profil, dziennik, wagi, wyzwania i ustawienia zostaną trwale usunięte z tego urządzenia."
+  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Profil, dziennik, wagi, wyzwania i ustawienia zostaną trwale usunięte z tego urządzenia.",
+  "Quellen": "Źródła",
+  "Richtwerte für gesunde Erwachsene – keine medizinische Beratung.": "Wartości orientacyjne dla zdrowych dorosłych – nie zastępują porady lekarskiej.",
+  "Formel und Einordnung nach der Klassifikation der Weltgesundheitsorganisation (WHO).": "Wzór i klasyfikacja według Światowej Organizacji Zdrowia (WHO).",
+  "Grundumsatz nach Mifflin-St Jeor (1990), Aktivitätsfaktoren (PAL) nach FAO/WHO/UNU (2004).": "Podstawowa przemiana materii wg Mifflin-St Jeor (1990), współczynniki aktywności (PAL) wg FAO/WHO/UNU (2004).",
+  "Formeln nach Devine (1974), Robinson (1983), Miller (1983) und Broca.": "Wzory Devine'a (1974), Robinsona (1983), Millera (1983) i Broki.",
+  "MET-Werte nach dem Compendium of Physical Activities (2011).": "Wartości MET wg Compendium of Physical Activities (2011).",
+  "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Obliczono wg Mifflin-St Jeor (1990) i klasyfikacji WHO – wartości orientacyjne, nie porada lekarska.",
+  "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "Klasyfikacja BMI wg WHO, zapotrzebowanie kaloryczne wg Mifflin-St Jeor i FAO/WHO/UNU, waga idealna wg Devine'a, Robinsona, Millera i Broki, wydatek energetyczny wg Compendium of Physical Activities.",
+  "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Cel dzienny wg Mifflin-St Jeor (1990) i FAO/WHO/UNU (2004), klasyfikacja BMI wg WHO."
 }

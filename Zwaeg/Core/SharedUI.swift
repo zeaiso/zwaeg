@@ -170,6 +170,84 @@ struct BigValueField: View {
     }
 }
 
+// MARK: - Calculation sources
+
+/// A scientific reference backing a health calculation, rendered as a tappable link.
+/// Names are bibliographic and stay untranslated.
+struct SourceCitation: Identifiable {
+    let name: String
+    let urlString: String
+    var id: String { urlString }
+}
+
+/// Citations for the medical formulas in CalorieMath (App Review Guideline 1.4.1).
+enum CalculationSources {
+    static let bmi = [
+        SourceCitation(name: "WHO · Obesity and overweight",
+                       urlString: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight"),
+    ]
+    static let calorieNeeds = [
+        SourceCitation(name: "Mifflin & St Jeor 1990 · Am J Clin Nutr",
+                       urlString: "https://pubmed.ncbi.nlm.nih.gov/2305711/"),
+        SourceCitation(name: "FAO/WHO/UNU 2004 · Human Energy Requirements",
+                       urlString: "https://www.fao.org/4/y5686e/y5686e00.htm"),
+    ]
+    static let idealWeight = [
+        SourceCitation(name: "Pai & Paloucek 2000 · Ann Pharmacother",
+                       urlString: "https://pubmed.ncbi.nlm.nih.gov/10981254/"),
+    ]
+    static let calorieBurn = [
+        SourceCitation(name: "Ainsworth et al. 2011 · Compendium of Physical Activities",
+                       urlString: "https://pubmed.ncbi.nlm.nih.gov/21681120/"),
+    ]
+    static let all = bmi + calorieNeeds + idealWeight + calorieBurn
+}
+
+/// Card listing the scientific sources of a calculation, with a short intro
+/// naming the formula and a standing "not medical advice" note.
+struct SourcesCard: View {
+    let intro: String
+    let sources: [SourceCitation]
+
+    var body: some View {
+        Card {
+            VStack(alignment: .leading, spacing: 12) {
+                Label("Quellen".loc, systemImage: "text.book.closed.fill")
+                    .font(.fredoka(17, .semibold))
+                    .foregroundStyle(Theme.ink)
+                Text(intro)
+                    .font(.fredoka(13))
+                    .foregroundStyle(.secondary)
+                ForEach(sources) { source in
+                    if let url = URL(string: source.urlString) {
+                        Link(destination: url) {
+                            HStack(spacing: 10) {
+                                Image(systemName: "link")
+                                    .font(.fredoka(12, .semibold))
+                                    .foregroundStyle(Color.appAccent)
+                                    .frame(width: 30, height: 30)
+                                    .background(Theme.accentSoft, in: RoundedRectangle(cornerRadius: 10))
+                                Text(source.name)
+                                    .font(.fredoka(14, .medium))
+                                    .foregroundStyle(Theme.ink)
+                                    .multilineTextAlignment(.leading)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                Spacer()
+                                Image(systemName: "arrow.up.right")
+                                    .font(.fredoka(12, .semibold))
+                                    .foregroundStyle(.tertiary)
+                            }
+                        }
+                    }
+                }
+                Text("Richtwerte für gesunde Erwachsene – keine medizinische Beratung.".loc)
+                    .font(.fredoka(11))
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+}
+
 // MARK: - Big result number
 
 struct ResultNumber: View {

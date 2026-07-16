@@ -21,10 +21,14 @@ struct BMICalculatorView: View {
                 resultCard
                 scaleCard
                 supportCard
+                SourcesCard(
+                    intro: "Formel und Einordnung nach der Klassifikation der Weltgesundheitsorganisation (WHO).".loc,
+                    sources: CalculationSources.bmi)
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 24)
         }
+        .defaultScrollAnchor(LaunchArgs.all.contains("-scroll-bottom") ? .bottom : .top)
         .background(Theme.background)
         .toolbar(.hidden, for: .navigationBar)
     }

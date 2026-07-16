@@ -545,5 +545,14 @@
   "Keine Nährwerte erkannt. Geh näher ran.": "لم يتم التعرف على القيم. اقترب أكثر.",
   "Alle Daten löschen": "حذف جميع البيانات",
   "Ja, alles löschen": "نعم، احذف كل شيء",
-  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "سيتم حذف الملف الشخصي واليوميات والأوزان والتحديات والإعدادات نهائيًا من هذا الجهاز."
+  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "سيتم حذف الملف الشخصي واليوميات والأوزان والتحديات والإعدادات نهائيًا من هذا الجهاز.",
+  "Quellen": "المصادر",
+  "Richtwerte für gesunde Erwachsene – keine medizinische Beratung.": "قيم استرشادية للبالغين الأصحاء – ليست نصيحة طبية.",
+  "Formel und Einordnung nach der Klassifikation der Weltgesundheitsorganisation (WHO).": "المعادلة والتصنيف وفقًا لمنظمة الصحة العالمية (WHO).",
+  "Grundumsatz nach Mifflin-St Jeor (1990), Aktivitätsfaktoren (PAL) nach FAO/WHO/UNU (2004).": "معدل الأيض الأساسي وفق Mifflin-St Jeor (1990)، وعوامل النشاط (PAL) وفق FAO/WHO/UNU (2004).",
+  "Formeln nach Devine (1974), Robinson (1983), Miller (1983) und Broca.": "معادلات Devine (1974) وRobinson (1983) وMiller (1983) وBroca.",
+  "MET-Werte nach dem Compendium of Physical Activities (2011).": "قيم MET وفق Compendium of Physical Activities (2011).",
+  "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "محسوب وفق Mifflin-St Jeor (1990) وتصنيف منظمة الصحة العالمية – قيم استرشادية، ليست نصيحة طبية.",
+  "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "تصنيف مؤشر كتلة الجسم وفق منظمة الصحة العالمية، والاحتياج من السعرات وفق Mifflin-St Jeor وFAO/WHO/UNU، والوزن المثالي وفق Devine وRobinson وMiller وBroca، واستهلاك النشاط وفق Compendium of Physical Activities.",
+  "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "الهدف اليومي وفق Mifflin-St Jeor (1990) وFAO/WHO/UNU (2004)، وتصنيف مؤشر كتلة الجسم وفق منظمة الصحة العالمية."
 }

@@ -20,6 +20,9 @@ struct IdealWeightView: View {
                 inputCard
                 resultCard
                 formulasCard
+                SourcesCard(
+                    intro: "Formeln nach Devine (1974), Robinson (1983), Miller (1983) und Broca.".loc,
+                    sources: CalculationSources.idealWeight)
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 24)

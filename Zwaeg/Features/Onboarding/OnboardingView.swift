@@ -334,6 +334,23 @@ struct OnboardingView: View {
                     resultRow("Ziel".loc, goal.label)
                 }
             }
+            VStack(spacing: 6) {
+                Text("Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.".loc)
+                    .font(.fredoka(11))
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                HStack(spacing: 14) {
+                    if let mifflin = URL(string: "https://pubmed.ncbi.nlm.nih.gov/2305711/") {
+                        Link("pubmed.gov", destination: mifflin)
+                    }
+                    if let who = URL(string: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight") {
+                        Link("who.int", destination: who)
+                    }
+                }
+                .font(.fredoka(11, .semibold))
+                .tint(Color.appAccent)
+            }
+            .padding(.horizontal, 12)
         }
     }
 

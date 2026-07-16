@@ -545,5 +545,14 @@
   "Keine Nährwerte erkannt. Geh näher ran.": "Vrednosti nisu prepoznate. Priđi bliže.",
   "Alle Daten löschen": "Obriši sve podatke",
   "Ja, alles löschen": "Da, obriši sve",
-  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Profil, dnevnik, težine, izazovi i podešavanja biće trajno uklonjeni sa ovog uređaja."
+  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Profil, dnevnik, težine, izazovi i podešavanja biće trajno uklonjeni sa ovog uređaja.",
+  "Quellen": "Izvori",
+  "Richtwerte für gesunde Erwachsene – keine medizinische Beratung.": "Orijentacione vrednosti za zdrave odrasle – nisu medicinski savet.",
+  "Formel und Einordnung nach der Klassifikation der Weltgesundheitsorganisation (WHO).": "Formula i klasifikacija prema Svetskoj zdravstvenoj organizaciji (SZO).",
+  "Grundumsatz nach Mifflin-St Jeor (1990), Aktivitätsfaktoren (PAL) nach FAO/WHO/UNU (2004).": "Bazalni metabolizam po Mifflin-St Jeor (1990), faktori aktivnosti (PAL) po FAO/SZO/UNU (2004).",
+  "Formeln nach Devine (1974), Robinson (1983), Miller (1983) und Broca.": "Formule po Devine (1974), Robinson (1983), Miller (1983) i Broca.",
+  "MET-Werte nach dem Compendium of Physical Activities (2011).": "MET vrednosti prema Compendium of Physical Activities (2011).",
+  "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Izračunato po Mifflin-St Jeor (1990) i klasifikaciji SZO – orijentacione vrednosti, nisu medicinski savet.",
+  "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "BMI klasifikacija prema SZO, kalorijske potrebe po Mifflin-St Jeor i FAO/SZO/UNU, idealna težina po Devine, Robinson, Miller i Broca, potrošnja aktivnosti prema Compendium of Physical Activities.",
+  "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Dnevni cilj po Mifflin-St Jeor (1990) i FAO/SZO/UNU (2004), BMI klasifikacija prema SZO."
 }

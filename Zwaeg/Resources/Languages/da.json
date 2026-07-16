@@ -545,5 +545,14 @@
   "Keine Nährwerte erkannt. Geh näher ran.": "Ingen værdier fundet. Gå tættere på.",
   "Alle Daten löschen": "Slet alle data",
   "Ja, alles löschen": "Ja, slet alt",
-  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Profil, dagbog, vægte, udfordringer og indstillinger fjernes permanent fra denne enhed."
+  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Profil, dagbog, vægte, udfordringer og indstillinger fjernes permanent fra denne enhed.",
+  "Quellen": "Kilder",
+  "Richtwerte für gesunde Erwachsene – keine medizinische Beratung.": "Vejledende værdier for raske voksne – ikke medicinsk rådgivning.",
+  "Formel und Einordnung nach der Klassifikation der Weltgesundheitsorganisation (WHO).": "Formel og klassifikation ifølge Verdenssundhedsorganisationen (WHO).",
+  "Grundumsatz nach Mifflin-St Jeor (1990), Aktivitätsfaktoren (PAL) nach FAO/WHO/UNU (2004).": "Basalstofskifte efter Mifflin-St Jeor (1990), aktivitetsfaktorer (PAL) efter FAO/WHO/UNU (2004).",
+  "Formeln nach Devine (1974), Robinson (1983), Miller (1983) und Broca.": "Formler efter Devine (1974), Robinson (1983), Miller (1983) og Broca.",
+  "MET-Werte nach dem Compendium of Physical Activities (2011).": "MET-værdier fra Compendium of Physical Activities (2011).",
+  "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Beregnet efter Mifflin-St Jeor (1990) og WHO-klassifikationen – vejledende værdier, ikke medicinsk rådgivning.",
+  "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "BMI-klassifikation efter WHO, kaloriebehov efter Mifflin-St Jeor og FAO/WHO/UNU, idealvægt efter Devine, Robinson, Miller og Broca, aktivitetsforbrug efter Compendium of Physical Activities.",
+  "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Dagligt mål efter Mifflin-St Jeor (1990) og FAO/WHO/UNU (2004), BMI-klassifikation efter WHO."
 }

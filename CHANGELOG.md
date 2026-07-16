@@ -4,27 +4,22 @@ All notable changes to Zwäg are documented here. This project follows
 [semantic versioning](https://semver.org): patch releases fix bugs, minor
 releases add features, and anything that changes behaviour is noted.
 
-## Work in progress
-
-Changes committed since 1.0.0 but not yet released. They become the next
-version's notes when a release is cut. So far it is all hardening: no new
-features, every entry came out of a security and correctness audit of the
-shipped 1.0.0 code.
-
-### Security
-- Cap the battle leaderboard at 50 participants and stop paging once it is full. The scores live in a shared CloudKit database that anyone with the join code can write to, so an unbounded roster let a hostile code holder flood a challenge with fake participants until the app ran out of memory.
-
-### Fixed
-- Fix a crash when a food's serving size was not a normal number. Calorie and macro values were already clamped, but the serving size was not: a malformed Open Food Facts `serving_quantity`, or a very large number typed into the custom-food portion field, could reach the calorie calculation as an infinite or out-of-range value and crash the app. Serving size is now bounded at every source and at the point of use.
-
-### Changed
-- Open Food Facts attribution now names its licence (Open Database License, ODbL), and the lookup request identifies the app version and a contact URL, as the Open Food Facts terms ask.
-- The privacy manifest now also declares the anonymous per-install ID and user-typed challenge names shared by battles, so it lists the same data types as the App Store privacy label.
-
-## 1.0.0 (2026-07-15)
+## 1.0.0 (2026-07-16)
 
 The first public release on the App Store. Local first: all personal data
 stays on the device.
+
+Build 2 was rejected by App Review (Guideline 1.4.1: health calculations
+need citations), so 1.0.0 ships as build 3. The builds since the first
+submission added the source citations plus hardening from a security and
+correctness audit — nothing user-facing changed beyond that.
+
+### Sources and hardening (build 3)
+- Citations for all health calculations, as App Review (Guideline 1.4.1) requires for medical information. Each calculator (BMI, calorie needs, ideal weight, activity burn) shows a "Sources" card linking the scientific reference behind its formula — WHO for the BMI classification, Mifflin-St Jeor (1990) and FAO/WHO/UNU (2004) for the calorie goal, Pai & Paloucek (2000) for the ideal-weight formulas and the Compendium of Physical Activities (2011) for MET values — plus a "guide values, not medical advice" note. The onboarding result and the Help & Support screen cite the same sources. Translated into all 23 app languages.
+- Cap the battle leaderboard at 50 participants and stop paging once it is full. The scores live in a shared CloudKit database that anyone with the join code can write to, so an unbounded roster let a hostile code holder flood a challenge with fake participants until the app ran out of memory.
+- Fix a crash when a food's serving size was not a normal number. Calorie and macro values were already clamped, but the serving size was not: a malformed Open Food Facts `serving_quantity`, or a very large number typed into the custom-food portion field, could reach the calorie calculation as an infinite or out-of-range value and crash the app. Serving size is now bounded at every source and at the point of use.
+- Open Food Facts attribution now names its licence (Open Database License, ODbL), and the lookup request identifies the app version and a contact URL, as the Open Food Facts terms ask.
+- The privacy manifest now also declares the anonymous per-install ID and user-typed challenge names shared by battles, so it lists the same data types as the App Store privacy label.
 
 ### Diary and food
 - Diary with daily calorie budget, calorie ring, macro bars, four meals and offline Swiss food search

@@ -22,6 +22,9 @@ struct CalorieBurnView: View {
                 resultCard
                 inputCard
                 activityCard
+                SourcesCard(
+                    intro: "MET-Werte nach dem Compendium of Physical Activities (2011).".loc,
+                    sources: CalculationSources.calorieBurn)
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 24)

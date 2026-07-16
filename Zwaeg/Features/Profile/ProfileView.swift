@@ -11,7 +11,7 @@ struct ProfileView: View {
     /// One destination for the debug-arg navigation; stacked
     /// navigationDestination modifiers broke touch delivery on iOS 17.
     private enum Route: Hashable, Identifiable {
-        case progress, buddy, language, look
+        case progress, buddy, language, look, about, goals
 
         var id: Self { self }
     }
@@ -44,6 +44,10 @@ struct ProfileView: View {
                     LanguageView()
                 case .look:
                     LookView()
+                case .about:
+                    AboutView()
+                case .goals:
+                    GoalsView(profile: profile)
                 }
             }
             .onAppear {
@@ -58,6 +62,12 @@ struct ProfileView: View {
                 }
                 if LaunchArgs.all.contains("-open-look") {
                     route = .look
+                }
+                if LaunchArgs.all.contains("-open-about") {
+                    route = .about
+                }
+                if LaunchArgs.all.contains("-open-goals") {
+                    route = .goals
                 }
                 if LaunchArgs.all.contains("-wipe-data") {
                     DataReset.wipeAll(context: context)
@@ -578,7 +588,15 @@ struct GoalsView: View {
                 LabeledContent("Tagesziel".loc, value: "\(profile.dailyCalorieTarget) kcal")
                 LabeledContent("BMI", value: String(format: "%.1f", profile.bmi))
             }
+            Section {
+                SourcesCard(
+                    intro: "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.".loc,
+                    sources: CalculationSources.calorieNeeds + CalculationSources.bmi)
+            }
+            .listRowBackground(Color.clear)
+            .listRowInsets(EdgeInsets())
         }
+        .defaultScrollAnchor(LaunchArgs.all.contains("-scroll-bottom") ? .bottom : .top)
         .scrollContentBackground(.hidden)
         .background(Theme.background)
         .navigationTitle("Ziele & Vorgaben".loc)
@@ -768,35 +786,43 @@ struct RemindersView: View {
 
 struct AboutView: View {
     var body: some View {
-        VStack(spacing: 14) {
-            Image(systemName: "fork.knife.circle.fill")
-                .font(.system(size: 54))
-                .foregroundStyle(Color.appAccent)
-            Text("Zwäg")
-                .font(.fredoka(22, .semibold))
-            Text("Version %@ · Zwäg heisst: fit und wohl. Dein Schweizer Kalorien-Tracker."
-                .loc(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"))
-                .font(.fredoka(13))
-                .foregroundStyle(.secondary)
-            Text("Nährwertdaten: Schweizer Nährwertdatenbank V7.0, Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV, sowie Open Food Facts (Open Database License, ODbL). Avatare erstellt mit DiceBear (dicebear.com), Stile Thumbs (CC0) und Avataaars von Pablo Stanley. Schrift: Fredoka (SIL Open Font License). Alle persönlichen Daten bleiben auf deinem Gerät.")
-                .font(.fredoka(12))
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 30)
-            if let blv = URL(string: "https://naehrwertdaten.ch"),
-               let off = URL(string: "https://ch.openfoodfacts.org") {
-                HStack(spacing: 16) {
-                    Link("naehrwertdaten.ch", destination: blv)
-                    Link("openfoodfacts.org", destination: off)
-                    if let dice = URL(string: "https://dicebear.com") {
-                        Link("dicebear.com", destination: dice)
+        ScrollView {
+            VStack(spacing: 14) {
+                Image(systemName: "fork.knife.circle.fill")
+                    .font(.system(size: 54))
+                    .foregroundStyle(Color.appAccent)
+                Text("Zwäg")
+                    .font(.fredoka(22, .semibold))
+                Text("Version %@ · Zwäg heisst: fit und wohl. Dein Schweizer Kalorien-Tracker."
+                    .loc(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"))
+                    .font(.fredoka(13))
+                    .foregroundStyle(.secondary)
+                Text("Nährwertdaten: Schweizer Nährwertdatenbank V7.0, Bundesamt für Lebensmittelsicherheit und Veterinärwesen BLV, sowie Open Food Facts (Open Database License, ODbL). Avatare erstellt mit DiceBear (dicebear.com), Stile Thumbs (CC0) und Avataaars von Pablo Stanley. Schrift: Fredoka (SIL Open Font License). Alle persönlichen Daten bleiben auf deinem Gerät.")
+                    .font(.fredoka(12))
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 30)
+                if let blv = URL(string: "https://naehrwertdaten.ch"),
+                   let off = URL(string: "https://ch.openfoodfacts.org") {
+                    HStack(spacing: 16) {
+                        Link("naehrwertdaten.ch", destination: blv)
+                        Link("openfoodfacts.org", destination: off)
+                        if let dice = URL(string: "https://dicebear.com") {
+                            Link("dicebear.com", destination: dice)
+                        }
                     }
+                    .font(.fredoka(12, .semibold))
+                    .tint(Color.appAccent)
                 }
-                .font(.fredoka(12, .semibold))
-                .tint(Color.appAccent)
+                SourcesCard(
+                    intro: "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.".loc,
+                    sources: CalculationSources.all)
+                    .padding(.top, 10)
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 24)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .defaultScrollAnchor(LaunchArgs.all.contains("-scroll-bottom") ? .bottom : .top)
         .background(Theme.background)
         .navigationTitle("Hilfe & Support".loc)
         .navigationBarTitleDisplayMode(.inline)

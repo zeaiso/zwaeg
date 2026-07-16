@@ -545,5 +545,14 @@
   "Keine Nährwerte erkannt. Geh näher ran.": "Nuk u gjetën vlera. Afrohu më shumë.",
   "Alle Daten löschen": "Fshi të gjitha të dhënat",
   "Ja, alles löschen": "Po, fshi gjithçka",
-  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Profili, ditari, peshat, sfidat dhe cilësimet do të fshihen përgjithmonë nga kjo pajisje."
+  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Profili, ditari, peshat, sfidat dhe cilësimet do të fshihen përgjithmonë nga kjo pajisje.",
+  "Quellen": "Burimet",
+  "Richtwerte für gesunde Erwachsene – keine medizinische Beratung.": "Vlera orientuese për të rritur të shëndetshëm – nuk zëvendësojnë këshillën mjekësore.",
+  "Formel und Einordnung nach der Klassifikation der Weltgesundheitsorganisation (WHO).": "Formula dhe klasifikimi sipas Organizatës Botërore të Shëndetësisë (OBSH).",
+  "Grundumsatz nach Mifflin-St Jeor (1990), Aktivitätsfaktoren (PAL) nach FAO/WHO/UNU (2004).": "Metabolizmi bazal sipas Mifflin-St Jeor (1990), faktorët e aktivitetit (PAL) sipas FAO/OBSH/UNU (2004).",
+  "Formeln nach Devine (1974), Robinson (1983), Miller (1983) und Broca.": "Formula sipas Devine (1974), Robinson (1983), Miller (1983) dhe Broca.",
+  "MET-Werte nach dem Compendium of Physical Activities (2011).": "Vlerat MET sipas Compendium of Physical Activities (2011).",
+  "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Llogaritur sipas Mifflin-St Jeor (1990) dhe klasifikimit të OBSH-së – vlera orientuese, jo këshillë mjekësore.",
+  "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "Klasifikimi i BMI sipas OBSH-së, nevojat kalorike sipas Mifflin-St Jeor dhe FAO/OBSH/UNU, pesha ideale sipas Devine, Robinson, Miller dhe Broca, konsumi i aktivitetit sipas Compendium of Physical Activities.",
+  "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Objektivi ditor sipas Mifflin-St Jeor (1990) dhe FAO/OBSH/UNU (2004), klasifikimi i BMI sipas OBSH-së."
 }

@@ -545,5 +545,14 @@
   "Keine Nährwerte erkannt. Geh näher ran.": "Aucune valeur détectée. Rapproche-toi.",
   "Alle Daten löschen": "Supprimer toutes les données",
   "Ja, alles löschen": "Oui, tout supprimer",
-  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Le profil, le journal, les poids, les défis et les réglages seront définitivement supprimés de cet appareil."
+  "Profil, Tagebuch, Gewichte, Challenges und Einstellungen werden endgültig von diesem Gerät entfernt.": "Le profil, le journal, les poids, les défis et les réglages seront définitivement supprimés de cet appareil.",
+  "Quellen": "Sources",
+  "Richtwerte für gesunde Erwachsene – keine medizinische Beratung.": "Valeurs indicatives pour adultes en bonne santé – ne remplace pas un avis médical.",
+  "Formel und Einordnung nach der Klassifikation der Weltgesundheitsorganisation (WHO).": "Formule et classification selon l'Organisation mondiale de la santé (OMS).",
+  "Grundumsatz nach Mifflin-St Jeor (1990), Aktivitätsfaktoren (PAL) nach FAO/WHO/UNU (2004).": "Métabolisme de base selon Mifflin-St Jeor (1990), facteurs d'activité (PAL) selon FAO/OMS/UNU (2004).",
+  "Formeln nach Devine (1974), Robinson (1983), Miller (1983) und Broca.": "Formules selon Devine (1974), Robinson (1983), Miller (1983) et Broca.",
+  "MET-Werte nach dem Compendium of Physical Activities (2011).": "Valeurs MET selon le Compendium of Physical Activities (2011).",
+  "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Calculé selon Mifflin-St Jeor (1990) et la classification de l'OMS – valeurs indicatives, pas un avis médical.",
+  "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "Classification IMC selon l'OMS, besoins caloriques selon Mifflin-St Jeor et FAO/OMS/UNU, poids idéal selon Devine, Robinson, Miller et Broca, dépense d'activité selon le Compendium of Physical Activities.",
+  "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Objectif quotidien selon Mifflin-St Jeor (1990) et FAO/OMS/UNU (2004), classification IMC selon l'OMS."
 }
