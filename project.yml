@@ -22,7 +22,7 @@ settings:
     # never allows removing a device family once a version is released, so
     # every future build must keep working on iPad.
     TARGETED_DEVICE_FAMILY: "1,2"
-    CURRENT_PROJECT_VERSION: "3"
+    CURRENT_PROJECT_VERSION: "4"
     MARKETING_VERSION: "1.0.0"
 # Every identifier derives from ZWAEG_BUNDLE_ID_PREFIX (Config/Signing.xcconfig,
 # overridable in the gitignored Config/Local.xcconfig). Xcode expands $(...) in
@@ -43,6 +43,7 @@ targets:
       properties:
         CFBundleDisplayName: Zwäg
         CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         UILaunchScreen: {}
         NSCameraUsageDescription: Zwäg benötigt die Kamera zum Scannen von Barcodes.
         UISupportedInterfaceOrientations:
@@ -92,6 +93,7 @@ targets:
       properties:
         CFBundleDisplayName: Zwäg
         CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
         ZwaegAppGroup: group.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
@@ -122,6 +124,7 @@ targets:
       properties:
         CFBundleDisplayName: Zwäg
         CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         WKApplication: true
         WKCompanionAppBundleIdentifier: $(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
         ZwaegAppGroup: group.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
@@ -149,6 +152,7 @@ targets:
       properties:
         CFBundleDisplayName: Zwäg
         CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
         ZwaegAppGroup: group.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
