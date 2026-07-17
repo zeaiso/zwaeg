@@ -37,8 +37,11 @@ enum FoodPhotoClassifier {
         for (identifier, confidence) in ranked {
             guard confidence >= minimumConfidence,
                   let query = swissQueries[identifier],
-                  let product = SwissFoodDatabase.shared.search(query).first,
+                  var product = SwissFoodDatabase.shared.search(query).first,
                   seenProducts.insert(product.id).inserted else { continue }
+            if product.servingGrams == nil {
+                product.servingGrams = pieceGrams[identifier]
+            }
             guesses.append(FoodPhotoGuess(product: product, confidence: Double(confidence)))
             if guesses.count == maxGuesses { break }
         }
@@ -171,5 +174,40 @@ enum FoodPhotoClassifier {
         "coffee": "Kaffee, schwarz, ungezuckert",
         "juice": "Orangensaft",
         "yogurt": "Joghurt, nature",
+    ]
+
+    /// Typical edible weight of one piece, for foods eaten by the piece;
+    /// becomes the portion size so "2 Portionen" means two apples, not 200 g.
+    /// Rounded everyday values, not medical data — the user confirms the
+    /// amount on the portion sheet either way.
+    private static let pieceGrams: [String: Double] = [
+        "apple": 130,
+        "apricot": 45,
+        "avocado": 140,
+        "banana": 120,
+        "bell_pepper": 150,
+        "pepper_veggie": 150,
+        "carrot": 80,
+        "croissant": 50,
+        "cucumber": 300,
+        "donut": 60,
+        "egg": 60,
+        "fried_egg": 60,
+        "eggplant": 250,
+        "fig": 50,
+        "hamburger": 200,
+        "kiwi": 75,
+        "lemon": 60,
+        "onion": 90,
+        "oranges": 130,
+        "peach": 150,
+        "pear": 170,
+        "pizza": 350,
+        "plum": 65,
+        "potato": 90,
+        "sandwich": 180,
+        "tomato": 100,
+        "waffle": 40,
+        "zucchini": 200,
     ]
 }

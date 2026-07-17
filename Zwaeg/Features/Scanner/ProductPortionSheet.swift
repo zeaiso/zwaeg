@@ -13,6 +13,15 @@ struct ProductPortionSheet: View {
 
     @State private var servings = 1.0
     @State private var meal: MealType = .breakfast
+    /// Amount unit: portions of the serving size, or grams directly.
+    @State private var unit: AmountUnit = .portion
+    @State private var grams = 100.0
+
+    enum AmountUnit {
+        case portion, gramm
+    }
+
+    private let gramChips: [Double] = [50, 100, 150, 200, 300]
 
     /// Grams behind one serving; database items default to 100 g.
     private var servingGrams: Double {
@@ -20,7 +29,7 @@ struct ProductPortionSheet: View {
     }
 
     private var totalGrams: Double {
-        servingGrams * servings
+        unit == .portion ? servingGrams * servings : grams
     }
 
     private static func defaultMeal(now: Date = .now) -> MealType {
@@ -51,6 +60,10 @@ struct ProductPortionSheet: View {
         .background(Theme.background)
         .onAppear {
             meal = initialMeal ?? Self.defaultMeal()
+            grams = servingGrams
+            if LaunchArgs.all.contains("-demo-grams") {
+                unit = .gramm
+            }
         }
     }
 
@@ -86,43 +99,100 @@ struct ProductPortionSheet: View {
         return parts.joined(separator: " · ")
     }
 
-    // MARK: - Servings
+    // MARK: - Amount
 
     private var servingsRow: some View {
-        HStack {
-            Text("Portionen".loc)
-                .font(.fredoka(17, .semibold))
-                .foregroundStyle(Theme.ink)
-            Spacer()
-            Button {
-                withAnimation(.snappy) { servings = max(0.5, servings - 0.5) }
-            } label: {
-                Image(systemName: "minus")
-                    .font(.fredoka(15, .semibold))
+        VStack(spacing: 12) {
+            HStack {
+                HStack(spacing: 6) {
+                    unitChip("Portionen".loc, .portion)
+                    unitChip("Gramm".loc, .gramm)
+                }
+                Spacer()
+                stepButton("minus", prominent: false) {
+                    if unit == .portion {
+                        servings = max(0.5, servings - 0.5)
+                    } else {
+                        grams = max(5, grams - 5)
+                    }
+                }
+                Text(amountLabel)
+                    .font(.fredoka(19, .semibold))
                     .foregroundStyle(Theme.ink)
-                    .frame(width: 34, height: 34)
-                    .background(Theme.accentSoft, in: Circle())
+                    .frame(minWidth: 44)
+                    .contentTransition(.numericText())
+                stepButton("plus", prominent: true) {
+                    if unit == .portion {
+                        servings = min(10, servings + 0.5)
+                    } else {
+                        grams = min(1000, grams + 5)
+                    }
+                }
             }
-            .buttonStyle(.plain)
-            Text(servingsLabel)
-                .font(.fredoka(19, .semibold))
-                .foregroundStyle(Theme.ink)
-                .frame(minWidth: 44)
-                .contentTransition(.numericText())
-            Button {
-                withAnimation(.snappy) { servings = min(10, servings + 0.5) }
-            } label: {
-                Image(systemName: "plus")
-                    .font(.fredoka(15, .semibold))
-                    .foregroundStyle(Theme.onInk)
-                    .frame(width: 34, height: 34)
-                    .background(Theme.ink, in: Circle())
+            if unit == .gramm {
+                HStack(spacing: 8) {
+                    ForEach(gramChips, id: \.self) { value in
+                        Button {
+                            withAnimation(.snappy) { grams = value }
+                        } label: {
+                            Text("\(Int(value)) g")
+                                .font(.fredoka(12, .semibold))
+                                .padding(.vertical, 7)
+                                .frame(maxWidth: .infinity)
+                                .background(grams == value ? Theme.ink : Theme.field.opacity(0.6),
+                                            in: Capsule())
+                                .foregroundStyle(grams == value ? Theme.onInk : .secondary)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
             }
-            .buttonStyle(.plain)
         }
         .padding(16)
         .background(Theme.card, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
         .shadow(color: Theme.shadow.opacity(0.04), radius: 8, y: 3)
+    }
+
+    /// Switching units keeps the chosen amount: portions convert to their
+    /// grams and grams to the nearest half portion.
+    private func unitChip(_ title: String, _ target: AmountUnit) -> some View {
+        Button {
+            guard unit != target else { return }
+            withAnimation(.snappy) {
+                if target == .gramm {
+                    grams = min(1000, max(5, (servingGrams * servings / 5).rounded() * 5))
+                } else {
+                    servings = min(10, max(0.5, (grams / servingGrams * 2).rounded() / 2))
+                }
+                unit = target
+            }
+        } label: {
+            Text(title)
+                .font(.fredoka(13, .semibold))
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(unit == target ? Theme.ink : Theme.field.opacity(0.6), in: Capsule())
+                .foregroundStyle(unit == target ? Theme.onInk : .secondary)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func stepButton(_ symbol: String, prominent: Bool, action: @escaping () -> Void) -> some View {
+        Button {
+            withAnimation(.snappy) { action() }
+        } label: {
+            Image(systemName: symbol)
+                .font(.fredoka(15, .semibold))
+                .foregroundStyle(prominent ? Theme.onInk : Theme.ink)
+                .frame(width: 34, height: 34)
+                .background(prominent ? AnyShapeStyle(Theme.ink) : AnyShapeStyle(Theme.accentSoft),
+                            in: Circle())
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var amountLabel: String {
+        unit == .portion ? servingsLabel : "\(Int(grams))"
     }
 
     private var servingsLabel: String {
@@ -135,13 +205,14 @@ struct ProductPortionSheet: View {
 
     private var calorieCard: some View {
         VStack(spacing: 4) {
-            Text("\(product.kcal(for: servingGrams))")
+            Text("\(product.kcal(for: unit == .portion ? servingGrams : grams))")
                 .font(.fredoka(50, .semibold))
                 .foregroundStyle(.white)
-            Text("Kalorien pro Portion".loc)
+                .contentTransition(.numericText())
+            Text(unit == .portion ? "Kalorien pro Portion".loc : "Kalorien für %d g".loc(Int(grams)))
                 .font(.fredoka(15, .semibold))
                 .foregroundStyle(.white.opacity(0.9))
-            if servings != 1 {
+            if unit == .portion, servings != 1 {
                 Text("%@ Portionen · %d kcal gesamt".loc(servingsLabel, product.kcal(for: totalGrams)))
                     .font(.fredoka(12))
                     .foregroundStyle(.white.opacity(0.85))
