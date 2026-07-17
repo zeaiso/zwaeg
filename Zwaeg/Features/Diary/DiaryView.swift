@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import WidgetKit
 
 struct DiaryView: View {
     let profile: UserProfile
@@ -944,6 +945,15 @@ struct DiaryView: View {
             glasses: todayGlasses ?? waterDays.first { $0.day == today }?.glasses ?? 0,
             waterGoal: profile.waterGoalGlasses,
             fastingEnd: fastingSessions.first { $0.isActive }?.goalEnd)
+        // Outside DayActivityController.sync: that bails when Live
+        // Activities are off, and the streak widget must update anyway.
+        StreakSnapshotStore.save(.init(
+            days: streak,
+            freezes: streakFreezes,
+            loggedToday: !todayEntries.isEmpty,
+            label: "Tage-Streak".loc,
+            midnight: Themer.shared.look == .midnight))
+        WidgetCenter.shared.reloadTimelines(ofKind: "ZwaegStreakWidget")
     }
 }
 

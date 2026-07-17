@@ -6,6 +6,9 @@ releases add features, and anything that changes behaviour is noted.
 
 ## Unreleased
 
+- Streak widget for the home screen: flame, day count and banked freezes,
+  with a small lock screen variant. The flame greys out until something is
+  logged today. Updates whenever the diary changes, like the day-ring widget.
 - Streak freezes, Duolingo-style. Every seventh logged day banks a freeze (at
   most two at once) and a missed day automatically spends one, so the streak
   survives the gap. The diary header shows the banked freezes next to the

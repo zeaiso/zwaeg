@@ -6,6 +6,7 @@ import WidgetKit
 struct ZwaegWidgetsBundle: WidgetBundle {
     var body: some Widget {
         ZwaegRingWidget()
+        ZwaegStreakWidget()
         ZwaegDayLiveActivity()
     }
 }
@@ -143,6 +144,94 @@ private struct RingWidgetView: View {
             Text(value)
                 .font(.custom("Fredoka-SemiBold", size: 15))
                 .foregroundStyle(Palette.ink(state.midnight))
+        }
+    }
+}
+
+// MARK: - Streak widget
+
+struct StreakEntry: TimelineEntry {
+    let date: Date
+    let state: StreakSnapshotStore.State
+}
+
+struct StreakProvider: TimelineProvider {
+    private var sample: StreakSnapshotStore.State {
+        .init(days: 7, freezes: 1, loggedToday: true, label: "Tage-Streak", midnight: false)
+    }
+
+    private var current: StreakSnapshotStore.State {
+        StreakSnapshotStore.load() ?? sample
+    }
+
+    func placeholder(in context: Context) -> StreakEntry {
+        StreakEntry(date: .now, state: sample)
+    }
+
+    func getSnapshot(in context: Context, completion: @escaping (StreakEntry) -> Void) {
+        completion(StreakEntry(date: .now, state: current))
+    }
+
+    func getTimeline(in context: Context, completion: @escaping (Timeline<StreakEntry>) -> Void) {
+        // The app reloads the timeline on every change; no self-refresh needed.
+        completion(Timeline(entries: [StreakEntry(date: .now, state: current)], policy: .never))
+    }
+}
+
+struct ZwaegStreakWidget: Widget {
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: "ZwaegStreakWidget", provider: StreakProvider()) { entry in
+            StreakWidgetView(state: entry.state)
+                .containerBackground(for: .widget) {
+                    Palette.background(entry.state.midnight)
+                }
+        }
+        .configurationDisplayName("Streak")
+        .description("Deine Tage am Stück.")
+        .supportedFamilies([.systemSmall, .accessoryCircular])
+    }
+}
+
+private struct StreakWidgetView: View {
+    let state: StreakSnapshotStore.State
+
+    @Environment(\.widgetFamily) private var family
+
+    private static let freezeBlue = Color(red: 0.36, green: 0.68, blue: 0.98)
+
+    var body: some View {
+        switch family {
+        case .accessoryCircular:
+            VStack(spacing: 0) {
+                Image(systemName: "flame.fill")
+                    .font(.system(size: 15, weight: .bold))
+                Text("\(state.days)")
+                    .font(.system(size: 19, weight: .bold, design: .rounded))
+            }
+        default:
+            VStack(spacing: 3) {
+                Image(systemName: "flame.fill")
+                    .font(.system(size: 30, weight: .bold))
+                    .foregroundStyle(state.loggedToday ? AnyShapeStyle(Palette.accent.gradient)
+                                                       : AnyShapeStyle(Color.gray.opacity(0.55)))
+                Text("\(state.days)")
+                    .font(.custom("Fredoka-SemiBold", size: 35))
+                    .foregroundStyle(Palette.ink(state.midnight))
+                    .contentTransition(.numericText())
+                Text(state.label)
+                    .font(.custom("Fredoka-Regular", size: 12))
+                    .foregroundStyle(.secondary)
+                if state.freezes > 0 {
+                    HStack(spacing: 4) {
+                        ForEach(0..<state.freezes, id: \.self) { _ in
+                            Image(systemName: "snowflake")
+                                .font(.system(size: 11, weight: .bold))
+                                .foregroundStyle(Self.freezeBlue)
+                        }
+                    }
+                    .padding(.top, 2)
+                }
+            }
         }
     }
 }
