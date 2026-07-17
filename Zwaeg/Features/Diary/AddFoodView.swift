@@ -25,6 +25,10 @@ struct AddFoodView: View {
     @State private var manualName = ""
     @State private var manualKcal = ""
 
+    /// Open Food Facts name search, filling in what the offline data lacks.
+    @State private var onlineResults: [FoodProduct] = []
+    @State private var onlineLoading = false
+
     init(day: Date, meal: MealType) {
         self.day = day
         _meal = State(initialValue: meal)
@@ -72,13 +76,31 @@ struct AddFoodView: View {
                 loggedSection
                 if query.trimmingCharacters(in: .whitespaces).count >= 2 {
                     sectionLabel("ERGEBNISSE".loc)
-                    if searchResults.isEmpty, customMatches.isEmpty, cachedMatches.isEmpty {
+                    if searchResults.isEmpty, customMatches.isEmpty, cachedMatches.isEmpty,
+                       onlineResults.isEmpty, !onlineLoading {
                         Text("Nichts gefunden. Scanne den Barcode oder trage es als eigenes Lebensmittel ein.".loc)
                             .font(.fredoka(13))
                             .foregroundStyle(.secondary)
                     }
                     ForEach(customMatches + cachedMatches + searchResults) { product in
-                        productRow(product)
+                        productRow(product, onDelete: customDeleteAction(for: product))
+                    }
+                    if onlineLoading, onlineResults.isEmpty {
+                        HStack(spacing: 8) {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                            Text("Open Food Facts")
+                                .font(.fredoka(12))
+                                .foregroundStyle(.tertiary)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 6)
+                    }
+                    if !onlineResults.isEmpty {
+                        sectionLabel("OPEN FOOD FACTS")
+                        ForEach(onlineResults) { product in
+                            productRow(product)
+                        }
                     }
                 } else {
                     myFoodsSection
@@ -103,6 +125,30 @@ struct AddFoodView: View {
             CustomFoodForm(barcode: nil) { pendingProduct = $0 }
                 .presentationDetents([.large])
         }
+        .onAppear {
+            // Debug: -search <term> prefills the query for screenshots.
+            if let flagIndex = LaunchArgs.all.firstIndex(of: "-search"),
+               LaunchArgs.all.indices.contains(flagIndex + 1) {
+                query = LaunchArgs.all[flagIndex + 1]
+            }
+        }
+        .task(id: query) {
+            let trimmed = query.trimmingCharacters(in: .whitespaces)
+            guard trimmed.count >= 3 else {
+                onlineResults = []
+                onlineLoading = false
+                return
+            }
+            onlineLoading = true
+            // Debounce: typing cancels this task via task(id:).
+            try? await Task.sleep(for: .milliseconds(500))
+            guard !Task.isCancelled else { return }
+            let results = await OpenFoodFactsClient.searchProducts(name: trimmed)
+            guard !Task.isCancelled else { return }
+            let localIDs = Set((customMatches + cachedMatches + searchResults).map(\.id))
+            onlineResults = results.filter { !localIDs.contains($0.id) }
+            onlineLoading = false
+        }
     }
 
     // MARK: - Own products (reusable, created via CustomFoodForm)
@@ -112,16 +158,18 @@ struct AddFoodView: View {
         if !customFoods.isEmpty {
             sectionLabel("MEINE LEBENSMITTEL".loc)
             ForEach(customFoods.prefix(4)) { food in
-                productRow(food.asProduct)
-                    .contextMenu {
-                        Button(role: .destructive) {
-                            withAnimation(.snappy) { context.delete(food) }
-                        } label: {
-                            Label("Löschen".loc, systemImage: "trash")
-                        }
-                    }
+                productRow(food.asProduct, onDelete: { context.delete(food) })
             }
         }
+    }
+
+    /// Deleting stays possible when an own product surfaces in the search.
+    private func customDeleteAction(for product: FoodProduct) -> (() -> Void)? {
+        guard product.source == .custom,
+              let food = customFoods.first(where: { product.id == "custom-\($0.uid)" }) else {
+            return nil
+        }
+        return { context.delete(food) }
     }
 
     private var customFoodButton: some View {
@@ -364,6 +412,7 @@ struct AddFoodView: View {
     }
 
     private func foodRow(name: String, subtitle: String, added: Bool,
+                         onDelete: (() -> Void)? = nil,
                          onOpen: @escaping () -> Void, action: @escaping () -> Void) -> some View {
         HStack(spacing: 12) {
             Button(action: onOpen) {
@@ -384,6 +433,18 @@ struct AddFoodView: View {
                 }
             }
             .buttonStyle(.plain)
+            if let onDelete {
+                Button {
+                    withAnimation(.snappy) { onDelete() }
+                } label: {
+                    Image(systemName: "trash")
+                        .font(.fredoka(13, .semibold))
+                        .foregroundStyle(.secondary)
+                        .frame(width: 32, height: 32)
+                        .background(Theme.field.opacity(0.6), in: Circle())
+                }
+                .buttonStyle(.plain)
+            }
             Button(action: action) {
                 Image(systemName: added ? "checkmark" : "plus")
                     .font(.fredoka(15, .semibold))
@@ -399,12 +460,21 @@ struct AddFoodView: View {
         .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
     }
 
-    private func productRow(_ product: FoodProduct) -> some View {
+    private func productRow(_ product: FoodProduct, onDelete: (() -> Void)? = nil) -> some View {
         foodRow(name: product.name,
                 subtitle: "100 g · \(Int(product.kcalPer100g.rounded())) kcal",
                 added: justAdded == product.id
                     || mealEntries.contains { $0.name == product.displayName },
-                onOpen: { detailProduct = product }) {
+                onDelete: onDelete,
+                onOpen: {
+                    // Online results become part of the offline cache the
+                    // moment they get attention, like scanned barcodes.
+                    if product.source == .openFoodFacts, let code = product.barcode,
+                       !cachedProducts.contains(where: { $0.barcode == code }) {
+                        context.insert(CachedProduct(product: product, barcode: code))
+                    }
+                    detailProduct = product
+                }) {
             add(name: product.displayName,
                 calories: product.kcal(for: 100),
                 protein: product.protein(for: 100),

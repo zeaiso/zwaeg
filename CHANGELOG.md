@@ -6,6 +6,13 @@ releases add features, and anything that changes behaviour is noted.
 
 ## Unreleased
 
+- Food search also asks Open Food Facts. Typing three or more letters
+  searches the online database alongside the offline results (debounced, via
+  the Search-a-licious API), so branded products like a Kaffee Latte appear
+  by name without scanning. Results without nutrition values are dropped, and
+  a product you open joins the offline cache like a scanned barcode.
+- Own foods ("Meine Lebensmittel") show a visible delete button instead of
+  the hidden long-press menu, also when they appear in search results.
 - All strings introduced since 1.0.0 (photo scanner, portion units, fasting
   reminder, streak freeze, meal plan) translated into all 23 app languages.
 - Choose your meals. "Ziele & Vorgaben" gets a Mahlzeiten section: turn off

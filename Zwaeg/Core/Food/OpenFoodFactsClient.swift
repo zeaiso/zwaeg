@@ -15,25 +15,29 @@ enum OpenFoodFactsClient {
         }
     }
 
-    /// Returns nil when the barcode is unknown to Open Food Facts.
-    static func fetchProduct(barcode: String) async throws -> FoodProduct? {
-        let digits = barcode.filter(\.isNumber)
-        guard (6...14).contains(digits.count) else { throw LookupError.invalidBarcode }
+    private static let fields = "product_name,product_name_de,brands,nutriments,serving_quantity"
 
-        let fields = "product_name,product_name_de,brands,nutriments,serving_quantity"
-        guard let url = URL(string: "https://ch.openfoodfacts.org/api/v2/product/\(digits)?fields=\(fields)") else {
-            throw LookupError.invalidBarcode
-        }
-
+    private static func request(for url: URL) -> URLRequest {
         var request = URLRequest(url: url)
         // Open Food Facts asks API users to identify themselves with a
         // descriptive User-Agent including a contact point.
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0"
         request.setValue("Zwaeg iOS/\(version) (https://zwaeg.app)", forHTTPHeaderField: "User-Agent")
+        return request
+    }
+
+    /// Returns nil when the barcode is unknown to Open Food Facts.
+    static func fetchProduct(barcode: String) async throws -> FoodProduct? {
+        let digits = barcode.filter(\.isNumber)
+        guard (6...14).contains(digits.count) else { throw LookupError.invalidBarcode }
+
+        guard let url = URL(string: "https://ch.openfoodfacts.org/api/v2/product/\(digits)?fields=\(fields)") else {
+            throw LookupError.invalidBarcode
+        }
 
         let data: Data
         do {
-            (data, _) = try await URLSession.shared.data(for: request)
+            (data, _) = try await URLSession.shared.data(for: request(for: url))
         } catch {
             throw LookupError.network
         }
@@ -43,7 +47,37 @@ enum OpenFoodFactsClient {
               let product = response.product else {
             return nil
         }
+        return foodProduct(from: product, digits: digits)
+    }
 
+    /// Free-text name search via Search-a-licious (the classic search.pl is
+    /// gone), for products the offline database doesn't carry ("Kaffee
+    /// Latte"). Best-effort: empty on any error, entries without nutrition
+    /// values are dropped.
+    static func searchProducts(name: String, limit: Int = 6) async -> [FoodProduct] {
+        let trimmed = name.trimmingCharacters(in: .whitespaces)
+        guard trimmed.count >= 3,
+              let escaped = trimmed.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let url = URL(string: "https://search.openfoodfacts.org/search?q=\(escaped)"
+                            + "&page_size=\(limit)&langs=de,en&fields=code,\(fields)") else {
+            return []
+        }
+        guard let (data, _) = try? await URLSession.shared.data(for: request(for: url)),
+              let response = try? JSONDecoder().decode(OFFSearchResponse.self, from: data) else {
+            return []
+        }
+        return response.hits.compactMap { product in
+            guard let digits = product.code?.filter(\.isNumber), (6...14).contains(digits.count) else {
+                return nil
+            }
+            let mapped = foodProduct(from: product, digits: digits)
+            let hasNutrition = mapped.kcalPer100g > 0
+                || mapped.proteinPer100g + mapped.carbsPer100g + mapped.fatPer100g > 0
+            return hasNutrition ? mapped : nil
+        }
+    }
+
+    private static func foodProduct(from product: OFFProduct, digits: String) -> FoodProduct {
         let name = [product.productNameDe, product.productName]
             .compactMap { $0 }
             .first { !$0.isEmpty } ?? "Unbekanntes Produkt"
@@ -83,7 +117,12 @@ enum OpenFoodFactsClient {
         let product: OFFProduct?
     }
 
+    private struct OFFSearchResponse: Decodable {
+        let hits: [OFFProduct]
+    }
+
     private struct OFFProduct: Decodable {
+        let code: String?
         let productName: String?
         let productNameDe: String?
         let brands: String?
@@ -91,6 +130,7 @@ enum OpenFoodFactsClient {
         let servingQuantity: Double?
 
         enum CodingKeys: String, CodingKey {
+            case code
             case productName = "product_name"
             case productNameDe = "product_name_de"
             case brands
@@ -100,9 +140,24 @@ enum OpenFoodFactsClient {
 
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
+            // The barcode arrives as string or number depending on endpoint.
+            if let text = try? container.decode(String.self, forKey: .code) {
+                code = text
+            } else if let value = try? container.decode(Int.self, forKey: .code) {
+                code = String(value)
+            } else {
+                code = nil
+            }
             productName = try? container.decode(String.self, forKey: .productName)
             productNameDe = try? container.decode(String.self, forKey: .productNameDe)
-            brands = try? container.decode(String.self, forKey: .brands)
+            // Comma string on the product endpoint, array on the search API.
+            if let text = try? container.decode(String.self, forKey: .brands) {
+                brands = text
+            } else if let list = try? container.decode([String].self, forKey: .brands) {
+                brands = list.joined(separator: ",")
+            } else {
+                brands = nil
+            }
             nutriments = try? container.decode(OFFNutriments.self, forKey: .nutriments)
             if let value = try? container.decode(Double.self, forKey: .servingQuantity) {
                 servingQuantity = value
