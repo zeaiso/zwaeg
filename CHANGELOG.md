@@ -4,45 +4,20 @@ All notable changes to Zwäg are documented here. This project follows
 [semantic versioning](https://semver.org): patch releases fix bugs, minor
 releases add features, and anything that changes behaviour is noted.
 
-## Unreleased
+## 1.1.0 (2026-07-18)
 
-- Progress photos replace the morphing body buddy on the progress screen.
-  Add a photo of yourself each week (stored only on the device, never
-  synced); the card shows your first and newest photo side by side with the
-  logged weight at the time, a strip of all photos with delete buttons, and
-  a gentle badge when the newest photo is over a week old.
-- Weekly weigh-in reminder: a fourth card on the reminders screen with a
-  weekday picker and time, so the scale becomes a Monday-morning habit.
-- Food search also asks Open Food Facts. Typing three or more letters
-  searches the online database alongside the offline results (debounced, via
-  the Search-a-licious API), so branded products like a Kaffee Latte appear
-  by name without scanning. Results without nutrition values are dropped, and
-  a product you open joins the offline cache like a scanned barcode.
-- Own foods ("Meine Lebensmittel") show a visible delete button instead of
-  the hidden long-press menu, also when they appear in search results.
-- All strings introduced since 1.0.0 (photo scanner, portion units, fasting
-  reminder, streak freeze, meal plan) translated into all 23 app languages.
-- Choose your meals. "Ziele & Vorgaben" gets a Mahlzeiten section: turn off
-  the meals you don't eat (all calories at lunch, lunch and dinner only, no
-  snacks, ...) and they disappear from the diary and the meal pickers, while
-  the daily calorie budget redistributes over the meals you kept. A disabled
-  meal that still holds logged entries stays visible for that day, meal
-  reminders only fire for meals you eat, and at least one meal always stays
-  on.
-- Streak widget for the home screen: flame, day count and banked freezes,
-  with a small lock screen variant. The flame greys out until something is
-  logged today. Updates whenever the diary changes, like the day-ring widget.
-- Streak freezes, Duolingo-style. Every seventh logged day banks a freeze (at
-  most two at once) and a missed day automatically spends one, so the streak
-  survives the gap. The diary header shows the banked freezes next to the
-  flame, and a "Streak gerettet!" banner appears when a freeze just bridged
-  yesterday. Freezes are only spent when they actually reach the next logged
-  day — a gap too wide to close wastes nothing — and backfilling a bridged
-  day refunds its freeze.
-- Fasting start reminder. A third card on the reminders screen sends a daily
-  notification when the fasting window begins (default 20:00, freely
-  configurable), alongside the existing water and meal reminders. Reminder
-  times stored by earlier versions carry over unchanged.
+The first feature release, shaped by the first days of real-world use:
+faster food logging, a streak that forgives a missed day, and progress you
+can see. Everything stays local first.
+
+### Scanner and food logging
+- Photo food recognition. A third "Foto" mode in the scanner photographs the
+  plate, classifies it on device with Apple's built-in Vision taxonomy (no
+  bundled model, the photo never leaves the device) and offers the
+  recognized foods as tappable chips that resolve to entries of the bundled
+  Swiss Food Composition Database and open the normal portion sheet. Strong
+  on single whole foods (fruit, vegetables, common dishes), weaker on mixed
+  plates.
 - Portion sheet units: a dropdown switches between Portionen, Gramm and
   Stück. Gram mode has a type-anything field (number pad with a Fertig
   button, so the keyboard always dismisses) plus quick chips for 50 to 300 g;
@@ -50,18 +25,52 @@ releases add features, and anything that changes behaviour is noted.
   and the last used unit is remembered. Foods recognized by photo carry a
   typical piece weight (an apple counts as 130 g, an egg as 60 g), so
   "2 Stück" means two pieces instead of a flat 200 g.
-- Work in progress: photo food recognition in the scanner. A third "Foto" mode
-  photographs the plate, classifies it on device with Apple's built-in Vision
-  taxonomy (no bundled model, nothing leaves the device) and offers the
-  recognized foods as tappable chips that resolve to entries of the bundled
-  Swiss Food Composition Database and open the normal portion sheet. Strong on
-  single whole foods (fruit, vegetables, common dishes), weaker on mixed
-  plates; the classifier only runs on real devices, so the simulator injects
-  taxonomy identifiers via the debug argument `-demo-photo apple,banana`.
+- Food search also asks Open Food Facts. Typing three or more letters
+  searches the online database alongside the offline results (debounced, via
+  the Search-a-licious API), so branded products like a Kaffee Latte appear
+  by name without scanning. Results without nutrition values are dropped, and
+  a product you open joins the offline cache like a scanned barcode.
+- Own foods ("Meine Lebensmittel") show a visible delete button instead of
+  the hidden long-press menu, also when they appear in search results.
+
+### Streak and progress
+- Streak freezes, Duolingo-style. Every seventh logged day banks a freeze (at
+  most two at once) and a missed day automatically spends one, so the streak
+  survives the gap. The diary header shows the banked freezes next to the
+  flame, and a "Streak gerettet!" banner appears when a freeze just bridged
+  yesterday. Freezes are only spent when they actually reach the next logged
+  day — a gap too wide to close wastes nothing — and backfilling a bridged
+  day refunds its freeze.
+- Streak widget for the home screen: flame, day count and banked freezes,
+  with a small lock screen variant. The flame greys out until something is
+  logged today. Updates whenever the diary changes, like the day-ring widget.
+- Progress photos replace the morphing body buddy on the progress screen.
+  Add a photo of yourself each week (stored only on the device, never
+  synced); the card shows your first and newest photo side by side with the
+  logged weight at the time, every photo has a delete button, and a gentle
+  badge appears when the newest photo is over a week old.
+
+### Plan and reminders
+- Choose your meals. "Ziele & Vorgaben" gets a Mahlzeiten section: turn off
+  the meals you don't eat (all calories at lunch, lunch and dinner only, no
+  snacks, ...) and they disappear from the diary and the meal pickers, while
+  the daily calorie budget redistributes over the meals you kept. A disabled
+  meal that still holds logged entries stays visible for that day, meal
+  reminders only fire for meals you eat, and at least one meal always stays
+  on.
+- Fasting start reminder. A third card on the reminders screen sends a daily
+  notification when the fasting window begins (default 20:00, freely
+  configurable), alongside the existing water and meal reminders. Reminder
+  times stored by earlier versions carry over unchanged.
+- Weekly weigh-in reminder: a fourth card on the reminders screen with a
+  weekday picker and time, so the scale becomes a Monday-morning habit.
+
+### Fixes and languages
 - Removed the free-text note on the "Wie war dein Tag?" mood card for now. The
   keyboard could not be dismissed after typing, so text entry is disabled until
   the input works properly. Picking a daily mood still works, and notes that
   were already saved stay on the device.
+- Every new string ships in all 23 app languages.
 
 ## 1.0.0 (2026-07-16)
 
