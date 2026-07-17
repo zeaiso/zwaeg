@@ -6,6 +6,8 @@ releases add features, and anything that changes behaviour is noted.
 
 ## Unreleased
 
+- All strings introduced since 1.0.0 (photo scanner, portion units, fasting
+  reminder, streak freeze, meal plan) translated into all 23 app languages.
 - Choose your meals. "Ziele & Vorgaben" gets a Mahlzeiten section: turn off
   the meals you don't eat (all calories at lunch, lunch and dinner only, no
   snacks, ...) and they disappear from the diary and the meal pickers, while
