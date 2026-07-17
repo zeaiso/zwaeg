@@ -6,6 +6,10 @@ releases add features, and anything that changes behaviour is noted.
 
 ## Unreleased
 
+- Fasting start reminder. A third card on the reminders screen sends a daily
+  notification when the fasting window begins (default 20:00, freely
+  configurable), alongside the existing water and meal reminders. Reminder
+  times stored by earlier versions carry over unchanged.
 - Portion sheet can switch between portions and grams. A Portionen/Gramm
   toggle on the amount card: gram mode steps in 5 g with quick chips for 50 to
   300 g, and switching units carries the chosen amount over. Deliberately

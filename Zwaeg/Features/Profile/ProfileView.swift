@@ -11,7 +11,7 @@ struct ProfileView: View {
     /// One destination for the debug-arg navigation; stacked
     /// navigationDestination modifiers broke touch delivery on iOS 17.
     private enum Route: Hashable, Identifiable {
-        case progress, buddy, language, look, about, goals
+        case progress, buddy, language, look, about, goals, reminders
 
         var id: Self { self }
     }
@@ -48,6 +48,8 @@ struct ProfileView: View {
                     AboutView()
                 case .goals:
                     GoalsView(profile: profile)
+                case .reminders:
+                    RemindersView()
                 }
             }
             .onAppear {
@@ -68,6 +70,9 @@ struct ProfileView: View {
                 }
                 if LaunchArgs.all.contains("-open-goals") {
                     route = .goals
+                }
+                if LaunchArgs.all.contains("-open-reminders") {
+                    route = .reminders
                 }
                 if LaunchArgs.all.contains("-wipe-data") {
                     DataReset.wipeAll(context: context)
@@ -609,6 +614,7 @@ struct GoalsView: View {
 struct RemindersView: View {
     @AppStorage("waterRemindersOn") private var waterOn = false
     @AppStorage("mealRemindersOn") private var mealsOn = false
+    @AppStorage("fastingRemindersOn") private var fastingOn = false
     @State private var times = ReminderStore.load()
     @State private var permissionDenied = false
 
@@ -617,6 +623,7 @@ struct RemindersView: View {
             VStack(spacing: 16) {
                 waterCard
                 mealsCard
+                fastingCard
                 if permissionDenied {
                     Label("Benachrichtigungen sind deaktiviert. Erlaube sie in den iOS-Einstellungen für Zwäg.".loc,
                           systemImage: "bell.slash")
@@ -631,6 +638,7 @@ struct RemindersView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: waterOn) { applyChanges() }
         .onChange(of: mealsOn) { applyChanges() }
+        .onChange(of: fastingOn) { applyChanges() }
         .onChange(of: times) { applyChanges() }
     }
 
@@ -724,6 +732,24 @@ struct RemindersView: View {
         }
     }
 
+    // MARK: - Fasting
+
+    private var fastingCard: some View {
+        Card {
+            VStack(spacing: 12) {
+                toggleRow(title: "Fasten starten".loc,
+                          subtitle: "Wenn dein Fastenfenster beginnt".loc,
+                          symbol: "timer",
+                          color: Color(red: 0.52, green: 0.48, blue: 0.95),
+                          isOn: $fastingOn)
+                if fastingOn {
+                    Divider()
+                    mealTimeRow("Startzeit".loc, get: { times.fasting }, set: { times.fasting = $0 })
+                }
+            }
+        }
+    }
+
     // MARK: - Shared pieces
 
     private func toggleRow(title: String, subtitle: String, symbol: String,
@@ -768,18 +794,21 @@ struct RemindersView: View {
     private func applyChanges() {
         ReminderStore.save(times)
         Task {
-            if waterOn || mealsOn {
+            if waterOn || mealsOn || fastingOn {
                 let granted = await NotificationService.requestPermission()
                 if !granted {
                     permissionDenied = true
                     waterOn = false
                     mealsOn = false
-                    await NotificationService.reschedule(waterOn: false, mealsOn: false, times: times)
+                    fastingOn = false
+                    await NotificationService.reschedule(
+                        waterOn: false, mealsOn: false, fastingOn: false, times: times)
                     return
                 }
             }
             permissionDenied = false
-            await NotificationService.reschedule(waterOn: waterOn, mealsOn: mealsOn, times: times)
+            await NotificationService.reschedule(
+                waterOn: waterOn, mealsOn: mealsOn, fastingOn: fastingOn, times: times)
         }
     }
 }

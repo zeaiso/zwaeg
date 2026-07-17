@@ -7,6 +7,21 @@ struct ReminderTimes: Codable, Equatable {
     var breakfast: Int = 8 * 60
     var lunch: Int = 12 * 60 + 30
     var dinner: Int = 19 * 60
+    /// When the daily fasting window begins (eating ends); 20:00 suits 16:8.
+    var fasting: Int = 20 * 60
+
+    init() {}
+
+    /// Times stored by an app version without a field keep their values;
+    /// only the missing field falls back to its default.
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        water = try container.decodeIfPresent([Int].self, forKey: .water) ?? water
+        breakfast = try container.decodeIfPresent(Int.self, forKey: .breakfast) ?? breakfast
+        lunch = try container.decodeIfPresent(Int.self, forKey: .lunch) ?? lunch
+        dinner = try container.decodeIfPresent(Int.self, forKey: .dinner) ?? dinner
+        fasting = try container.decodeIfPresent(Int.self, forKey: .fasting) ?? fasting
+    }
 }
 
 enum ReminderStore {
@@ -39,10 +54,13 @@ enum NotificationService {
     }
 
     /// Replaces all scheduled reminders with the given configuration.
-    static func reschedule(waterOn: Bool, mealsOn: Bool, times: ReminderTimes) async {
+    static func reschedule(waterOn: Bool, mealsOn: Bool, fastingOn: Bool,
+                           times: ReminderTimes) async {
         let center = UNUserNotificationCenter.current()
         let pending = await center.pendingNotificationRequests()
-        let ours = pending.map(\.identifier).filter { $0.hasPrefix("water-") || $0.hasPrefix("meal-") }
+        let ours = pending.map(\.identifier).filter {
+            $0.hasPrefix("water-") || $0.hasPrefix("meal-") || $0 == "fasting-start"
+        }
         center.removePendingNotificationRequests(withIdentifiers: ours)
 
         if waterOn {
@@ -60,6 +78,11 @@ enum NotificationService {
                      body: "Kurz eintragen, was du gegessen hast.".loc, minutes: times.lunch)
             schedule(id: "meal-dinner", title: "Abendessen loggen".loc,
                      body: "Kurz eintragen, was du gegessen hast.".loc, minutes: times.dinner)
+        }
+        if fastingOn {
+            schedule(id: "fasting-start", title: "Fastenfenster startet".loc,
+                     body: "Zeit, dein Fasten zu starten. Du schaffst das!".loc,
+                     minutes: times.fasting)
         }
     }
 
