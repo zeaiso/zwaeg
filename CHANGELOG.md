@@ -6,6 +6,14 @@ releases add features, and anything that changes behaviour is noted.
 
 ## Unreleased
 
+- Work in progress: photo food recognition in the scanner. A third "Foto" mode
+  photographs the plate, classifies it on device with Apple's built-in Vision
+  taxonomy (no bundled model, nothing leaves the device) and offers the
+  recognized foods as tappable chips that resolve to entries of the bundled
+  Swiss Food Composition Database and open the normal portion sheet. Strong on
+  single whole foods (fruit, vegetables, common dishes), weaker on mixed
+  plates; the classifier only runs on real devices, so the simulator injects
+  taxonomy identifiers via the debug argument `-demo-photo apple,banana`.
 - Removed the free-text note on the "Wie war dein Tag?" mood card for now. The
   keyboard could not be dismissed after typing, so text entry is disabled until
   the input works properly. Picking a daily mood still works, and notes that

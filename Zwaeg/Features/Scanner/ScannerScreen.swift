@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import AVFoundation
+import UIKit
 
 /// Full-screen dark scanner in the Munch style: coral viewfinder brackets,
 /// glowing scan line, mode tabs and camera controls.
@@ -26,9 +27,11 @@ struct ScannerScreen: View {
     @State private var camera = ScannerCamera()
     /// Values read off a nutrition table; prefill the custom food form.
     @State private var labelFacts: NutritionFacts?
+    /// Foods recognized on the last photo; shown as tappable chips.
+    @State private var photoGuesses: [FoodPhotoGuess] = []
 
     enum ScanMode {
-        case barcode, label
+        case barcode, photo, label
     }
 
     private let bracketColor = Color(red: 1.0, green: 0.54, blue: 0.36)
@@ -44,6 +47,10 @@ struct ScannerScreen: View {
                 viewfinder
                 statusChip
                     .padding(.top, 22)
+                if !photoGuesses.isEmpty {
+                    photoGuessChips
+                        .padding(.top, 12)
+                }
                 if unknownBarcode != nil {
                     createCustomButton
                         .padding(.top, 12)
@@ -96,6 +103,16 @@ struct ScannerScreen: View {
                     "Eiweiß 9,8 g", "Salz 0,4 g",
                 ])
                 showCustomForm = true
+            }
+            // The simulator has no camera and can't run the Vision classifier;
+            // feed taxonomy identifiers straight into the resolver instead,
+            // e.g. -demo-photo apple,banana.
+            if let flagIndex = LaunchArgs.all.firstIndex(of: "-demo-photo"),
+               LaunchArgs.all.indices.contains(flagIndex + 1) {
+                mode = .photo
+                let identifiers = LaunchArgs.all[flagIndex + 1].split(separator: ",")
+                photoGuesses = FoodPhotoClassifier.resolve(
+                    identifiers.map { (String($0), 0.95) })
             }
             if LaunchArgs.all.contains("-demo-product") {
                 scannedProduct = FoodProduct(
@@ -192,12 +209,17 @@ struct ScannerScreen: View {
             return mode == .label ? "Lese Nährwerte...".loc : "Suche Produkt...".loc
         }
         if let statusMessage { return statusMessage }
+        if mode == .photo, !photoGuesses.isEmpty {
+            return "Tippe auf den passenden Treffer".loc
+        }
         guard BarcodeScannerView.isSupported else {
             return "Kamera nur auf dem iPhone. Barcode manuell eingeben.".loc
         }
-        return mode == .label
-            ? "Richte die Kamera auf die Nährwerttabelle".loc
-            : "Richte die Kamera auf einen Barcode".loc
+        switch mode {
+        case .barcode: return "Richte die Kamera auf einen Barcode".loc
+        case .photo: return "Fotografiere dein Essen mit dem Auslöser".loc
+        case .label: return "Richte die Kamera auf die Nährwerttabelle".loc
+        }
     }
 
     // MARK: - Mode tabs
@@ -205,6 +227,7 @@ struct ScannerScreen: View {
     private var modeTabs: some View {
         HStack(spacing: 26) {
             modeTab("Barcode", target: .barcode)
+            modeTab("Foto".loc, target: .photo)
             modeTab("Label".loc, target: .label)
         }
         .font(.fredoka(15, .semibold))
@@ -233,6 +256,8 @@ struct ScannerScreen: View {
             Button {
                 if mode == .label {
                     captureLabel()
+                } else if mode == .photo {
+                    captureFood()
                 } else if BarcodeScannerView.isSupported {
                     resetScanner()
                 } else {
@@ -313,11 +338,38 @@ struct ScannerScreen: View {
         .buttonStyle(.plain)
     }
 
+    /// One chip per recognized food; tapping opens the portion sheet.
+    private var photoGuessChips: some View {
+        VStack(spacing: 8) {
+            ForEach(photoGuesses) { guess in
+                Button {
+                    scannedProduct = guess.product
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: "sparkle.magnifyingglass")
+                        Text(guess.product.name)
+                            .lineLimit(1)
+                        Text("\(guess.product.kcal(for: 100)) kcal")
+                            .foregroundStyle(.white.opacity(0.55))
+                    }
+                    .font(.fredoka(14, .semibold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(.black.opacity(0.45), in: Capsule())
+                    .overlay(Capsule().stroke(bracketColor.opacity(0.7), lineWidth: 1.5))
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
     private func resetScanner() {
         statusMessage = nil
         isBusy = false
         manualBarcode = ""
         unknownBarcode = nil
+        photoGuesses = []
     }
 
     /// Label mode: photograph the nutrition table, OCR it on device and
@@ -340,6 +392,32 @@ struct ScannerScreen: View {
             } else {
                 statusMessage = "Keine Nährwerte erkannt. Geh näher ran.".loc
             }
+        }
+    }
+
+    /// Photo mode: photograph the food, classify it on device and offer the
+    /// recognized Swiss database entries as tappable chips.
+    private func captureFood() {
+        guard !isBusy, !isLoading else { return }
+        isLoading = true
+        statusMessage = nil
+        photoGuesses = []
+        Task {
+            defer { isLoading = false }
+            guard let image = await camera.capturePhoto() else {
+                statusMessage = "Kein Foto möglich. Probier es nochmal.".loc
+                return
+            }
+            await recognizeFood(in: image)
+        }
+    }
+
+    private func recognizeFood(in image: UIImage) async {
+        let guesses = await FoodPhotoClassifier.guesses(for: image)
+        if guesses.isEmpty {
+            statusMessage = "Kein Essen erkannt. Geh näher ran.".loc
+        } else {
+            withAnimation(.snappy) { photoGuesses = guesses }
         }
     }
 
