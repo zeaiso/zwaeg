@@ -175,10 +175,28 @@ struct ProgressScreen: View {
             photoImage(photo)
                 .frame(width: 132, height: 176)
                 .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .overlay(alignment: .topTrailing) {
+                    deleteButton(photo, diameter: 24)
+                        .padding(5)
+                }
             Text(photoCaption(photo))
                 .font(.fredoka(11, .semibold))
                 .foregroundStyle(.secondary)
         }
+    }
+
+    private func deleteButton(_ photo: ProgressPhotos.Photo, diameter: CGFloat) -> some View {
+        Button {
+            ProgressPhotos.delete(photo)
+            withAnimation(.snappy) { photos = ProgressPhotos.all() }
+        } label: {
+            Image(systemName: "xmark")
+                .font(.system(size: diameter * 0.42, weight: .bold))
+                .foregroundStyle(.white)
+                .frame(width: diameter, height: diameter)
+                .background(.black.opacity(0.55), in: Circle())
+        }
+        .buttonStyle(.plain)
     }
 
     /// All photos as small thumbnails, each with its own delete button.
@@ -191,18 +209,8 @@ struct ProgressScreen: View {
                             .frame(width: 56, height: 74)
                             .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                             .overlay(alignment: .topTrailing) {
-                                Button {
-                                    ProgressPhotos.delete(photo)
-                                    withAnimation(.snappy) { photos = ProgressPhotos.all() }
-                                } label: {
-                                    Image(systemName: "xmark")
-                                        .font(.system(size: 8, weight: .bold))
-                                        .foregroundStyle(.white)
-                                        .frame(width: 18, height: 18)
-                                        .background(.black.opacity(0.55), in: Circle())
-                                }
-                                .buttonStyle(.plain)
-                                .padding(3)
+                                deleteButton(photo, diameter: 18)
+                                    .padding(3)
                             }
                         Text(photo.date.formatted(.dateTime.day().month()))
                             .font(.fredoka(10))
