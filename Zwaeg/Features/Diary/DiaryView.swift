@@ -821,12 +821,6 @@ struct DiaryView: View {
         dayNotes.first { $0.day == selectedDay }
     }
 
-    private var noteBinding: Binding<String> {
-        Binding(
-            get: { dayNote?.text ?? "" },
-            set: { newValue in dayNote?.text = newValue })
-    }
-
     private var moodCard: some View {
         Card {
             VStack(alignment: .leading, spacing: 14) {
@@ -850,13 +844,6 @@ struct DiaryView: View {
                     ForEach(Mood.allCases) { mood in
                         moodButton(mood)
                     }
-                }
-                if dayNote?.mood != nil {
-                    TextField("Notiz zum Tag (optional)".loc, text: noteBinding, axis: .vertical)
-                        .font(.fredoka(14))
-                        .padding(12)
-                        .background(Theme.field.opacity(0.6),
-                                    in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                 }
             }
         }

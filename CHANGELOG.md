@@ -4,6 +4,13 @@ All notable changes to Zwäg are documented here. This project follows
 [semantic versioning](https://semver.org): patch releases fix bugs, minor
 releases add features, and anything that changes behaviour is noted.
 
+## Unreleased
+
+- Removed the free-text note on the "Wie war dein Tag?" mood card for now. The
+  keyboard could not be dismissed after typing, so text entry is disabled until
+  the input works properly. Picking a daily mood still works, and notes that
+  were already saved stay on the device.
+
 ## 1.0.0 (2026-07-16)
 
 The first public release on the App Store. Local first: all personal data
