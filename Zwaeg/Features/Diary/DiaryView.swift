@@ -731,6 +731,7 @@ struct DiaryView: View {
         let entries = dayEntries.filter { $0.meal == meal }
         let kcal = entries.reduce(0) { $0 + $1.calories }
         let mealProgress = min(1, Double(kcal) / Double(max(1, mealBudget(meal))))
+        let hidden = !MealPlan.enabled(from: enabledMealsRaw).contains(meal)
         return Button {
             route = .meal(meal)
         } label: {
@@ -753,10 +754,21 @@ struct DiaryView: View {
                     }
                     .frame(width: 50, height: 50)
                     VStack(alignment: .leading, spacing: 2) {
-                        Text(meal.label)
-                            .font(.fredoka(17, .semibold))
-                            .foregroundStyle(Theme.ink)
-                        Text("\(kcal) / \(mealBudget(meal)) kcal")
+                        HStack(spacing: 5) {
+                            Text(meal.label)
+                                .font(.fredoka(17, .semibold))
+                                .foregroundStyle(Theme.ink)
+                            if hidden {
+                                Image(systemName: "eye.slash.fill")
+                                    .font(.fredoka(11, .semibold))
+                                    .foregroundStyle(.tertiary)
+                            }
+                        }
+                        // A meal turned off in the settings stays visible on
+                        // days that still hold entries; say so instead of a
+                        // budget it no longer has.
+                        Text(hidden ? "Ausgeblendet — Tag hat noch Einträge".loc
+                                    : "\(kcal) / \(mealBudget(meal)) kcal")
                             .font(.fredoka(12))
                             .foregroundStyle(.secondary)
                             .contentTransition(.numericText())
@@ -777,6 +789,7 @@ struct DiaryView: View {
             }
         }
         .buttonStyle(.plain)
+        .opacity(hidden ? 0.72 : 1)
     }
 
     // MARK: - Weight quick log
