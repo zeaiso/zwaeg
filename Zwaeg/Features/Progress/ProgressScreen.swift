@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import Charts
+import PhotosUI
 
 /// Munch-style activity screen: colored stat tiles, rounded calorie bars,
 /// clean weight line.
@@ -49,7 +50,7 @@ struct ProgressScreen: View {
                 caloriesCard
                 weekCard
                 weightCard
-                buddyCard
+                photosCard
             }
             .padding(16)
         }
@@ -86,74 +87,150 @@ struct ProgressScreen: View {
         .padding(.top, 8)
     }
 
-    // MARK: - Body buddy
-
-    /// 0 = slim at BMI 21 and below, 1 = maximally round at BMI 35 and up.
-    private var bodyFactor: Double {
-        let currentKg = weights.last?.weightKg ?? profile.weightKg
-        let bmi = CalorieMath.bmi(weightKg: currentKg, heightCm: profile.heightCm)
-        return min(max((bmi - 21) / 14, 0), 1)
-    }
+    // MARK: - Progress photos
 
     private var lostKg: Double {
         guard let first = weights.first?.weightKg, let last = weights.last?.weightKg else { return 0 }
         return first - last
     }
 
-    /// Body factor at the very first weight entry, for the faded
-    /// "when you started" person next to the current one.
-    private var startFactor: Double {
-        let startKg = weights.first?.weightKg ?? profile.weightKg
-        let bmi = CalorieMath.bmi(weightKg: startKg, heightCm: profile.heightCm)
-        return min(max((bmi - 21) / 14, 0), 1)
+    @State private var photos = ProgressPhotos.all()
+    @State private var pickedItem: PhotosPickerItem?
+
+    /// The newest photo has fallen behind the weekly rhythm.
+    private var photoDue: Bool {
+        guard let newest = photos.last else { return false }
+        return Date.now.timeIntervalSince(newest.date) > 6.5 * 86_400
     }
 
-    @State private var animatedFactor: Double = 1
-
-    private var buddyCard: some View {
-        VStack(spacing: 10) {
+    private var photosCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Dein Buddy macht mit".loc)
+                Text("Fortschrittsfotos".loc)
                     .font(.fredoka(16, .semibold))
                     .foregroundStyle(Theme.ink)
                 Spacer()
+                if photoDue {
+                    Text("Zeit für ein neues Foto!".loc)
+                        .font(.fredoka(11, .semibold))
+                        .foregroundStyle(Color.appAccent)
+                        .padding(.horizontal, 9)
+                        .padding(.vertical, 5)
+                        .background(Theme.accentSoft, in: Capsule())
+                }
             }
-            if profile.buddy.personLook != nil {
-                HStack(alignment: .bottom, spacing: 18) {
-                    if lostKg >= 0.3 {
-                        PersonFigureView(buddy: profile.buddy, factor: startFactor)
-                            .frame(height: 128)
-                            .opacity(0.22)
-                            .grayscale(0.6)
+            if let first = photos.first {
+                HStack(alignment: .center, spacing: 14) {
+                    comparisonPhoto(first)
+                    if photos.count > 1, let newest = photos.last {
                         Image(systemName: "arrow.forward")
                             .font(.fredoka(16, .semibold))
                             .foregroundStyle(.secondary)
-                            .padding(.bottom, 56)
+                        comparisonPhoto(newest)
                     }
-                    PersonFigureView(buddy: profile.buddy, factor: animatedFactor,
-                                     pose: .happy)
-                        .frame(height: 158)
                 }
-                .padding(.vertical, 2)
+                .frame(maxWidth: .infinity)
+                if lostKg >= 0.3 {
+                    Text("Schon %@ kg leichter!".loc(lostKg.formatted(.number.precision(.fractionLength(0...1)))))
+                        .font(.fredoka(13))
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity)
+                }
+                if photos.count > 2 {
+                    photoStrip
+                }
             } else {
-                BodyBuddyView(factor: animatedFactor, size: 150)
-                    .padding(.vertical, 2)
+                Text("Mach jede Woche ein Foto von dir und sieh den Unterschied. Die Fotos bleiben nur auf deinem iPhone.".loc)
+                    .font(.fredoka(13))
+                    .foregroundStyle(.secondary)
             }
-            Text(lostKg >= 0.3
-                 ? "Schon %@ kg leichter!".loc(lostKg.formatted(.number.precision(.fractionLength(0...1))))
-                 : "Ihr zieht das zusammen durch.".loc)
-                .font(.fredoka(13))
-                .foregroundStyle(.secondary)
+            PhotosPicker(selection: $pickedItem, matching: .images) {
+                Label("Foto hinzufügen".loc, systemImage: "camera.fill")
+                    .font(.fredoka(14, .semibold))
+                    .foregroundStyle(Theme.onAccent)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 11)
+                    .background(Theme.accent.gradient, in: Capsule())
+            }
+            .buttonStyle(.plain)
         }
         .padding(18)
         .frame(maxWidth: .infinity)
         .background(Theme.card, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
         .shadow(color: Theme.shadow.opacity(0.05), radius: 8, y: 3)
-        .onAppear {
-            withAnimation(.spring(duration: 1.4, bounce: 0.35).delay(0.4)) {
-                animatedFactor = bodyFactor
+        .onChange(of: pickedItem) {
+            guard let item = pickedItem else { return }
+            pickedItem = nil
+            Task {
+                guard let data = try? await item.loadTransferable(type: Data.self),
+                      let image = UIImage(data: data) else { return }
+                ProgressPhotos.add(image)
+                withAnimation(.snappy) { photos = ProgressPhotos.all() }
             }
         }
+    }
+
+    private func comparisonPhoto(_ photo: ProgressPhotos.Photo) -> some View {
+        VStack(spacing: 6) {
+            photoImage(photo)
+                .frame(width: 132, height: 176)
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            Text(photoCaption(photo))
+                .font(.fredoka(11, .semibold))
+                .foregroundStyle(.secondary)
+        }
+    }
+
+    /// All photos as small thumbnails, each with its own delete button.
+    private var photoStrip: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 10) {
+                ForEach(photos) { photo in
+                    VStack(spacing: 4) {
+                        photoImage(photo)
+                            .frame(width: 56, height: 74)
+                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            .overlay(alignment: .topTrailing) {
+                                Button {
+                                    ProgressPhotos.delete(photo)
+                                    withAnimation(.snappy) { photos = ProgressPhotos.all() }
+                                } label: {
+                                    Image(systemName: "xmark")
+                                        .font(.system(size: 8, weight: .bold))
+                                        .foregroundStyle(.white)
+                                        .frame(width: 18, height: 18)
+                                        .background(.black.opacity(0.55), in: Circle())
+                                }
+                                .buttonStyle(.plain)
+                                .padding(3)
+                            }
+                        Text(photo.date.formatted(.dateTime.day().month()))
+                            .font(.fredoka(10))
+                            .foregroundStyle(.tertiary)
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func photoImage(_ photo: ProgressPhotos.Photo) -> some View {
+        if let image = UIImage(contentsOfFile: photo.url.path) {
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFill()
+        } else {
+            Theme.field
+        }
+    }
+
+    /// Date plus the logged weight closest to it, when one is near enough.
+    private func photoCaption(_ photo: ProgressPhotos.Photo) -> String {
+        let date = photo.date.formatted(.dateTime.day().month())
+        guard let nearest = weights.min(by: {
+            abs($0.date.timeIntervalSince(photo.date)) < abs($1.date.timeIntervalSince(photo.date))
+        }), abs(nearest.date.timeIntervalSince(photo.date)) < 3 * 86_400 else { return date }
+        return "\(date) · \(nearest.weightKg.formatted(.number.precision(.fractionLength(0...1)))) kg"
     }
 
     // MARK: - Stat tiles

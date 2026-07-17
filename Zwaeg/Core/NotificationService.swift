@@ -9,6 +9,10 @@ struct ReminderTimes: Codable, Equatable {
     var dinner: Int = 19 * 60
     /// When the daily fasting window begins (eating ends); 20:00 suits 16:8.
     var fasting: Int = 20 * 60
+    /// Weekly weigh-in: time of day and Calendar weekday (1 = Sunday);
+    /// Monday morning by default.
+    var weigh: Int = 9 * 60
+    var weighWeekday: Int = 2
 
     init() {}
 
@@ -21,6 +25,8 @@ struct ReminderTimes: Codable, Equatable {
         lunch = try container.decodeIfPresent(Int.self, forKey: .lunch) ?? lunch
         dinner = try container.decodeIfPresent(Int.self, forKey: .dinner) ?? dinner
         fasting = try container.decodeIfPresent(Int.self, forKey: .fasting) ?? fasting
+        weigh = try container.decodeIfPresent(Int.self, forKey: .weigh) ?? weigh
+        weighWeekday = try container.decodeIfPresent(Int.self, forKey: .weighWeekday) ?? weighWeekday
     }
 }
 
@@ -54,12 +60,13 @@ enum NotificationService {
     }
 
     /// Replaces all scheduled reminders with the given configuration.
-    static func reschedule(waterOn: Bool, mealsOn: Bool, fastingOn: Bool,
+    static func reschedule(waterOn: Bool, mealsOn: Bool, fastingOn: Bool, weighOn: Bool,
                            times: ReminderTimes) async {
         let center = UNUserNotificationCenter.current()
         let pending = await center.pendingNotificationRequests()
         let ours = pending.map(\.identifier).filter {
-            $0.hasPrefix("water-") || $0.hasPrefix("meal-") || $0 == "fasting-start"
+            $0.hasPrefix("water-") || $0.hasPrefix("meal-")
+                || $0 == "fasting-start" || $0 == "weigh-weekly"
         }
         center.removePendingNotificationRequests(withIdentifiers: ours)
 
@@ -92,6 +99,11 @@ enum NotificationService {
                      body: "Zeit, dein Fasten zu starten. Du schaffst das!".loc,
                      minutes: times.fasting)
         }
+        if weighOn {
+            schedule(id: "weigh-weekly", title: "Zeit zum Wiegen".loc,
+                     body: "Stell dich kurz auf die Waage und logg dein Gewicht.".loc,
+                     minutes: times.weigh, weekday: times.weighWeekday)
+        }
     }
 
     /// One-shot notification when the fasting window completes.
@@ -112,8 +124,11 @@ enum NotificationService {
             .removePendingNotificationRequests(withIdentifiers: ["fasting-end"])
     }
 
-    private static func schedule(id: String, title: String, body: String, minutes: Int) {
+    /// Daily at the given time, or weekly when a weekday (1 = Sunday) is set.
+    private static func schedule(id: String, title: String, body: String,
+                                 minutes: Int, weekday: Int? = nil) {
         var components = DateComponents()
+        components.weekday = weekday
         components.hour = minutes / 60
         components.minute = minutes % 60
         let content = UNMutableNotificationContent()

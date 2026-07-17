@@ -564,6 +564,7 @@ struct GoalsView: View {
     @AppStorage("waterRemindersOn") private var waterRemindersOn = false
     @AppStorage("mealRemindersOn") private var mealRemindersOn = false
     @AppStorage("fastingRemindersOn") private var fastingRemindersOn = false
+    @AppStorage("weighRemindersOn") private var weighRemindersOn = false
 
     private var enabledMeals: [MealType] {
         MealPlan.enabled(from: enabledMealsRaw)
@@ -619,7 +620,8 @@ struct GoalsView: View {
             Task {
                 await NotificationService.reschedule(
                     waterOn: waterRemindersOn, mealsOn: mealRemindersOn,
-                    fastingOn: fastingRemindersOn, times: ReminderStore.load())
+                    fastingOn: fastingRemindersOn, weighOn: weighRemindersOn,
+                    times: ReminderStore.load())
             }
         }
     }
@@ -645,6 +647,7 @@ struct RemindersView: View {
     @AppStorage("waterRemindersOn") private var waterOn = false
     @AppStorage("mealRemindersOn") private var mealsOn = false
     @AppStorage("fastingRemindersOn") private var fastingOn = false
+    @AppStorage("weighRemindersOn") private var weighOn = false
     @AppStorage(MealPlan.storageKey) private var enabledMealsRaw = ""
     @State private var times = ReminderStore.load()
     @State private var permissionDenied = false
@@ -655,6 +658,7 @@ struct RemindersView: View {
                 waterCard
                 mealsCard
                 fastingCard
+                weighCard
                 if permissionDenied {
                     Label("Benachrichtigungen sind deaktiviert. Erlaube sie in den iOS-Einstellungen für Zwäg.".loc,
                           systemImage: "bell.slash")
@@ -670,6 +674,7 @@ struct RemindersView: View {
         .onChange(of: waterOn) { applyChanges() }
         .onChange(of: mealsOn) { applyChanges() }
         .onChange(of: fastingOn) { applyChanges() }
+        .onChange(of: weighOn) { applyChanges() }
         .onChange(of: times) { applyChanges() }
     }
 
@@ -792,6 +797,52 @@ struct RemindersView: View {
         }
     }
 
+    // MARK: - Weigh-in
+
+    private var weighCard: some View {
+        Card {
+            VStack(spacing: 12) {
+                toggleRow(title: "Wiegen".loc,
+                          subtitle: "Einmal pro Woche".loc,
+                          symbol: "scalemass.fill",
+                          color: Color(red: 0.13, green: 0.66, blue: 0.42),
+                          isOn: $weighOn)
+                if weighOn {
+                    Divider()
+                    weekdayRow
+                    mealTimeRow("Uhrzeit".loc, get: { times.weigh }, set: { times.weigh = $0 })
+                }
+            }
+        }
+    }
+
+    /// Weekday chips ordered by the locale's first day of the week.
+    private var weekdayRow: some View {
+        let calendar = Calendar.current
+        let formatter = DateFormatter()
+        formatter.locale = Lingo.shared.language.locale
+        let symbols = formatter.veryShortWeekdaySymbols ?? ["S", "M", "T", "W", "T", "F", "S"]
+        let ordered = (0..<7).map { (calendar.firstWeekday - 1 + $0) % 7 + 1 }
+        return HStack(spacing: 6) {
+            ForEach(ordered, id: \.self) { weekday in
+                let isSelected = times.weighWeekday == weekday
+                Button {
+                    withAnimation(.snappy) { times.weighWeekday = weekday }
+                } label: {
+                    Text(symbols[weekday - 1])
+                        .font(.fredoka(13, isSelected ? .semibold : .medium))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 36)
+                        .background(isSelected ? AnyShapeStyle(Theme.ink)
+                                               : AnyShapeStyle(Theme.field.opacity(0.6)),
+                                    in: Circle())
+                        .foregroundStyle(isSelected ? Theme.onInk : .secondary)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
     // MARK: - Shared pieces
 
     private func toggleRow(title: String, subtitle: String, symbol: String,
@@ -836,21 +887,24 @@ struct RemindersView: View {
     private func applyChanges() {
         ReminderStore.save(times)
         Task {
-            if waterOn || mealsOn || fastingOn {
+            if waterOn || mealsOn || fastingOn || weighOn {
                 let granted = await NotificationService.requestPermission()
                 if !granted {
                     permissionDenied = true
                     waterOn = false
                     mealsOn = false
                     fastingOn = false
+                    weighOn = false
                     await NotificationService.reschedule(
-                        waterOn: false, mealsOn: false, fastingOn: false, times: times)
+                        waterOn: false, mealsOn: false, fastingOn: false, weighOn: false,
+                        times: times)
                     return
                 }
             }
             permissionDenied = false
             await NotificationService.reschedule(
-                waterOn: waterOn, mealsOn: mealsOn, fastingOn: fastingOn, times: times)
+                waterOn: waterOn, mealsOn: mealsOn, fastingOn: fastingOn, weighOn: weighOn,
+                times: times)
         }
     }
 }

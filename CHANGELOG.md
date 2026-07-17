@@ -6,6 +6,13 @@ releases add features, and anything that changes behaviour is noted.
 
 ## Unreleased
 
+- Progress photos replace the morphing body buddy on the progress screen.
+  Add a photo of yourself each week (stored only on the device, never
+  synced); the card shows your first and newest photo side by side with the
+  logged weight at the time, a strip of all photos with delete buttons, and
+  a gentle badge when the newest photo is over a week old.
+- Weekly weigh-in reminder: a fourth card on the reminders screen with a
+  weekday picker and time, so the scale becomes a Monday-morning habit.
 - Food search also asks Open Food Facts. Typing three or more letters
   searches the online database alongside the offline results (debounced, via
   the Search-a-licious API), so branded products like a Kaffee Latte appear
