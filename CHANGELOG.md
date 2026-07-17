@@ -27,12 +27,13 @@ releases add features, and anything that changes behaviour is noted.
   notification when the fasting window begins (default 20:00, freely
   configurable), alongside the existing water and meal reminders. Reminder
   times stored by earlier versions carry over unchanged.
-- Portion sheet can switch between portions and grams. A Portionen/Gramm
-  toggle on the amount card: gram mode steps in 5 g with quick chips for 50 to
-  300 g, and switching units carries the chosen amount over. Deliberately
-  keyboard-free. Foods recognized by photo also carry a typical piece weight
-  (an apple counts as 130 g, an egg as 60 g), so "2 Portionen" means two
-  pieces instead of a flat 200 g.
+- Portion sheet units: a dropdown switches between Portionen, Gramm and
+  Stück. Gram mode has a type-anything field (number pad with a Fertig
+  button, so the keyboard always dismisses) plus quick chips for 50 to 300 g;
+  Stück counts whole pieces; switching units carries the chosen amount over,
+  and the last used unit is remembered. Foods recognized by photo carry a
+  typical piece weight (an apple counts as 130 g, an egg as 60 g), so
+  "2 Stück" means two pieces instead of a flat 200 g.
 - Work in progress: photo food recognition in the scanner. A third "Foto" mode
   photographs the plate, classifies it on device with Apple's built-in Vision
   taxonomy (no bundled model, nothing leaves the device) and offers the

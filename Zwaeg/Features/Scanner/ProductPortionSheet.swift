@@ -12,17 +12,33 @@ struct ProductPortionSheet: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var servings = 1.0
+    @State private var pieces = 1
     @State private var meal: MealType = .breakfast
     @AppStorage(MealPlan.storageKey) private var enabledMealsRaw = ""
-    /// Amount unit: portions of the serving size, or grams directly.
+    /// Last chosen unit sticks across products for people who always think
+    /// in grams (or pieces).
+    @AppStorage("amountUnit") private var unitRaw = AmountUnit.portion.rawValue
     @State private var unit: AmountUnit = .portion
     @State private var grams = 100.0
+    @FocusState private var gramsFocused: Bool
 
-    enum AmountUnit {
-        case portion, gramm
+    enum AmountUnit: String, CaseIterable, Identifiable {
+        case portion, gramm, piece
+
+        var id: String { rawValue }
+
+        var label: String {
+            switch self {
+            case .portion: return "Portionen".loc
+            case .gramm: return "Gramm".loc
+            case .piece: return "Stück".loc
+            }
+        }
     }
 
     private let gramChips: [Double] = [50, 100, 150, 200, 300]
+    /// Typing 4 digits tops out here; far below FoodProduct.maxServingGrams.
+    private let maxGrams = 5000.0
 
     /// Grams behind one serving; database items default to 100 g.
     private var servingGrams: Double {
@@ -30,7 +46,11 @@ struct ProductPortionSheet: View {
     }
 
     private var totalGrams: Double {
-        unit == .portion ? servingGrams * servings : grams
+        switch unit {
+        case .portion: return servingGrams * servings
+        case .piece: return servingGrams * Double(pieces)
+        case .gramm: return grams
+        }
     }
 
     private static func defaultMeal(now: Date = .now) -> MealType {
@@ -68,8 +88,18 @@ struct ProductPortionSheet: View {
                 meal = first
             }
             grams = servingGrams
+            unit = AmountUnit(rawValue: unitRaw) ?? .portion
             if LaunchArgs.all.contains("-demo-grams") {
                 unit = .gramm
+            }
+        }
+        .toolbar {
+            // The number pad has no return key; without this the keyboard
+            // would be stuck (the mood-note lesson).
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Fertig".loc) { gramsFocused = false }
+                    .font(.fredoka(15, .semibold))
             }
         }
     }
@@ -102,7 +132,8 @@ struct ProductPortionSheet: View {
         case .swissDatabase: parts.append("Schweizer Lebensmittel".loc)
         case .custom: parts.append("Eigenes Lebensmittel".loc)
         }
-        parts.append("1 Portion = %d g".loc(Int(servingGrams.rounded())))
+        parts.append(unit == .piece ? "1 Stück = %d g".loc(Int(servingGrams.rounded()))
+                                    : "1 Portion = %d g".loc(Int(servingGrams.rounded())))
         return parts.joined(separator: " · ")
     }
 
@@ -111,28 +142,21 @@ struct ProductPortionSheet: View {
     private var servingsRow: some View {
         VStack(spacing: 12) {
             HStack {
-                HStack(spacing: 6) {
-                    unitChip("Portionen".loc, .portion)
-                    unitChip("Gramm".loc, .gramm)
-                }
+                unitMenu
                 Spacer()
                 stepButton("minus", prominent: false) {
-                    if unit == .portion {
-                        servings = max(0.5, servings - 0.5)
-                    } else {
-                        grams = max(5, grams - 5)
+                    switch unit {
+                    case .portion: servings = max(0.5, servings - 0.5)
+                    case .piece: pieces = max(1, pieces - 1)
+                    case .gramm: grams = max(0, grams - 5)
                     }
                 }
-                Text(amountLabel)
-                    .font(.fredoka(19, .semibold))
-                    .foregroundStyle(Theme.ink)
-                    .frame(minWidth: 44)
-                    .contentTransition(.numericText())
+                amountValue
                 stepButton("plus", prominent: true) {
-                    if unit == .portion {
-                        servings = min(10, servings + 0.5)
-                    } else {
-                        grams = min(1000, grams + 5)
+                    switch unit {
+                    case .portion: servings = min(10, servings + 0.5)
+                    case .piece: pieces = min(20, pieces + 1)
+                    case .gramm: grams = min(maxGrams, grams + 5)
                     }
                 }
             }
@@ -141,6 +165,7 @@ struct ProductPortionSheet: View {
                     ForEach(gramChips, id: \.self) { value in
                         Button {
                             withAnimation(.snappy) { grams = value }
+                            gramsFocused = false
                         } label: {
                             Text("\(Int(value)) g")
                                 .font(.fredoka(12, .semibold))
@@ -160,28 +185,92 @@ struct ProductPortionSheet: View {
         .shadow(color: Theme.shadow.opacity(0.04), radius: 8, y: 3)
     }
 
-    /// Switching units keeps the chosen amount: portions convert to their
-    /// grams and grams to the nearest half portion.
-    private func unitChip(_ title: String, _ target: AmountUnit) -> some View {
-        Button {
-            guard unit != target else { return }
-            withAnimation(.snappy) {
-                if target == .gramm {
-                    grams = min(1000, max(5, (servingGrams * servings / 5).rounded() * 5))
-                } else {
-                    servings = min(10, max(0.5, (grams / servingGrams * 2).rounded() / 2))
+    private var unitMenu: some View {
+        Menu {
+            ForEach(AmountUnit.allCases) { target in
+                Button {
+                    switchUnit(to: target)
+                } label: {
+                    if unit == target {
+                        Label(target.label, systemImage: "checkmark")
+                    } else {
+                        Text(target.label)
+                    }
                 }
-                unit = target
             }
         } label: {
-            Text(title)
-                .font(.fredoka(13, .semibold))
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(unit == target ? Theme.ink : Theme.field.opacity(0.6), in: Capsule())
-                .foregroundStyle(unit == target ? Theme.onInk : .secondary)
+            HStack(spacing: 5) {
+                Text(unit.label)
+                Image(systemName: "chevron.up.chevron.down")
+                    .font(.fredoka(11, .semibold))
+            }
+            .font(.fredoka(14, .semibold))
+            .padding(.horizontal, 14)
+            .padding(.vertical, 9)
+            .background(Theme.ink, in: Capsule())
+            .foregroundStyle(Theme.onInk)
         }
         .buttonStyle(.plain)
+    }
+
+    /// The value between the steppers: text for portions and pieces, a
+    /// type-anything field for grams.
+    @ViewBuilder
+    private var amountValue: some View {
+        switch unit {
+        case .portion:
+            Text(servingsLabel)
+                .font(.fredoka(19, .semibold))
+                .foregroundStyle(Theme.ink)
+                .frame(minWidth: 44)
+                .contentTransition(.numericText())
+        case .piece:
+            Text("\(pieces)")
+                .font(.fredoka(19, .semibold))
+                .foregroundStyle(Theme.ink)
+                .frame(minWidth: 44)
+                .contentTransition(.numericText())
+        case .gramm:
+            HStack(spacing: 3) {
+                TextField("0", text: gramsText)
+                    .keyboardType(.numberPad)
+                    .focused($gramsFocused)
+                    .font(.fredoka(19, .semibold))
+                    .foregroundStyle(Theme.ink)
+                    .multilineTextAlignment(.center)
+                    .frame(width: 58)
+                    .padding(.vertical, 4)
+                    .background(Theme.field.opacity(gramsFocused ? 0.8 : 0.5),
+                                in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                Text("g")
+                    .font(.fredoka(13))
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    /// Bridges the gram amount to the text field, digits only, clamped.
+    private var gramsText: Binding<String> {
+        Binding(
+            get: { "\(Int(grams))" },
+            set: { grams = min(maxGrams, Double($0.filter(\.isNumber)) ?? 0) })
+    }
+
+    /// Switching units keeps the chosen amount: portions and pieces convert
+    /// to their grams, grams to the nearest half portion or whole piece.
+    private func switchUnit(to target: AmountUnit) {
+        guard target != unit else { return }
+        let total = totalGrams
+        gramsFocused = false
+        withAnimation(.snappy) {
+            switch target {
+            case .gramm: grams = min(maxGrams, max(5, (total / 5).rounded() * 5))
+            case .portion: servings = min(10, max(0.5, (total / servingGrams * 2).rounded() / 2))
+            case .piece: pieces = min(20, max(1, Int((total / servingGrams).rounded())))
+            }
+            unit = target
+            unitRaw = target.rawValue
+        }
     }
 
     private func stepButton(_ symbol: String, prominent: Bool, action: @escaping () -> Void) -> some View {
@@ -198,9 +287,6 @@ struct ProductPortionSheet: View {
         .buttonStyle(.plain)
     }
 
-    private var amountLabel: String {
-        unit == .portion ? servingsLabel : "\(Int(grams))"
-    }
 
     private var servingsLabel: String {
         servings.truncatingRemainder(dividingBy: 1) == 0
@@ -212,15 +298,15 @@ struct ProductPortionSheet: View {
 
     private var calorieCard: some View {
         VStack(spacing: 4) {
-            Text("\(product.kcal(for: unit == .portion ? servingGrams : grams))")
+            Text("\(product.kcal(for: unit == .gramm ? grams : servingGrams))")
                 .font(.fredoka(50, .semibold))
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
-            Text(unit == .portion ? "Kalorien pro Portion".loc : "Kalorien für %d g".loc(Int(grams)))
+            Text(calorieCaption)
                 .font(.fredoka(15, .semibold))
                 .foregroundStyle(.white.opacity(0.9))
-            if unit == .portion, servings != 1 {
-                Text("%@ Portionen · %d kcal gesamt".loc(servingsLabel, product.kcal(for: totalGrams)))
+            if let total = calorieTotalLine {
+                Text(total)
                     .font(.fredoka(12))
                     .foregroundStyle(.white.opacity(0.85))
                     .padding(.top, 2)
@@ -233,6 +319,25 @@ struct ProductPortionSheet: View {
                            startPoint: .topLeading, endPoint: .bottomTrailing),
             in: RoundedRectangle(cornerRadius: 26, style: .continuous))
         .shadow(color: Theme.accent.opacity(0.35), radius: 12, y: 5)
+    }
+
+    private var calorieCaption: String {
+        switch unit {
+        case .portion: return "Kalorien pro Portion".loc
+        case .piece: return "Kalorien pro Stück".loc
+        case .gramm: return "Kalorien für %d g".loc(Int(grams))
+        }
+    }
+
+    private var calorieTotalLine: String? {
+        switch unit {
+        case .portion where servings != 1:
+            return "%@ Portionen · %d kcal gesamt".loc(servingsLabel, product.kcal(for: totalGrams))
+        case .piece where pieces != 1:
+            return "%d Stück · %d kcal gesamt".loc(pieces, product.kcal(for: totalGrams))
+        default:
+            return nil
+        }
     }
 
     // MARK: - Macros
@@ -330,6 +435,8 @@ struct ProductPortionSheet: View {
                 .shadow(color: Theme.accent.opacity(0.35), radius: 10, y: 4)
         }
         .buttonStyle(.plain)
+        .disabled(totalGrams <= 0)
+        .opacity(totalGrams <= 0 ? 0.5 : 1)
         .padding(.horizontal, 20)
         .padding(.top, 10)
         .padding(.bottom, 16)
