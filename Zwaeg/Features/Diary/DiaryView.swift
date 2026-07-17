@@ -49,6 +49,9 @@ struct DiaryView: View {
                     if Self.milestones.contains(streak) {
                         milestoneCard
                     }
+                    if streakWasFrozen {
+                        streakFrozenCard
+                    }
                     summaryCard
                     HStack(spacing: 16) {
                         stepsCard
@@ -209,6 +212,16 @@ struct DiaryView: View {
                         .font(.fredoka(15, .semibold))
                         .foregroundStyle(Theme.ink)
                         .contentTransition(.numericText())
+                    if streakFreezes > 0 {
+                        Image(systemName: "snowflake")
+                            .font(.fredoka(12, .semibold))
+                            .foregroundStyle(Self.freezeBlue)
+                            .padding(.leading, 3)
+                        Text("\(streakFreezes)")
+                            .font(.fredoka(14, .semibold))
+                            .foregroundStyle(.secondary)
+                            .contentTransition(.numericText())
+                    }
                 }
                 .padding(.horizontal, 13)
                 .frame(height: 42)
@@ -274,6 +287,35 @@ struct DiaryView: View {
         .shadow(color: Theme.accent.opacity(0.35), radius: 12, y: 5)
     }
 
+    private static let freezeBlue = Color(red: 0.36, green: 0.68, blue: 0.98)
+
+    /// Shown while yesterday hangs on a freeze: the streak survived, and
+    /// logging today keeps it going.
+    private var streakFrozenCard: some View {
+        HStack(spacing: 12) {
+            Image(systemName: "snowflake")
+                .font(.fredoka(21, .semibold))
+                .foregroundStyle(.white)
+                .frame(width: 46, height: 46)
+                .background(.white.opacity(0.22), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Streak gerettet!".loc)
+                    .font(.fredoka(17, .semibold))
+                    .foregroundStyle(.white)
+                Text("Ein Freeze hat gestern überbrückt. Iss heute etwas, damit es weitergeht.".loc)
+                    .font(.fredoka(12))
+                    .foregroundStyle(.white.opacity(0.85))
+            }
+            Spacer()
+        }
+        .padding(16)
+        .background(
+            LinearGradient(colors: [Self.freezeBlue, Color(red: 0.2, green: 0.5, blue: 0.9)],
+                           startPoint: .topLeading, endPoint: .bottomTrailing),
+            in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .shadow(color: Self.freezeBlue.opacity(0.35), radius: 12, y: 5)
+    }
+
     /// Fires confetti once per newly reached milestone.
     private func celebrateStreakIfNeeded() {
         guard let reached = Self.milestones.last(where: { streak >= $0 }),
@@ -300,22 +342,26 @@ struct DiaryView: View {
         return ("exclamationmark", Color.appAccent)
     }
 
-    /// Consecutive days with at least one logged food, ending today or yesterday.
+    private var loggedDays: Set<Date> {
+        Set(allEntries.map(\.day))
+    }
+
+    /// Consecutive days with at least one logged food, ending today or
+    /// yesterday; banked freezes bridge missed days.
     private var streak: Int {
-        let loggedDays = Set(allEntries.map(\.day))
-        let calendar = Calendar.current
-        var day = calendar.startOfDay(for: .now)
-        if !loggedDays.contains(day) {
-            guard let yesterday = calendar.date(byAdding: .day, value: -1, to: day) else { return 0 }
-            day = yesterday
-        }
-        var count = 0
-        while loggedDays.contains(day) {
-            count += 1
-            guard let previous = calendar.date(byAdding: .day, value: -1, to: day) else { break }
-            day = previous
-        }
-        return count
+        Streak.current(loggedDays: loggedDays)
+    }
+
+    private var streakFreezes: Int {
+        Streak.availableFreezes(loggedDays: loggedDays)
+    }
+
+    /// Yesterday was only survived thanks to a freeze; worth a banner.
+    private var streakWasFrozen: Bool {
+        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1,
+                                                    to: Calendar.current.startOfDay(for: .now))
+        else { return false }
+        return Streak.frozenDays().contains(yesterday)
     }
 
     // MARK: - Summary (peach card: eaten, remaining ring, burned, macro bars)

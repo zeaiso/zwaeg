@@ -73,15 +73,26 @@ struct RootView: View {
                         context.insert(WeightEntry(date: date, weightKg: 78 + Double(day) * 0.12))
                     }
                 }
-                if let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: .now) {
-                    context.insert(FoodEntry(day: yesterday, meal: .breakfast, name: "Birchermüesli",
-                                             calories: 320, proteinG: 12, carbsG: 45, fatG: 9))
-                    context.insert(FoodEntry(day: yesterday, meal: .breakfast, name: "Kaffee mit Milch",
-                                             calories: 40, proteinG: 2, carbsG: 3, fatG: 2))
-                }
-                if let twoDaysAgo = Calendar.current.date(byAdding: .day, value: -2, to: .now) {
-                    context.insert(FoodEntry(day: twoDaysAgo, meal: .lunch, name: "Rösti mit Spiegelei",
-                                             calories: 540, proteinG: 18, carbsG: 52, fatG: 26))
+                // A missed yesterday behind a long history exercises the
+                // streak freeze: enough logged days to bank freezes, one gap.
+                if LaunchArgs.all.contains("-seed-streak-gap") {
+                    for value in 2...15 {
+                        if let date = Calendar.current.date(byAdding: .day, value: -value, to: .now) {
+                            context.insert(FoodEntry(day: date, meal: .lunch, name: "Älplermagronen",
+                                                     calories: 620, proteinG: 22, carbsG: 68, fatG: 28))
+                        }
+                    }
+                } else {
+                    if let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: .now) {
+                        context.insert(FoodEntry(day: yesterday, meal: .breakfast, name: "Birchermüesli",
+                                                 calories: 320, proteinG: 12, carbsG: 45, fatG: 9))
+                        context.insert(FoodEntry(day: yesterday, meal: .breakfast, name: "Kaffee mit Milch",
+                                                 calories: 40, proteinG: 2, carbsG: 3, fatG: 2))
+                    }
+                    if let twoDaysAgo = Calendar.current.date(byAdding: .day, value: -2, to: .now) {
+                        context.insert(FoodEntry(day: twoDaysAgo, meal: .lunch, name: "Rösti mit Spiegelei",
+                                                 calories: 540, proteinG: 18, carbsG: 52, fatG: 26))
+                    }
                 }
                 context.insert(FoodEntry(day: .now, meal: .breakfast, name: "Birchermüesli",
                                          calories: 320, proteinG: 12, carbsG: 45, fatG: 9))

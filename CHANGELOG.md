@@ -6,6 +6,13 @@ releases add features, and anything that changes behaviour is noted.
 
 ## Unreleased
 
+- Streak freezes, Duolingo-style. Every seventh logged day banks a freeze (at
+  most two at once) and a missed day automatically spends one, so the streak
+  survives the gap. The diary header shows the banked freezes next to the
+  flame, and a "Streak gerettet!" banner appears when a freeze just bridged
+  yesterday. Freezes are only spent when they actually reach the next logged
+  day — a gap too wide to close wastes nothing — and backfilling a bridged
+  day refunds its freeze.
 - Fasting start reminder. A third card on the reminders screen sends a daily
   notification when the fasting window begins (default 20:00, freely
   configurable), alongside the existing water and meal reminders. Reminder

@@ -144,22 +144,10 @@ struct ProfileView: View {
 
     // MARK: - Stats
 
-    /// Consecutive days with at least one logged food, ending today or yesterday.
+    /// Consecutive days with at least one logged food, ending today or
+    /// yesterday; banked freezes bridge missed days.
     private var streak: Int {
-        let loggedDays = Set(foodEntries.map(\.day))
-        let calendar = Calendar.current
-        var day = calendar.startOfDay(for: .now)
-        if !loggedDays.contains(day) {
-            guard let yesterday = calendar.date(byAdding: .day, value: -1, to: day) else { return 0 }
-            day = yesterday
-        }
-        var count = 0
-        while loggedDays.contains(day) {
-            count += 1
-            guard let previous = calendar.date(byAdding: .day, value: -1, to: day) else { break }
-            day = previous
-        }
-        return count
+        Streak.current(loggedDays: Set(foodEntries.map(\.day)))
     }
 
     private var statTiles: some View {
