@@ -58,7 +58,7 @@ struct DiaryView: View {
                         stepsCard
                         weightCard
                     }
-                    ForEach(MealType.allCases) { meal in
+                    ForEach(visibleMeals) { meal in
                         mealCard(meal)
                     }
                     waterCard
@@ -261,6 +261,7 @@ struct DiaryView: View {
     private static let milestones = [3, 7, 14, 30, 50, 100, 200, 365]
 
     @AppStorage("celebratedStreak") private var celebratedStreak = 0
+    @AppStorage(MealPlan.storageKey) private var enabledMealsRaw = ""
 
     private var milestoneCard: some View {
         HStack(spacing: 12) {
@@ -711,15 +712,18 @@ struct DiaryView: View {
         return LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing)
     }
 
-    /// Rough per-meal share of the daily budget, like the mockup's "488 / 536 kcal".
-    private func mealBudget(_ meal: MealType) -> Int {
-        let share: Double
-        switch meal {
-        case .breakfast: share = 0.25
-        case .lunch: share = 0.35
-        case .dinner: share = 0.30
-        case .snack: share = 0.10
+    /// The user's chosen meals, plus disabled ones that still hold entries
+    /// on the selected day — logged food never disappears.
+    private var visibleMeals: [MealType] {
+        let enabled = MealPlan.enabled(from: enabledMealsRaw)
+        return MealType.allCases.filter { meal in
+            enabled.contains(meal) || dayEntries.contains { $0.meal == meal }
         }
+    }
+
+    /// Per-meal share of the daily budget, spread over the enabled meals.
+    private func mealBudget(_ meal: MealType) -> Int {
+        let share = MealPlan.budgetShare(meal, enabled: MealPlan.enabled(from: enabledMealsRaw))
         return Int((Double(profile.dailyCalorieTarget) * share).rounded())
     }
 

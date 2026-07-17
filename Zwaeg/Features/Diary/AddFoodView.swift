@@ -14,6 +14,7 @@ struct AddFoodView: View {
     @Query(sort: \CachedProduct.fetchedAt, order: .reverse) private var cachedProducts: [CachedProduct]
 
     @State private var meal: MealType
+    @AppStorage(MealPlan.storageKey) private var enabledMealsRaw = ""
     @State private var query = ""
     @State private var justAdded: String?
     @State private var showManual = false
@@ -178,10 +179,17 @@ struct AddFoodView: View {
         .shadow(color: Theme.shadow.opacity(0.04), radius: 6, y: 2)
     }
 
+    /// Enabled meals, plus the preselected one if it is disabled but was
+    /// opened from a meal card that still holds entries.
+    private var selectableMeals: [MealType] {
+        let enabled = MealPlan.enabled(from: enabledMealsRaw)
+        return MealType.allCases.filter { enabled.contains($0) || $0 == meal }
+    }
+
     private var mealChips: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                ForEach(MealType.allCases) { type in
+                ForEach(selectableMeals) { type in
                     Button {
                         withAnimation(.snappy) { meal = type }
                     } label: {

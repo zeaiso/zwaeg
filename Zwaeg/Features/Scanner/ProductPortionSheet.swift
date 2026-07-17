@@ -13,6 +13,7 @@ struct ProductPortionSheet: View {
 
     @State private var servings = 1.0
     @State private var meal: MealType = .breakfast
+    @AppStorage(MealPlan.storageKey) private var enabledMealsRaw = ""
     /// Amount unit: portions of the serving size, or grams directly.
     @State private var unit: AmountUnit = .portion
     @State private var grams = 100.0
@@ -60,6 +61,12 @@ struct ProductPortionSheet: View {
         .background(Theme.background)
         .onAppear {
             meal = initialMeal ?? Self.defaultMeal()
+            // The time-based default may be a meal the user doesn't eat;
+            // an explicit initialMeal (meal card add button) always wins.
+            let enabled = MealPlan.enabled(from: enabledMealsRaw)
+            if initialMeal == nil, !enabled.contains(meal), let first = enabled.first {
+                meal = first
+            }
             grams = servingGrams
             if LaunchArgs.all.contains("-demo-grams") {
                 unit = .gramm
@@ -286,7 +293,7 @@ struct ProductPortionSheet: View {
 
     private var mealChips: some View {
         HStack(spacing: 8) {
-            ForEach(MealType.allCases) { type in
+            ForEach(MealPlan.enabled(from: enabledMealsRaw)) { type in
                 Button {
                     withAnimation(.snappy) { meal = type }
                 } label: {

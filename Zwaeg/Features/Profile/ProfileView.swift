@@ -560,6 +560,14 @@ struct PersonalDetailsView: View {
 
 struct GoalsView: View {
     @Bindable var profile: UserProfile
+    @AppStorage(MealPlan.storageKey) private var enabledMealsRaw = ""
+    @AppStorage("waterRemindersOn") private var waterRemindersOn = false
+    @AppStorage("mealRemindersOn") private var mealRemindersOn = false
+    @AppStorage("fastingRemindersOn") private var fastingRemindersOn = false
+
+    private var enabledMeals: [MealType] {
+        MealPlan.enabled(from: enabledMealsRaw)
+    }
 
     var body: some View {
         Form {
@@ -570,6 +578,16 @@ struct GoalsView: View {
                 Picker("Ziel".loc, selection: $profile.goal) {
                     ForEach(Goal.allCases) { g in Text(g.label).tag(g) }
                 }
+            }
+            Section {
+                ForEach(MealType.allCases) { meal in
+                    Toggle(meal.label, isOn: mealBinding(meal))
+                        .disabled(enabledMeals == [meal])
+                }
+            } header: {
+                Text("Mahlzeiten".loc)
+            } footer: {
+                Text("Dein Kalorienziel verteilt sich auf die gewählten Mahlzeiten. Ausgeblendete Mahlzeiten verschwinden aus dem Tagebuch.".loc)
             }
             Section {
                 Stepper("Wasserziel: %d Gläser".loc(profile.waterGoalGlasses),
@@ -596,6 +614,30 @@ struct GoalsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: profile.activityRaw) { profile.recalculateTarget() }
         .onChange(of: profile.goalRaw) { profile.recalculateTarget() }
+        .onChange(of: enabledMealsRaw) {
+            // Meal reminders only cover enabled meals; resync the schedule.
+            Task {
+                await NotificationService.reschedule(
+                    waterOn: waterRemindersOn, mealsOn: mealRemindersOn,
+                    fastingOn: fastingRemindersOn, times: ReminderStore.load())
+            }
+        }
+    }
+
+    /// The last enabled meal can't be turned off; the toggle is disabled then.
+    private func mealBinding(_ meal: MealType) -> Binding<Bool> {
+        Binding(
+            get: { enabledMeals.contains(meal) },
+            set: { isOn in
+                var meals = enabledMeals
+                if isOn {
+                    meals = MealType.allCases.filter { meals.contains($0) || $0 == meal }
+                } else {
+                    meals.removeAll { $0 == meal }
+                }
+                guard !meals.isEmpty else { return }
+                enabledMealsRaw = MealPlan.rawValue(meals)
+            })
     }
 }
 
@@ -603,6 +645,7 @@ struct RemindersView: View {
     @AppStorage("waterRemindersOn") private var waterOn = false
     @AppStorage("mealRemindersOn") private var mealsOn = false
     @AppStorage("fastingRemindersOn") private var fastingOn = false
+    @AppStorage(MealPlan.storageKey) private var enabledMealsRaw = ""
     @State private var times = ReminderStore.load()
     @State private var permissionDenied = false
 
@@ -689,19 +732,30 @@ struct RemindersView: View {
 
     // MARK: - Meals
 
+    /// Meals the user eats (MealPlan) that can carry a reminder time.
+    private var reminderMeals: [MealType] {
+        MealPlan.enabled(from: enabledMealsRaw).filter { $0 != .snack }
+    }
+
     private var mealsCard: some View {
         Card {
             VStack(spacing: 12) {
                 toggleRow(title: "Mahlzeiten loggen".loc,
-                          subtitle: "Frühstück, Mittag- und Abendessen".loc,
+                          subtitle: reminderMeals.map(\.label).joined(separator: ", "),
                           symbol: "fork.knife",
                           color: Color.appAccent,
                           isOn: $mealsOn)
                 if mealsOn {
                     Divider()
-                    mealTimeRow("Frühstück".loc, get: { times.breakfast }, set: { times.breakfast = $0 })
-                    mealTimeRow("Mittagessen".loc, get: { times.lunch }, set: { times.lunch = $0 })
-                    mealTimeRow("Abendessen".loc, get: { times.dinner }, set: { times.dinner = $0 })
+                    if reminderMeals.contains(.breakfast) {
+                        mealTimeRow("Frühstück".loc, get: { times.breakfast }, set: { times.breakfast = $0 })
+                    }
+                    if reminderMeals.contains(.lunch) {
+                        mealTimeRow("Mittagessen".loc, get: { times.lunch }, set: { times.lunch = $0 })
+                    }
+                    if reminderMeals.contains(.dinner) {
+                        mealTimeRow("Abendessen".loc, get: { times.dinner }, set: { times.dinner = $0 })
+                    }
                 }
             }
         }

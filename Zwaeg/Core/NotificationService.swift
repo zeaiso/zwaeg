@@ -72,12 +72,20 @@ enum NotificationService {
             }
         }
         if mealsOn {
-            schedule(id: "meal-breakfast", title: "Frühstück loggen".loc,
-                     body: "Kurz eintragen, was du gegessen hast.".loc, minutes: times.breakfast)
-            schedule(id: "meal-lunch", title: "Mittagessen loggen".loc,
-                     body: "Kurz eintragen, was du gegessen hast.".loc, minutes: times.lunch)
-            schedule(id: "meal-dinner", title: "Abendessen loggen".loc,
-                     body: "Kurz eintragen, was du gegessen hast.".loc, minutes: times.dinner)
+            let meals = MealPlan.enabled(
+                from: UserDefaults.standard.string(forKey: MealPlan.storageKey) ?? "")
+            if meals.contains(.breakfast) {
+                schedule(id: "meal-breakfast", title: "Frühstück loggen".loc,
+                         body: "Kurz eintragen, was du gegessen hast.".loc, minutes: times.breakfast)
+            }
+            if meals.contains(.lunch) {
+                schedule(id: "meal-lunch", title: "Mittagessen loggen".loc,
+                         body: "Kurz eintragen, was du gegessen hast.".loc, minutes: times.lunch)
+            }
+            if meals.contains(.dinner) {
+                schedule(id: "meal-dinner", title: "Abendessen loggen".loc,
+                         body: "Kurz eintragen, was du gegessen hast.".loc, minutes: times.dinner)
+            }
         }
         if fastingOn {
             schedule(id: "fasting-start", title: "Fastenfenster startet".loc,

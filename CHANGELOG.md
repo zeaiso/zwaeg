@@ -6,6 +6,13 @@ releases add features, and anything that changes behaviour is noted.
 
 ## Unreleased
 
+- Choose your meals. "Ziele & Vorgaben" gets a Mahlzeiten section: turn off
+  the meals you don't eat (all calories at lunch, lunch and dinner only, no
+  snacks, ...) and they disappear from the diary and the meal pickers, while
+  the daily calorie budget redistributes over the meals you kept. A disabled
+  meal that still holds logged entries stays visible for that day, meal
+  reminders only fire for meals you eat, and at least one meal always stays
+  on.
 - Streak widget for the home screen: flame, day count and banked freezes,
   with a small lock screen variant. The flame greys out until something is
   logged today. Updates whenever the diary changes, like the day-ring widget.
