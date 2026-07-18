@@ -83,11 +83,11 @@ Building battles for the simulator needs no Apple account: simulators do not enf
    | Record type | Fields |
    |---|---|
    | `Challenge` | `code` (String), `name` (String), `metric` (String), `startDay` (Date/Time), `endDay` (Date/Time) |
-   | `Score` | `challengeCode` (String), `participantID` (String), `participantName` (String), `dayKey` (String), `value` (Double) |
+   | `Score` | `challengeCode` (String), `participantID` (String), `participantName` (String), `dayKey` (String), `value` (Double), `manual` (Int, 1 = day includes a photo-backed manual session) |
 
 3. **Mark `Score.challengeCode` as Queryable.** Pulling a leaderboard queries on it; without the index the query fails and the battles screen shows a generic error. Record names are queryable by default, which is all `Challenge` needs.
 4. **Security roles**: `_world` needs read and write on both types. Anyone holding a join code is an untrusted writer by design, so `ChallengeSyncService` sanitizes every field it reads back.
-5. **Deploy Schema to Production** before shipping a release build. A build signed for production talks to the production environment, which starts out empty.
+5. **Deploy Schema to Production** before shipping a release build. A build signed for production talks to the production environment, which starts out empty. Re-deploy after every field addition — `Score.manual` (added after 1.1.0) will not exist in production until then, and pushes from a release build would fail.
 
 Testing on a simulator or device needs an iCloud account signed in under Settings. Without one the app still runs and shows the "sign in to iCloud" notice on the battles screen, which is worth checking too.
 

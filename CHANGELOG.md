@@ -6,6 +6,13 @@ releases add features, and anything that changes behaviour is noted.
 
 ## Unreleased
 
+- The manual-training camera badge now actually reaches opponents: score
+  records carry a manual flag through CloudKit (schema field Score.manual,
+  deploy before release). Battles can be deleted from the detail screen
+  (removes them from this device only), and the floating tab bar hides on
+  the battle detail like on recipe pages.
+- "Persönliche Daten" and "Mein Buddy" merge into one profile row with
+  Daten/Buddy tabs — one entry less in the profile list.
 - "Was passt heute noch?" — from 11:00, the diary suggests up to three
   recipes that fit the remaining calorie budget, leaning high-protein while
   the protein target is far away. Tapping opens the recipe; the picks stay

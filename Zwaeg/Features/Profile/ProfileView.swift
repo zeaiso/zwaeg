@@ -39,7 +39,7 @@ struct ProfileView: View {
                 case .progress:
                     ProgressScreen(profile: profile)
                 case .buddy:
-                    BuddyEditView(profile: profile)
+                    PersonalHubView(profile: profile, initialTab: .buddy)
                 case .language:
                     LanguageView()
                 case .look:
@@ -189,11 +189,8 @@ struct ProfileView: View {
                 .font(.fredoka(12, .semibold))
                 .foregroundStyle(.secondary)
                 .padding(.leading, 6)
-            accountRow("Mein Buddy".loc, symbol: "face.smiling.inverse", color: Color(red: 1.0, green: 0.51, blue: 0.6)) {
-                BuddyEditView(profile: profile)
-            }
             accountRow("Persönliche Daten".loc, symbol: "person.fill", color: Color.appAccent) {
-                PersonalDetailsView(profile: profile)
+                PersonalHubView(profile: profile)
             }
             accountRow("Ziele & Vorgaben".loc, symbol: "target", color: Color(red: 0.42, green: 0.36, blue: 0.91)) {
                 GoalsView(profile: profile)
@@ -494,6 +491,64 @@ struct LookView: View {
 }
 
 // MARK: - Subscreens
+
+/// Persönliche Daten and the buddy in one place, switched by chip tabs —
+/// one profile row instead of two.
+struct PersonalHubView: View {
+    @Bindable var profile: UserProfile
+    @State private var tab: Tab
+
+    enum Tab: String, CaseIterable, Identifiable {
+        case details, buddy
+
+        var id: String { rawValue }
+
+        var label: String {
+            switch self {
+            case .details: return "Daten".loc
+            case .buddy: return "Buddy"
+            }
+        }
+    }
+
+    init(profile: UserProfile, initialTab: Tab = .details) {
+        self.profile = profile
+        _tab = State(initialValue: initialTab)
+    }
+
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 8) {
+                ForEach(Tab.allCases) { target in
+                    Button {
+                        withAnimation(.snappy) { tab = target }
+                    } label: {
+                        Text(target.label)
+                            .font(.fredoka(14, .semibold))
+                            .padding(.vertical, 9)
+                            .frame(maxWidth: .infinity)
+                            .background(tab == target ? AnyShapeStyle(Theme.ink)
+                                                      : AnyShapeStyle(Theme.card),
+                                        in: Capsule())
+                            .foregroundStyle(tab == target ? Theme.onInk : .secondary)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            switch tab {
+            case .details:
+                PersonalDetailsView(profile: profile)
+            case .buddy:
+                BuddyEditView(profile: profile)
+            }
+        }
+        .background(Theme.background)
+        .navigationTitle("Persönliche Daten".loc)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
 
 struct PersonalDetailsView: View {
     @Bindable var profile: UserProfile

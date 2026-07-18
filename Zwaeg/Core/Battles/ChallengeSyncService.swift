@@ -179,6 +179,10 @@ struct ChallengeSyncService {
             record["participantName"] = me.name
             record["dayKey"] = dayKey
             record["value"] = value
+            // 1 when the day includes a hand-added session (photo-backed);
+            // opponents render it as the camera badge. New production field:
+            // deploy the schema in the CloudKit Dashboard before release.
+            record["manual"] = me.manualDays.contains(dayKey) ? 1 : 0
             return record
         }
         do {
@@ -239,11 +243,16 @@ struct ChallengeSyncService {
                     if !participants[index].isMe {
                         participants[index].scores[entry.dayKey] = entry.value
                         participants[index].name = entry.name
+                        participants[index].manualDays.removeAll { $0 == entry.dayKey }
+                        if entry.manual {
+                            participants[index].manualDays.append(entry.dayKey)
+                        }
                     }
                 } else if participants.count < Self.maxParticipants {
                     participants.append(ParticipantScore(
                         id: entry.participantID, name: entry.name, isMe: false,
-                        scores: [entry.dayKey: entry.value]))
+                        scores: [entry.dayKey: entry.value],
+                        manualDays: entry.manual ? [entry.dayKey] : []))
                 }
             }
             // Stop paging once the roster is full: further pages can only add
@@ -275,6 +284,7 @@ private struct SanitizedScore {
     let name: String
     let dayKey: String
     let value: Double
+    let manual: Bool
 
     init?(_ record: CKRecord, allowsNegative: Bool) {
         guard let participantID = record["participantID"] as? String,
@@ -291,6 +301,8 @@ private struct SanitizedScore {
         self.name = name
         self.dayKey = dayKey
         self.value = min(500_000, max(allowsNegative ? -500_000 : 0, rawValue))
+        // Records from before the field existed have no "manual" key.
+        self.manual = (record["manual"] as? Int ?? 0) == 1
     }
 }
 

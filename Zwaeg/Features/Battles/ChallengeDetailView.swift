@@ -9,7 +9,10 @@ struct ChallengeDetailView: View {
     let challenge: Challenge
     let profile: UserProfile
 
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
     @State private var showManualSession = false
+    @State private var confirmDelete = false
 
     private var maxTotal: Double {
         max(challenge.ranking.first?.total ?? 1, 1)
@@ -25,9 +28,25 @@ struct ChallengeDetailView: View {
                     manualSessionButton
                 }
                 fairnessNote
+                deleteButton
             }
             .padding(16)
         }
+        .confirmationDialog("Battle löschen?".loc, isPresented: $confirmDelete,
+                            titleVisibility: .visible) {
+            Button("Löschen".loc, role: .destructive) {
+                dismiss()
+                // Deleting the model while this view still renders it would
+                // crash; let the pop finish first.
+                Task { @MainActor in
+                    try? await Task.sleep(for: .milliseconds(400))
+                    context.delete(challenge)
+                }
+            }
+        } message: {
+            Text("Entfernt das Battle nur von diesem Gerät. Deine bereits geteilten Tageswerte bleiben für die anderen sichtbar.".loc)
+        }
+        .defaultScrollAnchor(LaunchArgs.all.contains("-scroll-bottom") ? .bottom : .top)
         .background(Theme.background)
         .navigationTitle(challenge.name)
         .navigationBarTitleDisplayMode(.inline)
@@ -43,9 +62,14 @@ struct ChallengeDetailView: View {
                 .presentationDetents([.large])
         }
         .onAppear {
+            // Like the recipe detail: bottom content beats the floating bar.
+            TabRouter.shared.tabBarHidden = true
             if LaunchArgs.all.contains("-open-manual-session") {
                 showManualSession = true
             }
+        }
+        .onDisappear {
+            TabRouter.shared.tabBarHidden = false
         }
     }
 
@@ -75,6 +99,20 @@ struct ChallengeDetailView: View {
                         .foregroundStyle(.tertiary)
                 }
             }
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var deleteButton: some View {
+        Button(role: .destructive) {
+            confirmDelete = true
+        } label: {
+            Text("Battle löschen".loc)
+                .font(.fredoka(14, .semibold))
+                .foregroundStyle(.red)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+                .background(Theme.card, in: Capsule())
         }
         .buttonStyle(.plain)
     }
