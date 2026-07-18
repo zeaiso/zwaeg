@@ -558,8 +558,36 @@ struct PersonalDetailsView: View {
     }
 }
 
+/// Common energy splits; carb/protein/fat percent, custom keeps own values.
+private enum MacroPreset: String, CaseIterable, Identifiable {
+    case balanced, highProtein, lowCarb, keto, custom
+
+    var id: String { rawValue }
+
+    var label: String {
+        switch self {
+        case .balanced: return "Ausgewogen".loc
+        case .highProtein: return "High-Protein"
+        case .lowCarb: return "Low-Carb"
+        case .keto: return "Keto"
+        case .custom: return "Eigene".loc
+        }
+    }
+
+    var shares: (carbs: Int, protein: Int, fat: Int)? {
+        switch self {
+        case .balanced: return (45, 25, 30)
+        case .highProtein: return (35, 35, 30)
+        case .lowCarb: return (20, 35, 45)
+        case .keto: return (10, 25, 65)
+        case .custom: return nil
+        }
+    }
+}
+
 struct GoalsView: View {
     @Bindable var profile: UserProfile
+    @State private var customMacros = false
     @AppStorage(MealPlan.storageKey) private var enabledMealsRaw = ""
     @AppStorage("waterRemindersOn") private var waterRemindersOn = false
     @AppStorage("mealRemindersOn") private var mealRemindersOn = false
@@ -589,6 +617,25 @@ struct GoalsView: View {
                 Text("Mahlzeiten".loc)
             } footer: {
                 Text("Dein Kalorienziel verteilt sich auf die gewählten Mahlzeiten. Ausgeblendete Mahlzeiten verschwinden aus dem Tagebuch.".loc)
+            }
+            Section {
+                Picker("Verteilung".loc, selection: macroPresetBinding) {
+                    ForEach(MacroPreset.allCases) { preset in
+                        Text(preset.label).tag(preset)
+                    }
+                }
+                if macroPresetBinding.wrappedValue == .custom {
+                    Stepper("Protein: %d %%".loc(profile.proteinSharePercent),
+                            value: proteinShareBinding, in: 10...50, step: 5)
+                    Stepper("Fett: %d %%".loc(profile.fatSharePercent),
+                            value: fatShareBinding, in: 10...70, step: 5)
+                    LabeledContent("Kohlenhydrate".loc, value: "\(profile.carbSharePercent) %")
+                }
+            } header: {
+                Text("Makro-Verteilung".loc)
+            } footer: {
+                Text("Ziele: %d g Kohlenhydrate, %d g Protein, %d g Fett".loc(
+                    macroGrams.carbs, macroGrams.protein, macroGrams.fat))
             }
             Section {
                 Stepper("Wasserziel: %d Gläser".loc(profile.waterGoalGlasses),
@@ -624,6 +671,64 @@ struct GoalsView: View {
                     times: ReminderStore.load())
             }
         }
+    }
+
+    // MARK: - Macro split
+
+    private var currentShares: (carbs: Int, protein: Int, fat: Int) {
+        (profile.carbSharePercent, profile.proteinSharePercent, profile.fatSharePercent)
+    }
+
+    private var macroPresetBinding: Binding<MacroPreset> {
+        Binding(
+            get: {
+                if customMacros { return .custom }
+                return MacroPreset.allCases.first {
+                    $0.shares.map { $0 == currentShares } ?? false
+                } ?? .custom
+            },
+            set: { preset in
+                if let shares = preset.shares {
+                    customMacros = false
+                    profile.carbSharePercent = shares.carbs
+                    profile.proteinSharePercent = shares.protein
+                    profile.fatSharePercent = shares.fat
+                } else {
+                    customMacros = true
+                }
+            })
+    }
+
+    /// Carbs absorb the change; fat gives way when carbs would drop below 5%.
+    private var proteinShareBinding: Binding<Int> {
+        Binding(
+            get: { profile.proteinSharePercent },
+            set: { newValue in
+                profile.proteinSharePercent = newValue
+                if 100 - newValue - profile.fatSharePercent < 5 {
+                    profile.fatSharePercent = max(10, 100 - newValue - 5)
+                }
+                profile.carbSharePercent = 100 - newValue - profile.fatSharePercent
+            })
+    }
+
+    private var fatShareBinding: Binding<Int> {
+        Binding(
+            get: { profile.fatSharePercent },
+            set: { newValue in
+                profile.fatSharePercent = newValue
+                if 100 - profile.proteinSharePercent - newValue < 5 {
+                    profile.proteinSharePercent = max(10, 100 - newValue - 5)
+                }
+                profile.carbSharePercent = 100 - profile.proteinSharePercent - newValue
+            })
+    }
+
+    private var macroGrams: (carbs: Int, protein: Int, fat: Int) {
+        let kcal = Double(profile.dailyCalorieTarget)
+        return (Int((kcal * Double(profile.carbSharePercent) / 100 / 4).rounded()),
+                Int((kcal * Double(profile.proteinSharePercent) / 100 / 4).rounded()),
+                Int((kcal * Double(profile.fatSharePercent) / 100 / 9).rounded()))
     }
 
     /// The last enabled meal can't be turned off; the toggle is disabled then.

@@ -53,7 +53,7 @@ targets:
         UIRequiresFullScreen: true
         ITSAppUsesNonExemptEncryption: false
         NSHealthShareUsageDescription: Zwäg liest Schritte und Aktivenergie, um deinen Tagesverbrauch anzuzeigen.
-        NSHealthUpdateUsageDescription: Zwäg speichert dein geloggtes Gewicht in Apple Health.
+        NSHealthUpdateUsageDescription: Zwäg speichert dein geloggtes Gewicht und deine Mahlzeiten (Kalorien und Makros) in Apple Health.
         NSSupportsLiveActivities: true
         ZwaegAppGroup: group.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg
         ZwaegCloudKitContainer: iCloud.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg

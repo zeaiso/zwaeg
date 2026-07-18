@@ -19,6 +19,7 @@ struct DiaryView: View {
         case details
         case reminders
         case challenges
+        case recipe(Recipe)
 
         var id: Self { self }
     }
@@ -61,6 +62,9 @@ struct DiaryView: View {
                     ForEach(visibleMeals) { meal in
                         mealCard(meal)
                     }
+                    if !recipeSuggestions.isEmpty {
+                        suggestionsCard
+                    }
                     waterCard
                     moodCard
                 }
@@ -85,6 +89,8 @@ struct DiaryView: View {
                     RemindersView()
                 case .challenges:
                     ChallengesView(profile: profile)
+                case .recipe(let recipe):
+                    RecipeDetailView(recipe: recipe)
                 }
             }
             .sheet(isPresented: $showCalendar) {
@@ -377,12 +383,107 @@ struct DiaryView: View {
         profile.dailyCalorieTarget - consumed
     }
 
-    /// 45/25/30 carb/protein/fat energy split (4/4/9 kcal per gram).
+    /// Gram targets from the profile's energy split (4/4/9 kcal per gram).
     private var macroTargets: (carbs: Int, protein: Int, fat: Int) {
         let kcal = Double(profile.dailyCalorieTarget)
-        return (Int((kcal * 0.45 / 4).rounded()),
-                Int((kcal * 0.25 / 4).rounded()),
-                Int((kcal * 0.30 / 9).rounded()))
+        return (Int((kcal * Double(profile.carbSharePercent) / 100 / 4).rounded()),
+                Int((kcal * Double(profile.proteinSharePercent) / 100 / 4).rounded()),
+                Int((kcal * Double(profile.fatSharePercent) / 100 / 9).rounded()))
+    }
+
+    // MARK: - Recipe suggestions
+
+    /// Up to three recipes that still fit today's remaining calories, leaning
+    /// high-protein while the protein target is far away. Stable per day (the
+    /// score carries a date-seeded jitter), so the card doesn't reshuffle.
+    private var recipeSuggestions: [Recipe] {
+        guard selectedDay == Calendar.current.startOfDay(for: .now),
+              Calendar.current.component(.hour, from: .now) >= 11
+                || LaunchArgs.all.contains("-demo-suggestions"),
+              remaining >= 150 else { return [] }
+        let target = Double(remaining)
+        let proteinEaten = dayEntries.reduce(0.0) { $0 + $1.proteinG }
+        let needsProtein = Double(macroTargets.protein) - proteinEaten > 20
+        let daySeed = UInt64(selectedDay.timeIntervalSince1970)
+        func score(_ recipe: Recipe) -> Double {
+            // A meal that uses the budget well beats a token snack.
+            var value = -abs(Double(recipe.kcal) - target * 0.8)
+            if needsProtein && recipe.isHighProtein { value += 150 }
+            value += Double((Self.stableHash(recipe.id) ^ daySeed) % 60)
+            return value
+        }
+        return Array(RecipeStore.all
+            .filter { Double($0.kcal) <= target && Double($0.kcal) >= target * 0.3 }
+            .sorted { score($0) > score($1) }
+            .prefix(3))
+    }
+
+    /// String.hashValue changes per launch; day-stable jitter needs this.
+    private static func stableHash(_ string: String) -> UInt64 {
+        string.unicodeScalars.reduce(5381 as UInt64) { ($0 &<< 5) &+ $0 &+ UInt64($1.value) }
+    }
+
+    private var suggestionsCard: some View {
+        Card {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(spacing: 12) {
+                    Image(systemName: "fork.knife")
+                        .font(.fredoka(15, .semibold))
+                        .foregroundStyle(.white)
+                        .frame(width: 42, height: 42)
+                        .background(Color(red: 0.98, green: 0.55, blue: 0.2).gradient,
+                                    in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Was passt heute noch?".loc)
+                            .font(.fredoka(17, .semibold))
+                            .foregroundStyle(Theme.ink)
+                        Text("Noch %d kcal frei".loc(remaining))
+                            .font(.fredoka(12))
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 12) {
+                        ForEach(recipeSuggestions) { recipe in
+                            suggestionTile(recipe)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private func suggestionTile(_ recipe: Recipe) -> some View {
+        Button {
+            route = .recipe(recipe)
+        } label: {
+            VStack(alignment: .leading, spacing: 6) {
+                Group {
+                    if let photo = recipe.photo {
+                        Image(uiImage: photo)
+                            .resizable()
+                            .scaledToFill()
+                    } else {
+                        Text(recipe.emoji)
+                            .font(.system(size: 40))
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(Theme.field.opacity(0.6))
+                    }
+                }
+                .frame(width: 148, height: 96)
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                Text(recipe.name)
+                    .font(.fredoka(13, .semibold))
+                    .foregroundStyle(Theme.ink)
+                    .lineLimit(2, reservesSpace: true)
+                    .multilineTextAlignment(.leading)
+                Text("%d kcal · %d Min.".loc(recipe.kcal, recipe.minutes))
+                    .font(.fredoka(11))
+                    .foregroundStyle(.secondary)
+            }
+            .frame(width: 148, alignment: .leading)
+        }
+        .buttonStyle(.plain)
     }
 
     private var summaryCard: some View {
@@ -971,6 +1072,23 @@ struct DiaryView: View {
             label: "Tage-Streak".loc,
             midnight: Themer.shared.look == .midnight))
         WidgetCenter.shared.reloadTimelines(ofKind: "ZwaegStreakWidget")
+        // Mirror eaten totals into Apple Health; the edited day too, in
+        // case an older diary day was just changed.
+        let syncDays = Set([today, selectedDay])
+        let entriesByDay = allEntries.reduce(into: [Date: [FoodEntry]]()) {
+            $0[$1.day, default: []].append($1)
+        }
+        Task {
+            for day in syncDays {
+                let entries = entriesByDay[day] ?? []
+                await HealthKitService.shared.saveNutrition(
+                    day: day,
+                    kcal: Double(entries.reduce(0) { $0 + $1.calories }),
+                    proteinG: entries.reduce(0) { $0 + $1.proteinG },
+                    carbsG: entries.reduce(0) { $0 + $1.carbsG },
+                    fatG: entries.reduce(0) { $0 + $1.fatG })
+            }
+        }
     }
 }
 

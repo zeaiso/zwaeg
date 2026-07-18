@@ -6,6 +6,16 @@ releases add features, and anything that changes behaviour is noted.
 
 ## Unreleased
 
+- "Was passt heute noch?" — from 11:00, the diary suggests up to three
+  recipes that fit the remaining calorie budget, leaning high-protein while
+  the protein target is far away. Tapping opens the recipe; the picks stay
+  stable for the day.
+- Logged meals mirror into Apple Health as dietary energy, protein, carbs
+  and fat (daily totals, replaced on every edit). Existing Health
+  connections get the additional write permission sheet once.
+- Custom macro split. "Ziele & Vorgaben" gains a Makro-Verteilung section
+  with presets (Ausgewogen, High-Protein, Low-Carb, Keto) and custom
+  percent steppers; the diary's macro bars follow.
 - Step battles can't be cheated from the Health app anymore. Battle scores
   now ignore values typed by hand into Apple Health (device-measured steps
   and active calories are unaffected) — quietly, per HealthKit's

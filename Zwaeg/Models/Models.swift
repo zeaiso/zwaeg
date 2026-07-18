@@ -311,6 +311,11 @@ final class UserProfile {
     var buddyRaw: String = ""
     /// Daily water goal in glasses of 2.5 dl; 8 glasses = 2 liters.
     var waterGoalGlasses: Int = 8
+    /// Energy split for the macro targets; defaults follow the balanced
+    /// 45/25/30 recommendation the app shipped with. Always sums to 100.
+    var carbSharePercent: Int = 45
+    var proteinSharePercent: Int = 25
+    var fatSharePercent: Int = 30
 
     init(name: String, sex: Sex, age: Int, heightCm: Double, weightKg: Double,
          activity: ActivityLevel, goal: Goal) {

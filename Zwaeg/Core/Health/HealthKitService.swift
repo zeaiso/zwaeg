@@ -16,8 +16,17 @@ final class HealthKitService {
     private let stepType = HKQuantityType(.stepCount)
     private let energyType = HKQuantityType(.activeEnergyBurned)
     private let weightType = HKQuantityType(.bodyMass)
+    private let dietaryEnergyType = HKQuantityType(.dietaryEnergyConsumed)
+    private let dietaryProteinType = HKQuantityType(.dietaryProtein)
+    private let dietaryCarbsType = HKQuantityType(.dietaryCarbohydrates)
+    private let dietaryFatType = HKQuantityType(.dietaryFatTotal)
+
+    private var shareTypes: Set<HKSampleType> {
+        [weightType, dietaryEnergyType, dietaryProteinType, dietaryCarbsType, dietaryFatType]
+    }
 
     private static let connectedKey = "healthKitConnected"
+    private static let nutritionAuthKey = "healthNutritionAuthRequested"
 
     private init() {
         isConnected = UserDefaults.standard.bool(forKey: Self.connectedKey)
@@ -33,13 +42,23 @@ final class HealthKitService {
     func requestAuthorization() async {
         do {
             try await store.requestAuthorization(
-                toShare: [weightType],
+                toShare: shareTypes,
                 read: [stepType, energyType, weightType])
             UserDefaults.standard.set(true, forKey: Self.connectedKey)
+            UserDefaults.standard.set(true, forKey: Self.nutritionAuthKey)
             isConnected = true
         } catch {
             // User can retry from the diary; read access stays off until granted.
         }
+    }
+
+    /// Users who connected before nutrition writing existed get the extra
+    /// permission sheet exactly once, on the first sync attempt.
+    private func ensureNutritionAuthorization() async {
+        guard !UserDefaults.standard.bool(forKey: Self.nutritionAuthKey) else { return }
+        UserDefaults.standard.set(true, forKey: Self.nutritionAuthKey)
+        try? await store.requestAuthorization(toShare: shareTypes,
+                                              read: [stepType, energyType, weightType])
     }
 
     struct DayActivity: Equatable {
@@ -70,6 +89,33 @@ final class HealthKitService {
             result.append(Int(await sum(of: stepType, unit: .count(), day: date).rounded()))
         }
         return result
+    }
+
+    /// Mirrors a day's eaten totals into Apple Health as one sample per
+    /// nutrient spanning the day. Zwäg's earlier samples for that day are
+    /// replaced first (deleteObjects only ever removes what this app wrote),
+    /// so edits and deletions in the diary stay in sync.
+    func saveNutrition(day: Date, kcal: Double, proteinG: Double,
+                       carbsG: Double, fatG: Double) async {
+        guard isConnected else { return }
+        await ensureNutritionAuthorization()
+        let start = Calendar.current.startOfDay(for: day)
+        guard let end = Calendar.current.date(byAdding: .day, value: 1, to: start) else { return }
+        let predicate = HKQuery.predicateForSamples(withStart: start, end: end,
+                                                    options: .strictStartDate)
+        let values: [(HKQuantityType, HKUnit, Double)] = [
+            (dietaryEnergyType, .kilocalorie(), kcal),
+            (dietaryProteinType, .gram(), proteinG),
+            (dietaryCarbsType, .gram(), carbsG),
+            (dietaryFatType, .gram(), fatG),
+        ]
+        for (type, unit, value) in values {
+            _ = try? await store.deleteObjects(of: type, predicate: predicate)
+            guard value > 0 else { continue }
+            let quantity = HKQuantity(unit: unit, doubleValue: value)
+            let sample = HKQuantitySample(type: type, quantity: quantity, start: start, end: end)
+            try? await store.save(sample)
+        }
     }
 
     func saveWeight(_ weightKg: Double, date: Date = .now) async {
