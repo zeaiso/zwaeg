@@ -9,6 +9,8 @@ struct ChallengeDetailView: View {
     let challenge: Challenge
     let profile: UserProfile
 
+    @State private var showManualSession = false
+
     private var maxTotal: Double {
         max(challenge.ranking.first?.total ?? 1, 1)
     }
@@ -19,6 +21,10 @@ struct ChallengeDetailView: View {
                 headerCard
                 leaderboardCard
                 todayCard
+                if challenge.metric == .steps, challenge.isActive {
+                    manualSessionButton
+                }
+                fairnessNote
             }
             .padding(16)
         }
@@ -32,6 +38,55 @@ struct ChallengeDetailView: View {
                 }
             }
         }
+        .sheet(isPresented: $showManualSession) {
+            ManualSessionSheet(challenge: challenge, profile: profile)
+                .presentationDetents([.large])
+        }
+        .onAppear {
+            if LaunchArgs.all.contains("-open-manual-session") {
+                showManualSession = true
+            }
+        }
+    }
+
+    private var manualSessionButton: some View {
+        Button {
+            showManualSession = true
+        } label: {
+            Card {
+                HStack(spacing: 12) {
+                    Image(systemName: "figure.run")
+                        .font(.fredoka(16, .semibold))
+                        .foregroundStyle(.white)
+                        .frame(width: 42, height: 42)
+                        .background(Color(red: 0.13, green: 0.66, blue: 0.42).gradient,
+                                    in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Training nachtragen".loc)
+                            .font(.fredoka(16, .semibold))
+                            .foregroundStyle(Theme.ink)
+                        Text("Laufband & Co. — mit Foto-Beleg".loc)
+                            .font(.fredoka(12))
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.forward")
+                        .font(.fredoka(13, .semibold))
+                        .foregroundStyle(.tertiary)
+                }
+            }
+        }
+        .buttonStyle(.plain)
+    }
+
+    /// Says out loud what keeps the leaderboard honest.
+    private var fairnessNote: some View {
+        Text(challenge.metric == .deficit
+             ? "Aktivkalorien zählen nur vom Gerät gemessen — von Hand in Health eingetragene Werte nicht.".loc
+             : "Es zählen nur vom Gerät gemessene Werte — von Hand in Health eingetragene nicht. Das Kamera-Symbol markiert nachgetragenes Training mit Foto-Beleg.".loc)
+            .font(.fredoka(12))
+            .foregroundStyle(.tertiary)
+            .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var headerCard: some View {
@@ -83,6 +138,11 @@ struct ChallengeDetailView: View {
                 BuddyView(buddy: participant.isMe ? profile.buddy : Buddy.seeded(participant.id), size: 30)
                 Text(participant.name)
                     .fontWeight(participant.isMe ? .bold : .regular)
+                if !participant.manualDays.isEmpty {
+                    Image(systemName: "camera.fill")
+                        .font(.fredoka(11, .semibold))
+                        .foregroundStyle(.secondary)
+                }
                 if participant.isMe {
                     Text("Du".loc)
                         .font(.fredoka(11, .semibold))

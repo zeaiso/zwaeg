@@ -22,7 +22,7 @@ enum AppModel {
         // swiftlint:disable:next force_try
         return try! ModelContainer(for: UserProfile.self, FoodEntry.self, WeightEntry.self,
                                    Challenge.self, WaterDay.self, DayNote.self, FastingSession.self,
-                                   CustomFood.self, CachedProduct.self,
+                                   CustomFood.self, CachedProduct.self, BattleManualEntry.self,
                                    configurations: configuration)
     }()
 }

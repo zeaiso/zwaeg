@@ -53,9 +53,53 @@ struct ParticipantScore: Codable, Identifiable, Equatable {
     var isMe: Bool
     /// Day key ("yyyy-MM-dd") to metric value.
     var scores: [String: Double]
+    /// Days whose score includes a hand-added session (treadmill and co.),
+    /// backed by a photo on the owner's device; everyone sees the badge.
+    var manualDays: [String] = []
 
     var total: Double {
         scores.values.reduce(0, +)
+    }
+
+    init(id: String, name: String, isMe: Bool,
+         scores: [String: Double], manualDays: [String] = []) {
+        self.id = id
+        self.name = name
+        self.isMe = isMe
+        self.scores = scores
+        self.manualDays = manualDays
+    }
+
+    /// Participants encoded before the field existed decode with no manual days.
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        isMe = try container.decode(Bool.self, forKey: .isMe)
+        scores = try container.decode([String: Double].self, forKey: .scores)
+        manualDays = try container.decodeIfPresent([String].self, forKey: .manualDays) ?? []
+    }
+}
+
+/// A treadmill or gym session added by hand for step battles, backed by a
+/// photo of the machine's display. The photo stays on this device; battle
+/// members only see the day badged as manual. One entry per day keeps the
+/// escape hatch honest.
+@Model
+final class BattleManualEntry {
+    @Attribute(.unique) var day: Date
+    var steps: Int
+    var distanceKm: Double
+    /// File name in Documents (battle-proof-<day>.jpg).
+    var photoFile: String
+    var createdAt: Date
+
+    init(day: Date, steps: Int, distanceKm: Double, photoFile: String) {
+        self.day = Calendar.current.startOfDay(for: day)
+        self.steps = steps
+        self.distanceKm = distanceKm
+        self.photoFile = photoFile
+        self.createdAt = .now
     }
 }
 

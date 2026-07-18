@@ -43,6 +43,26 @@ enum ProgressPhotos {
         try? FileManager.default.removeItem(at: photo.url)
     }
 
+    // MARK: - Generic JPEG storage (also used for battle proof photos)
+
+    /// Saves a downscaled JPEG under the given file name in Documents.
+    @discardableResult
+    static func saveJPEG(_ image: UIImage, name: String) -> Bool {
+        guard let directory,
+              let data = downscaled(image, maxSide: 1200).jpegData(compressionQuality: 0.8)
+        else { return false }
+        return (try? data.write(to: directory.appendingPathComponent(name))) != nil
+    }
+
+    static func imageURL(name: String) -> URL? {
+        directory?.appendingPathComponent(name)
+    }
+
+    static func deleteFile(name: String) {
+        guard let directory else { return }
+        try? FileManager.default.removeItem(at: directory.appendingPathComponent(name))
+    }
+
     private static func downscaled(_ image: UIImage, maxSide: CGFloat) -> UIImage {
         let side = max(image.size.width, image.size.height)
         guard side > maxSide, side > 0 else { return image }

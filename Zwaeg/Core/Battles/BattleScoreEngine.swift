@@ -27,26 +27,42 @@ enum BattleScoreEngine {
     /// here rather than in a view so joining can compute and push scores
     /// immediately; without that, the challenge creator would not see a new
     /// participant until the joiner's next manual refresh.
+    ///
+    /// Health data comes through battleActivity(for:), which ignores values
+    /// typed by hand into the Health app. Step battles additionally count
+    /// photo-backed manual sessions and badge those days.
     @MainActor
     static func updateMyScores(for challenge: Challenge, profile: UserProfile,
-                               caloriesByDay: [Date: Int]) async {
+                               caloriesByDay: [Date: Int],
+                               manualStepsByDay: [Date: Int] = [:]) async {
         var participants = challenge.participants
         guard let myIndex = participants.firstIndex(where: \.isMe) else { return }
+        var manualDays: [String] = []
         for dayKey in challenge.elapsedDayKeys {
             guard let day = BattleDay.date(for: dayKey) else { continue }
             let activity = HealthKitService.shared.isConnected
-                ? await HealthKitService.shared.activity(for: day)
+                ? await HealthKitService.shared.battleActivity(for: day)
                 : HealthKitService.DayActivity()
-            participants[myIndex].scores[dayKey] = myScore(
+            var score = myScore(
                 metric: challenge.metric, profile: profile,
                 consumedKcal: caloriesByDay[day] ?? 0, activity: activity)
+            if challenge.metric == .steps, let manual = manualStepsByDay[day], manual > 0 {
+                score += Double(manual)
+                manualDays.append(dayKey)
+            }
+            participants[myIndex].scores[dayKey] = score
         }
+        participants[myIndex].manualDays = manualDays
         challenge.participants = participants
     }
 
     /// One pass over the diary instead of one filter per challenge day.
     static func caloriesByDay(_ entries: [FoodEntry]) -> [Date: Int] {
         entries.reduce(into: [:]) { $0[$1.day, default: 0] += $1.calories }
+    }
+
+    static func manualStepsByDay(_ entries: [BattleManualEntry]) -> [Date: Int] {
+        entries.reduce(into: [:]) { $0[$1.day, default: 0] += $1.steps }
     }
 
     // MARK: - Join codes

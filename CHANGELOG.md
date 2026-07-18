@@ -4,6 +4,18 @@ All notable changes to Zwäg are documented here. This project follows
 [semantic versioning](https://semver.org): patch releases fix bugs, minor
 releases add features, and anything that changes behaviour is noted.
 
+## Unreleased
+
+- Step battles can't be cheated from the Health app anymore. Battle scores
+  now ignore values typed by hand into Apple Health (device-measured steps
+  and active calories are unaffected) — quietly, per HealthKit's
+  wasUserEntered flag. A note in the battle explains the rule.
+- Treadmill sessions join the battle with photo proof. "Training nachtragen"
+  in a step battle takes a distance and requires a photo of the machine's
+  display; the photo stays on the device, the converted steps (≈1300/km)
+  count once per day, and everyone in the battle sees a camera badge on
+  participants with hand-added days.
+
 ## 1.1.0 (2026-07-18)
 
 The first feature release, shaped by the first days of real-world use:

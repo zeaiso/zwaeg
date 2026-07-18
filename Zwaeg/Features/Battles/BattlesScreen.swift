@@ -11,6 +11,7 @@ struct BattlesScreen: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \Challenge.createdAt, order: .reverse) private var challenges: [Challenge]
     @Query private var foodEntries: [FoodEntry]
+    @Query private var manualEntries: [BattleManualEntry]
 
     @State private var showCreate = false
     @State private var showJoin = false
@@ -207,9 +208,11 @@ struct BattlesScreen: View {
         // My own score comes from the diary and Apple Health, so it stays
         // current even with no iCloud account; only sharing it needs the network.
         let calories = BattleScoreEngine.caloriesByDay(foodEntries)
+        let manualSteps = BattleScoreEngine.manualStepsByDay(manualEntries)
         for challenge in active {
             await BattleScoreEngine.updateMyScores(for: challenge, profile: profile,
-                                                   caloriesByDay: calories)
+                                                   caloriesByDay: calories,
+                                                   manualStepsByDay: manualSteps)
         }
 
         syncError = nil

@@ -53,6 +53,15 @@ final class HealthKitService {
         return await DayActivity(steps: Int(steps.rounded()), activeKcal: Int(energy.rounded()))
     }
 
+    /// Like activity(for:), but for battles: values typed by hand into the
+    /// Health app (wasUserEntered) don't count, so a leaderboard can't be
+    /// beaten by editing Health. Device-measured samples are unaffected.
+    func battleActivity(for day: Date) async -> DayActivity {
+        async let steps = sum(of: stepType, unit: .count(), day: day, excludeUserEntered: true)
+        async let energy = sum(of: energyType, unit: .kilocalorie(), day: day, excludeUserEntered: true)
+        return await DayActivity(steps: Int(steps.rounded()), activeKcal: Int(energy.rounded()))
+    }
+
     /// Step counts for the seven days ending at `day`, oldest first.
     func weekSteps(endingAt day: Date) async -> [Int] {
         var result: [Int] = []
@@ -70,10 +79,22 @@ final class HealthKitService {
         try? await store.save(sample)
     }
 
-    private func sum(of type: HKQuantityType, unit: HKUnit, day: Date) async -> Double {
+    private func sum(of type: HKQuantityType, unit: HKUnit, day: Date,
+                     excludeUserEntered: Bool = false) async -> Double {
         let start = Calendar.current.startOfDay(for: day)
         guard let end = Calendar.current.date(byAdding: .day, value: 1, to: start) else { return 0 }
-        let predicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
+        var predicates = [HKQuery.predicateForSamples(withStart: start, end: end,
+                                                     options: .strictStartDate)]
+        if excludeUserEntered {
+            // NOT(wasUserEntered == true) also matches samples without the
+            // key, which is every device-recorded sample.
+            predicates.append(NSCompoundPredicate(notPredicateWithSubpredicate:
+                HKQuery.predicateForObjects(withMetadataKey: HKMetadataKeyWasUserEntered,
+                                            operatorType: .equalTo, value: true)))
+        }
+        let predicate = predicates.count == 1
+            ? predicates[0]
+            : NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         return await withCheckedContinuation { continuation in
             let query = HKStatisticsQuery(
                 quantityType: type,
