@@ -6,6 +6,10 @@ releases add features, and anything that changes behaviour is noted.
 
 ## Unreleased
 
+- Meine Routen: walks, runs and hikes recorded with Apple Watch or the
+  Workout app appear on the progress screen as map tiles, with a full-screen
+  route view behind each. Zwäg only reads what Health already stored —
+  it never tracks location itself, and routes stay on the device.
 - Proof photos are visible to the battle. Tapping a participant's camera
   badge opens their Foto-Belege: every manual session's photo with capture
   time, distance and steps. Proofs must be shot live with the camera, the

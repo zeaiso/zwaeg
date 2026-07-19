@@ -1,3 +1,4 @@
+import CoreLocation
 import Foundation
 import HealthKit
 import Observation
@@ -25,8 +26,13 @@ final class HealthKitService {
         [weightType, dietaryEnergyType, dietaryProteinType, dietaryCarbsType, dietaryFatType]
     }
 
+    private var readTypes: Set<HKObjectType> {
+        [stepType, energyType, weightType, .workoutType(), HKSeriesType.workoutRoute()]
+    }
+
     private static let connectedKey = "healthKitConnected"
     private static let nutritionAuthKey = "healthNutritionAuthRequested"
+    private static let routesAuthKey = "healthRoutesAuthRequested"
 
     private init() {
         isConnected = UserDefaults.standard.bool(forKey: Self.connectedKey)
@@ -41,11 +47,10 @@ final class HealthKitService {
 
     func requestAuthorization() async {
         do {
-            try await store.requestAuthorization(
-                toShare: shareTypes,
-                read: [stepType, energyType, weightType])
+            try await store.requestAuthorization(toShare: shareTypes, read: readTypes)
             UserDefaults.standard.set(true, forKey: Self.connectedKey)
             UserDefaults.standard.set(true, forKey: Self.nutritionAuthKey)
+            UserDefaults.standard.set(true, forKey: Self.routesAuthKey)
             isConnected = true
         } catch {
             // User can retry from the diary; read access stays off until granted.
@@ -57,8 +62,64 @@ final class HealthKitService {
     private func ensureNutritionAuthorization() async {
         guard !UserDefaults.standard.bool(forKey: Self.nutritionAuthKey) else { return }
         UserDefaults.standard.set(true, forKey: Self.nutritionAuthKey)
-        try? await store.requestAuthorization(toShare: shareTypes,
-                                              read: [stepType, energyType, weightType])
+        try? await store.requestAuthorization(toShare: shareTypes, read: readTypes)
+    }
+
+    /// Same pattern for the workout/route read access the routes card needs.
+    private func ensureRoutesAuthorization() async {
+        guard !UserDefaults.standard.bool(forKey: Self.routesAuthKey) else { return }
+        UserDefaults.standard.set(true, forKey: Self.routesAuthKey)
+        try? await store.requestAuthorization(toShare: shareTypes, read: readTypes)
+    }
+
+    // MARK: - Outdoor workouts and their routes
+
+    /// Recent walks, runs and hikes; newest first.
+    func recentOutdoorWorkouts(limit: Int = 5) async -> [HKWorkout] {
+        guard isConnected else { return [] }
+        await ensureRoutesAuthorization()
+        let activities: [HKWorkoutActivityType] = [.walking, .running, .hiking]
+        let predicate = NSCompoundPredicate(orPredicateWithSubpredicates:
+            activities.map { HKQuery.predicateForWorkouts(with: $0) })
+        let sort = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        return await withCheckedContinuation { continuation in
+            let query = HKSampleQuery(sampleType: .workoutType(), predicate: predicate,
+                                      limit: limit, sortDescriptors: [sort]) { _, samples, _ in
+                continuation.resume(returning: (samples as? [HKWorkout]) ?? [])
+            }
+            store.execute(query)
+        }
+    }
+
+    /// The GPS trace a watch or the Workout app recorded for a workout,
+    /// downsampled for drawing; empty when the workout has no route.
+    func route(for workout: HKWorkout) async -> [CLLocationCoordinate2D] {
+        let routes: [HKWorkoutRoute] = await withCheckedContinuation { continuation in
+            let predicate = HKQuery.predicateForObjects(from: workout)
+            let query = HKSampleQuery(sampleType: HKSeriesType.workoutRoute(),
+                                      predicate: predicate, limit: 1,
+                                      sortDescriptors: nil) { _, samples, _ in
+                continuation.resume(returning: (samples as? [HKWorkoutRoute]) ?? [])
+            }
+            store.execute(query)
+        }
+        guard let routeSample = routes.first else { return [] }
+        return await withCheckedContinuation { continuation in
+            var coordinates: [CLLocationCoordinate2D] = []
+            var resumed = false
+            // The route query streams batches on one queue; done fires last.
+            let query = HKWorkoutRouteQuery(route: routeSample) { _, locations, done, error in
+                if let locations {
+                    coordinates.append(contentsOf: locations.map(\.coordinate))
+                }
+                guard done || error != nil, !resumed else { return }
+                resumed = true
+                let step = max(1, coordinates.count / 300)
+                continuation.resume(returning: coordinates.enumerated()
+                    .compactMap { $0.offset.isMultiple(of: step) ? $0.element : nil })
+            }
+            store.execute(query)
+        }
     }
 
     struct DayActivity: Equatable {

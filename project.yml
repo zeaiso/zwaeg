@@ -52,7 +52,7 @@ targets:
         # multitasking or declare full screen; App Store validation enforces it.
         UIRequiresFullScreen: true
         ITSAppUsesNonExemptEncryption: false
-        NSHealthShareUsageDescription: Zwäg liest Schritte und Aktivenergie, um deinen Tagesverbrauch anzuzeigen.
+        NSHealthShareUsageDescription: Zwäg liest Schritte, Aktivenergie und Workouts mit ihren Routen, um deinen Tagesverbrauch und deine Aktivitäten anzuzeigen.
         NSHealthUpdateUsageDescription: Zwäg speichert dein geloggtes Gewicht und deine Mahlzeiten (Kalorien und Makros) in Apple Health.
         NSSupportsLiveActivities: true
         ZwaegAppGroup: group.$(ZWAEG_BUNDLE_ID_PREFIX).zwaeg

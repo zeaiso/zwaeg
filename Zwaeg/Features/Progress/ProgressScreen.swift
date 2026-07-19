@@ -2,6 +2,8 @@ import SwiftUI
 import SwiftData
 import Charts
 import PhotosUI
+import MapKit
+import HealthKit
 
 /// Munch-style activity screen: colored stat tiles, rounded calorie bars,
 /// clean weight line.
@@ -50,6 +52,9 @@ struct ProgressScreen: View {
                 caloriesCard
                 weekCard
                 weightCard
+                if !routes.isEmpty {
+                    routesCard
+                }
                 photosCard
             }
             .padding(16)
@@ -57,6 +62,7 @@ struct ProgressScreen: View {
         .defaultScrollAnchor(LaunchArgs.all.contains("-scroll-bottom") ? .bottom : .top)
         .background(Theme.background)
         .toolbar(.hidden, for: .navigationBar)
+        .task { await loadRoutes() }
     }
 
     // MARK: - Header
@@ -85,6 +91,177 @@ struct ProgressScreen: View {
             Spacer()
         }
         .padding(.top, 8)
+    }
+
+    // MARK: - Routes (from Apple Health workouts; nothing tracked by Zwäg)
+
+    struct RouteWorkout: Identifiable {
+        let id: UUID
+        let label: String
+        let date: Date
+        let distanceKm: Double
+        let minutes: Int
+        let coordinates: [CLLocationCoordinate2D]
+    }
+
+    @State private var routes: [RouteWorkout] = []
+    @State private var selectedRoute: RouteWorkout?
+
+    private var routesCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Meine Routen".loc)
+                .font(.fredoka(16, .semibold))
+                .foregroundStyle(Theme.ink)
+            Text("Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.".loc)
+                .font(.fredoka(12))
+                .foregroundStyle(.secondary)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(routes) { route in
+                        routeTile(route)
+                    }
+                }
+            }
+        }
+        .padding(18)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Theme.card, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .shadow(color: Theme.shadow.opacity(0.05), radius: 8, y: 3)
+        .sheet(item: $selectedRoute) { route in
+            routeDetail(route)
+                .presentationDetents([.large])
+        }
+    }
+
+    private func routeTile(_ route: RouteWorkout) -> some View {
+        Button {
+            selectedRoute = route
+        } label: {
+            VStack(alignment: .leading, spacing: 6) {
+                routeMap(route, interactive: false)
+                    .frame(width: 210, height: 130)
+                    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .allowsHitTesting(false)
+                Text(route.label)
+                    .font(.fredoka(13, .semibold))
+                    .foregroundStyle(Theme.ink)
+                Text("%@ km · %d Min.".loc(
+                    route.distanceKm.formatted(.number.precision(.fractionLength(0...1))),
+                    route.minutes)
+                    + " · " + route.date.formatted(.dateTime.day().month()
+                        .locale(Lingo.shared.language.locale)))
+                    .font(.fredoka(11))
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func routeDetail(_ route: RouteWorkout) -> some View {
+        VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 4) {
+                Capsule()
+                    .fill(Theme.field)
+                    .frame(width: 44, height: 5)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 8)
+                Text(route.label)
+                    .font(.fredoka(22, .semibold))
+                    .foregroundStyle(Theme.ink)
+                Text("%@ km · %d Min.".loc(
+                    route.distanceKm.formatted(.number.precision(.fractionLength(0...1))),
+                    route.minutes)
+                    + " · " + route.date.formatted(.dateTime.weekday(.wide).day().month()
+                        .locale(Lingo.shared.language.locale)))
+                    .font(.fredoka(13))
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 12)
+            routeMap(route, interactive: true)
+        }
+        .background(Theme.background)
+    }
+
+    private func routeMap(_ route: RouteWorkout, interactive: Bool) -> some View {
+        Map(initialPosition: .region(Self.region(fitting: route.coordinates)),
+            interactionModes: interactive ? .all : []) {
+            MapPolyline(coordinates: route.coordinates)
+                .stroke(Color.appAccent, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+        }
+    }
+
+    private static func region(fitting coordinates: [CLLocationCoordinate2D]) -> MKCoordinateRegion {
+        guard let first = coordinates.first else {
+            return MKCoordinateRegion(center: .init(latitude: 47.37, longitude: 8.54),
+                                      span: .init(latitudeDelta: 0.02, longitudeDelta: 0.02))
+        }
+        var minLat = first.latitude, maxLat = first.latitude
+        var minLon = first.longitude, maxLon = first.longitude
+        for coordinate in coordinates {
+            minLat = min(minLat, coordinate.latitude)
+            maxLat = max(maxLat, coordinate.latitude)
+            minLon = min(minLon, coordinate.longitude)
+            maxLon = max(maxLon, coordinate.longitude)
+        }
+        return MKCoordinateRegion(
+            center: .init(latitude: (minLat + maxLat) / 2, longitude: (minLon + maxLon) / 2),
+            span: .init(latitudeDelta: max(0.004, (maxLat - minLat) * 1.4),
+                        longitudeDelta: max(0.004, (maxLon - minLon) * 1.4)))
+    }
+
+    private func loadRoutes() async {
+        // Demo fixture: the simulator's Health store has no workouts.
+        if LaunchArgs.all.contains("-demo-routes") {
+            routes = Self.demoRoutes()
+            if LaunchArgs.all.contains("-open-route") {
+                selectedRoute = routes.first
+            }
+            return
+        }
+        guard HealthKitService.shared.isConnected else { return }
+        var loaded: [RouteWorkout] = []
+        for workout in await HealthKitService.shared.recentOutdoorWorkouts() {
+            let coordinates = await HealthKitService.shared.route(for: workout)
+            guard coordinates.count > 1 else { continue }
+            let label: String
+            switch workout.workoutActivityType {
+            case .running: label = "Lauf".loc
+            case .hiking: label = "Wanderung".loc
+            default: label = "Spaziergang".loc
+            }
+            let kilometers = (workout.statistics(for: .init(.distanceWalkingRunning))?
+                .sumQuantity()?.doubleValue(for: .meter()) ?? 0) / 1000
+            loaded.append(RouteWorkout(
+                id: workout.uuid,
+                label: label,
+                date: workout.startDate,
+                distanceKm: kilometers,
+                minutes: Int(workout.duration / 60),
+                coordinates: coordinates))
+        }
+        routes = loaded
+    }
+
+    /// A believable lakeside loop in Zürich for screenshots.
+    private static func demoRoutes() -> [RouteWorkout] {
+        let base = CLLocationCoordinate2D(latitude: 47.3546, longitude: 8.5512)
+        let loop = (0..<60).map { index -> CLLocationCoordinate2D in
+            let angle = Double(index) / 60 * 2 * .pi
+            return CLLocationCoordinate2D(
+                latitude: base.latitude + 0.008 * sin(angle) + 0.003 * sin(angle * 3),
+                longitude: base.longitude + 0.011 * cos(angle))
+        }
+        let out = (0..<40).map { index -> CLLocationCoordinate2D in
+            CLLocationCoordinate2D(latitude: base.latitude + 0.02 + Double(index) * 0.0006,
+                                   longitude: base.longitude + 0.01 + Double(index) * 0.0003)
+        }
+        return [
+            RouteWorkout(id: UUID(), label: "Lauf", date: .now.addingTimeInterval(-7_200),
+                         distanceKm: 5.4, minutes: 32, coordinates: loop),
+            RouteWorkout(id: UUID(), label: "Spaziergang", date: .now.addingTimeInterval(-90_000),
+                         distanceKm: 2.8, minutes: 41, coordinates: out),
+        ]
     }
 
     // MARK: - Progress photos
