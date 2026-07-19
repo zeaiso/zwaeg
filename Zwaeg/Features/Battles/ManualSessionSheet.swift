@@ -6,9 +6,10 @@ import SwiftUI
 import SwiftData
 import PhotosUI
 
-/// Adds a treadmill (or similar) session to today's step battle score — but
-/// only with a photo of the machine's display as proof. The photo stays on
-/// this device; opponents see the day badged as manual. One entry per day.
+/// Adds treadmill (or similar) sessions to today's step battle score — but
+/// only with a photo of the machine's display as proof. The photos stay on
+/// this device; opponents see the day badged as manual. Several sessions a
+/// day are fine, each with its own photo.
 struct ManualSessionSheet: View {
     let challenge: Challenge
     let profile: UserProfile
@@ -28,11 +29,13 @@ struct ManualSessionSheet: View {
     /// entry is meant for orders of magnitude, not lab precision.
     private static let stepsPerKm = 1300.0
     private static let maxKm = 50.0
+    /// 3-4 treadmill runs a day are real; a dozen is somebody testing limits.
+    private static let maxEntriesPerDay = 6
 
     private var today: Date { Calendar.current.startOfDay(for: .now) }
 
-    private var todayEntry: BattleManualEntry? {
-        manualEntries.first { $0.day == today }
+    private var todayEntries: [BattleManualEntry] {
+        manualEntries.filter { $0.day == today }.sorted { $0.createdAt < $1.createdAt }
     }
 
     private var distanceKm: Double {
@@ -48,16 +51,17 @@ struct ManualSessionSheet: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
                     titleBlock
-                    if let entry = todayEntry {
-                        existingCard(entry)
-                    } else {
+                    if !todayEntries.isEmpty {
+                        existingCard(todayEntries)
+                    }
+                    if todayEntries.count < Self.maxEntriesPerDay {
                         distanceCard
                         proofCard
                     }
                 }
                 .padding(20)
             }
-            if todayEntry == nil {
+            if todayEntries.count < Self.maxEntriesPerDay {
                 saveButton
             }
         }
@@ -156,38 +160,46 @@ struct ManualSessionSheet: View {
         }
     }
 
-    private func existingCard(_ entry: BattleManualEntry) -> some View {
+    private func existingCard(_ entries: [BattleManualEntry]) -> some View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
                 Text("Heute schon nachgetragen".loc)
                     .font(.fredoka(16, .semibold))
                     .foregroundStyle(Theme.ink)
-                if let url = ProgressPhotos.imageURL(name: entry.photoFile),
-                   let image = UIImage(contentsOfFile: url.path) {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 170)
-                        .frame(maxWidth: .infinity)
-                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                ForEach(entries) { entry in
+                    HStack(spacing: 12) {
+                        Group {
+                            if let url = ProgressPhotos.imageURL(name: entry.photoFile),
+                               let image = UIImage(contentsOfFile: url.path) {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFill()
+                            } else {
+                                Theme.field
+                            }
+                        }
+                        .frame(width: 46, height: 60)
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        Text("%@ km · %d Schritte".loc(
+                            entry.distanceKm.formatted(.number.precision(.fractionLength(0...1))),
+                            entry.steps))
+                            .font(.fredoka(14, .semibold))
+                            .foregroundStyle(Theme.ink)
+                        Spacer()
+                        Button {
+                            ProgressPhotos.deleteFile(name: entry.photoFile)
+                            context.delete(entry)
+                            Task { await resync() }
+                        } label: {
+                            Image(systemName: "trash")
+                                .font(.fredoka(13, .semibold))
+                                .foregroundStyle(.secondary)
+                                .frame(width: 32, height: 32)
+                                .background(Theme.field.opacity(0.6), in: Circle())
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
-                Text("%@ km · %d Schritte".loc(
-                    entry.distanceKm.formatted(.number.precision(.fractionLength(0...1))),
-                    entry.steps))
-                    .font(.fredoka(14, .semibold))
-                    .foregroundStyle(.secondary)
-                Button(role: .destructive) {
-                    ProgressPhotos.deleteFile(name: entry.photoFile)
-                    context.delete(entry)
-                    Task { await resync() }
-                } label: {
-                    Label("Eintrag löschen".loc, systemImage: "trash")
-                        .font(.fredoka(14, .semibold))
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                        .background(Theme.field.opacity(0.6), in: Capsule())
-                }
-                .buttonStyle(.plain)
             }
         }
     }
@@ -217,17 +229,17 @@ struct ManualSessionSheet: View {
     private func save() {
         guard let proofImage, steps > 0, !isSaving else { return }
         isSaving = true
-        let file = "battle-proof-\(BattleDay.key(for: today)).jpg"
+        let file = "battle-proof-\(Int(Date.now.timeIntervalSince1970)).jpg"
         guard ProgressPhotos.saveJPEG(proofImage, name: file) else {
             isSaving = false
             return
         }
         context.insert(BattleManualEntry(day: today, steps: steps,
                                          distanceKm: distanceKm, photoFile: file))
-        Task {
-            await resync()
-            dismiss()
-        }
+        distanceText = ""
+        self.proofImage = nil
+        isSaving = false
+        Task { await resync() }
     }
 
     /// Recomputes and pushes the score so opponents see the new total (and

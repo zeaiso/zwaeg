@@ -30,8 +30,9 @@ releases add features, and anything that changes behaviour is noted.
 - Treadmill sessions join the battle with photo proof. "Training nachtragen"
   in a step battle takes a distance and requires a photo of the machine's
   display; the photo stays on the device, the converted steps (≈1300/km)
-  count once per day, and everyone in the battle sees a camera badge on
-  participants with hand-added days.
+  count toward the day, and everyone in the battle sees a camera badge on
+  participants with hand-added days. Several sessions per day are fine
+  (morning and evening run, up to six) — each needs its own photo.
 
 ## 1.1.0 (2026-07-18)
 

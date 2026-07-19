@@ -83,14 +83,14 @@ struct ParticipantScore: Codable, Identifiable, Equatable {
 
 /// A treadmill or gym session added by hand for step battles, backed by a
 /// photo of the machine's display. The photo stays on this device; battle
-/// members only see the day badged as manual. One entry per day keeps the
-/// escape hatch honest.
+/// members only see the day badged as manual. Several sessions per day are
+/// fine (morning and evening run) — each needs its own photo.
 @Model
 final class BattleManualEntry {
-    @Attribute(.unique) var day: Date
+    var day: Date
     var steps: Int
     var distanceKm: Double
-    /// File name in Documents (battle-proof-<day>.jpg).
+    /// File name in Documents (battle-proof-<unix>.jpg).
     var photoFile: String
     var createdAt: Date
 

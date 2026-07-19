@@ -101,6 +101,14 @@ struct RootView: View {
                 context.insert(FoodEntry(day: .now, meal: .lunch, name: "Älplermagronen",
                                          calories: 620, proteinG: 22, carbsG: 68, fatG: 28))
                 context.insert(WaterDay(day: .now, glasses: 3))
+                // Two treadmill sessions with proof photos expected in
+                // Documents (battle-proof-test-1/2.jpg), for sheet demos.
+                if LaunchArgs.all.contains("-seed-manual-entries") {
+                    context.insert(BattleManualEntry(day: .now, steps: 3900, distanceKm: 3,
+                                                     photoFile: "battle-proof-test-1.jpg"))
+                    context.insert(BattleManualEntry(day: .now, steps: 6500, distanceKm: 5,
+                                                     photoFile: "battle-proof-test-2.jpg"))
+                }
                 #if ZWAEG_BATTLES
                 let start = Calendar.current.date(byAdding: .day, value: -3, to: .now) ?? .now
                 let end = Calendar.current.date(byAdding: .day, value: 3, to: .now) ?? .now
@@ -115,8 +123,12 @@ struct RootView: View {
                     participants: [
                         ParticipantScore(id: PlayerIdentity.myID, name: "Livia", isMe: true,
                                          scores: ["seed": 24500]),
+                        // -seed-manual-opponent: Luca logged a treadmill
+                        // session, to preview the badge opponents see.
                         ParticipantScore(id: "demo-luca", name: "Luca", isMe: false,
-                                         scores: ["seed": 21000]),
+                                         scores: ["seed": 21000],
+                                         manualDays: LaunchArgs.all.contains("-seed-manual-opponent")
+                                             ? [BattleDay.key(for: .now)] : []),
                         ParticipantScore(id: "demo-mia", name: "Mia", isMe: false,
                                          scores: ["seed": 18400]),
                     ]))
