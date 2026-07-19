@@ -93,13 +93,20 @@ final class BattleManualEntry {
     /// File name in Documents (battle-proof-<unix>.jpg).
     var photoFile: String
     var createdAt: Date
+    /// When the proof photo was taken (camera capture time).
+    var capturedAt: Date = Date.now
+    /// Perceptual hash of the proof photo; blocks reusing the same picture.
+    var photoHash: String = ""
 
-    init(day: Date, steps: Int, distanceKm: Double, photoFile: String) {
+    init(day: Date, steps: Int, distanceKm: Double, photoFile: String,
+         capturedAt: Date = .now, photoHash: String = "") {
         self.day = Calendar.current.startOfDay(for: day)
         self.steps = steps
         self.distanceKm = distanceKm
         self.photoFile = photoFile
         self.createdAt = .now
+        self.capturedAt = capturedAt
+        self.photoHash = photoHash
     }
 }
 

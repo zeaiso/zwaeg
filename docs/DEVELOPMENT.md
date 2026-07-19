@@ -84,6 +84,8 @@ Building battles for the simulator needs no Apple account: simulators do not enf
    |---|---|
    | `Challenge` | `code` (String), `name` (String), `metric` (String), `startDay` (Date/Time), `endDay` (Date/Time) |
    | `Score` | `challengeCode` (String), `participantID` (String), `participantName` (String), `dayKey` (String), `value` (Double), `manual` (Int, 1 = day includes a photo-backed manual session) |
+   | `Proof` | `challengeCode` (String, Queryable), `participantID` (String, Queryable), `dayKey` (String), `steps` (Int), `distanceKm` (Double), `capturedAt` (Date), `photoHash` (String), `photo` (Asset) — a treadmill session's proof photo, visible to everyone in the battle |
+   | `Flag` | `challengeCode` (String, Queryable), `voterID` (String), `targetID` (String), `dayKey` (String) — an objection; a majority of the other participants revokes the day's manual steps |
 
 3. **Mark `Score.challengeCode` as Queryable.** Pulling a leaderboard queries on it; without the index the query fails and the battles screen shows a generic error. Record names are queryable by default, which is all `Challenge` needs.
 4. **Security roles**: `_world` needs read and write on both types. Anyone holding a join code is an untrusted writer by design, so `ChallengeSyncService` sanitizes every field it reads back.

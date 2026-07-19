@@ -13,9 +13,20 @@ struct ChallengeDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showManualSession = false
     @State private var confirmDelete = false
+    @State private var proofParticipant: ParticipantScore?
+    /// Steps revoked by objection majorities, per participant.
+    @State private var revokedSteps: [String: Double] = [:]
+
+    private func displayTotal(_ participant: ParticipantScore) -> Double {
+        max(0, participant.total - (revokedSteps[participant.id] ?? 0))
+    }
+
+    private var displayRanking: [ParticipantScore] {
+        challenge.participants.sorted { displayTotal($0) > displayTotal($1) }
+    }
 
     private var maxTotal: Double {
-        max(challenge.ranking.first?.total ?? 1, 1)
+        max(displayRanking.first.map(displayTotal) ?? 1, 1)
     }
 
     var body: some View {
@@ -61,11 +72,19 @@ struct ChallengeDetailView: View {
             ManualSessionSheet(challenge: challenge, profile: profile)
                 .presentationDetents([.large])
         }
+        .sheet(item: $proofParticipant) { participant in
+            ProofGalleryView(challenge: challenge, participant: participant)
+                .presentationDetents([.large])
+        }
+        .task { await loadRevocations() }
         .onAppear {
             // Like the recipe detail: bottom content beats the floating bar.
             TabRouter.shared.tabBarHidden = true
             if LaunchArgs.all.contains("-open-manual-session") {
                 showManualSession = true
+            }
+            if LaunchArgs.all.contains("-open-proof-gallery") {
+                proofParticipant = challenge.participants.first { !$0.manualDays.isEmpty }
             }
         }
         .onDisappear {
@@ -121,7 +140,7 @@ struct ChallengeDetailView: View {
     private var fairnessNote: some View {
         Text(challenge.metric == .deficit
              ? "Aktivkalorien zählen nur vom Gerät gemessen — von Hand in Health eingetragene Werte nicht.".loc
-             : "Es zählen nur vom Gerät gemessene Werte — von Hand in Health eingetragene nicht. Das Kamera-Symbol markiert nachgetragenes Training mit Foto-Beleg.".loc)
+             : "Es zählen nur vom Gerät gemessene Werte — von Hand in Health eingetragene nicht. Tippe aufs Kamera-Symbol für die Foto-Belege; erhebt die Mehrheit Einspruch, wird der Tag aberkannt.".loc)
             .font(.fredoka(12))
             .foregroundStyle(.tertiary)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -161,7 +180,7 @@ struct ChallengeDetailView: View {
             VStack(alignment: .leading, spacing: 14) {
                 Text("Rangliste".loc)
                     .font(.fredoka(17, .semibold))
-                ForEach(Array(challenge.ranking.enumerated()), id: \.element.id) { index, participant in
+                ForEach(Array(displayRanking.enumerated()), id: \.element.id) { index, participant in
                     leaderboardRow(rank: index + 1, participant: participant)
                 }
             }
@@ -177,9 +196,17 @@ struct ChallengeDetailView: View {
                 Text(participant.name)
                     .fontWeight(participant.isMe ? .bold : .regular)
                 if !participant.manualDays.isEmpty {
-                    Image(systemName: "camera.fill")
-                        .font(.fredoka(11, .semibold))
-                        .foregroundStyle(.secondary)
+                    Button {
+                        proofParticipant = participant
+                    } label: {
+                        Image(systemName: "camera.fill")
+                            .font(.fredoka(11, .semibold))
+                            .foregroundStyle(revokedSteps[participant.id] != nil
+                                             ? Color.red : .secondary)
+                            .frame(width: 26, height: 26)
+                            .background(Theme.field.opacity(0.6), in: Circle())
+                    }
+                    .buttonStyle(.plain)
                 }
                 if participant.isMe {
                     Text("Du".loc)
@@ -190,7 +217,7 @@ struct ChallengeDetailView: View {
                         .foregroundStyle(Color.appAccent)
                 }
                 Spacer()
-                Text(formatted(participant.total))
+                Text(formatted(displayTotal(participant)))
                     .font(.fredoka(15, .semibold))
                     .contentTransition(.numericText())
             }
@@ -209,7 +236,35 @@ struct ChallengeDetailView: View {
     }
 
     private func progressFraction(_ participant: ParticipantScore) -> Double {
-        max(0, min(1, participant.total / maxTotal))
+        max(0, min(1, displayTotal(participant) / maxTotal))
+    }
+
+    /// Objection majorities revoke a day's manual steps for everyone: flags
+    /// and proof metadata (no photos) are enough to do the math.
+    private func loadRevocations() async {
+        guard challenge.code != Challenge.demoCode else { return }
+        guard let flags = try? await ChallengeSyncService.shared.fetchFlags(challenge: challenge),
+              let proofs = try? await ChallengeSyncService.shared.fetchProofs(
+                challenge: challenge, includePhotos: false) else { return }
+        let participantIDs = Set(challenge.participants.map(\.id))
+        var revoked: [String: Double] = [:]
+        for participant in challenge.participants {
+            let others = max(1, challenge.participants.count - 1)
+            let days = Set(proofs.filter { $0.participantID == participant.id }.map(\.dayKey))
+            for day in days {
+                let voters = Set(flags
+                    .filter { $0.targetID == participant.id && $0.dayKey == day }
+                    .map(\.voterID))
+                    .intersection(participantIDs)
+                    .subtracting([participant.id])
+                guard voters.count * 2 > others else { continue }
+                let steps = proofs
+                    .filter { $0.participantID == participant.id && $0.dayKey == day }
+                    .reduce(0) { $0 + $1.steps }
+                revoked[participant.id, default: 0] += Double(steps)
+            }
+        }
+        revokedSteps = revoked
     }
 
     private var todayCard: some View {
@@ -218,7 +273,7 @@ struct ChallengeDetailView: View {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Heute".loc)
                     .font(.fredoka(17, .semibold))
-                ForEach(challenge.ranking) { participant in
+                ForEach(displayRanking) { participant in
                     HStack {
                         Text(participant.name)
                             .font(.fredoka(15))

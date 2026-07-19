@@ -210,6 +210,147 @@ struct ChallengeSyncService {
     /// participants are applied and pagination stops.
     static let maxParticipants = 50
 
+    // MARK: - Proof photos and objections
+
+    /// A treadmill proof another participant shared into the battle.
+    struct ProofItem: Identifiable {
+        let recordName: String
+        let participantID: String
+        let dayKey: String
+        let steps: Int
+        let distanceKm: Double
+        let capturedAt: Date
+        /// Local copy of the downloaded photo; nil for metadata-only fetches.
+        let imageURL: URL?
+
+        var id: String { recordName }
+    }
+
+    /// One participant's objection to another's manual day.
+    struct FlagItem {
+        let voterID: String
+        let targetID: String
+        let dayKey: String
+    }
+
+    /// Uploads my proof photos for a challenge; record names derive from the
+    /// entry timestamp, so re-pushing is idempotent.
+    @MainActor
+    func pushProofs(for challenge: Challenge, entries: [BattleManualEntry]) async {
+        guard let me = challenge.participants.first(where: \.isMe) else { return }
+        let relevant = entries.filter {
+            $0.day >= challenge.startDay && $0.day <= challenge.endDay
+        }
+        guard !relevant.isEmpty else { return }
+        let records = relevant.compactMap { entry -> CKRecord? in
+            guard let fileURL = ProgressPhotos.imageURL(name: entry.photoFile),
+                  FileManager.default.fileExists(atPath: fileURL.path) else { return nil }
+            let name = "proof-\(challenge.code)-\(me.id)-\(Int(entry.createdAt.timeIntervalSince1970))"
+            let record = CKRecord(recordType: "Proof", recordID: CKRecord.ID(recordName: name))
+            record["challengeCode"] = challenge.code
+            record["participantID"] = me.id
+            record["dayKey"] = BattleDay.key(for: entry.day)
+            record["steps"] = entry.steps
+            record["distanceKm"] = entry.distanceKm
+            record["capturedAt"] = entry.capturedAt
+            record["photoHash"] = entry.photoHash
+            record["photo"] = CKAsset(fileURL: fileURL)
+            return record
+        }
+        _ = try? await database.modifyRecords(saving: records, deleting: [],
+                                              savePolicy: .allKeys, atomically: false)
+    }
+
+    /// Proofs for one participant, photos included (gallery), or for everyone
+    /// without photos (revocation math stays cheap).
+    func fetchProofs(challenge: Challenge, participantID: String? = nil,
+                     includePhotos: Bool) async throws -> [ProofItem] {
+        var format = "challengeCode == %@"
+        var arguments: [Any] = [challenge.code]
+        if let participantID {
+            format += " AND participantID == %@"
+            arguments.append(participantID)
+        }
+        let query = CKQuery(recordType: "Proof",
+                            predicate: NSPredicate(format: format, argumentArray: arguments))
+        let operationKeys: [CKRecord.FieldKey]? = includePhotos
+            ? nil
+            : ["challengeCode", "participantID", "dayKey", "steps", "distanceKm", "capturedAt"]
+        let page: (matchResults: [(CKRecord.ID, Result<CKRecord, Error>)], queryCursor: CKQueryOperation.Cursor?)
+        do {
+            page = try await database.records(matching: query, desiredKeys: operationKeys,
+                                              resultsLimit: 120)
+        } catch {
+            throw BattleSyncError(error)
+        }
+        return page.matchResults.compactMap { _, result in
+            guard let record = try? result.get(),
+                  let participantID = record["participantID"] as? String,
+                  !participantID.isEmpty, participantID.count <= 64,
+                  let dayKey = record["dayKey"] as? String,
+                  BattleDay.date(for: dayKey) != nil,
+                  let steps = record["steps"] as? Int,
+                  let capturedAt = record["capturedAt"] as? Date else { return nil }
+            var localURL: URL?
+            if includePhotos, let asset = record["photo"] as? CKAsset, let assetURL = asset.fileURL {
+                let target = FileManager.default.temporaryDirectory
+                    .appendingPathComponent("\(record.recordID.recordName).jpg")
+                try? FileManager.default.removeItem(at: target)
+                try? FileManager.default.copyItem(at: assetURL, to: target)
+                localURL = target
+            }
+            return ProofItem(
+                recordName: record.recordID.recordName,
+                participantID: participantID,
+                dayKey: dayKey,
+                steps: min(100_000, max(0, steps)),
+                distanceKm: min(100, max(0, record["distanceKm"] as? Double ?? 0)),
+                capturedAt: capturedAt,
+                imageURL: localURL)
+        }
+    }
+
+    /// My objection to a participant's manual day; one record per voter+day,
+    /// so objecting twice or withdrawing stays idempotent.
+    func setFlag(_ raised: Bool, challenge: Challenge, targetID: String, dayKey: String) async throws {
+        let myID = PlayerIdentity.myID
+        let name = "flag-\(challenge.code)-\(myID)-\(targetID)-\(dayKey)"
+        do {
+            if raised {
+                let record = CKRecord(recordType: "Flag", recordID: CKRecord.ID(recordName: name))
+                record["challengeCode"] = challenge.code
+                record["voterID"] = myID
+                record["targetID"] = targetID
+                record["dayKey"] = dayKey
+                _ = try await database.modifyRecords(saving: [record], deleting: [],
+                                                     savePolicy: .allKeys, atomically: false)
+            } else {
+                try await database.deleteRecord(withID: CKRecord.ID(recordName: name))
+            }
+        } catch {
+            throw BattleSyncError(error)
+        }
+    }
+
+    func fetchFlags(challenge: Challenge) async throws -> [FlagItem] {
+        let query = CKQuery(recordType: "Flag",
+                            predicate: NSPredicate(format: "challengeCode == %@", challenge.code))
+        let page: (matchResults: [(CKRecord.ID, Result<CKRecord, Error>)], queryCursor: CKQueryOperation.Cursor?)
+        do {
+            page = try await database.records(matching: query, resultsLimit: 400)
+        } catch {
+            throw BattleSyncError(error)
+        }
+        return page.matchResults.compactMap { _, result in
+            guard let record = try? result.get(),
+                  let voterID = record["voterID"] as? String, voterID.count <= 64,
+                  let targetID = record["targetID"] as? String, targetID.count <= 64,
+                  let dayKey = record["dayKey"] as? String,
+                  BattleDay.date(for: dayKey) != nil else { return nil }
+            return FlagItem(voterID: voterID, targetID: targetID, dayKey: dayKey)
+        }
+    }
+
     @MainActor
     private func pullAllScores(_ challenge: Challenge) async throws {
         let query = CKQuery(recordType: "Score",

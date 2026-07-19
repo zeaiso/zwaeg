@@ -22,6 +22,9 @@ struct ManualSessionSheet: View {
     @State private var distanceText = ""
     @State private var pickedItem: PhotosPickerItem?
     @State private var proofImage: UIImage?
+    @State private var proofCapturedAt = Date.now
+    @State private var duplicateRejected = false
+    @State private var showCamera = false
     @State private var isSaving = false
     @FocusState private var distanceFocused: Bool
 
@@ -78,8 +81,28 @@ struct ManualSessionSheet: View {
             Task {
                 guard let data = try? await item.loadTransferable(type: Data.self),
                       let image = UIImage(data: data) else { return }
-                withAnimation(.snappy) { proofImage = image }
+                accept(image)
             }
+        }
+        .fullScreenCover(isPresented: $showCamera) {
+            ProofCamera { image in
+                accept(image)
+            }
+            .ignoresSafeArea()
+        }
+    }
+
+    /// A fresh photo passes; one that perceptually matches an earlier proof
+    /// is rejected — the same treadmill picture can't score twice.
+    private func accept(_ image: UIImage) {
+        let hash = ImageHash.dHash(image)
+        let reused = manualEntries.contains {
+            !$0.photoHash.isEmpty && ImageHash.isNearDuplicate($0.photoHash, hash)
+        }
+        withAnimation(.snappy) {
+            duplicateRejected = reused
+            proofImage = reused ? nil : image
+            proofCapturedAt = .now
         }
     }
 
@@ -143,17 +166,26 @@ struct ManualSessionSheet: View {
                         .frame(maxWidth: .infinity)
                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 }
-                PhotosPicker(selection: $pickedItem, matching: .images) {
-                    Label(proofImage == nil ? "Foto hinzufügen".loc : "Anderes Foto wählen".loc,
-                          systemImage: "camera.fill")
-                        .font(.fredoka(14, .semibold))
-                        .foregroundStyle(Color.appAccent)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                        .background(Theme.accentSoft, in: Capsule())
+                if duplicateRejected {
+                    Text("Dieses Foto wurde schon einmal verwendet. Mach ein frisches Foto.".loc)
+                        .font(.fredoka(13, .semibold))
+                        .foregroundStyle(.red)
                 }
-                .buttonStyle(.plain)
-                Text("Das Foto bleibt nur auf deinem Gerät.".loc)
+                if ProofCamera.isAvailable {
+                    Button {
+                        showCamera = true
+                    } label: {
+                        cameraLabel
+                    }
+                    .buttonStyle(.plain)
+                } else {
+                    // Simulator has no camera; devices must shoot live.
+                    PhotosPicker(selection: $pickedItem, matching: .images) {
+                        cameraLabel
+                    }
+                    .buttonStyle(.plain)
+                }
+                Text("Direkt mit der Kamera aufnehmen — Zeitpunkt wird für alle sichtbar festgehalten. Die anderen im Battle können den Beleg ansehen.".loc)
                     .font(.fredoka(12))
                     .foregroundStyle(.tertiary)
             }
@@ -204,6 +236,16 @@ struct ManualSessionSheet: View {
         }
     }
 
+    private var cameraLabel: some View {
+        Label(proofImage == nil ? "Foto aufnehmen".loc : "Neues Foto aufnehmen".loc,
+              systemImage: "camera.fill")
+            .font(.fredoka(14, .semibold))
+            .foregroundStyle(Color.appAccent)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 10)
+            .background(Theme.accentSoft, in: Capsule())
+    }
+
     private var saveButton: some View {
         Button {
             save()
@@ -235,7 +277,9 @@ struct ManualSessionSheet: View {
             return
         }
         context.insert(BattleManualEntry(day: today, steps: steps,
-                                         distanceKm: distanceKm, photoFile: file))
+                                         distanceKm: distanceKm, photoFile: file,
+                                         capturedAt: proofCapturedAt,
+                                         photoHash: ImageHash.dHash(proofImage)))
         distanceText = ""
         self.proofImage = nil
         isSaving = false
@@ -253,6 +297,9 @@ struct ManualSessionSheet: View {
                                                manualStepsByDay: manual)
         if challenge.code != Challenge.demoCode {
             try? await ChallengeSyncService.shared.refresh(challenge)
+            await ChallengeSyncService.shared.pushProofs(
+                for: challenge,
+                entries: (try? context.fetch(FetchDescriptor<BattleManualEntry>())) ?? [])
         }
     }
 }

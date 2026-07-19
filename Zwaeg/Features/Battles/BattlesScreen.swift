@@ -224,6 +224,8 @@ struct BattlesScreen: View {
         for challenge in active where challenge.code != Challenge.demoCode {
             do {
                 try await ChallengeSyncService.shared.refresh(challenge)
+                await ChallengeSyncService.shared.pushProofs(for: challenge,
+                                                             entries: manualEntries)
             } catch {
                 // One bad challenge shouldn't stop the others from syncing.
                 syncError = BattleSyncError.message(for: error)

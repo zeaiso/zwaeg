@@ -45,7 +45,7 @@ targets:
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         UILaunchScreen: {}
-        NSCameraUsageDescription: Zwäg benötigt die Kamera zum Scannen von Barcodes.
+        NSCameraUsageDescription: Zwäg benötigt die Kamera zum Scannen von Barcodes, für die Essens-Erkennung und für Foto-Belege beim nachgetragenen Training.
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         # Portrait-only apps must either support all four orientations for iPad
