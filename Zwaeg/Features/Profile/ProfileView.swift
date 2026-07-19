@@ -11,7 +11,7 @@ struct ProfileView: View {
     /// One destination for the debug-arg navigation; stacked
     /// navigationDestination modifiers broke touch delivery on iOS 17.
     private enum Route: Hashable, Identifiable {
-        case progress, buddy, language, look, about, goals, reminders
+        case progress, buddy, language, look, about, goals, reminders, achievements
 
         var id: Self { self }
     }
@@ -50,6 +50,8 @@ struct ProfileView: View {
                     GoalsView(profile: profile)
                 case .reminders:
                     RemindersView()
+                case .achievements:
+                    AchievementsView(profile: profile)
                 }
             }
             .onAppear {
@@ -73,6 +75,9 @@ struct ProfileView: View {
                 }
                 if LaunchArgs.all.contains("-open-reminders") {
                     route = .reminders
+                }
+                if LaunchArgs.all.contains("-open-achievements") {
+                    route = .achievements
                 }
                 if LaunchArgs.all.contains("-wipe-data") {
                     DataReset.wipeAll(context: context)
@@ -197,6 +202,9 @@ struct ProfileView: View {
             }
             accountRow("Fortschritt & Trends".loc, symbol: "chart.line.uptrend.xyaxis", color: Theme.green) {
                 ProgressScreen(profile: profile)
+            }
+            accountRow("Erfolge".loc, symbol: "rosette", color: Theme.amber) {
+                AchievementsView(profile: profile)
             }
             accountRow("Erinnerungen".loc, symbol: "bell.fill", color: Theme.blue) {
                 RemindersView()
