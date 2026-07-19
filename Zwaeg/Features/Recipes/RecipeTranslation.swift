@@ -16,23 +16,6 @@ enum RecipeTranslationStore {
             .appendingPathComponent("recipe-translations-\(language).json")
     }
 
-    /// Pre-translated tables shipped in the bundle (scripts/translate_recipes.py,
-    /// recipes-<lang>.json); they beat on-device translation and can cover
-    /// every language. Cached per language after the first read.
-    private static var bundledCache: [String: [String: TranslatedRecipe]] = [:]
-
-    static func bundled(language: String) -> [String: TranslatedRecipe] {
-        if let cached = bundledCache[language] { return cached }
-        var table: [String: TranslatedRecipe] = [:]
-        if let url = Bundle.main.url(forResource: "recipes-\(language)", withExtension: "json"),
-           let data = try? Data(contentsOf: url),
-           let decoded = try? JSONDecoder().decode([String: TranslatedRecipe].self, from: data) {
-            table = decoded
-        }
-        bundledCache[language] = table
-        return table
-    }
-
     static func load(language: String) -> [String: TranslatedRecipe] {
         guard let url = fileURL(language: language),
               let data = try? Data(contentsOf: url),
@@ -66,41 +49,11 @@ struct RecipeTranslateBar: View {
 
     var body: some View {
         if wantsTranslation {
-            // Bundled batch translations cover every language and need no
-            // translation engine; the on-device path is the fallback.
-            if let bundled = RecipeTranslationStore
-                .bundled(language: Lingo.shared.language.rawValue)[recipe.id] {
-                BundledToggle(translation: bundled, onDisplay: onDisplay)
-            } else if #available(iOS 18.0, *) {
+            if #available(iOS 18.0, *) {
                 TranslateBarCore(recipe: recipe, onDisplay: onDisplay)
             } else {
                 unsupportedNote
             }
-        }
-    }
-}
-
-/// Bundled translations apply immediately; the row only offers the way back
-/// to the original.
-private struct BundledToggle: View {
-    let translation: TranslatedRecipe
-    let onDisplay: (TranslatedRecipe?) -> Void
-
-    @State private var showingTranslation = true
-
-    var body: some View {
-        Button {
-            showingTranslation.toggle()
-            onDisplay(showingTranslation ? translation : nil)
-        } label: {
-            Label(showingTranslation ? "Original anzeigen".loc : "Übersetzung anzeigen".loc,
-                  systemImage: "translate")
-                .font(.fredoka(13, .semibold))
-                .foregroundStyle(Color.appAccent)
-        }
-        .buttonStyle(.plain)
-        .onAppear {
-            onDisplay(translation)
         }
     }
 }
