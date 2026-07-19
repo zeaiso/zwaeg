@@ -345,8 +345,8 @@ struct ProductPortionSheet: View {
     private var macroTiles: some View {
         HStack(spacing: 12) {
             macroTile(product.protein(for: totalGrams), "Protein".loc, Theme.accent)
-            macroTile(product.carbs(for: totalGrams), "Kohlenhydrate".loc, Color(red: 1.0, green: 0.72, blue: 0.25))
-            macroTile(product.fat(for: totalGrams), "Fett".loc, Color(red: 0.52, green: 0.48, blue: 0.95))
+            macroTile(product.carbs(for: totalGrams), "Kohlenhydrate".loc, Theme.amber)
+            macroTile(product.fat(for: totalGrams), "Fett".loc, Theme.purple)
         }
     }
 

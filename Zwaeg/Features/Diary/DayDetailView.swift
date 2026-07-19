@@ -16,10 +16,10 @@ struct DayDetailView: View {
         allEntries.filter { $0.day == day }
     }
 
-    private var consumed: Int { entries.reduce(0) { $0 + $1.calories } }
-    private var carbs: Double { entries.reduce(0) { $0 + $1.carbsG } }
-    private var protein: Double { entries.reduce(0) { $0 + $1.proteinG } }
-    private var fat: Double { entries.reduce(0) { $0 + $1.fatG } }
+    private var consumed: Int { entries.totalCalories }
+    private var carbs: Double { entries.totalCarbs }
+    private var protein: Double { entries.totalProtein }
+    private var fat: Double { entries.totalFat }
 
     private var glasses: Int {
         waterDays.first { $0.day == day }?.glasses ?? 0
@@ -74,7 +74,7 @@ struct DayDetailView: View {
                 Spacer()
                 Text(String(format: "%+d kcal", balance))
                     .font(.fredoka(19, .semibold))
-                    .foregroundStyle(balance <= 0 ? Color(red: 0.3, green: 0.65, blue: 0.35)
+                    .foregroundStyle(balance <= 0 ? Theme.positive
                                                   : Color.appAccent)
                     .contentTransition(.numericText())
             }
@@ -117,7 +117,7 @@ struct DayDetailView: View {
                        color: Color(red: 0.98, green: 0.62, blue: 0.24)),
             MacroShare(id: "protein", label: "Protein".loc,
                        current: protein * 4 / energy, goal: 0.25,
-                       color: Color(red: 0.52, green: 0.48, blue: 0.95)),
+                       color: Theme.purple),
             MacroShare(id: "fat", label: "Fett".loc,
                        current: fat * 9 / energy, goal: 0.30,
                        color: Color(red: 0.45, green: 0.76, blue: 0.42)),
@@ -239,8 +239,8 @@ struct DayDetailView: View {
         switch meal {
         case .breakfast: return Color(red: 1.0, green: 0.72, blue: 0.4)
         case .lunch: return Color(red: 0.55, green: 0.83, blue: 0.5)
-        case .dinner: return Color(red: 0.52, green: 0.48, blue: 0.95)
-        case .snack: return Color(red: 1.0, green: 0.55, blue: 0.62)
+        case .dinner: return Theme.purple
+        case .snack: return Theme.pink
         }
     }
 

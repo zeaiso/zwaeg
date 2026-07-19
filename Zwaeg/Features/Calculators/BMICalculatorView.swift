@@ -89,7 +89,7 @@ struct BMICalculatorView: View {
                 HStack(spacing: 12) {
                     Image(systemName: "checkmark.seal.fill")
                         .font(.title3)
-                        .foregroundStyle(Color(red: 0.13, green: 0.66, blue: 0.42))
+                        .foregroundStyle(Theme.green)
                     Text("Alles im grünen Bereich. Weiter so!".loc)
                         .font(.fredoka(15, .medium))
                         .foregroundStyle(Theme.ink)

@@ -42,7 +42,7 @@ struct RemainingCaloriesIntent: AppIntent {
         }
         let today = Calendar.current.startOfDay(for: .now)
         let entries = (try? context.fetch(FetchDescriptor<FoodEntry>())) ?? []
-        let consumed = entries.filter { $0.day == today }.reduce(0) { $0 + $1.calories }
+        let consumed = entries.filter { $0.day == today }.totalCalories
         let remaining = profile.dailyCalorieTarget - consumed
         return .result(dialog: IntentDialog(stringLiteral:
             "Du hast noch %@ kcal übrig.".loc(remaining.formatted())))

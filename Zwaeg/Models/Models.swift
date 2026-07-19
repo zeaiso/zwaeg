@@ -125,6 +125,15 @@ enum MealType: String, Codable, CaseIterable, Identifiable {
     }
 }
 
+extension Sequence where Element == FoodEntry {
+    /// The four sums every screen needs; one place instead of a dozen
+    /// hand-rolled reduces.
+    var totalCalories: Int { reduce(0) { $0 + $1.calories } }
+    var totalProtein: Double { reduce(0) { $0 + $1.proteinG } }
+    var totalCarbs: Double { reduce(0) { $0 + $1.carbsG } }
+    var totalFat: Double { reduce(0) { $0 + $1.fatG } }
+}
+
 enum Mood: String, Codable, CaseIterable, Identifiable {
     case great, good, okay, low, bad
 

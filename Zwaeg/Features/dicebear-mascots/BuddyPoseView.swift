@@ -92,7 +92,7 @@ struct BuddyPoseView: View {
         case .over:
             Image(systemName: "drop.fill")
                 .font(.system(size: size * 0.20, weight: .bold))
-                .foregroundStyle(Color(red: 0.24, green: 0.64, blue: 1.0))
+                .foregroundStyle(Theme.blue)
                 .offset(x: size * 0.44, y: animating ? -size * 0.30 : -size * 0.42)
         case .party:
             Image(systemName: "sparkles")

@@ -173,6 +173,19 @@ enum Theme {
     static var grayscale: Double {
         look == .mono ? 1 : 0
     }
+
+    // MARK: - Fixed palette
+
+    // Look-independent feature colors, so cards and icon tiles share the
+    // same few tones instead of scattering per-view literals.
+    static let purple = Color(red: 0.52, green: 0.48, blue: 0.95)
+    static let deepPurple = Color(red: 0.48, green: 0.42, blue: 0.93)
+    static let green = Color(red: 0.13, green: 0.66, blue: 0.42)
+    static let positive = Color(red: 0.3, green: 0.65, blue: 0.35)
+    static let blue = Color(red: 0.24, green: 0.64, blue: 1.0)
+    static let pink = Color(red: 1.0, green: 0.55, blue: 0.62)
+    static let amber = Color(red: 1.0, green: 0.72, blue: 0.25)
+    static let freezeBlue = Color(red: 0.36, green: 0.68, blue: 0.98)
 }
 
 extension Color {

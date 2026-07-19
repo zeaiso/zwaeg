@@ -299,7 +299,7 @@ struct AddFoodView: View {
     @ViewBuilder
     private var copyYesterdayBanner: some View {
         if mealEntries.isEmpty, !yesterdayEntries.isEmpty {
-            let kcal = yesterdayEntries.reduce(0) { $0 + $1.calories }
+            let kcal = yesterdayEntries.totalCalories
             Button {
                 copyFromYesterday()
             } label: {
@@ -351,7 +351,7 @@ struct AddFoodView: View {
     @ViewBuilder
     private var loggedSection: some View {
         if !mealEntries.isEmpty {
-            let total = mealEntries.reduce(0) { $0 + $1.calories }
+            let total = mealEntries.totalCalories
             sectionLabel("IN %@ · %d KCAL".loc(meal.label.uppercased(), total))
             ForEach(mealEntries) { entry in
                 HStack(spacing: 12) {

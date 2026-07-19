@@ -195,10 +195,10 @@ struct ProfileView: View {
             accountRow("Ziele & Vorgaben".loc, symbol: "target", color: Color(red: 0.42, green: 0.36, blue: 0.91)) {
                 GoalsView(profile: profile)
             }
-            accountRow("Fortschritt & Trends".loc, symbol: "chart.line.uptrend.xyaxis", color: Color(red: 0.13, green: 0.66, blue: 0.42)) {
+            accountRow("Fortschritt & Trends".loc, symbol: "chart.line.uptrend.xyaxis", color: Theme.green) {
                 ProgressScreen(profile: profile)
             }
-            accountRow("Erinnerungen".loc, symbol: "bell.fill", color: Color(red: 0.24, green: 0.68, blue: 1.0)) {
+            accountRow("Erinnerungen".loc, symbol: "bell.fill", color: Theme.blue) {
                 RemindersView()
             }
             accountRow("Sprache".loc, symbol: "globe", color: Color(red: 0.2, green: 0.68, blue: 0.62)) {
@@ -377,7 +377,7 @@ struct LookView: View {
         nil,
         Color(red: 0.20, green: 0.48, blue: 0.97),
         Color(red: 0.36, green: 0.33, blue: 0.90),
-        Color(red: 0.13, green: 0.66, blue: 0.42),
+        Theme.green,
         Color(red: 0.90, green: 0.22, blue: 0.48),
         Color(red: 0.16, green: 0.62, blue: 0.62),
         Color(red: 0.93, green: 0.61, blue: 0.10),
@@ -846,7 +846,7 @@ struct RemindersView: View {
                 toggleRow(title: "Wasser trinken".loc,
                           subtitle: "%dx täglich".loc(times.water.count),
                           symbol: "drop.fill",
-                          color: Color(red: 0.24, green: 0.64, blue: 1.0),
+                          color: Theme.blue,
                           isOn: $waterOn)
                 if waterOn {
                     Divider()
@@ -947,7 +947,7 @@ struct RemindersView: View {
                 toggleRow(title: "Fasten starten".loc,
                           subtitle: "Wenn dein Fastenfenster beginnt".loc,
                           symbol: "timer",
-                          color: Color(red: 0.52, green: 0.48, blue: 0.95),
+                          color: Theme.purple,
                           isOn: $fastingOn)
                 if fastingOn {
                     Divider()
@@ -965,7 +965,7 @@ struct RemindersView: View {
                 toggleRow(title: "Wiegen".loc,
                           subtitle: "Einmal pro Woche".loc,
                           symbol: "scalemass.fill",
-                          color: Color(red: 0.13, green: 0.66, blue: 0.42),
+                          color: Theme.green,
                           isOn: $weighOn)
                 if weighOn {
                     Divider()

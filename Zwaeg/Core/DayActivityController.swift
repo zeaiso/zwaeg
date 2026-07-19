@@ -46,7 +46,7 @@ enum DayActivityController {
         guard let profile = try? context.fetch(FetchDescriptor<UserProfile>()).first else { return }
         let today = Calendar.current.startOfDay(for: .now)
         let entries = (try? context.fetch(FetchDescriptor<FoodEntry>())) ?? []
-        let consumed = entries.filter { $0.day == today }.reduce(0) { $0 + $1.calories }
+        let consumed = entries.filter { $0.day == today }.totalCalories
         let glasses = ((try? context.fetch(FetchDescriptor<WaterDay>())) ?? [])
             .first { $0.day == today }?.glasses ?? 0
         let fastingEnd = ((try? context.fetch(FetchDescriptor<FastingSession>())) ?? [])

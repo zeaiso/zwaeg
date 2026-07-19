@@ -419,7 +419,7 @@ struct FastingView: View {
         return HStack(spacing: 12) {
             Image(systemName: reached ? "checkmark.seal.fill" : "moon.zzz.fill")
                 .font(.fredoka(15, .semibold))
-                .foregroundStyle(reached ? Color(red: 0.3, green: 0.65, blue: 0.35) : .secondary)
+                .foregroundStyle(reached ? Theme.positive : .secondary)
                 .frame(width: 34, height: 34)
                 .background(Theme.field.opacity(0.6), in: Circle())
             VStack(alignment: .leading, spacing: 1) {

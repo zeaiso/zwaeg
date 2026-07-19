@@ -123,7 +123,7 @@ struct ChallengeDetailView: View {
                         .font(.fredoka(16, .semibold))
                         .foregroundStyle(.white)
                         .frame(width: 42, height: 42)
-                        .background(Color(red: 0.13, green: 0.66, blue: 0.42).gradient,
+                        .background(Theme.green.gradient,
                                     in: RoundedRectangle(cornerRadius: 13, style: .continuous))
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Training nachtragen".loc)

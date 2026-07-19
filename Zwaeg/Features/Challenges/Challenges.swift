@@ -262,7 +262,7 @@ struct ChallengesView: View {
                 if challenge.done {
                     Image(systemName: "checkmark.seal.fill")
                         .font(.system(size: 20))
-                        .foregroundStyle(Color(red: 0.3, green: 0.65, blue: 0.35))
+                        .foregroundStyle(Theme.positive)
                 } else {
                     Text("+\(challenge.points) P")
                         .font(.fredoka(13, .semibold))

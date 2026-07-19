@@ -25,6 +25,9 @@ enum OpenFoodFactsClient {
         }
     }
 
+    private static let productEndpoint = "https://ch.openfoodfacts.org/api/v2/product/"
+    private static let searchEndpoint = "https://search.openfoodfacts.org/search"
+
     private static var fields: String {
         "product_name,product_name_\(languageCode),brands,nutriments,serving_quantity"
     }
@@ -43,7 +46,7 @@ enum OpenFoodFactsClient {
         let digits = barcode.filter(\.isNumber)
         guard (6...14).contains(digits.count) else { throw LookupError.invalidBarcode }
 
-        guard let url = URL(string: "https://ch.openfoodfacts.org/api/v2/product/\(digits)?fields=\(fields)") else {
+        guard let url = URL(string: "\(Self.productEndpoint)\(digits)?fields=\(fields)") else {
             throw LookupError.invalidBarcode
         }
 
@@ -72,7 +75,7 @@ enum OpenFoodFactsClient {
         let langs = languageCode == "en" ? "en" : "\(languageCode),en"
         guard trimmed.count >= 3,
               let escaped = trimmed.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: "https://search.openfoodfacts.org/search?q=\(escaped)"
+              let url = URL(string: "\(Self.searchEndpoint)?q=\(escaped)"
                             + "&page_size=\(limit)&langs=\(langs)&fields=code,\(fields)") else {
             return []
         }

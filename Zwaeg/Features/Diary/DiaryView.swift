@@ -40,7 +40,7 @@ struct DiaryView: View {
     }
 
     private var consumed: Int {
-        dayEntries.reduce(0) { $0 + $1.calories }
+        dayEntries.totalCalories
     }
 
     var body: some View {
@@ -192,7 +192,7 @@ struct DiaryView: View {
                     if streakFreezes > 0 {
                         Image(systemName: "snowflake")
                             .font(.fredoka(12, .semibold))
-                            .foregroundStyle(Self.freezeBlue)
+                            .foregroundStyle(Theme.freezeBlue)
                             .padding(.leading, 3)
                         Text("\(streakFreezes)")
                             .font(.fredoka(14, .semibold))
@@ -265,8 +265,6 @@ struct DiaryView: View {
         .shadow(color: Theme.accent.opacity(0.35), radius: 12, y: 5)
     }
 
-    private static let freezeBlue = Color(red: 0.36, green: 0.68, blue: 0.98)
-
     /// Shown while yesterday hangs on a freeze: the streak survived, and
     /// logging today keeps it going.
     private var streakFrozenCard: some View {
@@ -288,10 +286,10 @@ struct DiaryView: View {
         }
         .padding(16)
         .background(
-            LinearGradient(colors: [Self.freezeBlue, Color(red: 0.2, green: 0.5, blue: 0.9)],
+            LinearGradient(colors: [Theme.freezeBlue, Color(red: 0.2, green: 0.5, blue: 0.9)],
                            startPoint: .topLeading, endPoint: .bottomTrailing),
             in: RoundedRectangle(cornerRadius: 24, style: .continuous))
-        .shadow(color: Self.freezeBlue.opacity(0.35), radius: 12, y: 5)
+        .shadow(color: Theme.freezeBlue.opacity(0.35), radius: 12, y: 5)
     }
 
     /// Fires confetti once per newly reached milestone.
@@ -316,7 +314,7 @@ struct DiaryView: View {
     /// sleeping while nothing is logged, thumbs up on track, alert when over.
     private var buddyMood: (symbol: String, color: Color)? {
         if dayEntries.isEmpty { return ("zzz", Color(.systemGray)) }
-        if remaining >= 0 { return ("hand.thumbsup.fill", Color(red: 0.3, green: 0.65, blue: 0.35)) }
+        if remaining >= 0 { return ("hand.thumbsup.fill", Theme.positive) }
         return ("exclamationmark", Color.appAccent)
     }
 
@@ -372,7 +370,7 @@ struct DiaryView: View {
                 || LaunchArgs.all.contains("-demo-suggestions"),
               remaining >= 150 else { return [] }
         let target = Double(remaining)
-        let proteinEaten = dayEntries.reduce(0.0) { $0 + $1.proteinG }
+        let proteinEaten = dayEntries.totalProtein
         let needsProtein = Double(macroTargets.protein) - proteinEaten > 20
         let daySeed = UInt64(selectedDay.timeIntervalSince1970)
         func score(_ recipe: Recipe) -> Double {
@@ -457,9 +455,9 @@ struct DiaryView: View {
     }
 
     private var summaryCard: some View {
-        let carbs = dayEntries.reduce(0.0) { $0 + $1.carbsG }
-        let protein = dayEntries.reduce(0.0) { $0 + $1.proteinG }
-        let fat = dayEntries.reduce(0.0) { $0 + $1.fatG }
+        let carbs = dayEntries.totalCarbs
+        let protein = dayEntries.totalProtein
+        let fat = dayEntries.totalFat
         let targets = macroTargets
         return VStack(spacing: 18) {
             HStack(spacing: 10) {
@@ -500,7 +498,7 @@ struct DiaryView: View {
                 macroBar("Kohlenhydrate".loc, eaten: carbs, target: targets.carbs,
                          color: Color(red: 0.98, green: 0.62, blue: 0.24))
                 macroBar("Protein".loc, eaten: protein, target: targets.protein,
-                         color: Color(red: 0.52, green: 0.48, blue: 0.95))
+                         color: Theme.purple)
                 macroBar("Fett".loc, eaten: fat, target: targets.fat,
                          color: Color(red: 0.45, green: 0.76, blue: 0.42))
             }
@@ -603,7 +601,7 @@ struct DiaryView: View {
                     .font(.fredoka(17, .semibold))
                     .foregroundStyle(.white)
                     .frame(width: 40, height: 40)
-                    .background(Color(red: 0.48, green: 0.42, blue: 0.93).gradient,
+                    .background(Theme.deepPurple.gradient,
                                 in: RoundedRectangle(cornerRadius: 13, style: .continuous))
                 if health.isConnected {
                     Text("\(activity.steps)")
@@ -651,8 +649,8 @@ struct DiaryView: View {
             HStack(alignment: .bottom, spacing: 4) {
                 ForEach(Array(weekSteps.enumerated()), id: \.offset) { index, value in
                     RoundedRectangle(cornerRadius: 2, style: .continuous)
-                        .fill(index == 6 ? Color(red: 0.48, green: 0.42, blue: 0.93)
-                                         : Color(red: 0.48, green: 0.42, blue: 0.93).opacity(0.30))
+                        .fill(index == 6 ? Theme.deepPurple
+                                         : Theme.deepPurple.opacity(0.30))
                         .frame(height: max(4, 26 * CGFloat(value) / CGFloat(top)))
                         .frame(maxWidth: .infinity, alignment: .bottom)
                 }
@@ -669,7 +667,7 @@ struct DiaryView: View {
     private var waterCard: some View {
         let glasses = waterEntry?.glasses ?? 0
         let goal = max(1, profile.waterGoalGlasses)
-        let blue = Color(red: 0.24, green: 0.64, blue: 1.0)
+        let blue = Theme.blue
         let columns = [GridItem(.adaptive(minimum: 36), spacing: 8)]
         return Card {
             VStack(alignment: .leading, spacing: 14) {
@@ -777,8 +775,8 @@ struct DiaryView: View {
         switch meal {
         case .breakfast: colors = [Color(red: 1.0, green: 0.72, blue: 0.4), Color(red: 0.99, green: 0.85, blue: 0.55)]
         case .lunch: colors = [Color(red: 0.55, green: 0.83, blue: 0.5), Color(red: 0.73, green: 0.91, blue: 0.6)]
-        case .dinner: colors = [Color(red: 0.52, green: 0.48, blue: 0.95), Color(red: 0.7, green: 0.62, blue: 0.98)]
-        case .snack: colors = [Color(red: 1.0, green: 0.55, blue: 0.62), Color(red: 1.0, green: 0.72, blue: 0.68)]
+        case .dinner: colors = [Theme.purple, Color(red: 0.7, green: 0.62, blue: 0.98)]
+        case .snack: colors = [Theme.pink, Color(red: 1.0, green: 0.72, blue: 0.68)]
         }
         return LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing)
     }
@@ -800,7 +798,7 @@ struct DiaryView: View {
 
     private func mealCard(_ meal: MealType) -> some View {
         let entries = dayEntries.filter { $0.meal == meal }
-        let kcal = entries.reduce(0) { $0 + $1.calories }
+        let kcal = entries.totalCalories
         let mealProgress = min(1, Double(kcal) / Double(max(1, mealBudget(meal))))
         let hidden = !MealPlan.enabled(from: enabledMealsRaw).contains(meal)
         return Button {
@@ -964,7 +962,7 @@ struct DiaryView: View {
                         .font(.fredoka(17, .semibold))
                         .foregroundStyle(.white)
                         .frame(width: 46, height: 46)
-                        .background(Color(red: 1.0, green: 0.55, blue: 0.62).gradient,
+                        .background(Theme.pink.gradient,
                                     in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Wie war dein Tag?".loc)
@@ -1027,7 +1025,7 @@ struct DiaryView: View {
         let today = Calendar.current.startOfDay(for: .now)
         let todayEntries = allEntries.filter { $0.day == today }
         DayActivityController.sync(
-            consumed: todayEntries.reduce(0) { $0 + $1.calories },
+            consumed: todayEntries.totalCalories,
             target: profile.dailyCalorieTarget,
             burned: selectedDay == today ? activity.activeKcal : 0,
             glasses: todayGlasses ?? waterDays.first { $0.day == today }?.glasses ?? 0,
@@ -1053,10 +1051,10 @@ struct DiaryView: View {
                 let entries = entriesByDay[day] ?? []
                 await HealthKitService.shared.saveNutrition(
                     day: day,
-                    kcal: Double(entries.reduce(0) { $0 + $1.calories }),
-                    proteinG: entries.reduce(0) { $0 + $1.proteinG },
-                    carbsG: entries.reduce(0) { $0 + $1.carbsG },
-                    fatG: entries.reduce(0) { $0 + $1.fatG })
+                    kcal: Double(entries.totalCalories),
+                    proteinG: entries.totalProtein,
+                    carbsG: entries.totalCarbs,
+                    fatG: entries.totalFat)
             }
         }
     }

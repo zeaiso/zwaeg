@@ -58,10 +58,10 @@ struct IdealWeightView: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 26)
         .background(
-            LinearGradient(colors: [Color(red: 0.52, green: 0.48, blue: 0.95), Color(red: 0.68, green: 0.6, blue: 0.98)],
+            LinearGradient(colors: [Theme.purple, Color(red: 0.68, green: 0.6, blue: 0.98)],
                            startPoint: .topLeading, endPoint: .bottomTrailing),
             in: RoundedRectangle(cornerRadius: 26, style: .continuous))
-        .shadow(color: Color(red: 0.52, green: 0.48, blue: 0.95).opacity(0.35), radius: 12, y: 5)
+        .shadow(color: Theme.purple.opacity(0.35), radius: 12, y: 5)
     }
 
     private var formulasCard: some View {

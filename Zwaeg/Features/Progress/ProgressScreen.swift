@@ -435,7 +435,7 @@ struct ProgressScreen: View {
         let today = calendar.startOfDay(for: .now)
         return (0..<7).reversed().compactMap { offset in
             guard let day = calendar.date(byAdding: .day, value: -offset, to: today) else { return nil }
-            let kcal = foodEntries.filter { $0.day == day }.reduce(0) { $0 + $1.calories }
+            let kcal = foodEntries.filter { $0.day == day }.totalCalories
             return DayCalories(id: day, day: day, kcal: kcal)
         }
     }
@@ -554,7 +554,7 @@ struct ProgressScreen: View {
         }
         let weekProtein = foodEntries
             .filter { entry in days.contains { $0.day == entry.day } }
-            .reduce(0.0) { $0 + $1.proteinG }
+            .totalProtein
 
         return Card {
             VStack(alignment: .leading, spacing: 12) {

@@ -22,11 +22,11 @@ struct CalculatorsView: View {
                     calculatorCard(.ideal, title: "Idealgewicht".loc,
                                    subtitle: "Dein Zielbereich nach 4 Formeln".loc,
                                    symbol: "scalemass.fill",
-                                   colors: [Color(red: 0.52, green: 0.48, blue: 0.95), Color(red: 0.68, green: 0.6, blue: 0.98)])
+                                   colors: [Theme.purple, Color(red: 0.68, green: 0.6, blue: 0.98)])
                     calculatorCard(.needs, title: "Kalorienbedarf".loc,
                                    subtitle: "Grund- & Gesamtumsatz pro Tag".loc,
                                    symbol: "flame.fill",
-                                   colors: [Color(red: 1.0, green: 0.72, blue: 0.25), Color(red: 1.0, green: 0.82, blue: 0.45)])
+                                   colors: [Theme.amber, Color(red: 1.0, green: 0.82, blue: 0.45)])
                     calculatorCard(.burn, title: "Kalorienverbrauch".loc,
                                    subtitle: "Verbrauch pro Aktivität".loc,
                                    symbol: "figure.run",
