@@ -1,246 +1,38 @@
 import SwiftUI
 
-/// Concrete look of the drawn person, derived either from PersonTraits
-/// (palette indices) or from a studio buddy's AvatarTraits (exact colors,
-/// hair style, facial hair and glasses), so the whole-body character reads
-/// as the same figure the user designed.
+/// Concrete look of the drawn person buddy, derived from PersonTraits
+/// (palette indices). Only the head is drawn — the whole-body weight figure
+/// retired when progress photos took its job.
 struct PersonLook: Equatable {
     enum Glasses { case none, clear, sun }
     enum Eyes { case normal, happy, wink, closed }
     enum Mouth { case smile, open, flat, sad, tongue }
-    enum Clothes { case plain, hoodie, collar, vneck, overall, graphic }
 
     var skin: Color
     var skinShade: Color
     var hair: Color
-    var shirt: Color
     var style: Int          // 0 short, 1 long, 2 bun, 3 bald, 4 hat
     var mustache = false
     var beard = false
     var glasses: Glasses = .none
     var eyes: Eyes = .normal
     var mouth: Mouth = .smile
-    var clothes: Clothes = .plain
-
-    // MARK: - Keyword buckets shared by all DiceBear styles
-
-    private static func hairBucket(_ name: String) -> Int {
-        let n = name.lowercased()
-        if n.isEmpty || n.contains("clean") || n.contains("bald") { return 3 }
-        if n.contains("turban") || n.contains("hat") || n.contains("hijab")
-            || n.contains("winter") { return 4 }
-        if n.contains("bun") { return 2 }
-        for key in ["big", "bob", "curly", "curvy", "dread", "frida", "fro",
-                    "long", "mia", "shag", "straight", "full"] where n.contains(key) {
-            return 1
-        }
-        return 0
-    }
-
-    private static func eyesBucket(_ name: String?) -> Eyes {
-        let n = (name ?? "").lowercased()
-        if n.contains("wink") { return .wink }
-        if n.contains("closed") || n.contains("sleep") { return .closed }
-        if n.contains("happy") || n.contains("smil") || n.contains("heart") { return .happy }
-        return .normal
-    }
-
-    private static func mouthBucket(_ name: String?) -> Mouth {
-        let n = (name ?? "").lowercased()
-        if n.contains("tongue") { return .tongue }
-        if n.contains("laugh") || n == "smile" || n.contains("eating") { return .open }
-        if n.contains("serious") || n.contains("grimace") || n.contains("smirk")
-            || n.contains("nervous") { return .flat }
-        if n.contains("sad") || n.contains("concerned") || n.contains("frown")
-            || n.contains("disbelief") || n.contains("scream") { return .sad }
-        return .smile
-    }
-
-    private static func clothesBucket(_ name: String?) -> Clothes {
-        let n = (name ?? "").lowercased()
-        if n.contains("hoodie") { return .hoodie }
-        if n.contains("blazer") || n.contains("collar") { return .collar }
-        if n.contains("vneck") || n.contains("open") { return .vneck }
-        if n.contains("overall") { return .overall }
-        if n.contains("graphic") { return .graphic }
-        return .plain
-    }
 
     init(traits: PersonTraits) {
         let pair = BuddyCharacterView.skins[traits.skin % BuddyCharacterView.skins.count]
         skin = pair.0
         skinShade = pair.1
         hair = BuddyCharacterView.hairColors[traits.hair % BuddyCharacterView.hairColors.count]
-        shirt = Buddy.palette[traits.shirt % Buddy.palette.count]
         style = traits.style
     }
-
-    /// Hex like "edb98a" to Color, optionally darkened for shading.
-    private static func color(hex: String, scaled: Double = 1) -> Color {
-        var value: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&value)
-        return Color(red: Double((value >> 16) & 0xFF) / 255 * scaled,
-                     green: Double((value >> 8) & 0xFF) / 255 * scaled,
-                     blue: Double(value & 0xFF) / 255 * scaled)
-    }
-
-    init(avatar: AvatarTraits) {
-        skin = Self.color(hex: avatar.skinColor)
-        skinShade = Self.color(hex: avatar.skinColor, scaled: 0.82)
-        hair = Color(hex: avatar.hairColor)
-        shirt = Color(hex: avatar.clothesColor)
-        let top = avatar.top
-        if top.isEmpty {
-            style = 3
-        } else if top.hasPrefix("winterHat") || ["hat", "turban", "hijab"].contains(top) {
-            style = 4
-        } else if top == "bun" {
-            style = 2
-        } else if ["bigHair", "bob", "curly", "curvy", "dreads", "frida", "fro", "froBand",
-                   "longButNotTooLong", "miaWallace", "shaggy", "shaggyMullet",
-                   "straight01", "straight02", "straightAndStrand"].contains(top) {
-            style = 1
-        } else {
-            style = 0
-        }
-        if let facial = avatar.facialHair {
-            mustache = facial.hasPrefix("moustache")
-            beard = facial.hasPrefix("beard")
-        }
-        if let accessory = avatar.accessory {
-            glasses = ["sunglasses", "wayfarers", "eyepatch"].contains(accessory) ? .sun : .clear
-        }
-        eyes = Self.eyesBucket(avatar.eyes)
-        mouth = Self.mouthBucket(avatar.mouth)
-        clothes = Self.clothesBucket(avatar.clothes)
-    }
-
-    /// Catalog styles (micah, notionists, ...) share the same idea with
-    /// per-style vocabularies, so everything maps through keyword buckets.
-    init(styled: StyledTraits) {
-        let base = styled.colors["baseColor"] ?? styled.colors["skinColor"] ?? "edb98a"
-        skin = Self.color(hex: base)
-        skinShade = Self.color(hex: base, scaled: 0.82)
-        hair = Color(hex: styled.colors["hairColor"] ?? "2c1b18")
-        shirt = Color(hex: styled.colors["shirtColor"] ?? styled.colors["clothesColor"] ?? "ff5c5c")
-        style = Self.hairBucket(styled.variants["hair"] ?? styled.variants["top"] ?? "")
-        let facial = (styled.variants["facialHair"] ?? styled.variants["beard"] ?? "").lowercased()
-        mustache = facial.contains("stache")
-        beard = !facial.isEmpty && !mustache
-        if let lens = styled.variants["glasses"], !lens.isEmpty {
-            glasses = lens.lowercased().contains("sun") ? .sun : .clear
-        }
-        eyes = Self.eyesBucket(styled.variants["eyes"])
-        mouth = Self.mouthBucket(styled.variants["mouth"])
-        clothes = Self.clothesBucket(styled.variants["shirt"] ?? styled.variants["clothes"])
-    }
 }
 
-extension Buddy {
-    /// Transparent studio render (no background tile) used as the head of
-    /// the whole-body weight character, so the figure carries the exact
-    /// face the user designed and still reads as one drawn person.
-    var headRenderURL: URL? {
-        switch kind {
-        case "custom": return traits?.headURL
-        case "styled": return styled?.headURL
-        default: return nil
-        }
-    }
-
-    /// Cache location for the transparent head render, keyed by the render
-    /// URL so a new studio look fetches a new file.
-    var headCacheURL: URL? {
-        guard let url = headRenderURL,
-              let folder = FileManager.default.urls(for: .documentDirectory,
-                                                    in: .userDomainMask).first else { return nil }
-        var hash: UInt64 = 5381
-        for byte in url.absoluteString.utf8 {
-            hash = hash &* 33 &+ UInt64(byte)
-        }
-        return folder.appendingPathComponent("buddy-head-\(hash).png")
-    }
-
-    /// The cached transparent head, downloading it once per look. Returns
-    /// nil (drawn face fallback) when offline and not yet cached.
-    func loadHeadImage() async -> UIImage? {
-        guard let cache = headCacheURL else { return nil }
-        if let image = UIImage(contentsOfFile: cache.path) { return image }
-        guard let url = headRenderURL,
-              let (data, _) = try? await URLSession.shared.data(from: url),
-              let image = UIImage(data: data) else { return nil }
-        try? data.write(to: cache)
-        return image
-    }
-
-    /// The look driving the whole-body weight character, when one can be
-    /// derived: studio buddies use their exact wardrobe colors, the drawn
-    /// person kind its palette. Image-only kinds return nil and stay chips.
-    var personLook: PersonLook? {
-        switch kind {
-        case "person":
-            return PersonLook(traits: person ?? PersonTraits())
-        case "custom":
-            guard let traits else { return nil }
-            return PersonLook(avatar: traits)
-        case "styled":
-            guard let styled else { return nil }
-            return PersonLook(styled: styled)
-        default:
-            return nil
-        }
-    }
-}
-
-/// Whole-body weight figure for a buddy: the drawn body plus, for studio
-/// buddies, the transparent studio render as the head. Falls back to the
-/// drawn approximation until the head is cached.
-struct PersonFigureView: View {
-    let buddy: Buddy
-    var factor: Double
-    var pose: BuddyPose = .neutral
-    var energetic: Bool = false
-
-    @State private var headImage: UIImage?
-
-    var body: some View {
-        if let look = buddy.personLook {
-            BuddyCharacterView(look: look, factor: factor, pose: pose,
-                               energetic: energetic, headImage: headImage)
-                .task(id: buddy) {
-                    headImage = await buddy.loadHeadImage()
-                }
-        }
-    }
-}
-
-/// A whole cartoon person drawn in code, so the body can smoothly follow
-/// the user's weight. Factor 0 is slim, 1 is maximally round.
-/// headOnly renders just the face for small chip contexts.
+/// The drawn person buddy's head, used as the chip for the "person" kind.
 struct BuddyCharacterView: View {
     var look: PersonLook
-    var factor: Double = 0.35
-    var pose: BuddyPose = .neutral
-    var energetic: Bool = false
-    var headOnly: Bool = false
-    /// Exact studio render replacing the drawn head, so the figure keeps
-    /// the face the user designed. The body is still drawn from `look`.
-    var headImage: UIImage? = nil
 
-    init(look: PersonLook, factor: Double = 0.35, pose: BuddyPose = .neutral,
-         energetic: Bool = false, headOnly: Bool = false, headImage: UIImage? = nil) {
-        self.look = look
-        self.factor = factor
-        self.pose = pose
-        self.energetic = energetic
-        self.headOnly = headOnly
-        self.headImage = headImage
-    }
-
-    init(traits: PersonTraits, factor: Double = 0.35, pose: BuddyPose = .neutral,
-         energetic: Bool = false, headOnly: Bool = false) {
-        self.init(look: PersonLook(traits: traits), factor: factor, pose: pose,
-                  energetic: energetic, headOnly: headOnly)
+    init(traits: PersonTraits) {
+        self.look = PersonLook(traits: traits)
     }
 
     static let skins: [(Color, Color)] = [
@@ -265,15 +57,11 @@ struct BuddyCharacterView: View {
 
     var body: some View {
         Canvas { ctx, size in
-            let f = min(max(factor, 0), 1)
             let designW = 300.0
             let u = size.width / designW
             let skin = (look.skin, look.skinShade)
             let hairColor = look.hair
-            let shirt = look.shirt
             let ink = Color(red: 0.13, green: 0.11, blue: 0.10)
-            let pants = Color(red: 0.20, green: 0.18, blue: 0.24)
-            let shoes = Color(red: 0.98, green: 0.95, blue: 0.92)
 
             func pt(_ x: Double, _ y: Double) -> CGPoint { CGPoint(x: x * u, y: y * u) }
             func rect(_ x: Double, _ y: Double, _ rw: Double, _ rh: Double) -> CGRect {
@@ -281,154 +69,9 @@ struct BuddyCharacterView: View {
             }
 
             let headCX = 150.0
-            let headCY = headOnly ? 108.0 : 92.0
+            let headCY = 108.0
             let headW = 150.0, headH = 142.0
-            let cheek = 1.0 + 0.10 * f
-            let hw = headW * cheek
-
-            // ---- body (skipped in chip mode) ----
-            if !headOnly {
-                let shoulderY = 192.0
-                let hemY = 316.0
-                let shoulderHalf = 56.0 + 10.0 * f
-                let waistHalf = 50.0 + 38.0 * f
-                let hipHalf = 47.0 + 27.0 * f
-                let legW = 27.0 + 5.0 * f, legGap = 14.0
-                let legTop = hemY - 8, legBottom = 392.0
-                let armW = 21.0
-                let handR = 13.0
-
-                for side in [-1.0, 1.0] {
-                    let x = 150 + side * (legGap / 2 + legW / 2)
-                    var leg = Path()
-                    leg.addRoundedRect(in: rect(x - legW / 2, legTop, legW, legBottom - legTop),
-                                       cornerSize: CGSize(width: 12 * u, height: 12 * u))
-                    ctx.fill(leg, with: .color(pants))
-                    var shoe = Path()
-                    shoe.addRoundedRect(in: rect(x - legW / 2 - 6, legBottom - 8, legW + 16, 24),
-                                        cornerSize: CGSize(width: 12 * u, height: 12 * u))
-                    ctx.fill(shoe, with: .color(shoes))
-                }
-
-                var torso = Path()
-                torso.move(to: pt(150 - shoulderHalf, shoulderY + 14))
-                torso.addCurve(to: pt(150 - waistHalf, 272),
-                               control1: pt(150 - shoulderHalf - 4, shoulderY + 40),
-                               control2: pt(150 - waistHalf - 2, 244))
-                torso.addCurve(to: pt(150 - hipHalf, hemY),
-                               control1: pt(150 - waistHalf + 1, 294),
-                               control2: pt(150 - hipHalf - 3, hemY - 10))
-                torso.addQuadCurve(to: pt(150 + hipHalf, hemY),
-                                   control: pt(150, hemY + 10 + 14 * f))
-                torso.addCurve(to: pt(150 + waistHalf, 272),
-                               control1: pt(150 + hipHalf + 3, hemY - 10),
-                               control2: pt(150 + waistHalf - 1, 294))
-                torso.addCurve(to: pt(150 + shoulderHalf, shoulderY + 14),
-                               control1: pt(150 + waistHalf + 2, 244),
-                               control2: pt(150 + shoulderHalf + 4, shoulderY + 40))
-                torso.addQuadCurve(to: pt(150 + shoulderHalf - 26, shoulderY - 6),
-                                   control: pt(150 + shoulderHalf, shoulderY - 8))
-                torso.addLine(to: pt(150 - shoulderHalf + 26, shoulderY - 6))
-                torso.addQuadCurve(to: pt(150 - shoulderHalf, shoulderY + 14),
-                                   control: pt(150 - shoulderHalf, shoulderY - 8))
-                torso.closeSubpath()
-                // flat fill under a studio head render, so the bust's shirt
-                // and the drawn torso merge without a visible edge
-                ctx.fill(torso, with: headImage != nil
-                    ? .color(shirt)
-                    : .linearGradient(
-                        Gradient(colors: [shirt.opacity(0.85), shirt]),
-                        startPoint: pt(90, shoulderY), endPoint: pt(210, hemY)))
-
-                // outfit details on the torso (the studio bust brings its
-                // own collar and outfit top, so skip them under a render)
-                switch headImage == nil ? look.clothes : .plain {
-                case .hoodie:
-                    var hood = Path()
-                    hood.addEllipse(in: rect(150 - 34, shoulderY - 8, 68, 30))
-                    ctx.fill(hood, with: .color(look.shirt.opacity(0.6)))
-                    for side in [-1.0, 1.0] {
-                        var string = Path()
-                        string.move(to: pt(150 + side * 10, shoulderY + 20))
-                        string.addLine(to: pt(150 + side * 12, shoulderY + 52))
-                        ctx.stroke(string, with: .color(.white.opacity(0.75)),
-                                   style: StrokeStyle(lineWidth: 4 * u, lineCap: .round))
-                    }
-                case .collar:
-                    var collar = Path()
-                    collar.move(to: pt(150 - 22, shoulderY - 2))
-                    collar.addLine(to: pt(150, shoulderY + 28))
-                    collar.addLine(to: pt(150 + 22, shoulderY - 2))
-                    collar.closeSubpath()
-                    ctx.fill(collar, with: .color(.white.opacity(0.9)))
-                case .vneck:
-                    var notch = Path()
-                    notch.move(to: pt(150 - 17, shoulderY - 2))
-                    notch.addLine(to: pt(150, shoulderY + 22))
-                    notch.addLine(to: pt(150 + 17, shoulderY - 2))
-                    notch.closeSubpath()
-                    ctx.fill(notch, with: .color(skin.1))
-                case .overall:
-                    var bib = Path()
-                    bib.addRoundedRect(in: rect(150 - 32, shoulderY + 34, 64, hemY - shoulderY - 42),
-                                       cornerSize: CGSize(width: 10 * u, height: 10 * u))
-                    ctx.fill(bib, with: .color(pants))
-                    for side in [-1.0, 1.0] {
-                        var strap = Path()
-                        strap.addRoundedRect(in: rect(150 + side * 26 - 5, shoulderY - 2, 10, 44),
-                                             cornerSize: CGSize(width: 5 * u, height: 5 * u))
-                        ctx.fill(strap, with: .color(pants))
-                    }
-                case .graphic:
-                    var art = Path()
-                    art.addRoundedRect(in: rect(150 - 15, shoulderY + 44, 30, 30),
-                                       cornerSize: CGSize(width: 8 * u, height: 8 * u))
-                    ctx.fill(art, with: .color(.white.opacity(0.85)))
-                case .plain:
-                    break
-                }
-
-                // arms: hanging, or raised in a cheer on active days
-                for side in [-1.0, 1.0] {
-                    let shoulderX = 150 + side * (shoulderHalf - 6)
-                    var arm = Path()
-                    let handX: Double
-                    let handY: Double
-                    if energetic {
-                        handX = 150 + side * (shoulderHalf + 34)
-                        handY = 176.0
-                        arm.move(to: pt(shoulderX, shoulderY + 12))
-                        arm.addQuadCurve(to: pt(handX, handY + 10),
-                                         control: pt(150 + side * (shoulderHalf + 34), 224))
-                    } else {
-                        handX = 150 + side * (waistHalf + armW / 2 + 5)
-                        handY = 306.0
-                        arm.move(to: pt(shoulderX, shoulderY + 10))
-                        arm.addQuadCurve(to: pt(handX, handY - 8),
-                                         control: pt(150 + side * (shoulderHalf + 8 + 16 * f), 252))
-                    }
-                    ctx.stroke(arm, with: .color(shirt),
-                               style: StrokeStyle(lineWidth: armW * u, lineCap: .round))
-                    var hand = Path()
-                    hand.addEllipse(in: rect(handX - handR, handY - handR, handR * 2, handR * 2))
-                    ctx.fill(hand, with: .color(skin.0))
-                }
-
-                var neck = Path()
-                neck.addRoundedRect(in: rect(150 - 15, 150, 30, 50),
-                                    cornerSize: CGSize(width: 10 * u, height: 10 * u))
-                ctx.fill(neck, with: .color(skin.1))
-            }
-
-            // studio buddies: the transparent render is the head, exactly
-            // as designed — hair, face and all. Its bust bottoms out right
-            // on the drawn shoulders so both halves read as one person.
-            if let headImage {
-                let side = 185.0
-                ctx.draw(Image(uiImage: headImage),
-                         in: rect(headCX - side / 2, 210 - side, side, side))
-                return
-            }
+            let hw = headW
 
             // long hair: strands behind the head falling to shoulder height,
             // drawn first so the face stays free and no hood forms
@@ -510,10 +153,9 @@ struct BuddyCharacterView: View {
                 ctx.fill(beardPath, with: .color(hairColor))
             }
 
-            // ---- face by pose ----
-            let sleeping = pose == .sleeping
+            // ---- face ----
             for side in [-1.0, 1.0] {
-                let lidDown = sleeping || look.eyes == .closed
+                let lidDown = look.eyes == .closed
                 let arcEye = !lidDown && (look.eyes == .happy || (look.eyes == .wink && side < 0))
                 if lidDown {
                     var lid = Path()
@@ -546,60 +188,44 @@ struct BuddyCharacterView: View {
                            style: StrokeStyle(lineWidth: 5 * u, lineCap: .round))
             }
 
-            switch pose {
-            case .happy, .party:
-                // open smile
+            switch look.mouth {
+            case .open:
                 var mouth = Path()
-                mouth.move(to: pt(headCX - 16, headCY + 32))
-                mouth.addQuadCurve(to: pt(headCX + 16, headCY + 32), control: pt(headCX, headCY + 54))
+                mouth.move(to: pt(headCX - 15, headCY + 33))
+                mouth.addQuadCurve(to: pt(headCX + 15, headCY + 33),
+                                   control: pt(headCX, headCY + 52))
                 mouth.closeSubpath()
                 ctx.fill(mouth, with: .color(ink))
-            case .over:
+            case .flat:
                 var mouth = Path()
                 mouth.move(to: pt(headCX - 11, headCY + 38))
                 mouth.addLine(to: pt(headCX + 11, headCY + 38))
                 ctx.stroke(mouth, with: .color(ink),
                            style: StrokeStyle(lineWidth: 5.5 * u, lineCap: .round))
-            default:
-                switch look.mouth {
-                case .open:
-                    var mouth = Path()
-                    mouth.move(to: pt(headCX - 15, headCY + 33))
-                    mouth.addQuadCurve(to: pt(headCX + 15, headCY + 33),
-                                       control: pt(headCX, headCY + 52))
-                    mouth.closeSubpath()
-                    ctx.fill(mouth, with: .color(ink))
-                case .flat:
-                    var mouth = Path()
-                    mouth.move(to: pt(headCX - 11, headCY + 38))
-                    mouth.addLine(to: pt(headCX + 11, headCY + 38))
-                    ctx.stroke(mouth, with: .color(ink),
-                               style: StrokeStyle(lineWidth: 5.5 * u, lineCap: .round))
-                case .sad:
-                    var mouth = Path()
-                    mouth.move(to: pt(headCX - 12, headCY + 42))
-                    mouth.addQuadCurve(to: pt(headCX + 12, headCY + 42),
-                                       control: pt(headCX, headCY + 32))
-                    ctx.stroke(mouth, with: .color(ink),
-                               style: StrokeStyle(lineWidth: 5.5 * u, lineCap: .round))
-                case .tongue:
-                    var smile = Path()
-                    smile.move(to: pt(headCX - 14, headCY + 34))
-                    smile.addQuadCurve(to: pt(headCX + 14, headCY + 34),
-                                       control: pt(headCX, headCY + 48))
-                    ctx.stroke(smile, with: .color(ink),
-                               style: StrokeStyle(lineWidth: 5.5 * u, lineCap: .round))
-                    var tongue = Path()
-                    tongue.addEllipse(in: rect(headCX - 2, headCY + 38, 14, 12))
-                    ctx.fill(tongue, with: .color(Color(red: 1.0, green: 0.5, blue: 0.5)))
-                case .smile:
-                    var smile = Path()
-                    smile.move(to: pt(headCX - 14, headCY + 34))
-                    smile.addQuadCurve(to: pt(headCX + 14, headCY + 34),
-                                       control: pt(headCX, headCY + 48))
-                    ctx.stroke(smile, with: .color(ink),
-                               style: StrokeStyle(lineWidth: 5.5 * u, lineCap: .round))
-                }
+            case .sad:
+                var mouth = Path()
+                mouth.move(to: pt(headCX - 12, headCY + 42))
+                mouth.addQuadCurve(to: pt(headCX + 12, headCY + 42),
+                                   control: pt(headCX, headCY + 32))
+                ctx.stroke(mouth, with: .color(ink),
+                           style: StrokeStyle(lineWidth: 5.5 * u, lineCap: .round))
+            case .tongue:
+                var smile = Path()
+                smile.move(to: pt(headCX - 14, headCY + 34))
+                smile.addQuadCurve(to: pt(headCX + 14, headCY + 34),
+                                   control: pt(headCX, headCY + 48))
+                ctx.stroke(smile, with: .color(ink),
+                           style: StrokeStyle(lineWidth: 5.5 * u, lineCap: .round))
+                var tongue = Path()
+                tongue.addEllipse(in: rect(headCX - 2, headCY + 38, 14, 12))
+                ctx.fill(tongue, with: .color(Color(red: 1.0, green: 0.5, blue: 0.5)))
+            case .smile:
+                var smile = Path()
+                smile.move(to: pt(headCX - 14, headCY + 34))
+                smile.addQuadCurve(to: pt(headCX + 14, headCY + 34),
+                                   control: pt(headCX, headCY + 48))
+                ctx.stroke(smile, with: .color(ink),
+                           style: StrokeStyle(lineWidth: 5.5 * u, lineCap: .round))
             }
 
             if look.glasses != .none {
@@ -636,16 +262,7 @@ struct BuddyCharacterView: View {
                 cheekDot.addEllipse(in: rect(headCX + side * 48 - 9, headCY + 26, 18, 12))
                 ctx.fill(cheekDot, with: .color(blush))
             }
-
-            if !headOnly && f > 0.55 {
-                var chin = Path()
-                chin.move(to: pt(headCX - 22, headCY + headH / 2 - 6))
-                chin.addQuadCurve(to: pt(headCX + 22, headCY + headH / 2 - 6),
-                                  control: pt(headCX, headCY + headH / 2 + 6))
-                ctx.stroke(chin, with: .color(skin.1.opacity(0.5 * f)),
-                           style: StrokeStyle(lineWidth: 4 * u, lineCap: .round))
-            }
         }
-        .aspectRatio(headOnly ? 300.0 / 216.0 : 300.0 / 430.0, contentMode: .fit)
+        .aspectRatio(300.0 / 216.0, contentMode: .fit)
     }
 }

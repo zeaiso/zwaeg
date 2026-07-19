@@ -61,7 +61,7 @@ struct BuddyPickerView: View {
                     .fill(Theme.card)
                     .frame(width: 192, height: 192)
                 if buddy.kind == "person" {
-                    BuddyCharacterView(traits: buddy.person ?? PersonTraits(), factor: 0.35)
+                    BuddyCharacterView(traits: buddy.person ?? PersonTraits())
                         .frame(height: 172)
                         .shadow(color: buddy.bodyColor.opacity(0.35), radius: 16, y: 8)
                 } else {

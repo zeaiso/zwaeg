@@ -133,24 +133,6 @@ struct DiaryView: View {
                         route = .details
                     }
                 }
-                if LaunchArgs.all.contains("-person-buddy"), profile.buddy.personLook == nil {
-                    var traits = AvatarTraits.starter(for: .female)
-                    traits.top = "bun"
-                    traits.accessory = "round"
-                    traits.clothesColor = "5199e4"
-                    var studioBuddy = Buddy(kind: "custom", index: 0)
-                    studioBuddy.traits = traits
-                    // A pre-seeded render (dropped into Documents before
-                    // launch) lets screenshots show the real studio head.
-                    let testFile = "custom-buddy-test.png"
-                    if let folder = FileManager.default.urls(for: .documentDirectory,
-                                                             in: .userDomainMask).first,
-                       FileManager.default.fileExists(
-                           atPath: folder.appendingPathComponent(testFile).path) {
-                        studioBuddy.file = testFile
-                    }
-                    profile.buddy = studioBuddy
-                }
                 celebrateStreakIfNeeded()
             }
         }
@@ -166,22 +148,10 @@ struct DiaryView: View {
         }
     }
 
-    /// 0 = slim at BMI 21 and below, 1 = maximally round at BMI 35 and up.
-    /// Follows the latest logged weight, so the person buddy slims down live.
-    private var buddyBodyFactor: Double {
-        let currentKg = weights.last?.weightKg ?? profile.weightKg
-        let bmi = CalorieMath.bmi(weightKg: currentKg, heightCm: profile.heightCm)
-        return min(max((bmi - 21) / 14, 0), 1)
-    }
-
     private var header: some View {
         HStack(spacing: 12) {
             ZStack(alignment: .bottomTrailing) {
-                BuddyPoseView(buddy: profile.buddy,
-                              size: profile.buddy.personLook != nil ? 58 : 46,
-                              pose: buddyPose,
-                              bodyFactor: buddyBodyFactor,
-                              energetic: activity.steps >= 8000)
+                BuddyPoseView(buddy: profile.buddy, size: 46, pose: buddyPose)
                 if let mood = buddyMood {
                     Image(systemName: mood.symbol)
                         .font(.system(size: 9, weight: .bold))

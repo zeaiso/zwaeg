@@ -51,9 +51,6 @@ enum BuddyCloset {
             if let file = buddy.file {
                 referenced.insert(file)
             }
-            if let head = buddy.headCacheURL?.lastPathComponent {
-                referenced.insert(head)
-            }
         }
         for file in files
         where (file.hasPrefix("custom-buddy-") || file.hasPrefix("photo-")

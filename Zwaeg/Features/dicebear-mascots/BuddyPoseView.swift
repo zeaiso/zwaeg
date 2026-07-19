@@ -14,28 +14,15 @@ struct BuddyPoseView: View {
     let buddy: Buddy
     let size: CGFloat
     let pose: BuddyPose
-    /// Person buddies only: the weight factor driving the drawn body
-    /// (0 slim, 1 round). Other kinds always render as the head chip.
-    var bodyFactor: Double? = nil
-    /// Person buddies only: arms up in a cheer on active days.
-    var energetic: Bool = false
 
     @State private var animating = false
 
     var body: some View {
         ZStack {
-            Group {
-                if buddy.personLook != nil, let bodyFactor {
-                    PersonFigureView(buddy: buddy, factor: bodyFactor, pose: pose,
-                                     energetic: energetic)
-                        .frame(height: size)
-                } else {
-                    BuddyView(buddy: buddy, size: size)
-                }
-            }
-            .rotationEffect(.degrees(rotation))
-            .scaleEffect(scale)
-            .offset(y: bounce)
+            BuddyView(buddy: buddy, size: size)
+                .rotationEffect(.degrees(rotation))
+                .scaleEffect(scale)
+                .offset(y: bounce)
             accents
         }
         .onAppear {

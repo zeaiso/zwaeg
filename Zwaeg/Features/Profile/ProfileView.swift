@@ -189,7 +189,7 @@ struct ProfileView: View {
                 .font(.fredoka(12, .semibold))
                 .foregroundStyle(.secondary)
                 .padding(.leading, 6)
-            accountRow("Persönliche Daten".loc, symbol: "person.fill", color: Color.appAccent) {
+            accountRow("Profil & Buddy".loc, symbol: "person.fill", color: Color.appAccent) {
                 PersonalHubView(profile: profile)
             }
             accountRow("Ziele & Vorgaben".loc, symbol: "target", color: Color(red: 0.42, green: 0.36, blue: 0.91)) {
@@ -545,7 +545,7 @@ struct PersonalHubView: View {
             }
         }
         .background(Theme.background)
-        .navigationTitle("Persönliche Daten".loc)
+        .navigationTitle("Profil & Buddy".loc)
         .navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -10,7 +10,7 @@ struct BuddyView: View {
     var body: some View {
         Group {
             if buddy.kind == "person" {
-                BuddyCharacterView(traits: buddy.person ?? PersonTraits(), headOnly: true)
+                BuddyCharacterView(traits: buddy.person ?? PersonTraits())
                     .padding(size * 0.04)
             } else if let path = buddy.customImagePath, let image = UIImage(contentsOfFile: path) {
                 Image(uiImage: image)
