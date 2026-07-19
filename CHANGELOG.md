@@ -6,6 +6,13 @@ releases add features, and anything that changes behaviour is noted.
 
 ## Unreleased
 
+- Proof photos are visible to the battle. Tapping a participant's camera
+  badge opens their Foto-Belege: every manual session's photo with capture
+  time, distance and steps. Proofs must be shot live with the camera, the
+  same picture can't be used twice (perceptual hash), and any member can
+  raise an Einspruch — objects more than half of the others, the day's
+  manual steps are revoked from everyone's leaderboard. The privacy label
+  gains Photos (battle-shared user content).
 - The manual-training camera badge now actually reaches opponents: score
   records carry a manual flag through CloudKit (schema field Score.manual,
   deploy before release). Battles can be deleted from the detail screen
