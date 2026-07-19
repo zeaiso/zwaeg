@@ -17,6 +17,10 @@ releases add features, and anything that changes behaviour is noted.
   raise an Einspruch — objects more than half of the others, the day's
   manual steps are revoked from everyone's leaderboard. The privacy label
   gains Photos (battle-shared user content).
+- Online food search got serious. It now fetches up to 24 results instead
+  of 6, searches in the app language plus English (with localized product
+  names), and zero-calorie products like Cola Zero appear — only entries
+  whose nutrition table was never filled in are dropped.
 - Battle roles for leaving and ending. "Battle verlassen" removes you from
   the others' leaderboards (your scores, proofs and objections are deleted
   from the cloud), and the creator additionally gets "Battle für alle

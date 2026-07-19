@@ -15,7 +15,19 @@ enum OpenFoodFactsClient {
         }
     }
 
-    private static let fields = "product_name,product_name_de,brands,nutriments,serving_quantity"
+    /// Open Food Facts language for the app language; dialects map to their
+    /// written base so Swiss German users search the German product names.
+    static var languageCode: String {
+        switch Lingo.shared.language.rawValue {
+        case "gsw", "rm": return "de"
+        case "nb": return "no"
+        case let code: return code
+        }
+    }
+
+    private static var fields: String {
+        "product_name,product_name_\(languageCode),brands,nutriments,serving_quantity"
+    }
 
     private static func request(for url: URL) -> URLRequest {
         var request = URLRequest(url: url)
@@ -52,14 +64,16 @@ enum OpenFoodFactsClient {
 
     /// Free-text name search via Search-a-licious (the classic search.pl is
     /// gone), for products the offline database doesn't carry ("Kaffee
-    /// Latte"). Best-effort: empty on any error, entries without nutrition
-    /// values are dropped.
-    static func searchProducts(name: String, limit: Int = 6) async -> [FoodProduct] {
+    /// Latte"). Searches in the app language plus English. Best-effort:
+    /// empty on any error. Entries whose nutrition table was never filled in
+    /// are dropped — but an explicit zero stays, or Cola Zero would vanish.
+    static func searchProducts(name: String, limit: Int = 24) async -> [FoodProduct] {
         let trimmed = name.trimmingCharacters(in: .whitespaces)
+        let langs = languageCode == "en" ? "en" : "\(languageCode),en"
         guard trimmed.count >= 3,
               let escaped = trimmed.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: "https://search.openfoodfacts.org/search?q=\(escaped)"
-                            + "&page_size=\(limit)&langs=de,en&fields=code,\(fields)") else {
+                            + "&page_size=\(limit)&langs=\(langs)&fields=code,\(fields)") else {
             return []
         }
         guard let (data, _) = try? await URLSession.shared.data(for: request(for: url)),
@@ -67,18 +81,16 @@ enum OpenFoodFactsClient {
             return []
         }
         return response.hits.compactMap { product in
-            guard let digits = product.code?.filter(\.isNumber), (6...14).contains(digits.count) else {
+            guard let digits = product.code?.filter(\.isNumber), (6...14).contains(digits.count),
+                  product.nutriments?.hasExplicitEnergy == true else {
                 return nil
             }
-            let mapped = foodProduct(from: product, digits: digits)
-            let hasNutrition = mapped.kcalPer100g > 0
-                || mapped.proteinPer100g + mapped.carbsPer100g + mapped.fatPer100g > 0
-            return hasNutrition ? mapped : nil
+            return foodProduct(from: product, digits: digits)
         }
     }
 
     private static func foodProduct(from product: OFFProduct, digits: String) -> FoodProduct {
-        let name = [product.productNameDe, product.productName]
+        let name = [product.productNameLocalized, product.productName]
             .compactMap { $0 }
             .first { !$0.isEmpty } ?? "Unbekanntes Produkt"
 
@@ -121,10 +133,21 @@ enum OpenFoodFactsClient {
         let hits: [OFFProduct]
     }
 
+    /// String-addressed key for fields whose name depends on the app
+    /// language (product_name_<lang>).
+    private struct AnyKey: CodingKey {
+        var stringValue: String
+        var intValue: Int? { nil }
+
+        init(_ string: String) { stringValue = string }
+        init?(stringValue: String) { self.stringValue = stringValue }
+        init?(intValue: Int) { nil }
+    }
+
     private struct OFFProduct: Decodable {
         let code: String?
         let productName: String?
-        let productNameDe: String?
+        let productNameLocalized: String?
         let brands: String?
         let nutriments: OFFNutriments?
         let servingQuantity: Double?
@@ -132,7 +155,6 @@ enum OpenFoodFactsClient {
         enum CodingKeys: String, CodingKey {
             case code
             case productName = "product_name"
-            case productNameDe = "product_name_de"
             case brands
             case nutriments
             case servingQuantity = "serving_quantity"
@@ -149,7 +171,9 @@ enum OpenFoodFactsClient {
                 code = nil
             }
             productName = try? container.decode(String.self, forKey: .productName)
-            productNameDe = try? container.decode(String.self, forKey: .productNameDe)
+            let localized = try? decoder.container(keyedBy: AnyKey.self)
+                .decode(String.self, forKey: AnyKey("product_name_\(OpenFoodFactsClient.languageCode)"))
+            productNameLocalized = localized
             // Comma string on the product endpoint, array on the search API.
             if let text = try? container.decode(String.self, forKey: .brands) {
                 brands = text
@@ -172,6 +196,12 @@ enum OpenFoodFactsClient {
     private struct OFFNutriments: Decodable {
         let energyKcal100g: Double?
         let energyKj100g: Double?
+
+        /// The table was actually filled in; an explicit 0 counts (diet
+        /// drinks), a missing field does not.
+        var hasExplicitEnergy: Bool {
+            energyKcal100g != nil || energyKj100g != nil
+        }
         let proteins100g: Double?
         let carbohydrates100g: Double?
         let fat100g: Double?
