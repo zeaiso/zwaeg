@@ -98,8 +98,70 @@ struct ChallengeSyncService {
     }
 
     func refresh(_ challenge: Challenge) async throws {
+        // The creator may have ended the battle for everyone; an active
+        // challenge whose record is gone ends locally instead of syncing on.
+        if await challengeRecordGone(code: challenge.code) {
+            await markEnded(challenge)
+            return
+        }
         try await pushMyScores(challenge)
         try await pullAllScores(challenge)
+    }
+
+    private func challengeRecordGone(code: String) async -> Bool {
+        do {
+            _ = try await database.record(for: CKRecord.ID(recordName: "challenge-\(code)"))
+            return false
+        } catch let error as CKError where error.code == .unknownItem {
+            return true
+        } catch {
+            // Network trouble is not proof of deletion.
+            return false
+        }
+    }
+
+    @MainActor
+    private func markEnded(_ challenge: Challenge) {
+        guard let yesterday = Calendar.current.date(
+            byAdding: .day, value: -1, to: Calendar.current.startOfDay(for: .now)) else { return }
+        challenge.endDay = min(challenge.endDay, yesterday)
+    }
+
+    /// Leaving: my Score, Proof and Flag records disappear from the cloud,
+    /// so the others' leaderboards forget me. The local model is the
+    /// caller's to delete.
+    func leave(_ challenge: Challenge) async {
+        let myID = PlayerIdentity.myID
+        await deleteRecords(challengeCode: challenge.code) { record in
+            record["participantID"] as? String == myID
+                || record["voterID"] as? String == myID
+        }
+    }
+
+    /// Creator only (enforced client-side): removes the challenge record and
+    /// every Score, Proof and Flag under the code. Other members' apps mark
+    /// the battle as ended on their next refresh.
+    func endForEveryone(_ challenge: Challenge) async {
+        try? await database.deleteRecord(withID: CKRecord.ID(recordName: "challenge-\(challenge.code)"))
+        await deleteRecords(challengeCode: challenge.code) { _ in true }
+    }
+
+    private func deleteRecords(challengeCode: String,
+                               matching include: (CKRecord) -> Bool) async {
+        for recordType in ["Score", "Proof", "Flag"] {
+            let query = CKQuery(recordType: recordType,
+                                predicate: NSPredicate(format: "challengeCode == %@", challengeCode))
+            guard let page = try? await database.records(matching: query, resultsLimit: 400) else {
+                continue
+            }
+            let doomed = page.matchResults.compactMap { id, result -> CKRecord.ID? in
+                guard let record = try? result.get(), include(record) else { return nil }
+                return id
+            }
+            guard !doomed.isEmpty else { continue }
+            _ = try? await database.modifyRecords(saving: [], deleting: doomed,
+                                                 savePolicy: .allKeys, atomically: false)
+        }
     }
 
     /// Claims a fresh join code and publishes the challenge under it, returning

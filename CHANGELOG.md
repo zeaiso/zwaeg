@@ -17,6 +17,12 @@ releases add features, and anything that changes behaviour is noted.
   raise an Einspruch — objects more than half of the others, the day's
   manual steps are revoked from everyone's leaderboard. The privacy label
   gains Photos (battle-shared user content).
+- Battle roles for leaving and ending. "Battle verlassen" removes you from
+  the others' leaderboards (your scores, proofs and objections are deleted
+  from the cloud), and the creator additionally gets "Battle für alle
+  beenden", which deletes the battle for every participant — their apps
+  show it as ended on the next refresh. The routes card now also explains
+  how to get a first route when none exists yet.
 - The manual-training camera badge now actually reaches opponents: score
   records carry a manual flag through CloudKit (schema field Score.manual,
   deploy before release). Battles can be deleted from the detail screen

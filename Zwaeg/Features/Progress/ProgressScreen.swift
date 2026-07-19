@@ -52,9 +52,7 @@ struct ProgressScreen: View {
                 caloriesCard
                 weekCard
                 weightCard
-                if !routes.isEmpty {
-                    routesCard
-                }
+                routesCard
                 photosCard
             }
             .padding(16)
@@ -115,10 +113,16 @@ struct ProgressScreen: View {
             Text("Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.".loc)
                 .font(.fredoka(12))
                 .foregroundStyle(.secondary)
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach(routes) { route in
-                        routeTile(route)
+            if routes.isEmpty {
+                Text("Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.".loc)
+                    .font(.fredoka(13))
+                    .foregroundStyle(.tertiary)
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 12) {
+                        ForEach(routes) { route in
+                            routeTile(route)
+                        }
                     }
                 }
             }

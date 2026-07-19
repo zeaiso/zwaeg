@@ -12,7 +12,8 @@ struct ChallengeDetailView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @State private var showManualSession = false
-    @State private var confirmDelete = false
+    @State private var confirmLeave = false
+    @State private var confirmEndForAll = false
     @State private var proofParticipant: ParticipantScore?
     /// Steps revoked by objection majorities, per participant.
     @State private var revokedSteps: [String: Double] = [:]
@@ -43,19 +44,39 @@ struct ChallengeDetailView: View {
             }
             .padding(16)
         }
-        .confirmationDialog("Battle löschen?".loc, isPresented: $confirmDelete,
+        .confirmationDialog("Battle verlassen?".loc, isPresented: $confirmLeave,
                             titleVisibility: .visible) {
-            Button("Löschen".loc, role: .destructive) {
+            Button("Verlassen".loc, role: .destructive) {
+                let target = challenge
                 dismiss()
                 // Deleting the model while this view still renders it would
                 // crash; let the pop finish first.
                 Task { @MainActor in
+                    if target.code != Challenge.demoCode {
+                        await ChallengeSyncService.shared.leave(target)
+                    }
                     try? await Task.sleep(for: .milliseconds(400))
-                    context.delete(challenge)
+                    context.delete(target)
                 }
             }
         } message: {
-            Text("Entfernt das Battle nur von diesem Gerät. Deine bereits geteilten Tageswerte bleiben für die anderen sichtbar.".loc)
+            Text("Du verschwindest aus der Rangliste der anderen, deine Werte und Foto-Belege werden aus dem Battle gelöscht.".loc)
+        }
+        .confirmationDialog("Battle für alle beenden?".loc, isPresented: $confirmEndForAll,
+                            titleVisibility: .visible) {
+            Button("Für alle beenden".loc, role: .destructive) {
+                let target = challenge
+                dismiss()
+                Task { @MainActor in
+                    if target.code != Challenge.demoCode {
+                        await ChallengeSyncService.shared.endForEveryone(target)
+                    }
+                    try? await Task.sleep(for: .milliseconds(400))
+                    context.delete(target)
+                }
+            }
+        } message: {
+            Text("Löscht das Battle mit allen Werten und Foto-Belegen. Bei den anderen erscheint es als beendet.".loc)
         }
         .defaultScrollAnchor(LaunchArgs.all.contains("-scroll-bottom") ? .bottom : .top)
         .background(Theme.background)
@@ -123,17 +144,32 @@ struct ChallengeDetailView: View {
     }
 
     private var deleteButton: some View {
-        Button(role: .destructive) {
-            confirmDelete = true
-        } label: {
-            Text("Battle löschen".loc)
-                .font(.fredoka(14, .semibold))
-                .foregroundStyle(.red)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 12)
-                .background(Theme.card, in: Capsule())
+        VStack(spacing: 10) {
+            Button(role: .destructive) {
+                confirmLeave = true
+            } label: {
+                Text("Battle verlassen".loc)
+                    .font(.fredoka(14, .semibold))
+                    .foregroundStyle(.red)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .background(Theme.card, in: Capsule())
+            }
+            .buttonStyle(.plain)
+            if challenge.isCreator {
+                Button(role: .destructive) {
+                    confirmEndForAll = true
+                } label: {
+                    Text("Battle für alle beenden".loc)
+                        .font(.fredoka(14, .semibold))
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background(Color.red.gradient, in: Capsule())
+                }
+                .buttonStyle(.plain)
+            }
         }
-        .buttonStyle(.plain)
     }
 
     /// Says out loud what keeps the leaderboard honest.

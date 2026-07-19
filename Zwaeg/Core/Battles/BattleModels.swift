@@ -121,6 +121,9 @@ final class Challenge {
     /// JSON-encoded [ParticipantScore]; kept as Data for painless SwiftData storage
     /// and 1:1 mapping onto the CloudKit record later.
     var participantsData: Data
+    /// This install published the challenge; only the creator may end it
+    /// for everyone. Battles from before the field default to false.
+    var isCreator: Bool = false
 
     init(code: String, name: String, metric: BattleMetric, startDay: Date, endDay: Date,
          participants: [ParticipantScore]) {
@@ -203,14 +206,17 @@ extension Challenge {
     /// two sheets drifting apart (join once shipped a literal "Du" as the name
     /// every opponent saw).
     static func mine(code: String, name: String, metric: BattleMetric,
-                     startDay: Date, endDay: Date, profile: UserProfile) -> Challenge {
-        Challenge(code: code, name: name, metric: metric,
-                  startDay: startDay, endDay: endDay,
-                  participants: [ParticipantScore(
-                      id: PlayerIdentity.myID,
-                      name: profile.battleName,
-                      isMe: true,
-                      scores: [:])])
+                     startDay: Date, endDay: Date, profile: UserProfile,
+                     isCreator: Bool = false) -> Challenge {
+        let challenge = Challenge(code: code, name: name, metric: metric,
+                                  startDay: startDay, endDay: endDay,
+                                  participants: [ParticipantScore(
+                                      id: PlayerIdentity.myID,
+                                      name: profile.battleName,
+                                      isMe: true,
+                                      scores: [:])])
+        challenge.isCreator = isCreator
+        return challenge
     }
 }
 

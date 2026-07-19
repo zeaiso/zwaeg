@@ -106,7 +106,7 @@ struct CreateChallengeSheet: View {
             let code = try await ChallengeSyncService.shared.publishNewChallenge(
                 name: finalName, metric: metric, start: start, end: end)
             context.insert(Challenge.mine(code: code, name: finalName, metric: metric,
-                                          startDay: start, endDay: end, profile: profile))
+                                          startDay: start, endDay: end, profile: profile, isCreator: true))
             dismiss()
         } catch {
             errorMessage = BattleSyncError.message(for: error)

@@ -90,7 +90,7 @@ struct BattlesScreen: View {
                         let code = try await ChallengeSyncService.shared.publishNewChallenge(
                             name: "CloudKit-Test", metric: .steps, start: start, end: end)
                         context.insert(Challenge.mine(code: code, name: "CloudKit-Test", metric: .steps,
-                                                      startDay: start, endDay: end, profile: profile))
+                                                      startDay: start, endDay: end, profile: profile, isCreator: true))
                     } catch {
                         syncError = BattleSyncError.message(for: error)
                     }
