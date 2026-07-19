@@ -75,8 +75,16 @@ private struct TranslateBarCore: View {
     @State private var showingTranslation = false
     @State private var isTranslating = false
     @State private var configuration: TranslationSession.Configuration?
+    /// The language Apple can actually deliver: the app language when
+    /// supported, otherwise English (Danish readers get English over
+    /// nothing), matching the cache key.
+    @State private var language = Lingo.shared.language.rawValue
 
-    private var language: String { Lingo.shared.language.rawValue }
+    private var languageLabel: String {
+        language == Lingo.shared.language.rawValue
+            ? Lingo.shared.language.label
+            : "English"
+    }
 
     var body: some View {
         Group {
@@ -107,7 +115,7 @@ private struct TranslateBarCore: View {
                         source: Locale.Language(identifier: "de"),
                         target: Locale.Language(identifier: language))
                 } label: {
-                    Label("Auf %@ übersetzen".loc(Lingo.shared.language.label),
+                    Label("Auf %@ übersetzen".loc(languageLabel),
                           systemImage: "translate")
                         .font(.fredoka(13, .semibold))
                         .foregroundStyle(Color.appAccent)
@@ -116,16 +124,24 @@ private struct TranslateBarCore: View {
             }
         }
         .task {
+            let availability = LanguageAvailability()
+            func status(of target: String) async -> LanguageAvailability.Status? {
+                try? await availability.status(from: Locale.Language(identifier: "de"),
+                                               to: Locale.Language(identifier: target))
+            }
+            var target = Lingo.shared.language.rawValue
+            var state = await status(of: target)
+            if state == nil || state == .unsupported {
+                target = "en"
+                state = await status(of: target)
+            }
+            language = target
+            supported = state != nil && state != .unsupported
             if let cached = RecipeTranslationStore.load(language: language)[recipe.id] {
                 translation = cached
                 showingTranslation = true
                 onDisplay(cached)
-                return
             }
-            let status = try? await LanguageAvailability().status(
-                from: Locale.Language(identifier: "de"),
-                to: Locale.Language(identifier: language))
-            supported = status != .unsupported && status != nil
         }
         .translationTask(configuration) { session in
             isTranslating = true
