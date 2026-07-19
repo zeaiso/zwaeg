@@ -64,6 +64,7 @@
   "Amerikanisch": "Amerikan",
   "Anderes Foto wählen": "Başka fotoğraf seç",
   "Anonym": "Anonim",
+  "Auf %@ übersetzen": "%@ diline çevir",
   "Augen": "Gözler",
   "Augenklappe": "Göz bandı",
   "Ausgeblendet — Tag hat noch Einträge": "Gizli — günde hâlâ kayıt var",
@@ -274,8 +275,10 @@
   "Neues Foto aufnehmen": "Yeni fotoğraf çek",
   "Noch %d kcal frei": "%d kcal kaldı",
   "Noch keine Foto-Belege.": "Henüz fotoğraf kanıtı yok.",
+  "Original anzeigen": "Orijinali göster",
   "Profil & Buddy": "Profil ve buddy",
   "Protein: %d %%": "Protein: %%%d",
+  "Rezepte sind aktuell auf Deutsch.": "Tarifler şu anda Almanca.",
   "Spaziergang": "Yürüyüş",
   "Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.": "Apple Sağlık'tan yürüyüş ve koşular — yalnızca cihazında.",
   "Startzeit": "Başlangıç saati",
@@ -291,6 +294,7 @@
   "Was passt heute noch?": "Bugün daha ne sığar?",
   "Wenn dein Fastenfenster beginnt": "Oruç penceren başladığında",
   "Wiegen": "Tartılma",
+  "Wird übersetzt …": "Çevriliyor …",
   "Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.": "Apple Watch veya Antrenman uygulamasıyla bir yürüyüş ya da koşu kaydet — rota burada görünecek.",
   "Zeit für ein neues Foto!": "Yeni bir fotoğraf zamanı!",
   "Zeit zum Wiegen": "Tartılma zamanı",
@@ -637,5 +641,6 @@
   "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Mifflin-St Jeor (1990) ve DSÖ sınıflandırmasına göre hesaplanmıştır – yol gösterici değerler, tıbbi tavsiye değildir.",
   "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "BMI sınıflandırması DSÖ'ye, kalori ihtiyacı Mifflin-St Jeor ile FAO/DSÖ/UNU'ya, ideal kilo Devine, Robinson, Miller ve Broca'ya, aktivite harcaması Compendium of Physical Activities'e göredir.",
   "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Günlük hedef Mifflin-St Jeor (1990) ile FAO/DSÖ/UNU (2004) kaynaklıdır, BMI sınıflandırması DSÖ'ye göredir.",
+  "Übersetzung anzeigen": "Çeviriyi göster",
   "≈ %d Schritte": "≈ %d adım"
 }

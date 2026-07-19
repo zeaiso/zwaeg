@@ -64,6 +64,7 @@
   "Amerikanisch": "ኣመሪካዊ",
   "Anderes Foto wählen": "ካልእ ስእሊ ምረጽ",
   "Anonym": "ስም ዘይብሉ",
+  "Auf %@ übersetzen": "ናብ %@ ተርጉም",
   "Augen": "ኣዒንቲ",
   "Augenklappe": "መሸፈኒ ዓይኒ",
   "Ausgeblendet — Tag hat noch Einträge": "ተሓቢኡ — እታ መዓልቲ ገና መዝገባት ኣለዋ",
@@ -274,8 +275,10 @@
   "Neues Foto aufnehmen": "ሓድሽ ስእሊ ስኣል",
   "Noch %d kcal frei": "ገና %d ካሎሪ ተሪፉ",
   "Noch keine Foto-Belege.": "ገና ስእሊ መረጋገጺ የለን።",
+  "Original anzeigen": "መበቆላዊ ኣርእይ",
   "Profil & Buddy": "መለለዪን ብዓል መጻምድን",
   "Protein: %d %%": "ፕሮቲን: %d %%",
+  "Rezepte sind aktuell auf Deutsch.": "ኣገባብ ምግቢ ሕጂ ብጀርመንኛ እዩ።",
   "Spaziergang": "ምዝዋር",
   "Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.": "ምዝዋርን ጉያን ካብ Apple Health — ኣብ መሳርሒኻ ጥራይ።",
   "Startzeit": "ግዜ ምጅማር",
@@ -291,6 +294,7 @@
   "Was passt heute noch?": "ሎሚ እንታይ ገና ይሰማማዕ?",
   "Wenn dein Fastenfenster beginnt": "መስኮት ጾምካ ክጅምር ከሎ",
   "Wiegen": "ምዕቃን",
+  "Wird übersetzt …": "ይትርጎም ኣሎ …",
   "Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.": "ብApple Watch ወይ ብመተግበሪ Workout ምዝዋር ወይ ጉያ መዝግብ — እቲ መገዲ ኣብዚ ክረአ እዩ።",
   "Zeit für ein neues Foto!": "ግዜ ንሓድሽ ስእሊ!",
   "Zeit zum Wiegen": "ግዜ ምዕቃን",
@@ -637,5 +641,6 @@
   "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "ብ Mifflin-St Jeor (1990)ን ምድብ WHOን እተቘጽረ – መምርሒ ዋጋታት፣ ሕክምናዊ ምኽሪ ኣይኮነን።",
   "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "ምድብ BMI ብ WHO፣ ድሌት ካሎሪ ብ Mifflin-St Jeor ን FAO/WHO/UNU ን፣ ብቑዕ ክብደት ብ Devine፣ Robinson፣ Miller ን Broca ን፣ ወጻኢ ንጥፈት ብ Compendium of Physical Activities።",
   "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "ዕለታዊ ዕላማ ብ Mifflin-St Jeor (1990)ን FAO/WHO/UNU (2004)ን፣ ምድብ BMI ብ WHO።",
+  "Übersetzung anzeigen": "ትርጉም ኣርእይ",
   "≈ %d Schritte": "≈ %d ስጉምቲ"
 }

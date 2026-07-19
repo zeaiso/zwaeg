@@ -64,6 +64,7 @@
   "Amerikanisch": "American",
   "Anderes Foto wählen": "Tscherner in'autra foto",
   "Anonym": "Anonim",
+  "Auf %@ übersetzen": "Translatar en %@",
   "Augen": "Egls",
   "Augenklappe": "Tavella",
   "Ausgeblendet — Tag hat noch Einträge": "Zuppà — il di ha anc registraziuns",
@@ -274,8 +275,10 @@
   "Neues Foto aufnehmen": "Far ina nova foto",
   "Noch %d kcal frei": "Anc %d kcal libras",
   "Noch keine Foto-Belege.": "Anc naginas cumprovas da foto.",
+  "Original anzeigen": "Mussar il original",
   "Profil & Buddy": "Profil & buddy",
   "Protein: %d %%": "Proteins: %d %%",
+  "Rezepte sind aktuell auf Deutsch.": "Ils recepts èn actualmain per tudestg.",
   "Spaziergang": "Spassegiada",
   "Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.": "Spassegiadas e curridas ord Apple Health — mo sin tes apparat.",
   "Startzeit": "Temp da cumenzament",
@@ -291,6 +294,7 @@
   "Was passt heute noch?": "Tge va anc oz?",
   "Wenn dein Fastenfenster beginnt": "Cur che tia fanestra da giginar cumenza",
   "Wiegen": "Pesar",
+  "Wird übersetzt …": "Vegn translatà …",
   "Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.": "Registrescha ina spassegiada u currida cun l'Apple Watch u l'app Workout — la ruta cumpara lura qua.",
   "Zeit für ein neues Foto!": "Temp per ina nova foto!",
   "Zeit zum Wiegen": "Temp da pesar",
@@ -637,5 +641,6 @@
   "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Calculà tenor Mifflin-St Jeor (1990) e la classificaziun da l'OMS – valurs indicativas, nagin cussegl medicinal.",
   "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "Classificaziun dal BMI tenor l'OMS, basegn da calorias tenor Mifflin-St Jeor e FAO/OMS/UNU, pais ideal tenor Devine, Robinson, Miller e Broca, consum d'activitad tenor il Compendium of Physical Activities.",
   "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Finamira dal di tenor Mifflin-St Jeor (1990) e FAO/OMS/UNU (2004), classificaziun dal BMI tenor l'OMS.",
+  "Übersetzung anzeigen": "Mussar la translaziun",
   "≈ %d Schritte": "≈ %d pass"
 }

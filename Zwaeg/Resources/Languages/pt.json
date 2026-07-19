@@ -64,6 +64,7 @@
   "Amerikanisch": "Americana",
   "Anderes Foto wählen": "Escolher outra foto",
   "Anonym": "Anónimo",
+  "Auf %@ übersetzen": "Traduzir para %@",
   "Augen": "Olhos",
   "Augenklappe": "Pala no olho",
   "Ausgeblendet — Tag hat noch Einträge": "Oculto — o dia ainda tem registos",
@@ -274,8 +275,10 @@
   "Neues Foto aufnehmen": "Tirar nova foto",
   "Noch %d kcal frei": "Ainda %d kcal livres",
   "Noch keine Foto-Belege.": "Ainda sem fotos de prova.",
+  "Original anzeigen": "Mostrar original",
   "Profil & Buddy": "Perfil e buddy",
   "Protein: %d %%": "Proteína: %d %%",
+  "Rezepte sind aktuell auf Deutsch.": "As receitas estão atualmente em alemão.",
   "Spaziergang": "Caminhada",
   "Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.": "Caminhadas e corridas da app Saúde — só no teu dispositivo.",
   "Startzeit": "Hora de início",
@@ -291,6 +294,7 @@
   "Was passt heute noch?": "O que ainda cabe hoje?",
   "Wenn dein Fastenfenster beginnt": "Quando a tua janela de jejum começa",
   "Wiegen": "Pesagem",
+  "Wird übersetzt …": "A traduzir …",
   "Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.": "Regista uma caminhada ou corrida com o Apple Watch ou a app Treino — a rota aparecerá aqui.",
   "Zeit für ein neues Foto!": "Hora de uma nova foto!",
   "Zeit zum Wiegen": "Hora de te pesares",
@@ -637,5 +641,6 @@
   "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Calculado segundo Mifflin-St Jeor (1990) e a classificação da OMS – valores de referência, não aconselhamento médico.",
   "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "Classificação do IMC segundo a OMS, necessidades calóricas segundo Mifflin-St Jeor e FAO/OMS/UNU, peso ideal segundo Devine, Robinson, Miller e Broca, gasto por atividade segundo o Compendium of Physical Activities.",
   "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Meta diária segundo Mifflin-St Jeor (1990) e FAO/OMS/UNU (2004), classificação do IMC segundo a OMS.",
+  "Übersetzung anzeigen": "Mostrar tradução",
   "≈ %d Schritte": "≈ %d passos"
 }

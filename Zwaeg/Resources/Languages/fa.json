@@ -64,6 +64,7 @@
   "Amerikanisch": "آمریکایی",
   "Anderes Foto wählen": "انتخاب عکس دیگر",
   "Anonym": "ناشناس",
+  "Auf %@ übersetzen": "ترجمه به %@",
   "Augen": "چشم‌ها",
   "Augenklappe": "چشم‌بند",
   "Ausgeblendet — Tag hat noch Einträge": "پنهان — این روز هنوز ثبت‌هایی دارد",
@@ -274,8 +275,10 @@
   "Neues Foto aufnehmen": "عکس جدید بگیر",
   "Noch %d kcal frei": "%d کیلوکالری مانده",
   "Noch keine Foto-Belege.": "هنوز عکس مدرکی نیست.",
+  "Original anzeigen": "نمایش اصل",
   "Profil & Buddy": "پروفایل و بادی",
   "Protein: %d %%": "پروتئین: %d %%",
+  "Rezepte sind aktuell auf Deutsch.": "دستور پخت‌ها فعلاً به آلمانی هستند.",
   "Spaziergang": "پیاده‌روی",
   "Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.": "پیاده‌روی‌ها و دویدن‌ها از سلامت اپل — فقط روی دستگاهت.",
   "Startzeit": "زمان شروع",
@@ -291,6 +294,7 @@
   "Was passt heute noch?": "امروز چه چیزی هنوز جا دارد؟",
   "Wenn dein Fastenfenster beginnt": "وقتی پنجره روزه‌ات شروع می‌شود",
   "Wiegen": "وزن‌کشی",
+  "Wird übersetzt …": "در حال ترجمه …",
   "Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.": "با اپل واچ یا برنامه تمرین یک پیاده‌روی یا دویدن ثبت کن — مسیر اینجا نمایش داده می‌شود.",
   "Zeit für ein neues Foto!": "وقت یک عکس جدید است!",
   "Zeit zum Wiegen": "وقت وزن‌کشی است",
@@ -637,5 +641,6 @@
   "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "محاسبه‌شده بر اساس Mifflin-St Jeor (1990) و طبقه‌بندی WHO – مقادیر راهنما، نه توصیه پزشکی.",
   "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "طبقه‌بندی BMI بر اساس WHO، نیاز کالری بر اساس Mifflin-St Jeor و FAO/WHO/UNU، وزن ایده‌آل بر اساس Devine، Robinson، Miller و Broca، مصرف فعالیت بر اساس Compendium of Physical Activities.",
   "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "هدف روزانه بر اساس Mifflin-St Jeor (1990) و FAO/WHO/UNU (2004)، طبقه‌بندی BMI بر اساس WHO.",
+  "Übersetzung anzeigen": "نمایش ترجمه",
   "≈ %d Schritte": "≈ %d قدم"
 }

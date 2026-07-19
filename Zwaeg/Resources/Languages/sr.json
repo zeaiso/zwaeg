@@ -64,6 +64,7 @@
   "Amerikanisch": "Američka",
   "Anderes Foto wählen": "Izaberi drugu fotografiju",
   "Anonym": "Anoniman",
+  "Auf %@ übersetzen": "Prevedi na %@",
   "Augen": "Oči",
   "Augenklappe": "Povez za oko",
   "Ausgeblendet — Tag hat noch Einträge": "Skriveno — dan još ima unose",
@@ -274,8 +275,10 @@
   "Neues Foto aufnehmen": "Slikaj ponovo",
   "Noch %d kcal frei": "Još %d kcal slobodno",
   "Noch keine Foto-Belege.": "Još nema foto-dokaza.",
+  "Original anzeigen": "Prikaži original",
   "Profil & Buddy": "Profil i buddy",
   "Protein: %d %%": "Proteini: %d %%",
+  "Rezepte sind aktuell auf Deutsch.": "Recepti su trenutno na nemačkom.",
   "Spaziergang": "Šetnja",
   "Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.": "Šetnje i trčanja iz Apple Health-a — samo na tvom uređaju.",
   "Startzeit": "Vreme početka",
@@ -291,6 +294,7 @@
   "Was passt heute noch?": "Šta još staje danas?",
   "Wenn dein Fastenfenster beginnt": "Kad počinje tvoj prozor posta",
   "Wiegen": "Merenje",
+  "Wird übersetzt …": "Prevodi se …",
   "Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.": "Snimi šetnju ili trčanje Apple Watch-om ili aplikacijom Trening — ruta će se pojaviti ovde.",
   "Zeit für ein neues Foto!": "Vreme je za novu fotografiju!",
   "Zeit zum Wiegen": "Vreme je za merenje",
@@ -637,5 +641,6 @@
   "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Izračunato po Mifflin-St Jeor (1990) i klasifikaciji SZO – orijentacione vrednosti, nisu medicinski savet.",
   "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "BMI klasifikacija prema SZO, kalorijske potrebe po Mifflin-St Jeor i FAO/SZO/UNU, idealna težina po Devine, Robinson, Miller i Broca, potrošnja aktivnosti prema Compendium of Physical Activities.",
   "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Dnevni cilj po Mifflin-St Jeor (1990) i FAO/SZO/UNU (2004), BMI klasifikacija prema SZO.",
+  "Übersetzung anzeigen": "Prikaži prevod",
   "≈ %d Schritte": "≈ %d koraka"
 }

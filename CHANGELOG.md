@@ -17,6 +17,12 @@ releases add features, and anything that changes behaviour is noted.
   raise an Einspruch — objects more than half of the others, the day's
   manual steps are revoked from everyone's leaderboard. The privacy label
   gains Photos (battle-shared user content).
+- Recipes translate themselves. In a non-German app language, the recipe
+  page offers "Auf … übersetzen": Apple's on-device translation converts
+  name, ingredients and steps (nothing leaves the device), the result is
+  cached per language, and a toggle switches back to the original. Where
+  the language isn't supported by Apple's translation (or on iOS 17), an
+  honest note says recipes are currently German.
 - Online food search got serious. It now fetches up to 24 results instead
   of 6, searches in the app language plus English (with localized product
   names), and zero-calorie products like Cola Zero appear — only entries

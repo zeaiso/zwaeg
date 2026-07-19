@@ -64,6 +64,7 @@
   "Amerikanisch": "Américaine",
   "Anderes Foto wählen": "Choisir une autre photo",
   "Anonym": "Anonyme",
+  "Auf %@ übersetzen": "Traduire en %@",
   "Augen": "Yeux",
   "Augenklappe": "Cache-œil",
   "Ausgeblendet — Tag hat noch Einträge": "Masqué — la journée a encore des entrées",
@@ -274,8 +275,10 @@
   "Neues Foto aufnehmen": "Prendre une nouvelle photo",
   "Noch %d kcal frei": "Encore %d kcal de libre",
   "Noch keine Foto-Belege.": "Pas encore de preuves photo.",
+  "Original anzeigen": "Afficher l'original",
   "Profil & Buddy": "Profil & buddy",
   "Protein: %d %%": "Protéines : %d %%",
+  "Rezepte sind aktuell auf Deutsch.": "Les recettes sont actuellement en allemand.",
   "Spaziergang": "Marche",
   "Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.": "Marches et courses depuis Apple Santé — uniquement sur ton appareil.",
   "Startzeit": "Heure de début",
@@ -291,6 +294,7 @@
   "Was passt heute noch?": "Qu'est-ce qui passe encore aujourd'hui ?",
   "Wenn dein Fastenfenster beginnt": "Quand ta fenêtre de jeûne commence",
   "Wiegen": "Pesée",
+  "Wird übersetzt …": "Traduction en cours …",
   "Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.": "Enregistre une marche ou une course avec l'Apple Watch ou l'app Exercice — le parcours apparaîtra ici.",
   "Zeit für ein neues Foto!": "C'est l'heure d'une nouvelle photo !",
   "Zeit zum Wiegen": "C'est l'heure de la pesée",
@@ -637,5 +641,6 @@
   "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Calculé selon Mifflin-St Jeor (1990) et la classification de l'OMS – valeurs indicatives, pas un avis médical.",
   "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "Classification IMC selon l'OMS, besoins caloriques selon Mifflin-St Jeor et FAO/OMS/UNU, poids idéal selon Devine, Robinson, Miller et Broca, dépense d'activité selon le Compendium of Physical Activities.",
   "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Objectif quotidien selon Mifflin-St Jeor (1990) et FAO/OMS/UNU (2004), classification IMC selon l'OMS.",
+  "Übersetzung anzeigen": "Afficher la traduction",
   "≈ %d Schritte": "≈ %d pas"
 }

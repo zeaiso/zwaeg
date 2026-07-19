@@ -64,6 +64,7 @@
   "Amerikanisch": "Amerikane",
   "Anderes Foto wählen": "Zgjidh një foto tjetër",
   "Anonym": "Anonim",
+  "Auf %@ übersetzen": "Përkthe në %@",
   "Augen": "Sytë",
   "Augenklappe": "Fasho syri",
   "Ausgeblendet — Tag hat noch Einträge": "E fshehur — dita ka ende regjistrime",
@@ -274,8 +275,10 @@
   "Neues Foto aufnehmen": "Bëj foto të re",
   "Noch %d kcal frei": "Edhe %d kcal të lira",
   "Noch keine Foto-Belege.": "Ende pa foto-prova.",
+  "Original anzeigen": "Shfaq origjinalin",
   "Profil & Buddy": "Profili & buddy",
   "Protein: %d %%": "Proteina: %d %%",
+  "Rezepte sind aktuell auf Deutsch.": "Recetat aktualisht janë në gjermanisht.",
   "Spaziergang": "Shëtitje",
   "Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.": "Shëtitje dhe vrapime nga Apple Health — vetëm në pajisjen tënde.",
   "Startzeit": "Ora e fillimit",
@@ -291,6 +294,7 @@
   "Was passt heute noch?": "Çfarë hyn ende sot?",
   "Wenn dein Fastenfenster beginnt": "Kur fillon dritarja jote e agjërimit",
   "Wiegen": "Peshimi",
+  "Wird übersetzt …": "Po përkthehet …",
   "Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.": "Regjistro një shëtitje ose vrapim me Apple Watch ose aplikacionin Workout — rruga do të shfaqet këtu.",
   "Zeit für ein neues Foto!": "Koha për një foto të re!",
   "Zeit zum Wiegen": "Koha për t'u peshuar",
@@ -637,5 +641,6 @@
   "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Llogaritur sipas Mifflin-St Jeor (1990) dhe klasifikimit të OBSH-së – vlera orientuese, jo këshillë mjekësore.",
   "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "Klasifikimi i BMI sipas OBSH-së, nevojat kalorike sipas Mifflin-St Jeor dhe FAO/OBSH/UNU, pesha ideale sipas Devine, Robinson, Miller dhe Broca, konsumi i aktivitetit sipas Compendium of Physical Activities.",
   "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Objektivi ditor sipas Mifflin-St Jeor (1990) dhe FAO/OBSH/UNU (2004), klasifikimi i BMI sipas OBSH-së.",
+  "Übersetzung anzeigen": "Shfaq përkthimin",
   "≈ %d Schritte": "≈ %d hapa"
 }

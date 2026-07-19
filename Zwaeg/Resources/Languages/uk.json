@@ -64,6 +64,7 @@
   "Amerikanisch": "Американська",
   "Anderes Foto wählen": "Вибрати інше фото",
   "Anonym": "Анонім",
+  "Auf %@ übersetzen": "Перекласти на %@",
   "Augen": "Очі",
   "Augenklappe": "Пов'язка на око",
   "Ausgeblendet — Tag hat noch Einträge": "Приховано — день ще має записи",
@@ -274,8 +275,10 @@
   "Neues Foto aufnehmen": "Зробити нове фото",
   "Noch %d kcal frei": "Ще %d ккал вільно",
   "Noch keine Foto-Belege.": "Ще немає фото-доказів.",
+  "Original anzeigen": "Показати оригінал",
   "Profil & Buddy": "Профіль і бадді",
   "Protein: %d %%": "Білки: %d %%",
+  "Rezepte sind aktuell auf Deutsch.": "Рецепти наразі німецькою.",
   "Spaziergang": "Прогулянка",
   "Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.": "Прогулянки й пробіжки з Apple Здоровʼя — тільки на твоєму пристрої.",
   "Startzeit": "Час початку",
@@ -291,6 +294,7 @@
   "Was passt heute noch?": "Що ще вміститься сьогодні?",
   "Wenn dein Fastenfenster beginnt": "Коли починається твоє вікно голодування",
   "Wiegen": "Зважування",
+  "Wird übersetzt …": "Перекладається …",
   "Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.": "Запиши прогулянку чи пробіжку з Apple Watch або застосунком Тренування — маршрут зʼявиться тут.",
   "Zeit für ein neues Foto!": "Час для нового фото!",
   "Zeit zum Wiegen": "Час зважитися",
@@ -637,5 +641,6 @@
   "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Розраховано за Mifflin-St Jeor (1990) та класифікацією ВООЗ – орієнтовні значення, не медична порада.",
   "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "Класифікація ІМТ за ВООЗ, потреба в калоріях за Mifflin-St Jeor і FAO/ВООЗ/UNU, ідеальна вага за Devine, Robinson, Miller і Broca, витрати на активність за Compendium of Physical Activities.",
   "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Денна ціль за Mifflin-St Jeor (1990) і FAO/ВООЗ/UNU (2004), класифікація ІМТ за ВООЗ.",
+  "Übersetzung anzeigen": "Показати переклад",
   "≈ %d Schritte": "≈ %d кроків"
 }

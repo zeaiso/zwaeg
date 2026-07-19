@@ -64,6 +64,7 @@
   "Amerikanisch": "அமெரிக்க",
   "Anderes Foto wählen": "வேறு புகைப்படம் தேர்வு",
   "Anonym": "பெயரில்லாதவர்",
+  "Auf %@ übersetzen": "%@ மொழிக்கு மொழிபெயர்",
   "Augen": "கண்கள்",
   "Augenklappe": "கண் கட்டு",
   "Ausgeblendet — Tag hat noch Einträge": "மறைக்கப்பட்டது — இந்த நாளில் இன்னும் பதிவுகள் உள்ளன",
@@ -274,8 +275,10 @@
   "Neues Foto aufnehmen": "புதிய புகைப்படம் எடு",
   "Noch %d kcal frei": "இன்னும் %d கலோரி மீதம்",
   "Noch keine Foto-Belege.": "இன்னும் புகைப்பட ஆதாரங்கள் இல்லை.",
+  "Original anzeigen": "மூலத்தைக் காட்டு",
   "Profil & Buddy": "சுயவிவரம் & நண்பன்",
   "Protein: %d %%": "புரதம்: %d %%",
+  "Rezepte sind aktuell auf Deutsch.": "சமையல் குறிப்புகள் தற்போது ஜெர்மன் மொழியில் உள்ளன.",
   "Spaziergang": "நடை",
   "Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.": "Apple Health-இல் இருந்து நடைகளும் ஓட்டங்களும் — உன் சாதனத்தில் மட்டும்.",
   "Startzeit": "தொடக்க நேரம்",
@@ -291,6 +294,7 @@
   "Was passt heute noch?": "இன்று இன்னும் என்ன பொருந்தும்?",
   "Wenn dein Fastenfenster beginnt": "உன் உண்ணாநிலை சாளரம் தொடங்கும்போது",
   "Wiegen": "எடை பார்த்தல்",
+  "Wird übersetzt …": "மொழிபெயர்க்கப்படுகிறது …",
   "Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.": "Apple Watch அல்லது Workout செயலியால் நடை அல்லது ஓட்டத்தைப் பதிவு செய் — பாதை இங்கே தோன்றும்.",
   "Zeit für ein neues Foto!": "புதிய புகைப்படத்திற்கான நேரம்!",
   "Zeit zum Wiegen": "எடை பார்க்கும் நேரம்",
@@ -637,5 +641,6 @@
   "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Mifflin-St Jeor (1990) மற்றும் WHO வகைப்பாட்டின்படி கணக்கிடப்பட்டது – வழிகாட்டி மதிப்புகள், மருத்துவ ஆலோசனை அல்ல.",
   "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "BMI வகைப்படுத்தல் WHO படி, கலோரி தேவை Mifflin-St Jeor மற்றும் FAO/WHO/UNU படி, சிறந்த எடை Devine, Robinson, Miller மற்றும் Broca படி, செயல்பாட்டு எரிப்பு Compendium of Physical Activities படி.",
   "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "தினசரி இலக்கு Mifflin-St Jeor (1990) மற்றும் FAO/WHO/UNU (2004) படி, BMI வகைப்படுத்தல் WHO படி.",
+  "Übersetzung anzeigen": "மொழிபெயர்ப்பைக் காட்டு",
   "≈ %d Schritte": "≈ %d அடிகள்"
 }

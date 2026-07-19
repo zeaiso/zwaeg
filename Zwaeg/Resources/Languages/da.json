@@ -64,6 +64,7 @@
   "Amerikanisch": "Amerikansk",
   "Anderes Foto wählen": "Vælg et andet billede",
   "Anonym": "Anonym",
+  "Auf %@ übersetzen": "Oversæt til %@",
   "Augen": "Øjne",
   "Augenklappe": "Klap for øjet",
   "Ausgeblendet — Tag hat noch Einträge": "Skjult — dagen har stadig poster",
@@ -274,8 +275,10 @@
   "Neues Foto aufnehmen": "Tag nyt billede",
   "Noch %d kcal frei": "%d kcal tilbage",
   "Noch keine Foto-Belege.": "Ingen fotobeviser endnu.",
+  "Original anzeigen": "Vis original",
   "Profil & Buddy": "Profil & buddy",
   "Protein: %d %%": "Protein: %d %%",
+  "Rezepte sind aktuell auf Deutsch.": "Opskrifterne er i øjeblikket på tysk.",
   "Spaziergang": "Gåtur",
   "Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.": "Gåture og løb fra Apple Sundhed — kun på din enhed.",
   "Startzeit": "Starttidspunkt",
@@ -291,6 +294,7 @@
   "Was passt heute noch?": "Hvad passer stadig i dag?",
   "Wenn dein Fastenfenster beginnt": "Når dit fastevindue begynder",
   "Wiegen": "Vejning",
+  "Wird übersetzt …": "Oversætter …",
   "Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.": "Optag en gåtur eller løbetur med Apple Watch eller Træning-appen — ruten vises så her.",
   "Zeit für ein neues Foto!": "Tid til et nyt billede!",
   "Zeit zum Wiegen": "Tid til at veje dig",
@@ -637,5 +641,6 @@
   "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Beregnet efter Mifflin-St Jeor (1990) og WHO-klassifikationen – vejledende værdier, ikke medicinsk rådgivning.",
   "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "BMI-klassifikation efter WHO, kaloriebehov efter Mifflin-St Jeor og FAO/WHO/UNU, idealvægt efter Devine, Robinson, Miller og Broca, aktivitetsforbrug efter Compendium of Physical Activities.",
   "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Dagligt mål efter Mifflin-St Jeor (1990) og FAO/WHO/UNU (2004), BMI-klassifikation efter WHO.",
+  "Übersetzung anzeigen": "Vis oversættelse",
   "≈ %d Schritte": "≈ %d skridt"
 }

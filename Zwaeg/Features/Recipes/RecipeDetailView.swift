@@ -7,6 +7,8 @@ struct RecipeDetailView: View {
     let recipe: Recipe
 
     @State private var servings: Int
+    /// Content in the app language when the user asked for it; nil = German.
+    @State private var translated: TranslatedRecipe?
     @State private var showPortionSheet = false
     @State private var addedToList = false
     @State private var favorites = RecipeFavorites.shared
@@ -43,8 +45,9 @@ struct RecipeDetailView: View {
                                 .font(.fredoka(10))
                                 .foregroundStyle(.tertiary)
                         }
-                        Text(recipe.name)
+                        Text(translated?.name ?? recipe.name)
                             .font(.fredoka(26, .semibold))
+                        RecipeTranslateBar(recipe: recipe) { translated = $0 }
                         HStack(spacing: 14) {
                             Label("\(recipe.minutes) \("Min".loc)", systemImage: "clock")
                             Label("\(recipe.servings)", systemImage: "person.2")
@@ -86,15 +89,23 @@ struct RecipeDetailView: View {
         }
     }
 
+    private var displayedIngredients: [String] {
+        translated?.ingredients ?? recipe.ingredients
+    }
+
+    private var displayedSteps: [String] {
+        translated?.steps ?? recipe.steps
+    }
+
     // MARK: - Hero actions
 
     private var shareText: String {
-        var lines = ["\(recipe.emoji) \(recipe.name)",
+        var lines = ["\(recipe.emoji) \(translated?.name ?? recipe.name)",
                      "\(recipe.kcal) kcal · \(recipe.minutes) \("Min".loc) · \(recipe.servings)x", "",
                      "\("Zutaten".loc):"]
-        lines += recipe.ingredients.map { "- \($0)" }
+        lines += displayedIngredients.map { "- \($0)" }
         lines += ["", "\("Zubereitung".loc):"]
-        lines += recipe.steps.enumerated().map { "\($0.offset + 1). \($0.element)" }
+        lines += displayedSteps.enumerated().map { "\($0.offset + 1). \($0.element)" }
         lines += ["", "Zwäg 🧡"]
         return lines.joined(separator: "\n")
     }
@@ -138,7 +149,7 @@ struct RecipeDetailView: View {
     private var bottomBar: some View {
         HStack(spacing: 12) {
             Button {
-                ShoppingList.shared.add(recipe.ingredients.map(scaledIngredient))
+                ShoppingList.shared.add(displayedIngredients.map(scaledIngredient))
                 withAnimation(.snappy(duration: 0.2)) {
                     addedToList = true
                 }
@@ -223,7 +234,7 @@ struct RecipeDetailView: View {
                     servingsButton("minus", enabled: servings > 1) { servings -= 1 }
                     servingsButton("plus", enabled: servings < 12) { servings += 1 }
                 }
-                ForEach(recipe.ingredients, id: \.self) { ingredient in
+                ForEach(displayedIngredients, id: \.self) { ingredient in
                     HStack(alignment: .firstTextBaseline, spacing: 10) {
                         Circle()
                             .fill(Color.appAccent)
@@ -262,7 +273,7 @@ struct RecipeDetailView: View {
             VStack(alignment: .leading, spacing: 14) {
                 Text("Zubereitung".loc)
                     .font(.fredoka(15, .semibold))
-                ForEach(Array(recipe.steps.enumerated()), id: \.offset) { index, step in
+                ForEach(Array(displayedSteps.enumerated()), id: \.offset) { index, step in
                     HStack(alignment: .firstTextBaseline, spacing: 12) {
                         Text("\((index + 1).formatted(.number.locale(Lingo.shared.language.locale)))")
                             .font(.fredoka(13, .semibold))

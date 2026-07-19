@@ -64,6 +64,7 @@
   "Amerikanisch": "أمريكي",
   "Anderes Foto wählen": "اختر صورة أخرى",
   "Anonym": "مجهول",
+  "Auf %@ übersetzen": "ترجمة إلى %@",
   "Augen": "العيون",
   "Augenklappe": "عصابة عين",
   "Ausgeblendet — Tag hat noch Einträge": "مخفي — لا يزال اليوم يحتوي على تسجيلات",
@@ -274,8 +275,10 @@
   "Neues Foto aufnehmen": "التقاط صورة جديدة",
   "Noch %d kcal frei": "تبقى %d سعرة",
   "Noch keine Foto-Belege.": "لا صور إثبات بعد.",
+  "Original anzeigen": "عرض الأصل",
   "Profil & Buddy": "الملف الشخصي والرفيق",
   "Protein: %d %%": "البروتين: %d %%",
+  "Rezepte sind aktuell auf Deutsch.": "الوصفات حاليًا بالألمانية.",
   "Spaziergang": "مشي",
   "Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.": "المشي والجري من تطبيق صحتي — على جهازك فقط.",
   "Startzeit": "وقت البدء",
@@ -291,6 +294,7 @@
   "Was passt heute noch?": "ماذا يناسب اليوم بعد؟",
   "Wenn dein Fastenfenster beginnt": "عندما تبدأ نافذة صيامك",
   "Wiegen": "الوزن",
+  "Wird übersetzt …": "جارٍ الترجمة …",
   "Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.": "سجّل مشيًا أو جريًا بساعة Apple Watch أو تطبيق التمرين — سيظهر المسار هنا.",
   "Zeit für ein neues Foto!": "حان وقت صورة جديدة!",
   "Zeit zum Wiegen": "حان وقت الوزن",
@@ -637,5 +641,6 @@
   "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "محسوب وفق Mifflin-St Jeor (1990) وتصنيف منظمة الصحة العالمية – قيم استرشادية، ليست نصيحة طبية.",
   "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "تصنيف مؤشر كتلة الجسم وفق منظمة الصحة العالمية، والاحتياج من السعرات وفق Mifflin-St Jeor وFAO/WHO/UNU، والوزن المثالي وفق Devine وRobinson وMiller وBroca، واستهلاك النشاط وفق Compendium of Physical Activities.",
   "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "الهدف اليومي وفق Mifflin-St Jeor (1990) وFAO/WHO/UNU (2004)، وتصنيف مؤشر كتلة الجسم وفق منظمة الصحة العالمية.",
+  "Übersetzung anzeigen": "عرض الترجمة",
   "≈ %d Schritte": "≈ %d خطوة"
 }

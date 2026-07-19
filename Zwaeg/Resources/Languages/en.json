@@ -64,6 +64,7 @@
   "Amerikanisch": "American",
   "Anderes Foto wählen": "Choose another photo",
   "Anonym": "Anonymous",
+  "Auf %@ übersetzen": "Translate to %@",
   "Augen": "Eyes",
   "Augenklappe": "Eyepatch",
   "Ausgeblendet — Tag hat noch Einträge": "Hidden — day still has entries",
@@ -274,8 +275,10 @@
   "Neues Foto aufnehmen": "Take new photo",
   "Noch %d kcal frei": "%d kcal left",
   "Noch keine Foto-Belege.": "No photo proofs yet.",
+  "Original anzeigen": "Show original",
   "Profil & Buddy": "Profile & buddy",
   "Protein: %d %%": "Protein: %d %%",
+  "Rezepte sind aktuell auf Deutsch.": "Recipes are currently in German.",
   "Spaziergang": "Walk",
   "Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.": "Walks and runs from Apple Health — only on your device.",
   "Startzeit": "Start time",
@@ -291,6 +294,7 @@
   "Was passt heute noch?": "What still fits today?",
   "Wenn dein Fastenfenster beginnt": "When your fasting window begins",
   "Wiegen": "Weigh-in",
+  "Wird übersetzt …": "Translating …",
   "Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.": "Record a walk or run with Apple Watch or the Workout app — the route will show up here.",
   "Zeit für ein neues Foto!": "Time for a new photo!",
   "Zeit zum Wiegen": "Time to weigh in",
@@ -637,5 +641,6 @@
   "Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.": "Calculated using Mifflin-St Jeor (1990) and the WHO classification – guide values, not medical advice.",
   "BMI-Einordnung nach WHO, Kalorienbedarf nach Mifflin-St Jeor und FAO/WHO/UNU, Idealgewicht nach Devine, Robinson, Miller und Broca, Aktivitätsverbrauch nach dem Compendium of Physical Activities.": "BMI classification per WHO, calorie needs per Mifflin-St Jeor and FAO/WHO/UNU, ideal weight per Devine, Robinson, Miller and Broca, activity burn per the Compendium of Physical Activities.",
   "Tagesziel nach Mifflin-St Jeor (1990) und FAO/WHO/UNU (2004), BMI-Einordnung nach WHO.": "Daily goal after Mifflin-St Jeor (1990) and FAO/WHO/UNU (2004), BMI classification per WHO.",
+  "Übersetzung anzeigen": "Show translation",
   "≈ %d Schritte": "≈ %d steps"
 }
