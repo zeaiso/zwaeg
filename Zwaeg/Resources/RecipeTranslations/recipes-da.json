@@ -1,0 +1,37 @@
+{
+ "basler-mehlsuppe": {
+  "name": "Basel-melsuppe light",
+  "ingredients": [
+   "60 g mel",
+   "1 spsk smør",
+   "1 løg",
+   "1 l grøntsagsbouillon",
+   "1 dl rødvin, valgfrit",
+   "60 g Gruyère, revet",
+   "Salt, peber"
+  ],
+  "steps": [
+   "Rist melet mørkebrunt på en pande uden fedtstof.",
+   "Tilsæt smør og løg, og kog af med bouillonen.",
+   "Lad det simre i 20 minutter, og servér med ost."
+  ]
+ },
+ "birchermuesli": {
+  "name": "Birchermüsli",
+  "ingredients": [
+   "60 g havregryn",
+   "150 g naturel yoghurt",
+   "1 dl mælk",
+   "1 æble, revet",
+   "1 håndfuld bær",
+   "1 spsk valnødder, hakkede",
+   "1 tsk citronsaft",
+   "1 tsk honning"
+  ],
+  "steps": [
+   "Bland havregryn med mælk og yoghurt, og lad det trække i 10 minutter.",
+   "Riv æblet med skræl, og bland det i sammen med citronsaften.",
+   "Anret med bær, valnødder og honning."
+  ]
+ }
+}
