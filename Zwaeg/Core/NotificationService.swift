@@ -13,6 +13,8 @@ struct ReminderTimes: Codable, Equatable {
     /// Monday morning by default.
     var weigh: Int = 9 * 60
     var weighWeekday: Int = 2
+    /// Wochenrückblick, Sunday evening when the review week wraps up.
+    var review: Int = 20 * 60
 
     init() {}
 
@@ -27,6 +29,7 @@ struct ReminderTimes: Codable, Equatable {
         fasting = try container.decodeIfPresent(Int.self, forKey: .fasting) ?? fasting
         weigh = try container.decodeIfPresent(Int.self, forKey: .weigh) ?? weigh
         weighWeekday = try container.decodeIfPresent(Int.self, forKey: .weighWeekday) ?? weighWeekday
+        review = try container.decodeIfPresent(Int.self, forKey: .review) ?? review
     }
 }
 
@@ -61,12 +64,12 @@ enum NotificationService {
 
     /// Replaces all scheduled reminders with the given configuration.
     static func reschedule(waterOn: Bool, mealsOn: Bool, fastingOn: Bool, weighOn: Bool,
-                           times: ReminderTimes) async {
+                           reviewOn: Bool, times: ReminderTimes) async {
         let center = UNUserNotificationCenter.current()
         let pending = await center.pendingNotificationRequests()
         let ours = pending.map(\.identifier).filter {
             $0.hasPrefix("water-") || $0.hasPrefix("meal-")
-                || $0 == "fasting-start" || $0 == "weigh-weekly"
+                || $0 == "fasting-start" || $0 == "weigh-weekly" || $0 == "review-weekly"
         }
         center.removePendingNotificationRequests(withIdentifiers: ours)
 
@@ -103,6 +106,11 @@ enum NotificationService {
             schedule(id: "weigh-weekly", title: "Zeit zum Wiegen".loc,
                      body: "Stell dich kurz auf die Waage und logg dein Gewicht.".loc,
                      minutes: times.weigh, weekday: times.weighWeekday)
+        }
+        if reviewOn {
+            schedule(id: "review-weekly", title: "Dein Wochenrückblick ist da".loc,
+                     body: "Schau dir an, wie deine Woche gelaufen ist.".loc,
+                     minutes: times.review, weekday: 1)
         }
     }
 

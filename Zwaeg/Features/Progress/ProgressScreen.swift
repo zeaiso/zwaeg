@@ -48,6 +48,9 @@ struct ProgressScreen: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 header
+                if reviewStats.loggedDays > 0 {
+                    WeeklyReviewCard(stats: reviewStats)
+                }
                 statTiles
                 caloriesCard
                 weekCard
@@ -61,6 +64,11 @@ struct ProgressScreen: View {
         .background(Theme.background)
         .toolbar(.hidden, for: .navigationBar)
         .task { await loadRoutes() }
+    }
+
+    private var reviewStats: WeeklyReviewStats {
+        WeeklyReviewStats.compute(entries: foodEntries, waterDays: waterDays,
+                                  weights: weights, target: profile.dailyCalorieTarget)
     }
 
     // MARK: - Header

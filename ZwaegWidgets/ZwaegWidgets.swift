@@ -7,12 +7,13 @@ struct ZwaegWidgetsBundle: WidgetBundle {
     var body: some Widget {
         ZwaegRingWidget()
         ZwaegStreakWidget()
+        ZwaegWaterWidget()
         ZwaegDayLiveActivity()
     }
 }
 
 /// Munch palette for the extension; mirrors Theme.swift without the app target.
-private enum Palette {
+enum Palette {
     static let accent = Color(red: 1.0, green: 0.325, blue: 0.188)
     static let blue = Color(red: 0.24, green: 0.64, blue: 1.0)
     static let orange = Color(red: 0.98, green: 0.55, blue: 0.2)

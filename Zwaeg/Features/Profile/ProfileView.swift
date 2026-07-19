@@ -648,6 +648,7 @@ struct GoalsView: View {
     @AppStorage("mealRemindersOn") private var mealRemindersOn = false
     @AppStorage("fastingRemindersOn") private var fastingRemindersOn = false
     @AppStorage("weighRemindersOn") private var weighRemindersOn = false
+    @AppStorage("reviewRemindersOn") private var reviewRemindersOn = false
 
     private var enabledMeals: [MealType] {
         MealPlan.enabled(from: enabledMealsRaw)
@@ -723,7 +724,7 @@ struct GoalsView: View {
                 await NotificationService.reschedule(
                     waterOn: waterRemindersOn, mealsOn: mealRemindersOn,
                     fastingOn: fastingRemindersOn, weighOn: weighRemindersOn,
-                    times: ReminderStore.load())
+                    reviewOn: reviewRemindersOn, times: ReminderStore.load())
             }
         }
     }
@@ -808,6 +809,7 @@ struct RemindersView: View {
     @AppStorage("mealRemindersOn") private var mealsOn = false
     @AppStorage("fastingRemindersOn") private var fastingOn = false
     @AppStorage("weighRemindersOn") private var weighOn = false
+    @AppStorage("reviewRemindersOn") private var reviewOn = false
     @AppStorage(MealPlan.storageKey) private var enabledMealsRaw = ""
     @State private var times = ReminderStore.load()
     @State private var permissionDenied = false
@@ -819,6 +821,7 @@ struct RemindersView: View {
                 mealsCard
                 fastingCard
                 weighCard
+                reviewCard
                 if permissionDenied {
                     Label("Benachrichtigungen sind deaktiviert. Erlaube sie in den iOS-Einstellungen für Zwäg.".loc,
                           systemImage: "bell.slash")
@@ -835,6 +838,7 @@ struct RemindersView: View {
         .onChange(of: mealsOn) { applyChanges() }
         .onChange(of: fastingOn) { applyChanges() }
         .onChange(of: weighOn) { applyChanges() }
+        .onChange(of: reviewOn) { applyChanges() }
         .onChange(of: times) { applyChanges() }
     }
 
@@ -976,6 +980,24 @@ struct RemindersView: View {
         }
     }
 
+    // MARK: - Weekly review
+
+    private var reviewCard: some View {
+        Card {
+            VStack(spacing: 12) {
+                toggleRow(title: "Wochenrückblick".loc,
+                          subtitle: "Sonntagabend, deine Woche in Zahlen".loc,
+                          symbol: "sparkles",
+                          color: Theme.amber,
+                          isOn: $reviewOn)
+                if reviewOn {
+                    Divider()
+                    mealTimeRow("Uhrzeit".loc, get: { times.review }, set: { times.review = $0 })
+                }
+            }
+        }
+    }
+
     /// Weekday chips ordered by the locale's first day of the week.
     private var weekdayRow: some View {
         let calendar = Calendar.current
@@ -1047,7 +1069,7 @@ struct RemindersView: View {
     private func applyChanges() {
         ReminderStore.save(times)
         Task {
-            if waterOn || mealsOn || fastingOn || weighOn {
+            if waterOn || mealsOn || fastingOn || weighOn || reviewOn {
                 let granted = await NotificationService.requestPermission()
                 if !granted {
                     permissionDenied = true
@@ -1055,16 +1077,17 @@ struct RemindersView: View {
                     mealsOn = false
                     fastingOn = false
                     weighOn = false
+                    reviewOn = false
                     await NotificationService.reschedule(
                         waterOn: false, mealsOn: false, fastingOn: false, weighOn: false,
-                        times: times)
+                        reviewOn: false, times: times)
                     return
                 }
             }
             permissionDenied = false
             await NotificationService.reschedule(
                 waterOn: waterOn, mealsOn: mealsOn, fastingOn: fastingOn, weighOn: weighOn,
-                times: times)
+                reviewOn: reviewOn, times: times)
         }
     }
 }
