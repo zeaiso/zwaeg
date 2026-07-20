@@ -4,8 +4,30 @@ All notable changes to Zwäg are documented here. This project follows
 [semantic versioning](https://semver.org): patch releases fix bugs, minor
 releases add features, and anything that changes behaviour is noted.
 
-## Unreleased
+## 1.2.0 (2026-07-20)
 
+Fair battles with photo proof, routes from Apple Health, recipes in every
+language — plus a tappable water widget, a weekly review and achievement
+badges.
+
+- Water widget you can tap. A new home screen widget shows today's glasses
+  as a drop grid and logs a glass directly from the home screen — without
+  opening the app. Glasses tapped while the app is closed are folded into
+  the diary the next time it opens, day-accurate even across midnight.
+- Wochenrückblick. The progress screen opens the week in review: days in
+  the calorie target, averages for calories and water, the weight change,
+  the best day — with a share card rendered as an image. An optional
+  reminder delivers it Sunday evening (new card on the reminders screen).
+  On Sundays the review covers the running week, otherwise the last
+  completed one; weeks always run Monday to Sunday.
+- Erfolge. Fourteen achievement badges on the profile, all derived from
+  data already on the device: first entry, 100/500 entries, week / month /
+  100-day streaks, fasting windows, a water week, progress photo,
+  weigh-ins, own foods, recipe favorites and the first battle. Unlock
+  dates persist, so a badge survives a broken streak; fresh unlocks get
+  confetti.
+- The iPad home screen no longer warns about alternate icons: Midnight and
+  Mono ship in the 152/167px sizes iPads want (ITMS-90892).
 - Meine Routen: walks, runs and hikes recorded with Apple Watch or the
   Workout app appear on the progress screen as map tiles, with a full-screen
   route view behind each. Zwäg only reads what Health already stored —

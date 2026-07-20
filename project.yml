@@ -22,8 +22,8 @@ settings:
     # never allows removing a device family once a version is released, so
     # every future build must keep working on iPad.
     TARGETED_DEVICE_FAMILY: "1,2"
-    CURRENT_PROJECT_VERSION: "5"
-    MARKETING_VERSION: "1.1.0"
+    CURRENT_PROJECT_VERSION: "6"
+    MARKETING_VERSION: "1.2.0"
 # Every identifier derives from ZWAEG_BUNDLE_ID_PREFIX (Config/Signing.xcconfig,
 # overridable in the gitignored Config/Local.xcconfig). Xcode expands $(...) in
 # build settings, Info.plist values and entitlements at build time, and the app
@@ -71,6 +71,20 @@ targets:
             AppIconMono:
               CFBundleIconFiles:
                 - AppIconMono
+        # iPad variant so App Review stops warning about missing 152/167px
+        # alternate icons (ITMS-90892); the ~ipad@2x files live in AltIcons.
+        CFBundleIcons~ipad:
+          CFBundlePrimaryIcon:
+            CFBundleIconName: AppIcon
+          CFBundleAlternateIcons:
+            AppIconMidnight:
+              CFBundleIconFiles:
+                - AppIconMidnight
+                - AppIconMidnight-83.5
+            AppIconMono:
+              CFBundleIconFiles:
+                - AppIconMono
+                - AppIconMono-83.5
     entitlements:
       path: Zwaeg/Zwaeg.entitlements
       properties:
