@@ -6,10 +6,11 @@ releases add features, and anything that changes behaviour is noted.
 
 ## 1.2.0 (2026-07-20)
 
-Fair battles with photo proof, routes from Apple Health, recipes in every
-language — plus a tappable water widget, a weekly review and achievement
-badges.
+The motivation release: battles you can trust, progress you can see, and
+little rewards everywhere — a tappable water widget, a weekly review, and
+achievement badges. Everything still stays on the device.
 
+### Stay motivated
 - Water widget you can tap. A new home screen widget shows today's glasses
   as a drop grid and logs a glass directly from the home screen — without
   opening the app. Glasses tapped while the app is closed are folded into
@@ -26,19 +27,40 @@ badges.
   weigh-ins, own foods, recipe favorites and the first battle. Unlock
   dates persist, so a badge survives a broken streak; fresh unlocks get
   confetti.
-- The iPad home screen no longer warns about alternate icons: Midnight and
-  Mono ship in the 152/167px sizes iPads want (ITMS-90892).
+
+### Fair battles
+- Step battles can't be cheated from the Health app anymore. Battle scores
+  now ignore values typed by hand into Apple Health (device-measured steps
+  and active calories are unaffected) — quietly, per HealthKit's
+  wasUserEntered flag. A note in the battle explains the rule.
+- Treadmill sessions join the battle with photo proof. "Training nachtragen"
+  in a step battle takes a distance and requires a live photo of the
+  machine's display; the converted steps (≈1300/km) count toward the day.
+  Several sessions per day are fine (morning and evening run, up to six) —
+  each needs its own photo, and the same picture can't be used twice
+  (perceptual hash).
+- Proof photos are visible to the battle. Tapping a participant's camera
+  badge opens their Foto-Belege: every manual session's photo with capture
+  time, distance and steps. Any member can raise an Einspruch — if more
+  than half of the others object, the day's manual steps are revoked from
+  everyone's leaderboard. The privacy label gains Photos (battle-shared
+  user content).
+- Battle roles for leaving and ending. "Battle verlassen" removes you from
+  the others' leaderboards (your scores, proofs and objections are deleted
+  from the cloud), and the creator additionally gets "Battle für alle
+  beenden", which deletes the battle for every participant — their apps
+  show it as ended on the next refresh.
+
+### See your progress
 - Meine Routen: walks, runs and hikes recorded with Apple Watch or the
   Workout app appear on the progress screen as map tiles, with a full-screen
   route view behind each. Zwäg only reads what Health already stored —
   it never tracks location itself, and routes stay on the device.
-- Proof photos are visible to the battle. Tapping a participant's camera
-  badge opens their Foto-Belege: every manual session's photo with capture
-  time, distance and steps. Proofs must be shot live with the camera, the
-  same picture can't be used twice (perceptual hash), and any member can
-  raise an Einspruch — objects more than half of the others, the day's
-  manual steps are revoked from everyone's leaderboard. The privacy label
-  gains Photos (battle-shared user content).
+- Logged meals mirror into Apple Health as dietary energy, protein, carbs
+  and fat (daily totals, replaced on every edit). Existing Health
+  connections get the additional write permission sheet once.
+
+### Recipes and food search
 - Recipes translate themselves. In a non-German app language, the recipe
   page offers "Auf … übersetzen": Apple's on-device translation converts
   name, ingredients and steps (nothing leaves the device), the result is
@@ -50,39 +72,25 @@ badges.
   of 6, searches in the app language plus English (with localized product
   names), and zero-calorie products like Cola Zero appear — only entries
   whose nutrition table was never filled in are dropped.
-- Battle roles for leaving and ending. "Battle verlassen" removes you from
-  the others' leaderboards (your scores, proofs and objections are deleted
-  from the cloud), and the creator additionally gets "Battle für alle
-  beenden", which deletes the battle for every participant — their apps
-  show it as ended on the next refresh. The routes card now also explains
-  how to get a first route when none exists yet.
-- The manual-training camera badge now actually reaches opponents: score
-  records carry a manual flag through CloudKit (schema field Score.manual,
-  deploy before release). Battles can be deleted from the detail screen
-  (removes them from this device only), and the floating tab bar hides on
-  the battle detail like on recipe pages.
-- "Persönliche Daten" and "Mein Buddy" merge into one profile row with
-  Daten/Buddy tabs — one entry less in the profile list.
 - "Was passt heute noch?" — from 11:00, the diary suggests up to three
   recipes that fit the remaining calorie budget, leaning high-protein while
   the protein target is far away. Tapping opens the recipe; the picks stay
   stable for the day.
-- Logged meals mirror into Apple Health as dietary energy, protein, carbs
-  and fat (daily totals, replaced on every edit). Existing Health
-  connections get the additional write permission sheet once.
+
+### Goals and polish
 - Custom macro split. "Ziele & Vorgaben" gains a Makro-Verteilung section
   with presets (Ausgewogen, High-Protein, Low-Carb, Keto) and custom
   percent steppers; the diary's macro bars follow.
-- Step battles can't be cheated from the Health app anymore. Battle scores
-  now ignore values typed by hand into Apple Health (device-measured steps
-  and active calories are unaffected) — quietly, per HealthKit's
-  wasUserEntered flag. A note in the battle explains the rule.
-- Treadmill sessions join the battle with photo proof. "Training nachtragen"
-  in a step battle takes a distance and requires a photo of the machine's
-  display; the photo stays on the device, the converted steps (≈1300/km)
-  count toward the day, and everyone in the battle sees a camera badge on
-  participants with hand-added days. Several sessions per day are fine
-  (morning and evening run, up to six) — each needs its own photo.
+- "Persönliche Daten" and "Mein Buddy" merge into one profile row with
+  Daten/Buddy tabs — one entry less in the profile list.
+- The manual-training camera badge now actually reaches opponents: score
+  records carry a manual flag through CloudKit (schema field Score.manual,
+  deployed to production with this release). Battles can be deleted from
+  the detail screen, and the floating tab bar hides on the battle detail
+  like on recipe pages.
+- The iPad home screen no longer warns about alternate icons: Midnight and
+  Mono ship in the 152/167px sizes iPads want (ITMS-90892).
+- Every new string ships in all 23 app languages.
 
 ## 1.1.0 (2026-07-18)
 
