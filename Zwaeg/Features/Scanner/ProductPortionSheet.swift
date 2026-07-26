@@ -111,9 +111,6 @@ struct ProductPortionSheet: View {
             if LaunchArgs.all.contains("-demo-grams") {
                 unit = .gramm
             }
-            if LaunchArgs.all.contains("-demo-pieces") {
-                unit = .piece
-            }
         }
         .toolbar {
             // The number pad has no return key; without this the keyboard

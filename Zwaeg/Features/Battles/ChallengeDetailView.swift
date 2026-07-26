@@ -454,20 +454,6 @@ struct ChallengeDetailView: View {
     /// and proof metadata (no photos) are enough to do the math. Days with
     /// any objection at all additionally surface in the Einsprüche card.
     private func loadRevocations() async {
-        if LaunchArgs.all.contains("-demo-disputes"),
-           let accused = challenge.participants.first(where: { !$0.isMe }) {
-            let today = BattleDay.key(for: .now)
-            let yesterday = BattleDay.key(for: .now.addingTimeInterval(-86_400))
-            disputes = [
-                .init(participantID: accused.id, name: accused.name, dayKey: today,
-                      votes: 1, voterPool: 3, revoked: false),
-                .init(participantID: accused.id, name: accused.name, dayKey: yesterday,
-                      votes: 2, voterPool: 3, revoked: true),
-            ]
-            revokedSteps = [accused.id: 4000]
-            paidPayerIDs = [accused.id]
-            return
-        }
         guard challenge.code != Challenge.demoCode else { return }
         if challenge.stakeChf > 0, !challenge.isActive,
            let settled = try? await ChallengeSyncService.shared.fetchSettlements(challenge: challenge) {
