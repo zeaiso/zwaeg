@@ -4,6 +4,47 @@ All notable changes to Zwäg are documented here. This project follows
 [semantic versioning](https://semver.org): patch releases fix bugs, minor
 releases add features, and anything that changes behaviour is noted.
 
+## 1.3.0 (2026-07-26)
+
+Cookies counted honestly and battles with skin in the game: scanned
+products can be logged piece by piece, disputes finally have a face, and
+a battle can carry a friendly TWINT stake.
+
+### Scan smarter
+- Pieces that add up. In the portion sheet, the Stück unit now divides
+  the package into pieces: Zwäg fetches the package size from Open Food
+  Facts, guesses the piece count from the serving size, and lets you
+  correct it ("this pack holds 20 cookies"). Five cookies out of a 500
+  kcal pack log as a fifth of the pack, not five servings. The count is
+  remembered per product, and cached scans keep the package size for
+  offline use.
+
+### Battles with stakes
+- TWINT-Einsatz. A new battle can carry a money stake (any amount, with
+  5/10/20/50 CHF suggestions). The winner collects from everyone else,
+  paid per TWINT directly between the players. Zwäg never touches money;
+  it only remembers who owes whom. After the battle ends, losers mark
+  their payment and the winner watches the checkmarks come in, synced
+  through the battle. A notification the morning after the battle ends
+  reminds everyone to settle up. Ties mean nobody pays, and revoked days
+  can't win money.
+
+### Disputes you can see
+- The Einsprüche card. Objections against backdated training now have a
+  home: the battle detail lists every disputed day with its vote count
+  and state, pending in amber, revoked in red, and each row opens the
+  photo proofs. Pending objections also badge the proof gallery and turn
+  the camera icon amber before a majority is reached.
+- Objections that stick. Raising an Einspruch no longer appears to undo
+  itself: CloudKit's query index lags behind writes, so your own
+  objections (and withdrawals) are now mirrored locally and overlaid on
+  every fetch. The leaderboard also recomputes revocations the moment
+  the proof gallery closes instead of waiting for the next visit.
+
+### Polish
+- Cleaner copy. UI texts across all 22 languages drop the mid-sentence
+  dashes in favor of plain punctuation.
+
 ## 1.2.0 (2026-07-20)
 
 The motivation release: battles you can trust, progress you can see, and
