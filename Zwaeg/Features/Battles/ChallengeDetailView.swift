@@ -17,6 +17,20 @@ struct ChallengeDetailView: View {
     @State private var proofParticipant: ParticipantScore?
     /// Steps revoked by objection majorities, per participant.
     @State private var revokedSteps: [String: Double] = [:]
+    /// Every day with at least one objection, revoked or still pending.
+    @State private var disputes: [DisputeItem] = []
+
+    /// One participant-day under objection, for the Einsprüche card.
+    struct DisputeItem: Identifiable {
+        let participantID: String
+        let name: String
+        let dayKey: String
+        let votes: Int
+        let voterPool: Int
+        let revoked: Bool
+
+        var id: String { "\(participantID)-\(dayKey)" }
+    }
 
     private func displayTotal(_ participant: ParticipantScore) -> Double {
         max(0, participant.total - (revokedSteps[participant.id] ?? 0))
@@ -35,6 +49,7 @@ struct ChallengeDetailView: View {
             VStack(spacing: 16) {
                 headerCard
                 leaderboardCard
+                disputesCard
                 todayCard
                 if challenge.metric == .steps, challenge.isActive {
                     manualSessionButton
@@ -93,7 +108,11 @@ struct ChallengeDetailView: View {
             ManualSessionSheet(challenge: challenge, profile: profile)
                 .presentationDetents([.large])
         }
-        .sheet(item: $proofParticipant) { participant in
+        .sheet(item: $proofParticipant, onDismiss: {
+            // An objection raised in the gallery must survive the dismissal;
+            // without this the leaderboard kept its stale, un-revoked totals.
+            Task { await loadRevocations() }
+        }) { participant in
             ProofGalleryView(challenge: challenge, participant: participant)
                 .presentationDetents([.large])
         }
@@ -237,8 +256,7 @@ struct ChallengeDetailView: View {
                     } label: {
                         Image(systemName: "camera.fill")
                             .font(.fredoka(11, .semibold))
-                            .foregroundStyle(revokedSteps[participant.id] != nil
-                                             ? Color.red : .secondary)
+                            .foregroundStyle(cameraTint(participant.id))
                             .frame(width: 26, height: 26)
                             .background(Theme.field.opacity(0.6), in: Circle())
                     }
@@ -275,15 +293,88 @@ struct ChallengeDetailView: View {
         max(0, min(1, displayTotal(participant) / maxTotal))
     }
 
+    /// Red once a day is revoked, amber while an objection is pending.
+    private func cameraTint(_ participantID: String) -> Color {
+        if revokedSteps[participantID] != nil { return .red }
+        if disputes.contains(where: { $0.participantID == participantID }) { return Theme.amber }
+        return Color(.secondaryLabel)
+    }
+
+    /// Every dispute in the battle, one glance: who, which day, how many
+    /// votes, already revoked or still pending. Rows open the proof gallery.
+    @ViewBuilder
+    private var disputesCard: some View {
+        if !disputes.isEmpty {
+            Card {
+                VStack(alignment: .leading, spacing: 14) {
+                    Text("Einsprüche".loc)
+                        .font(.fredoka(17, .semibold))
+                    ForEach(disputes) { dispute in
+                        Button {
+                            proofParticipant = challenge.participants
+                                .first { $0.id == dispute.participantID }
+                        } label: {
+                            HStack(spacing: 10) {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("\(dispute.name) · \(dayLabel(dispute.dayKey))")
+                                        .font(.fredoka(14, .semibold))
+                                        .foregroundStyle(Theme.ink)
+                                    Text("%d von %d Einsprüchen".loc(dispute.votes, dispute.voterPool))
+                                        .font(.fredoka(12))
+                                        .foregroundStyle(.secondary)
+                                }
+                                Spacer()
+                                Text(dispute.revoked ? "Aberkannt".loc : "Einspruch läuft".loc)
+                                    .font(.fredoka(11, .semibold))
+                                    .foregroundStyle(.white)
+                                    .padding(.horizontal, 9)
+                                    .padding(.vertical, 5)
+                                    .background(dispute.revoked
+                                                ? AnyShapeStyle(Color.red.gradient)
+                                                : AnyShapeStyle(Theme.amber.gradient),
+                                                in: Capsule())
+                                Image(systemName: "chevron.forward")
+                                    .font(.fredoka(12, .semibold))
+                                    .foregroundStyle(.tertiary)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+        }
+    }
+
+    private func dayLabel(_ dayKey: String) -> String {
+        BattleDay.date(for: dayKey)?
+            .formatted(.dateTime.weekday(.wide).day().month()
+                .locale(Lingo.shared.language.locale)) ?? dayKey
+    }
+
     /// Objection majorities revoke a day's manual steps for everyone: flags
-    /// and proof metadata (no photos) are enough to do the math.
+    /// and proof metadata (no photos) are enough to do the math. Days with
+    /// any objection at all additionally surface in the Einsprüche card.
     private func loadRevocations() async {
+        if LaunchArgs.all.contains("-demo-disputes"),
+           let accused = challenge.participants.first(where: { !$0.isMe }) {
+            let today = BattleDay.key(for: .now)
+            let yesterday = BattleDay.key(for: .now.addingTimeInterval(-86_400))
+            disputes = [
+                .init(participantID: accused.id, name: accused.name, dayKey: today,
+                      votes: 1, voterPool: 3, revoked: false),
+                .init(participantID: accused.id, name: accused.name, dayKey: yesterday,
+                      votes: 2, voterPool: 3, revoked: true),
+            ]
+            revokedSteps = [accused.id: 4000]
+            return
+        }
         guard challenge.code != Challenge.demoCode else { return }
         guard let flags = try? await ChallengeSyncService.shared.fetchFlags(challenge: challenge),
               let proofs = try? await ChallengeSyncService.shared.fetchProofs(
                 challenge: challenge, includePhotos: false) else { return }
         let participantIDs = Set(challenge.participants.map(\.id))
         var revoked: [String: Double] = [:]
+        var found: [DisputeItem] = []
         for participant in challenge.participants {
             let others = max(1, challenge.participants.count - 1)
             let days = Set(proofs.filter { $0.participantID == participant.id }.map(\.dayKey))
@@ -293,14 +384,22 @@ struct ChallengeDetailView: View {
                     .map(\.voterID))
                     .intersection(participantIDs)
                     .subtracting([participant.id])
-                guard voters.count * 2 > others else { continue }
+                guard !voters.isEmpty else { continue }
+                let isRevoked = voters.count * 2 > others
+                found.append(DisputeItem(
+                    participantID: participant.id, name: participant.name, dayKey: day,
+                    votes: voters.count, voterPool: others, revoked: isRevoked))
+                guard isRevoked else { continue }
                 let steps = proofs
                     .filter { $0.participantID == participant.id && $0.dayKey == day }
                     .reduce(0) { $0 + $1.steps }
                 revoked[participant.id, default: 0] += Double(steps)
             }
         }
-        revokedSteps = revoked
+        withAnimation(.snappy) {
+            revokedSteps = revoked
+            disputes = found.sorted { ($0.dayKey, $0.name) > ($1.dayKey, $1.name) }
+        }
     }
 
     private var todayCard: some View {

@@ -99,7 +99,9 @@ struct BattlesScreen: View {
                 // Set-only: an unconditional write here would dismiss a sheet
                 // the user opened while refreshAll was still awaiting.
                 if LaunchArgs.all.contains("-open-battle") {
-                    debugOpenedChallenge = active.first
+                    // The seeded demo battle is already over, so fall back to
+                    // ended ones instead of silently opening nothing.
+                    debugOpenedChallenge = active.first ?? challenges.first
                 }
                 if LaunchArgs.all.contains("-open-create") {
                     showCreate = true

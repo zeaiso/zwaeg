@@ -96,6 +96,13 @@ struct ProofGalleryView: View {
                             .padding(.horizontal, 9)
                             .padding(.vertical, 5)
                             .background(Color.red.gradient, in: Capsule())
+                    } else if objections > 0 {
+                        Text("Einspruch läuft".loc)
+                            .font(.fredoka(11, .semibold))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 9)
+                            .padding(.vertical, 5)
+                            .background(Theme.amber.gradient, in: Capsule())
                     }
                 }
                 ForEach(dayProofs) { proof in

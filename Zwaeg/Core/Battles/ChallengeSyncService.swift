@@ -392,6 +392,39 @@ struct ChallengeSyncService {
         } catch {
             throw BattleSyncError(error)
         }
+        Self.rememberMyFlag(raised, challenge: challenge, targetID: targetID, dayKey: dayKey)
+    }
+
+    // MARK: - Local flag mirror
+
+    /// CloudKit's queryable index is eventually consistent: a Flag record that
+    /// was just written can be missing from the next query for a while (and a
+    /// just-deleted one can linger), which made a raised objection visibly
+    /// "un-raise" itself. My own flag states are mirrored here after a
+    /// confirmed write and overlaid onto fetch results in both directions.
+    private static let myFlagsKey = "battleMyFlags"
+
+    private static func rememberMyFlag(_ raised: Bool, challenge: Challenge,
+                                       targetID: String, dayKey: String) {
+        let key = "\(challenge.code)|\(targetID)|\(dayKey)"
+        var states = UserDefaults.standard.dictionary(forKey: myFlagsKey) as? [String: Bool] ?? [:]
+        states[key] = raised
+        UserDefaults.standard.set(states, forKey: myFlagsKey)
+    }
+
+    /// (raised, withdrawn) flags of mine for this challenge.
+    private static func myRememberedFlags(challenge: Challenge) -> ([FlagItem], [FlagItem]) {
+        let myID = PlayerIdentity.myID
+        let states = UserDefaults.standard.dictionary(forKey: myFlagsKey) as? [String: Bool] ?? [:]
+        var raised: [FlagItem] = []
+        var withdrawn: [FlagItem] = []
+        for (key, isRaised) in states {
+            let parts = key.split(separator: "|").map(String.init)
+            guard parts.count == 3, parts[0] == challenge.code else { continue }
+            let item = FlagItem(voterID: myID, targetID: parts[1], dayKey: parts[2])
+            if isRaised { raised.append(item) } else { withdrawn.append(item) }
+        }
+        return (raised, withdrawn)
     }
 
     func fetchFlags(challenge: Challenge) async throws -> [FlagItem] {
@@ -403,7 +436,7 @@ struct ChallengeSyncService {
         } catch {
             throw BattleSyncError(error)
         }
-        return page.matchResults.compactMap { _, result in
+        var items: [FlagItem] = page.matchResults.compactMap { _, result in
             guard let record = try? result.get(),
                   let voterID = record["voterID"] as? String, voterID.count <= 64,
                   let targetID = record["targetID"] as? String, targetID.count <= 64,
@@ -411,6 +444,21 @@ struct ChallengeSyncService {
                   BattleDay.date(for: dayKey) != nil else { return nil }
             return FlagItem(voterID: voterID, targetID: targetID, dayKey: dayKey)
         }
+        // My confirmed flag states override the laggy query in both
+        // directions; duplicates are harmless since all counting goes
+        // through voter sets.
+        let (raised, withdrawn) = Self.myRememberedFlags(challenge: challenge)
+        items.removeAll { item in
+            withdrawn.contains {
+                $0.voterID == item.voterID && $0.targetID == item.targetID && $0.dayKey == item.dayKey
+            }
+        }
+        for mine in raised where !items.contains(where: {
+            $0.voterID == mine.voterID && $0.targetID == mine.targetID && $0.dayKey == mine.dayKey
+        }) {
+            items.append(mine)
+        }
+        return items
     }
 
     @MainActor
