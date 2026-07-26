@@ -240,7 +240,7 @@ struct SourcesCard: View {
                         }
                     }
                 }
-                Text("Richtwerte für gesunde Erwachsene – keine medizinische Beratung.".loc)
+                Text("Richtwerte für gesunde Erwachsene, keine medizinische Beratung.".loc)
                     .font(.fredoka(11))
                     .foregroundStyle(.secondary)
             }

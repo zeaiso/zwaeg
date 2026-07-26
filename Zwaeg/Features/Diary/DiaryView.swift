@@ -836,7 +836,7 @@ struct DiaryView: View {
                         // A meal turned off in the settings stays visible on
                         // days that still hold entries; say so instead of a
                         // budget it no longer has.
-                        Text(hidden ? "Ausgeblendet — Tag hat noch Einträge".loc
+                        Text(hidden ? "Ausgeblendet, Tag hat noch Einträge".loc
                                     : "\(kcal) / \(mealBudget(meal)) kcal")
                             .font(.fredoka(12))
                             .foregroundStyle(.secondary)

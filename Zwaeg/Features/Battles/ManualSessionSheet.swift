@@ -116,7 +116,7 @@ struct ManualSessionSheet: View {
             Text("Training nachtragen".loc)
                 .font(.fredoka(24, .semibold))
                 .foregroundStyle(Theme.ink)
-            Text("Laufband ohne Handy in der Tasche? Trag die Distanz nach — mit einem Foto vom Display als Beleg. Fair bleibt fair.".loc)
+            Text("Laufband ohne Handy in der Tasche? Trag die Distanz nach, mit einem Foto vom Display als Beleg. Fair bleibt fair.".loc)
                 .font(.fredoka(13))
                 .foregroundStyle(.secondary)
         }
@@ -185,7 +185,7 @@ struct ManualSessionSheet: View {
                     }
                     .buttonStyle(.plain)
                 }
-                Text("Direkt mit der Kamera aufnehmen — Zeitpunkt wird für alle sichtbar festgehalten. Die anderen im Battle können den Beleg ansehen.".loc)
+                Text("Direkt mit der Kamera aufnehmen. Zeitpunkt wird für alle sichtbar festgehalten. Die anderen im Battle können den Beleg ansehen.".loc)
                     .font(.fredoka(12))
                     .foregroundStyle(.tertiary)
             }

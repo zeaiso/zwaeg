@@ -118,11 +118,11 @@ struct ProgressScreen: View {
             Text("Meine Routen".loc)
                 .font(.fredoka(16, .semibold))
                 .foregroundStyle(Theme.ink)
-            Text("Spaziergänge und Läufe aus Apple Health — nur auf deinem Gerät.".loc)
+            Text("Spaziergänge und Läufe aus Apple Health, nur auf deinem Gerät.".loc)
                 .font(.fredoka(12))
                 .foregroundStyle(.secondary)
             if routes.isEmpty {
-                Text("Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf — die Route erscheint dann hier.".loc)
+                Text("Zeichne einen Spaziergang oder Lauf mit der Apple Watch oder der Workout-App auf, die Route erscheint dann hier.".loc)
                     .font(.fredoka(13))
                     .foregroundStyle(.tertiary)
             } else {

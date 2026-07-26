@@ -98,7 +98,7 @@ struct CreateChallengeSheet: View {
                 } header: {
                     Text("Einsatz".loc)
                 } footer: {
-                    Text("Der Sieger kassiert den Einsatz von allen anderen — per TWINT, direkt unter euch. Zwäg verwaltet kein Geld.".loc)
+                    Text("Der Sieger kassiert den Einsatz von allen anderen. Per TWINT, direkt unter euch. Zwäg verwaltet kein Geld.".loc)
                 }
 
                 Section {

@@ -142,7 +142,7 @@ enum NotificationService {
                 of: endDay.addingTimeInterval(86_400)),
               fireDate > .now else { return }
         let content = UNMutableNotificationContent()
-        content.title = "Battle vorbei — Zeit abzurechnen!".loc
+        content.title = "Battle vorbei. Zeit abzurechnen!".loc
         content.body = "\"%@\" ist beendet. Schau nach, wer die %d CHF per TWINT kassiert.".loc(name, stakeChf)
         content.sound = .default
         let trigger = UNTimeIntervalNotificationTrigger(

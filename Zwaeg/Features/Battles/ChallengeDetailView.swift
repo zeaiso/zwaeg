@@ -153,7 +153,7 @@ struct ChallengeDetailView: View {
                         Text("Training nachtragen".loc)
                             .font(.fredoka(16, .semibold))
                             .foregroundStyle(Theme.ink)
-                        Text("Laufband & Co. — mit Foto-Beleg".loc)
+                        Text("Laufband & Co. mit Foto-Beleg".loc)
                             .font(.fredoka(12))
                             .foregroundStyle(.secondary)
                     }
@@ -199,8 +199,8 @@ struct ChallengeDetailView: View {
     /// Says out loud what keeps the leaderboard honest.
     private var fairnessNote: some View {
         Text(challenge.metric == .deficit
-             ? "Aktivkalorien zählen nur vom Gerät gemessen — von Hand in Health eingetragene Werte nicht.".loc
-             : "Es zählen nur vom Gerät gemessene Werte — von Hand in Health eingetragene nicht. Tippe aufs Kamera-Symbol für die Foto-Belege; erhebt die Mehrheit Einspruch, wird der Tag aberkannt.".loc)
+             ? "Aktivkalorien zählen nur vom Gerät gemessen, von Hand in Health eingetragene Werte nicht.".loc
+             : "Es zählen nur vom Gerät gemessene Werte, von Hand in Health eingetragene nicht. Tippe aufs Kamera-Symbol für die Foto-Belege; erhebt die Mehrheit Einspruch, wird der Tag aberkannt.".loc)
             .font(.fredoka(12))
             .foregroundStyle(.tertiary)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -339,7 +339,7 @@ struct ChallengeDetailView: View {
                     }
                     if let winner = stakeWinner {
                         if winner.isMe {
-                            Text("Du hast gewonnen — der Einsatz gehört dir!".loc)
+                            Text("Du hast gewonnen. Der Einsatz gehört dir!".loc)
                                 .font(.fredoka(14))
                                 .foregroundStyle(Theme.ink)
                             ForEach(challenge.participants.filter { $0.id != winner.id }) { loser in
@@ -360,7 +360,7 @@ struct ChallengeDetailView: View {
                                 }
                             }
                         } else {
-                            Text("%@ hat gewonnen. Du schuldest %d CHF — ab in die TWINT-App!".loc(
+                            Text("%@ hat gewonnen. Du schuldest %d CHF. Ab in die TWINT-App!".loc(
                                 winner.name, challenge.stakeChf))
                                 .font(.fredoka(14))
                                 .foregroundStyle(Theme.ink)
@@ -383,7 +383,7 @@ struct ChallengeDetailView: View {
                             }
                         }
                     } else {
-                        Text("Unentschieden — jeder behält seinen Einsatz.".loc)
+                        Text("Unentschieden. Jeder behält seinen Einsatz.".loc)
                             .font(.fredoka(14))
                             .foregroundStyle(.secondary)
                     }

@@ -335,7 +335,7 @@ struct OnboardingView: View {
                 }
             }
             VStack(spacing: 6) {
-                Text("Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation – Richtwerte, keine medizinische Beratung.".loc)
+                Text("Berechnet nach Mifflin-St Jeor (1990) und WHO-Klassifikation. Richtwerte, keine medizinische Beratung.".loc)
                     .font(.fredoka(11))
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
