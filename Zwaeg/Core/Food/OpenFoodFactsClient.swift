@@ -29,7 +29,7 @@ enum OpenFoodFactsClient {
     private static let searchEndpoint = "https://search.openfoodfacts.org/search"
 
     private static var fields: String {
-        "product_name,product_name_\(languageCode),brands,nutriments,serving_quantity"
+        "product_name,product_name_\(languageCode),brands,nutriments,serving_quantity,product_quantity,quantity"
     }
 
     private static func request(for url: URL) -> URLRequest {
@@ -120,9 +120,36 @@ enum OpenFoodFactsClient {
             servingGrams: product.servingQuantity.flatMap {
                 $0.isFinite && $0 > 0 ? min($0, FoodProduct.maxServingGrams) : nil
             },
+            packageGrams: packageGrams(from: product),
             sugarPer100g: nutriments?.sugars100g.map { min(100, Swift.max(0, $0)) },
             saltPer100g: nutriments?.salt100g.map { min(100, Swift.max(0, $0)) },
             fiberPer100g: nutriments?.fiber100g.map { min(100, Swift.max(0, $0)) })
+    }
+
+    /// Package weight in grams: the normalized product_quantity when present,
+    /// otherwise parsed out of the free-text quantity ("200 g", "0.5 kg",
+    /// "33 cl"). Milliliters count as grams — close enough for drinks.
+    private static func packageGrams(from product: OFFProduct) -> Double? {
+        if let value = product.productQuantity, value.isFinite, value > 0 {
+            return min(value, FoodProduct.maxServingGrams)
+        }
+        guard let text = product.quantityText?.lowercased()
+            .replacingOccurrences(of: ",", with: ".") else {
+            return nil
+        }
+        guard let match = text.firstMatch(of: #/([0-9]+(?:\.[0-9]+)?)\s*(kg|g|l|cl|ml)\b/#),
+              let number = Double(match.1) else {
+            return nil
+        }
+        let factor: Double
+        switch match.2 {
+        case "kg", "l": factor = 1000
+        case "cl": factor = 10
+        default: factor = 1
+        }
+        let grams = number * factor
+        guard grams.isFinite, grams > 0 else { return nil }
+        return min(grams, FoodProduct.maxServingGrams)
     }
 
     // MARK: - Response types
@@ -154,6 +181,8 @@ enum OpenFoodFactsClient {
         let brands: String?
         let nutriments: OFFNutriments?
         let servingQuantity: Double?
+        let productQuantity: Double?
+        let quantityText: String?
 
         enum CodingKeys: String, CodingKey {
             case code
@@ -161,6 +190,8 @@ enum OpenFoodFactsClient {
             case brands
             case nutriments
             case servingQuantity = "serving_quantity"
+            case productQuantity = "product_quantity"
+            case quantityText = "quantity"
         }
 
         init(from decoder: Decoder) throws {
@@ -193,6 +224,14 @@ enum OpenFoodFactsClient {
             } else {
                 servingQuantity = nil
             }
+            if let value = try? container.decode(Double.self, forKey: .productQuantity) {
+                productQuantity = value
+            } else if let text = try? container.decode(String.self, forKey: .productQuantity) {
+                productQuantity = Double(text)
+            } else {
+                productQuantity = nil
+            }
+            quantityText = try? container.decode(String.self, forKey: .quantityText)
         }
     }
 

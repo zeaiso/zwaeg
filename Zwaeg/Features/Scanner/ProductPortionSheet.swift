@@ -20,7 +20,10 @@ struct ProductPortionSheet: View {
     @AppStorage("amountUnit") private var unitRaw = AmountUnit.portion.rawValue
     @State private var unit: AmountUnit = .portion
     @State private var grams = 100.0
+    /// How many pieces the package holds; drives "1 Stück = Packung ÷ n".
+    @State private var packPieces = 0
     @FocusState private var gramsFocused: Bool
+    @FocusState private var packPiecesFocused: Bool
 
     enum AmountUnit: String, CaseIterable, Identifiable {
         case portion, gramm, piece
@@ -45,13 +48,26 @@ struct ProductPortionSheet: View {
         product.servingGrams ?? 100
     }
 
+    /// Grams behind one piece: the package weight split by the piece count
+    /// when both are known ("500 kcal package, 20 cookies → 25 kcal each"),
+    /// otherwise the serving size.
+    private var pieceGrams: Double {
+        if let pack = product.packageGrams, packPieces > 0 {
+            return pack / Double(packPieces)
+        }
+        return servingGrams
+    }
+
     private var totalGrams: Double {
         switch unit {
         case .portion: return servingGrams * servings
-        case .piece: return servingGrams * Double(pieces)
+        case .piece: return pieceGrams * Double(pieces)
         case .gramm: return grams
         }
     }
+
+    /// Remembers the piece count per product across scans.
+    private var packPiecesKey: String { "packPieces-\(product.id)" }
 
     private static func defaultMeal(now: Date = .now) -> MealType {
         switch Calendar.current.component(.hour, from: now) {
@@ -89,8 +105,14 @@ struct ProductPortionSheet: View {
             }
             grams = servingGrams
             unit = AmountUnit(rawValue: unitRaw) ?? .portion
+            packPieces = Self.initialPackPieces(
+                stored: UserDefaults.standard.integer(forKey: packPiecesKey),
+                packageGrams: product.packageGrams, servingGrams: product.servingGrams)
             if LaunchArgs.all.contains("-demo-grams") {
                 unit = .gramm
+            }
+            if LaunchArgs.all.contains("-demo-pieces") {
+                unit = .piece
             }
         }
         .toolbar {
@@ -98,8 +120,11 @@ struct ProductPortionSheet: View {
             // would be stuck (the mood-note lesson).
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
-                Button("Fertig".loc) { gramsFocused = false }
-                    .font(.fredoka(15, .semibold))
+                Button("Fertig".loc) {
+                    gramsFocused = false
+                    packPiecesFocused = false
+                }
+                .font(.fredoka(15, .semibold))
             }
         }
     }
@@ -132,7 +157,7 @@ struct ProductPortionSheet: View {
         case .swissDatabase: parts.append("Schweizer Lebensmittel".loc)
         case .custom: parts.append("Eigenes Lebensmittel".loc)
         }
-        parts.append(unit == .piece ? "1 Stück = %d g".loc(Int(servingGrams.rounded()))
+        parts.append(unit == .piece ? "1 Stück = %d g".loc(Int(pieceGrams.rounded()))
                                     : "1 Portion = %d g".loc(Int(servingGrams.rounded())))
         return parts.joined(separator: " · ")
     }
@@ -159,6 +184,9 @@ struct ProductPortionSheet: View {
                     case .gramm: grams = min(maxGrams, grams + 5)
                     }
                 }
+            }
+            if unit == .piece, let pack = product.packageGrams {
+                packPiecesRow(packageGrams: pack)
             }
             if unit == .gramm {
                 HStack(spacing: 8) {
@@ -256,6 +284,63 @@ struct ProductPortionSheet: View {
             set: { grams = min(maxGrams, Double($0.filter(\.isNumber)) ?? 0) })
     }
 
+    /// "Packung (200 g) ÷ n Stück" — divides the package into pieces so one
+    /// cookie out of a 20-cookie pack costs a twentieth of the package.
+    private func packPiecesRow(packageGrams pack: Double) -> some View {
+        HStack(spacing: 8) {
+            Text("Stück pro Packung (%d g)".loc(Int(pack.rounded())))
+                .font(.fredoka(12))
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+            Spacer()
+            stepButton("minus", prominent: false) {
+                setPackPieces(max(1, packPieces - 1))
+            }
+            TextField("0", text: packPiecesText)
+                .keyboardType(.numberPad)
+                .focused($packPiecesFocused)
+                .font(.fredoka(15, .semibold))
+                .foregroundStyle(Theme.ink)
+                .multilineTextAlignment(.center)
+                .frame(width: 44)
+                .padding(.vertical, 4)
+                .background(Theme.field.opacity(packPiecesFocused ? 0.8 : 0.5),
+                            in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+            stepButton("plus", prominent: false) {
+                setPackPieces(min(Self.maxPackPieces, packPieces + 1))
+            }
+        }
+    }
+
+    private static let maxPackPieces = 500
+
+    private var packPiecesText: Binding<String> {
+        Binding(
+            get: { packPieces > 0 ? "\(packPieces)" : "" },
+            set: { setPackPieces(min(Self.maxPackPieces, Int($0.filter(\.isNumber)) ?? 0)) })
+    }
+
+    private func setPackPieces(_ count: Int) {
+        packPieces = count
+        if count > 0 {
+            UserDefaults.standard.set(count, forKey: packPiecesKey)
+        }
+    }
+
+    /// A stored count wins; first contact guesses package ÷ serving so a
+    /// pack whose serving is one cookie starts out right.
+    private static func initialPackPieces(stored: Int, packageGrams: Double?,
+                                          servingGrams: Double?) -> Int {
+        if stored > 0 { return min(maxPackPieces, stored) }
+        guard let pack = packageGrams, let serving = servingGrams, serving > 0 else {
+            return 0
+        }
+        let ratio = pack / serving
+        guard ratio >= 1.5 else { return 1 }
+        return min(maxPackPieces, Int(ratio.rounded()))
+    }
+
     /// Switching units keeps the chosen amount: portions and pieces convert
     /// to their grams, grams to the nearest half portion or whole piece.
     private func switchUnit(to target: AmountUnit) {
@@ -266,7 +351,7 @@ struct ProductPortionSheet: View {
             switch target {
             case .gramm: grams = min(maxGrams, max(5, (total / 5).rounded() * 5))
             case .portion: servings = min(10, max(0.5, (total / servingGrams * 2).rounded() / 2))
-            case .piece: pieces = min(20, max(1, Int((total / servingGrams).rounded())))
+            case .piece: pieces = min(20, max(1, Int((total / pieceGrams).rounded())))
             }
             unit = target
             unitRaw = target.rawValue
@@ -298,7 +383,7 @@ struct ProductPortionSheet: View {
 
     private var calorieCard: some View {
         VStack(spacing: 4) {
-            Text("\(product.kcal(for: unit == .gramm ? grams : servingGrams))")
+            Text("\(product.kcal(for: singleUnitGrams))")
                 .font(.fredoka(50, .semibold))
                 .foregroundStyle(.white)
                 .contentTransition(.numericText())
@@ -319,6 +404,15 @@ struct ProductPortionSheet: View {
                            startPoint: .topLeading, endPoint: .bottomTrailing),
             in: RoundedRectangle(cornerRadius: 26, style: .continuous))
         .shadow(color: Theme.accent.opacity(0.35), radius: 12, y: 5)
+    }
+
+    /// Grams behind the big number: one portion, one piece, or the typed grams.
+    private var singleUnitGrams: Double {
+        switch unit {
+        case .portion: return servingGrams
+        case .piece: return pieceGrams
+        case .gramm: return grams
+        }
     }
 
     private var calorieCaption: String {

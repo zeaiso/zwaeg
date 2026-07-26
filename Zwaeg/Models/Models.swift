@@ -467,6 +467,7 @@ final class CachedProduct {
     var carbsPer100g: Double
     var fatPer100g: Double
     var servingGrams: Double?
+    var packageGrams: Double?
     var sugarPer100g: Double?
     var saltPer100g: Double?
     var fiberPer100g: Double?
@@ -481,6 +482,7 @@ final class CachedProduct {
         self.carbsPer100g = product.carbsPer100g
         self.fatPer100g = product.fatPer100g
         self.servingGrams = product.servingGrams
+        self.packageGrams = product.packageGrams
         self.sugarPer100g = product.sugarPer100g
         self.saltPer100g = product.saltPer100g
         self.fiberPer100g = product.fiberPer100g
@@ -493,6 +495,7 @@ final class CachedProduct {
                     carbsPer100g: carbsPer100g, fatPer100g: fatPer100g,
                     barcode: barcode, source: .openFoodFacts,
                     servingGrams: servingGrams,
+                    packageGrams: packageGrams,
                     sugarPer100g: sugarPer100g, saltPer100g: saltPer100g,
                     fiberPer100g: fiberPer100g)
     }

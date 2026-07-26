@@ -19,6 +19,9 @@ struct FoodProduct: Identifiable, Hashable {
     let source: Source
     /// Grams per serving when the source provides it; UI falls back to 100 g.
     var servingGrams: Double? = nil
+    /// Full package weight in grams when the source provides it; lets the
+    /// piece unit compute "package ÷ pieces" for things like cookies.
+    var packageGrams: Double? = nil
     /// Beyond the macros; only Open Food Facts provides these.
     var sugarPer100g: Double? = nil
     var saltPer100g: Double? = nil
