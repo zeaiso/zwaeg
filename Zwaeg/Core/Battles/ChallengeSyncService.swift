@@ -61,8 +61,9 @@ enum BattleSyncError: LocalizedError {
 /// the display name people type into their profile.
 ///
 /// Record types (see docs/DEVELOPMENT.md for the dashboard setup):
-/// - "Challenge": code, name, metric, startDay, endDay
+/// - "Challenge": code, name, metric, startDay, endDay, stake
 /// - "Score": challengeCode, participantID, participantName, dayKey, value
+/// - "Settlement": challengeCode, payerID (stake marked as paid via TWINT)
 /// `Score.challengeCode` must be marked Queryable in the CloudKit Dashboard,
 /// otherwise `pullAllScores` fails with an invalid-arguments error.
 struct ChallengeSyncService {
@@ -106,6 +107,12 @@ struct ChallengeSyncService {
         }
         try await pushMyScores(challenge)
         try await pullAllScores(challenge)
+        // A paid stake marked while offline still reaches the winner: the
+        // settlement record is idempotent, so re-pushing on every refresh
+        // is free.
+        if challenge.stakeChf > 0, challenge.stakePaidByMe {
+            try? await pushStakePaid(challenge)
+        }
     }
 
     private func challengeRecordGone(code: String) async -> Bool {
@@ -148,7 +155,7 @@ struct ChallengeSyncService {
 
     private func deleteRecords(challengeCode: String,
                                matching include: (CKRecord) -> Bool) async {
-        for recordType in ["Score", "Proof", "Flag"] {
+        for recordType in ["Score", "Proof", "Flag", "Settlement"] {
             let query = CKQuery(recordType: recordType,
                                 predicate: NSPredicate(format: "challengeCode == %@", challengeCode))
             guard let page = try? await database.records(matching: query, resultsLimit: 400) else {
@@ -169,7 +176,7 @@ struct ChallengeSyncService {
     /// 1-in-a-billion) chance of a collision the save is rejected and we simply
     /// draw another one rather than silently joining two groups together.
     func publishNewChallenge(name: String, metric: BattleMetric,
-                             start: Date, end: Date) async throws -> String {
+                             start: Date, end: Date, stakeChf: Int = 0) async throws -> String {
         for _ in 0..<3 {
             let code = BattleScoreEngine.makeCode()
             let record = CKRecord(recordType: "Challenge",
@@ -179,6 +186,9 @@ struct ChallengeSyncService {
             record["metric"] = metric.rawValue
             record["startDay"] = start
             record["endDay"] = end
+            // New production field: deploy the schema in the CloudKit
+            // Dashboard before release (like Score.manual).
+            record["stake"] = stakeChf
             do {
                 try await database.save(record)
                 return code
@@ -198,7 +208,8 @@ struct ChallengeSyncService {
     /// in the past would turn one join into thousands of queries.
     private static let maxChallengeDays = 31
 
-    func fetchChallenge(code: String) async throws -> (name: String, metric: BattleMetric, start: Date, end: Date) {
+    func fetchChallenge(code: String) async throws
+        -> (name: String, metric: BattleMetric, start: Date, end: Date, stakeChf: Int) {
         let recordID = CKRecord.ID(recordName: "challenge-\(code)")
         let record: CKRecord
         do {
@@ -221,7 +232,10 @@ struct ChallengeSyncService {
               span < Self.maxChallengeDays else {
             throw BattleSyncError.challengeNotFound(code)
         }
-        return (name, metric, start, end)
+        // A battle among friends is francs, not fortunes; anything bigger in a
+        // world-writable record is garbage.
+        let stake = min(1000, max(0, record["stake"] as? Int ?? 0))
+        return (name, metric, start, end, stake)
     }
 
     // MARK: - Sync
@@ -393,6 +407,41 @@ struct ChallengeSyncService {
             throw BattleSyncError(error)
         }
         Self.rememberMyFlag(raised, challenge: challenge, targetID: targetID, dayKey: dayKey)
+    }
+
+    // MARK: - Stake settlement
+
+    /// Marks my lost stake as paid (via TWINT, outside the app); one record
+    /// per payer, so repeating the push stays idempotent.
+    func pushStakePaid(_ challenge: Challenge) async throws {
+        let myID = PlayerIdentity.myID
+        let record = CKRecord(recordType: "Settlement",
+                              recordID: CKRecord.ID(recordName: "settle-\(challenge.code)-\(myID)"))
+        record["challengeCode"] = challenge.code
+        record["payerID"] = myID
+        do {
+            _ = try await database.modifyRecords(saving: [record], deleting: [],
+                                                 savePolicy: .allKeys, atomically: false)
+        } catch {
+            throw BattleSyncError(error)
+        }
+    }
+
+    /// IDs of participants who marked their stake as paid.
+    func fetchSettlements(challenge: Challenge) async throws -> Set<String> {
+        let query = CKQuery(recordType: "Settlement",
+                            predicate: NSPredicate(format: "challengeCode == %@", challenge.code))
+        let page: (matchResults: [(CKRecord.ID, Result<CKRecord, Error>)], queryCursor: CKQueryOperation.Cursor?)
+        do {
+            page = try await database.records(matching: query, resultsLimit: Self.maxParticipants)
+        } catch {
+            throw BattleSyncError(error)
+        }
+        return Set(page.matchResults.compactMap { _, result in
+            guard let record = try? result.get(),
+                  let payerID = record["payerID"] as? String, payerID.count <= 64 else { return nil }
+            return payerID
+        })
     }
 
     // MARK: - Local flag mirror

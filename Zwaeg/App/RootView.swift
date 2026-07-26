@@ -110,19 +110,23 @@ struct RootView: View {
                                                      photoFile: "battle-proof-test-2.jpg"))
                 }
                 #if ZWAEG_BATTLES
-                let start = Calendar.current.date(byAdding: .day, value: -3, to: .now) ?? .now
-                let end = Calendar.current.date(byAdding: .day, value: 3, to: .now) ?? .now
+                // -demo-ended seeds the battle already over (stake settlement
+                // UI); -demo-lost additionally puts me behind Luca.
+                let ended = LaunchArgs.all.contains("-demo-ended")
+                let start = Calendar.current.date(byAdding: .day, value: ended ? -8 : -3, to: .now) ?? .now
+                let end = Calendar.current.date(byAdding: .day, value: ended ? -1 : 3, to: .now) ?? .now
                 // Real battles fill opponents in from CloudKit, which needs an
                 // account the simulator doesn't have, so the seeded rivals carry
                 // fixed totals. The "seed" day key is deliberate: it is not a
                 // real date, so the score refresh leaves these numbers alone.
                 // Challenge.demoCode also opts this battle out of CloudKit sync.
-                context.insert(Challenge(
+                let demoBattle = Challenge(
                     code: Challenge.demoCode, name: "Wochenbattle", metric: .steps,
                     startDay: start, endDay: end,
                     participants: [
                         ParticipantScore(id: PlayerIdentity.myID, name: "Livia", isMe: true,
-                                         scores: ["seed": 24500]),
+                                         scores: ["seed": LaunchArgs.all.contains("-demo-lost")
+                                                      ? 18000 : 24500]),
                         // -seed-manual-opponent: Luca logged a treadmill
                         // session, to preview the badge opponents see.
                         ParticipantScore(id: "demo-luca", name: "Luca", isMe: false,
@@ -131,7 +135,9 @@ struct RootView: View {
                                              ? [BattleDay.key(for: .now)] : []),
                         ParticipantScore(id: "demo-mia", name: "Mia", isMe: false,
                                          scores: ["seed": 18400]),
-                    ]))
+                    ])
+                demoBattle.stakeChf = 20
+                context.insert(demoBattle)
                 #endif
             }
         }

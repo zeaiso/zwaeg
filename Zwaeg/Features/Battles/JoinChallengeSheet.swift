@@ -77,8 +77,13 @@ struct JoinChallengeSheet: View {
         do {
             let found = try await ChallengeSyncService.shared.fetchChallenge(code: joinCode)
             let challenge = Challenge.mine(code: joinCode, name: found.name, metric: found.metric,
-                                           startDay: found.start, endDay: found.end, profile: profile)
+                                           startDay: found.start, endDay: found.end, profile: profile,
+                                           stakeChf: found.stakeChf)
             context.insert(challenge)
+            if found.stakeChf > 0, await NotificationService.requestPermission() {
+                NotificationService.scheduleBattleStake(
+                    code: joinCode, name: found.name, stakeChf: found.stakeChf, endDay: found.end)
+            }
             // Compute and push my scores right away: the whole point of joining
             // is that the creator sees me appear on their next refresh. Best
             // effort past this point; the battles screen retries on refresh.

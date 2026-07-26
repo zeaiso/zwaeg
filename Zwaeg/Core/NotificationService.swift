@@ -132,6 +132,30 @@ enum NotificationService {
             .removePendingNotificationRequests(withIdentifiers: ["fasting-end"])
     }
 
+    /// The morning after a money battle ends: time to settle the stake via
+    /// TWINT. Scheduled at create/join, cancelled when the battle is left or
+    /// ended early. The id sits outside reschedule()'s prefixes on purpose.
+    static func scheduleBattleStake(code: String, name: String, stakeChf: Int, endDay: Date) {
+        guard stakeChf > 0,
+              let fireDate = Calendar.current.date(
+                bySettingHour: 9, minute: 0, second: 0,
+                of: endDay.addingTimeInterval(86_400)),
+              fireDate > .now else { return }
+        let content = UNMutableNotificationContent()
+        content.title = "Battle vorbei — Zeit abzurechnen!".loc
+        content.body = "\"%@\" ist beendet. Schau nach, wer die %d CHF per TWINT kassiert.".loc(name, stakeChf)
+        content.sound = .default
+        let trigger = UNTimeIntervalNotificationTrigger(
+            timeInterval: max(1, fireDate.timeIntervalSinceNow), repeats: false)
+        UNUserNotificationCenter.current().add(
+            UNNotificationRequest(identifier: "battle-stake-\(code)", content: content, trigger: trigger))
+    }
+
+    static func cancelBattleStake(code: String) {
+        UNUserNotificationCenter.current()
+            .removePendingNotificationRequests(withIdentifiers: ["battle-stake-\(code)"])
+    }
+
     /// Daily at the given time, or weekly when a weekday (1 = Sunday) is set.
     private static func schedule(id: String, title: String, body: String,
                                  minutes: Int, weekday: Int? = nil) {

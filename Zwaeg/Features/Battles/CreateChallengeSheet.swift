@@ -14,8 +14,11 @@ struct CreateChallengeSheet: View {
     @State private var name = ""
     @State private var metric: BattleMetric = .steps
     @State private var durationDays = 7
+    @State private var stakeChf = 0
     @State private var errorMessage: String?
     @State private var isCreating = false
+
+    private static let stakeOptions = [0, 5, 10, 20, 50]
 
     var body: some View {
         NavigationStack {
@@ -57,6 +60,19 @@ struct CreateChallengeSheet: View {
                         Text("14 Tage".loc).tag(14)
                     }
                     .pickerStyle(.segmented)
+                }
+
+                Section {
+                    Picker("Einsatz".loc, selection: $stakeChf) {
+                        ForEach(Self.stakeOptions, id: \.self) { amount in
+                            Text(amount == 0 ? "Ohne".loc : "\(amount) CHF").tag(amount)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                } header: {
+                    Text("Einsatz".loc)
+                } footer: {
+                    Text("Der Sieger kassiert den Einsatz von allen anderen — per TWINT, direkt unter euch. Zwäg verwaltet kein Geld.".loc)
                 }
 
                 Section {
@@ -104,9 +120,14 @@ struct CreateChallengeSheet: View {
 
         do {
             let code = try await ChallengeSyncService.shared.publishNewChallenge(
-                name: finalName, metric: metric, start: start, end: end)
+                name: finalName, metric: metric, start: start, end: end, stakeChf: stakeChf)
             context.insert(Challenge.mine(code: code, name: finalName, metric: metric,
-                                          startDay: start, endDay: end, profile: profile, isCreator: true))
+                                          startDay: start, endDay: end, profile: profile,
+                                          isCreator: true, stakeChf: stakeChf))
+            if stakeChf > 0, await NotificationService.requestPermission() {
+                NotificationService.scheduleBattleStake(
+                    code: code, name: finalName, stakeChf: stakeChf, endDay: end)
+            }
             dismiss()
         } catch {
             errorMessage = BattleSyncError.message(for: error)

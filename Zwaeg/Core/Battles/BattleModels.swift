@@ -124,6 +124,12 @@ final class Challenge {
     /// This install published the challenge; only the creator may end it
     /// for everyone. Battles from before the field default to false.
     var isCreator: Bool = false
+    /// Friendly money stake in whole francs, settled between the players via
+    /// TWINT — Zwäg only remembers who owes whom, it never touches money.
+    var stakeChf: Int = 0
+    /// I lost and marked my stake as paid; mirrored to CloudKit so the
+    /// winner's device shows the checkmark.
+    var stakePaidByMe: Bool = false
 
     init(code: String, name: String, metric: BattleMetric, startDay: Date, endDay: Date,
          participants: [ParticipantScore]) {
@@ -207,7 +213,7 @@ extension Challenge {
     /// every opponent saw).
     static func mine(code: String, name: String, metric: BattleMetric,
                      startDay: Date, endDay: Date, profile: UserProfile,
-                     isCreator: Bool = false) -> Challenge {
+                     isCreator: Bool = false, stakeChf: Int = 0) -> Challenge {
         let challenge = Challenge(code: code, name: name, metric: metric,
                                   startDay: startDay, endDay: endDay,
                                   participants: [ParticipantScore(
@@ -216,6 +222,7 @@ extension Challenge {
                                       isMe: true,
                                       scores: [:])])
         challenge.isCreator = isCreator
+        challenge.stakeChf = stakeChf
         return challenge
     }
 }

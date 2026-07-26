@@ -175,10 +175,7 @@ struct BattlesScreen: View {
                         Text(challenge.name)
                             .font(.fredoka(17, .semibold))
                             .foregroundStyle(.primary)
-                        Text(challenge.isActive
-                             ? (challenge.daysLeft == 1 ? "%@ · noch %d Tag" : "%@ · noch %d Tage")
-                                 .loc(challenge.metric.label, challenge.daysLeft)
-                             : "%@ · beendet".loc(challenge.metric.label))
+                        Text(cardSubtitle(challenge))
                             .font(.fredoka(13))
                             .foregroundStyle(.secondary)
                     }
@@ -198,6 +195,17 @@ struct BattlesScreen: View {
             }
         }
         .buttonStyle(.plain)
+    }
+
+    private func cardSubtitle(_ challenge: Challenge) -> String {
+        var text = challenge.isActive
+            ? (challenge.daysLeft == 1 ? "%@ · noch %d Tag" : "%@ · noch %d Tage")
+                .loc(challenge.metric.label, challenge.daysLeft)
+            : "%@ · beendet".loc(challenge.metric.label)
+        if challenge.stakeChf > 0 {
+            text += " · \(challenge.stakeChf) CHF"
+        }
+        return text
     }
 
     private func refreshAll() async {

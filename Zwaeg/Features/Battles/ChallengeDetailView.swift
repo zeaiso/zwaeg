@@ -19,6 +19,8 @@ struct ChallengeDetailView: View {
     @State private var revokedSteps: [String: Double] = [:]
     /// Every day with at least one objection, revoked or still pending.
     @State private var disputes: [DisputeItem] = []
+    /// Participants who marked their lost stake as paid.
+    @State private var paidPayerIDs: Set<String> = []
 
     /// One participant-day under objection, for the Einsprüche card.
     struct DisputeItem: Identifiable {
@@ -48,6 +50,7 @@ struct ChallengeDetailView: View {
         ScrollView {
             VStack(spacing: 16) {
                 headerCard
+                stakeCard
                 leaderboardCard
                 disputesCard
                 todayCard
@@ -64,6 +67,7 @@ struct ChallengeDetailView: View {
             Button("Verlassen".loc, role: .destructive) {
                 let target = challenge
                 dismiss()
+                NotificationService.cancelBattleStake(code: target.code)
                 // Deleting the model while this view still renders it would
                 // crash; let the pop finish first.
                 Task { @MainActor in
@@ -82,6 +86,7 @@ struct ChallengeDetailView: View {
             Button("Für alle beenden".loc, role: .destructive) {
                 let target = challenge
                 dismiss()
+                NotificationService.cancelBattleStake(code: target.code)
                 Task { @MainActor in
                     if target.code != Challenge.demoCode {
                         await ChallengeSyncService.shared.endForEveryone(target)
@@ -217,6 +222,11 @@ struct ChallengeDetailView: View {
                          : "Beendet".loc)
                         .font(.fredoka(13))
                         .foregroundStyle(.secondary)
+                    if challenge.stakeChf > 0 {
+                        Text("Einsatz: %d CHF · TWINT".loc(challenge.stakeChf))
+                            .font(.fredoka(13, .semibold))
+                            .foregroundStyle(Theme.green)
+                    }
                 }
                 Spacer()
                 VStack(spacing: 2) {
@@ -300,6 +310,95 @@ struct ChallengeDetailView: View {
         return Color(.secondaryLabel)
     }
 
+    /// Winner by revocation-adjusted totals; nil while the battle runs or
+    /// when the top spot is shared (nobody pays on a draw).
+    private var stakeWinner: ParticipantScore? {
+        guard !challenge.isActive, challenge.participants.count > 1,
+              let first = displayRanking.first else { return nil }
+        if displayRanking.count > 1, displayTotal(displayRanking[1]) == displayTotal(first) {
+            return nil
+        }
+        return first
+    }
+
+    /// Splitwise for the battle stake: once the battle ends, this says who
+    /// owes whom. Losers mark their TWINT payment; the winner sees the
+    /// checkmarks come in. No money moves through the app.
+    @ViewBuilder
+    private var stakeCard: some View {
+        if challenge.stakeChf > 0, !challenge.isActive {
+            Card {
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack {
+                        Text("Einsatz".loc)
+                            .font(.fredoka(17, .semibold))
+                        Spacer()
+                        Text("\(challenge.stakeChf) CHF")
+                            .font(.fredoka(15, .semibold))
+                            .foregroundStyle(Theme.green)
+                    }
+                    if let winner = stakeWinner {
+                        if winner.isMe {
+                            Text("Du hast gewonnen — der Einsatz gehört dir!".loc)
+                                .font(.fredoka(14))
+                                .foregroundStyle(Theme.ink)
+                            ForEach(challenge.participants.filter { $0.id != winner.id }) { loser in
+                                HStack {
+                                    Text("%@ schuldet dir %d CHF".loc(loser.name, challenge.stakeChf))
+                                        .font(.fredoka(14, .semibold))
+                                        .foregroundStyle(Theme.ink)
+                                    Spacer()
+                                    if paidPayerIDs.contains(loser.id) {
+                                        Label("Bezahlt".loc, systemImage: "checkmark.circle.fill")
+                                            .font(.fredoka(12, .semibold))
+                                            .foregroundStyle(Theme.green)
+                                    } else {
+                                        Text("Offen".loc)
+                                            .font(.fredoka(12, .semibold))
+                                            .foregroundStyle(.secondary)
+                                    }
+                                }
+                            }
+                        } else {
+                            Text("%@ hat gewonnen. Du schuldest %d CHF — ab in die TWINT-App!".loc(
+                                winner.name, challenge.stakeChf))
+                                .font(.fredoka(14))
+                                .foregroundStyle(Theme.ink)
+                            if challenge.stakePaidByMe {
+                                Label("Bezahlt".loc, systemImage: "checkmark.circle.fill")
+                                    .font(.fredoka(14, .semibold))
+                                    .foregroundStyle(Theme.green)
+                            } else {
+                                Button {
+                                    markStakePaid()
+                                } label: {
+                                    Text("Ich habe per TWINT bezahlt".loc)
+                                        .font(.fredoka(14, .semibold))
+                                        .foregroundStyle(.white)
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 10)
+                                        .background(Theme.green.gradient, in: Capsule())
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                    } else {
+                        Text("Unentschieden — jeder behält seinen Einsatz.".loc)
+                            .font(.fredoka(14))
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            }
+        }
+    }
+
+    private func markStakePaid() {
+        withAnimation(.snappy) { challenge.stakePaidByMe = true }
+        guard challenge.code != Challenge.demoCode else { return }
+        // Best effort: refresh() re-pushes the idempotent record until it lands.
+        Task { try? await ChallengeSyncService.shared.pushStakePaid(challenge) }
+    }
+
     /// Every dispute in the battle, one glance: who, which day, how many
     /// votes, already revoked or still pending. Rows open the proof gallery.
     @ViewBuilder
@@ -366,9 +465,14 @@ struct ChallengeDetailView: View {
                       votes: 2, voterPool: 3, revoked: true),
             ]
             revokedSteps = [accused.id: 4000]
+            paidPayerIDs = [accused.id]
             return
         }
         guard challenge.code != Challenge.demoCode else { return }
+        if challenge.stakeChf > 0, !challenge.isActive,
+           let settled = try? await ChallengeSyncService.shared.fetchSettlements(challenge: challenge) {
+            paidPayerIDs = settled
+        }
         guard let flags = try? await ChallengeSyncService.shared.fetchFlags(challenge: challenge),
               let proofs = try? await ChallengeSyncService.shared.fetchProofs(
                 challenge: challenge, includePhotos: false) else { return }
