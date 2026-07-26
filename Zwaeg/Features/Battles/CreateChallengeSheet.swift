@@ -14,11 +14,18 @@ struct CreateChallengeSheet: View {
     @State private var name = ""
     @State private var metric: BattleMetric = .steps
     @State private var durationDays = 7
-    @State private var stakeChf = 0
+    @State private var stakeText = ""
     @State private var errorMessage: String?
     @State private var isCreating = false
+    @FocusState private var stakeFocused: Bool
 
-    private static let stakeOptions = [0, 5, 10, 20, 50]
+    private static let stakeSuggestions = [5, 10, 20, 50]
+    /// Any amount goes, but a battle among friends is francs, not fortunes.
+    private static let maxStakeChf = 10_000
+
+    private var stakeChf: Int {
+        min(Self.maxStakeChf, Int(stakeText.filter(\.isNumber)) ?? 0)
+    }
 
     var body: some View {
         NavigationStack {
@@ -63,12 +70,31 @@ struct CreateChallengeSheet: View {
                 }
 
                 Section {
-                    Picker("Einsatz".loc, selection: $stakeChf) {
-                        ForEach(Self.stakeOptions, id: \.self) { amount in
-                            Text(amount == 0 ? "Ohne".loc : "\(amount) CHF").tag(amount)
+                    HStack {
+                        TextField("0", text: $stakeText)
+                            .keyboardType(.numberPad)
+                            .focused($stakeFocused)
+                        Text("CHF")
+                            .foregroundStyle(.secondary)
+                    }
+                    HStack(spacing: 8) {
+                        ForEach(Self.stakeSuggestions, id: \.self) { amount in
+                            Button {
+                                stakeText = "\(amount)"
+                                stakeFocused = false
+                            } label: {
+                                Text("\(amount)")
+                                    .font(.fredoka(13, .semibold))
+                                    .padding(.vertical, 6)
+                                    .frame(maxWidth: .infinity)
+                                    .background(stakeChf == amount
+                                                ? Color.appAccent.opacity(0.15) : Color(.systemGray6),
+                                                in: Capsule())
+                                    .foregroundStyle(stakeChf == amount ? Color.appAccent : .secondary)
+                            }
+                            .buttonStyle(.borderless)
                         }
                     }
-                    .pickerStyle(.segmented)
                 } header: {
                     Text("Einsatz".loc)
                 } footer: {
@@ -88,6 +114,13 @@ struct CreateChallengeSheet: View {
             .navigationTitle("Neue Challenge".loc)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                // The number pad has no return key; without this the
+                // keyboard would be stuck.
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Fertig".loc) { stakeFocused = false }
+                        .font(.fredoka(15, .semibold))
+                }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Abbrechen".loc) { dismiss() }
                 }

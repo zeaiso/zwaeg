@@ -233,8 +233,8 @@ struct ChallengeSyncService {
             throw BattleSyncError.challengeNotFound(code)
         }
         // A battle among friends is francs, not fortunes; anything bigger in a
-        // world-writable record is garbage.
-        let stake = min(1000, max(0, record["stake"] as? Int ?? 0))
+        // world-writable record is garbage. Matches the create sheet's cap.
+        let stake = min(10_000, max(0, record["stake"] as? Int ?? 0))
         return (name, metric, start, end, stake)
     }
 
