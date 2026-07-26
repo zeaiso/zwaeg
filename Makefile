@@ -6,7 +6,7 @@ DESTINATION := platform=iOS Simulator,name=$(SIMULATOR)
 -include .env
 export
 
-.PHONY: generate build run clean format lint
+.PHONY: generate build run clean format lint github-release
 
 generate:
 	@case "$(ZWAEG_BATTLES)" in \
@@ -44,3 +44,18 @@ format:
 
 lint:
 	swiftlint lint --quiet
+
+# Publishes the current version as a GitHub release, Outline-style: tags
+# v<MARKETING_VERSION>, pushes main and the tag, and creates the release
+# with this version's CHANGELOG section as notes; GitHub appends the
+# auto-generated commit list below. Needs `gh auth login` once.
+github-release:
+	@VERSION="$$(sed -n 's/.*MARKETING_VERSION: "\([^"]*\)".*/\1/p' project.yml | head -1)" \
+	&& TAG="v$$VERSION" \
+	&& NOTES="$$(mktemp)" \
+	&& awk -v ver="$$VERSION" '$$0 ~ "^## "ver" " {on=1; next} /^## / {on=0} on' CHANGELOG.md > "$$NOTES" \
+	&& test -s "$$NOTES" || { echo "error: no CHANGELOG section for $$VERSION"; exit 1; } \
+	; git tag "$$TAG" 2>/dev/null || true \
+	&& git push origin main "$$TAG" \
+	&& gh release create "$$TAG" --title "$$TAG" --notes-file "$$NOTES" --generate-notes \
+	&& rm -f "$$NOTES"
